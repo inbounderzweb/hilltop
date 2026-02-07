@@ -179,6 +179,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
                         aria-hidden="true"
                       >
                         <CaretIcon />
+                        {/* end icon */}
                       </span>
                     </button>
 
