@@ -3,6 +3,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import banner1 from "../../assets/banners/homebanner.png";
+import banner2 from "../../assets/banners/homebanner1.png";
+import banner3 from "../../assets/banners/homebanner2.png";
 
 export default function FadeBanner() {
   const slides = useMemo(
@@ -15,13 +17,13 @@ export default function FadeBanner() {
       },
       {
         id: 2,
-        image: banner1,
+        image: banner2,
         title: "Stone That Defines Luxury",
         subtitle: "Crafted for timeless spaces.",
       },
       {
         id: 3,
-        image: banner1,
+        image: banner3,
         title: "Where Nature Meets Precision",
         subtitle: "Engineered beauty. Natural strength.",
       },
@@ -59,16 +61,22 @@ export default function FadeBanner() {
           />
 
           {/* ✅ NEW: Top → middle black overlay (black to transparent) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-transparent h-[600px]" />
 
           {/* Existing vignette overlay */}
           {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70" /> */}
 
           {/* Text Overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-start text-center pt-[150px] md:pt-[180px] px-4">
-            <h1 className="text-[#d9c48a] font-[500] tracking-wide text-[34px] md:text-[56px] lg:text-[64px] leading-tight">
-              {slide.title}
-            </h1>
+         <h1
+  className="font-[500] tracking-wide text-[34px] md:text-[56px] lg:text-[64px] leading-tight
+             bg-[linear-gradient(180deg,#FFEFb0_0%,#E2C450_46%,#C48C38_100%)]
+             bg-clip-text text-transparent
+             drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)]"
+>
+  {slide.title}
+</h1>
+
             <p className="mt-3 text-white/80 text-[16px] md:text-[20px] lg:text-[22px]">
               {slide.subtitle}
             </p>

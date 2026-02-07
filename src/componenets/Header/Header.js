@@ -5,6 +5,8 @@ import Image from "next/image";
 
 import NavBar from "./NavBar";
 import logo from "../../assets/logos/logo.svg";
+import Closebtn from '../../assets/icons/closebtn.svg';
+import Burger from '../../assets/icons/burger.svg';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,19 +60,16 @@ export default function Header() {
 
 function HamburgerIcon() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 7H20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M4 12H20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M4 17H20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
+   <div>
+    <Image src={Burger} alt="burger menu mobile" />
+   </div>
   );
 }
 
 function CloseIcon() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M6 6L18 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
+      <div>
+    <Image src={Closebtn} alt="close button mobile menu" />
+   </div>
   );
 }
