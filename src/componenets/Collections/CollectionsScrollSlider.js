@@ -253,11 +253,7 @@ export default function CollectionsScrollSlider() {
           
           </div>
 
-          <div className="max-w-[1400px] mx-auto px-4 md:px-10 mt-4 hidden md:block">
-            <p className="text-white/40 text-sm">
-              Scroll to browse collections (desktop). On mobile, use arrows.
-            </p>
-          </div>
+      
         </div>
       </div>
 
