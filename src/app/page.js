@@ -1,10 +1,12 @@
 "use client"
 
+import ApplicationsShowcaseSlider from "@/components/ApplicationsShowcaseSlider/ApplicationsShowcaseSlider";
 import BrandsTabsSection from "@/components/BrandsTabsSection/BrandsTabsSection";
 import CollectionsScrollSlider from "@/components/Collections/CollectionsScrollSlider";
 import EngineeredSurface from "@/components/EngineeredSurface/EngineeredSurface";
 import GeologicalSignaturesSection from "@/components/GeologicalSignaturesSection/GeologicalSignaturesSection";
 import FadeBanner from "@/components/Home/Banner";
+import TestimonialsSlider from "@/components/TestimonialsSlider/TestimonialsSlider";
 import TrustCountersSection from "@/components/TrustCountersSection/TrustCountersSection";
 
 export default function Home() {
@@ -16,6 +18,8 @@ export default function Home() {
     <EngineeredSurface />
     <TrustCountersSection />
     <BrandsTabsSection />
+    <ApplicationsShowcaseSlider />
+    <TestimonialsSlider />
     </div>
   );
 }
