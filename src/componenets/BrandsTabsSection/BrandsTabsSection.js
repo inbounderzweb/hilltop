@@ -43,6 +43,7 @@ export default function BrandsTabsSection() {
           { id: "in-3", src: logo3, alt: "Luminous" },
           { id: "in-4", src: logo4, alt: "Porze" },
           { id: "in-5", src: logo5, alt: "Quartz" },
+        //   add comments
         ],
         partnered: [
           { id: "in-p1", src: logo1, alt: "Quartz" },
