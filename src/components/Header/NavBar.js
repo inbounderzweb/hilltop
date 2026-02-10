@@ -1,7 +1,16 @@
+// src/components/Header/NavBar.js
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { Quicksand } from "next/font/google";
+
+// ✅ Create the font instance ONCE (outside component)
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export default function NavBar({ isOpen, setIsOpen }) {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -36,7 +45,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
     setIsOpen(false);
   }
 
-  // ESC closes
+  // ESC to close
   useEffect(() => {
     function onKeyDown(e) {
       if (e.key === "Escape") closeAll();
@@ -46,8 +55,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // OPTIONAL safety outside click:
-  // ✅ Ignore clicks on the header toggle button to prevent reopen conflicts.
+  // ✅ Outside click close
   useEffect(() => {
     function onPointerDown(e) {
       const toggleBtn = e.target?.closest?.('[data-nav-toggle="true"]');
@@ -62,6 +70,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
+  // Close products dropdown when main menu closes
   useEffect(() => {
     if (!isOpen) setProductsOpen(false);
   }, [isOpen]);
@@ -70,22 +79,18 @@ export default function NavBar({ isOpen, setIsOpen }) {
 
   return (
     <>
-      {/* Backdrop closes */}
-      <button
-        type="button"
-        aria-label="Close menu backdrop"
-        onClick={closeAll}
-        className="fixed inset-0 z-[998] bg-transparent cursor-default"
-      />
-
-      {/* NAV WRAPPER */}
+      {/* NAV WRAPPER (no full-screen backdrop; scrolling remains enabled) */}
       <div ref={rootRef} className="relative z-[999]">
         {/* ================= DESKTOP PILL NAV ================= */}
         <nav
           aria-label="Primary navigation"
-          className="hidden md:block w-[min(1320px,calc(100%-120px))] mx-auto bg-[#373737]/90 backdrop-blur-md rounded-full px-[22px] py-[16px]"
+          className={[
+            quicksand.className,
+            "hidden md:block w-[99%] mx-auto",
+            "bg-[#272727] rounded-b-[24px] text-[#F4E0C2] px-[22px] py-[16px] mt-3",
+          ].join(" ")}
         >
-          <ul className="flex items-center justify-between gap-[18px]">
+          <ul className="flex items-center justify-end gap-[18px] md:gap-x-[30px]">
             {navLinks.map((item, idx) => {
               const isLast = idx === navLinks.length - 1;
 
@@ -95,7 +100,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
                     <li className="relative flex items-center justify-center">
                       <button
                         type="button"
-                        className="text-[#d9d2c6] px-3 py-2 inline-flex items-center gap-2 whitespace-nowrap"
+                        className="text-[#F4E0C2] px-3 py-2 inline-flex items-center gap-2 whitespace-nowrap"
                         onClick={() => setProductsOpen((s) => !s)}
                         aria-expanded={productsOpen}
                       >
@@ -111,13 +116,13 @@ export default function NavBar({ isOpen, setIsOpen }) {
                       </button>
 
                       {productsOpen && (
-                        <div className="absolute top-[calc(100%+14px)] left-1/2 -translate-x-1/2 w-[560px] bg-[#3c3c3c]/95 backdrop-blur-md rounded-[22px] p-[18px]">
+                        <div className="absolute top-[calc(100%+14px)] left-1/2 -translate-x-1/2 w-[560px] bg-[#343434] rounded-b-[22px] p-[18px]">
                           <div className="grid grid-cols-2 gap-x-[22px] gap-y-[14px]">
                             {productLinks.map((p) => (
                               <Link
                                 key={p.label}
                                 href={p.href}
-                                className="text-[#d9d2c6] px-2 py-[10px] border-b border-white/10"
+                                className="text-[#F4E0C2] px-2 py-[10px] border-b border-white/10"
                                 onClick={closeAll}
                               >
                                 {p.label}
@@ -128,7 +133,9 @@ export default function NavBar({ isOpen, setIsOpen }) {
                       )}
                     </li>
 
-                    {!isLast && <li className="w-px h-[26px] bg-white/10" aria-hidden="true" />}
+                    {!isLast && (
+                      <li className="w-px h-[26px] bg-white/10" aria-hidden="true" />
+                    )}
                   </React.Fragment>
                 );
               }
@@ -138,13 +145,15 @@ export default function NavBar({ isOpen, setIsOpen }) {
                   <li className="flex items-center justify-center">
                     <Link
                       href={item.href}
-                      className="text-[#d9d2c6] px-3 py-2 whitespace-nowrap"
+                      className="text-[#F4E0C2] px-3 py-2 whitespace-nowrap"
                       onClick={closeAll}
                     >
                       {item.label}
                     </Link>
                   </li>
-                  {!isLast && <li className="w-px h-[26px] bg-white/10" aria-hidden="true" />}
+                  {!isLast && (
+                    <li className="w-px h-[26px] bg-white/10" aria-hidden="true" />
+                  )}
                 </React.Fragment>
               );
             })}
@@ -152,7 +161,13 @@ export default function NavBar({ isOpen, setIsOpen }) {
         </nav>
 
         {/* ================= MOBILE MENU PANEL ================= */}
-        <div className="md:hidden w-[min(420px,calc(100%-60px))] absolute m-0 right-0 mx-auto  bg-[#373737]/90 backdrop-blur-md rounded-l-[18] py-4">
+        <div
+          className={[
+            quicksand.className,
+            "md:hidden w-[min(420px,calc(100%-60px))] absolute right-0",
+            "bg-[#373737]/90 backdrop-blur-md rounded-l-[18px] py-4",
+          ].join(" ")}
+        >
           <ul className="m-0 p-0 list-none">
             {navLinks.map((item, idx) => {
               const isLast = idx === navLinks.length - 1;
@@ -162,7 +177,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
                   <li key={item.label}>
                     <button
                       type="button"
-                      className={`w-full text-[#d9d2c6] px-[18px] py-[16px] flex items-center justify-center gap-3 ${
+                      className={`w-full text-[#F4E0C2] px-[18px] py-[16px] flex items-center justify-center gap-3 ${
                         isLast ? "" : "border-b border-white/10"
                       }`}
                       onClick={() => setProductsOpen((s) => !s)}
@@ -180,13 +195,13 @@ export default function NavBar({ isOpen, setIsOpen }) {
                     </button>
 
                     {productsOpen && (
-                      <div className="mx-4 my-3 bg-[#3c3c3c]/95 backdrop-blur-md rounded-[18px] p-[14px]">
+                      <div className="mx-4 my-3 bg-[#343434] rounded-bl-[18px] p-[14px]">
                         <div className="grid grid-cols-2 gap-x-[18px] gap-y-[12px]">
                           {productLinks.map((p) => (
                             <Link
                               key={p.label}
                               href={p.href}
-                              className="text-[#d9d2c6] px-2 py-[10px] border-b border-white/10"
+                              className="text-[#F4E0C2] px-2 py-[10px] border-b border-white/10"
                               onClick={closeAll}
                             >
                               {p.label}
@@ -203,7 +218,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className={`block text-[#d9d2c6] px-[18px] py-[16px] text-center ${
+                    className={`block text-[#F4E0C2] px-[18px] py-[16px] text-center ${
                       isLast ? "" : "border-b border-white/10"
                     }`}
                     onClick={closeAll}
@@ -233,3 +248,5 @@ function CaretIcon() {
     </svg>
   );
 }
+
+// w-[min(1320px,calc(100%-120px))]

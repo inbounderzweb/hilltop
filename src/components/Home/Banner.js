@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import banner1 from "../../assets/banners/homebanner.png";
-import banner2 from "../../assets/banners/homebanner1.png";
 import banner3 from "../../assets/banners/homebanner2.png";
 
 export default function FadeBanner() {
@@ -15,12 +14,7 @@ export default function FadeBanner() {
         title: "An Artistry Born Of The Earth",
         subtitle: "Formed with time. Finished with perfection.",
       },
-      {
-        id: 2,
-        image: banner2,
-        title: "Stone That Defines Luxury",
-        subtitle: "Crafted for timeless spaces.",
-      },
+
       {
         id: 3,
         image: banner3,
