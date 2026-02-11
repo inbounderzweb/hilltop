@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 
 // ✅ Replace these with your real images
-import eng1 from "../../assets/Engineeredsec/eng3.png";
-import eng2 from "../../assets/Engineeredsec/eng2.png";
-import eng3 from "../../assets/Engineeredsec/eng1.png";
+import eng1 from "@/assets/Engineeredsec/eng3.png";
+import eng2 from "@/assets/Engineeredsec/eng2.png";
+import eng3 from "@/assets/Engineeredsec/eng1.png";
 
 
 import { Quicksand } from "next/font/google";
