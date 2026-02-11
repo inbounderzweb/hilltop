@@ -9,6 +9,7 @@ import logo3 from "../../assets/logos/l3.png";
 import logo4 from "../../assets/logos/l4.png";
 import logo5 from "../../assets/logos/l5.png";
 
+
 export default function BrandsTabsSection() {
   const [tab, setTab] = useState("India");
 
@@ -67,7 +68,7 @@ export default function BrandsTabsSection() {
             <div className="mx-auto w-full">
               {/* ✅ Keep rounded strip with overflow hidden */}
               <div
-                className="relative h-[86px] rounded-[26px] overflow-hidden"
+                className="relative h-[50px] md:h-[86px] overflow-hidden"
                 style={{ background: STRIP }}
               >
                 {/* ✅ Inner flex MUST be overflow-visible so the “S” cutouts can show */}
@@ -94,11 +95,11 @@ export default function BrandsTabsSection() {
           </div>
 
           {/* CONTENT */}
-          <div className="px-6 sm:px-10 md:px-16 pt-10 md:pt-12 pb-12 md:pb-14">
+          <div className="px-2 sm:px-5 md:px-16 pt-4 md:pt-12 pb-4 md:pb-14">
             <SectionHeader title="Our Signature Brands" />
             <LogoGrid items={active.signature} cols="lg:grid-cols-5" />
 
-            <div className="h-10 md:h-12" />
+            <div className="h-4 md:h-12" />
 
             <SectionHeader title="Our Partnered Brands" />
             <LogoGrid items={active.partnered} cols="lg:grid-cols-4" />
@@ -127,7 +128,7 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
       type="button"
       onClick={onClick}
       className={[
-        "relative flex-1 h-[86px]",
+        "relative flex-1 h-[50px] md:h-[86px]",
         "flex items-center justify-center",
         "text-[#a06a22] text-[22px] md:text-[28px] font-[500]",
         "transition-all duration-300",
@@ -196,13 +197,13 @@ function LogoGrid({ items, cols }) {
   return (
     <div
       className={[
-        "mt-10 md:mt-12 grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-10 items-center",
+        "mt-3 md:mt-12 grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-2 lg:gap-y-10 items-center",
         cols,
       ].join(" ")}
     >
       {items.map((it) => (
         <div key={it.id} className="flex items-center justify-center">
-          <div className="relative w-[170px] sm:w-[210px] md:w-[240px] h-[52px] md:h-[62px]">
+          <div className="relative w-[70%] md:w-[240px] h-[52px] md:h-[62px]">
             <Image src={it.src} alt={it.alt} fill className="object-contain" />
           </div>
         </div>

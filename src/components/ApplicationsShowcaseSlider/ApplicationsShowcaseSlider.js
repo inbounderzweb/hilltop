@@ -21,8 +21,8 @@ import e1 from "../../assets/showcaseslides/showcase1.jpg";
 import e2 from "../../assets/showcaseslides/showcase2.png";
 import e3 from "../../assets/showcaseslides/showcase1.jpg";
 
-
-
+import LeftArrow from '../../assets/icons/arrowbackward.svg';
+import RightArrow from '../../assets/icons/arrow_foreward.svg';
 
 
 
@@ -245,7 +245,7 @@ export default function ApplicationsTabbedSlider() {
                 <button
                   type="button"
                   onClick={prev}
-                  className="h-12 w-12 rounded-full border border-white/25 text-white/90 hover:bg-white/10 transition"
+                  className="transition"
                   aria-label="Previous"
                 >
                   <ArrowLeft size={22} />
@@ -253,7 +253,7 @@ export default function ApplicationsTabbedSlider() {
                 <button
                   type="button"
                   onClick={next}
-                  className="h-12 w-12 rounded-full border border-white/25 text-white/90 hover:bg-white/10 transition"
+                  className="transition"
                   aria-label="Next"
                 >
                   <ArrowRight size={22} />
@@ -341,7 +341,7 @@ export default function ApplicationsTabbedSlider() {
                   <button
                     type="button"
                     onClick={prev}
-                    className="h-10 w-10 rounded-full border border-white/25 text-white/90 hover:bg-white/10 transition"
+                    className="transition"
                     aria-label="Previous"
                   >
                     <ArrowLeft />
@@ -349,7 +349,7 @@ export default function ApplicationsTabbedSlider() {
                   <button
                     type="button"
                     onClick={next}
-                    className="h-10 w-10 rounded-full border border-white/25 text-white/90 hover:bg-white/10 transition"
+                    className="transition"
                     aria-label="Next"
                   >
                     <ArrowRight />
@@ -381,30 +381,18 @@ if (typeof document !== "undefined") {
   }
 }
 
-function ArrowLeft({ size = 18 }) {
+function ArrowLeft() {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M15 6L9 12L15 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+     <div>
+    <Image  src={LeftArrow} alt="left-arrow" />
+   </div>
   );
 }
 
-function ArrowRight({ size = 18 }) {
+function ArrowRight() {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M9 6L15 12L9 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+   <div>
+    <Image  src={RightArrow} alt="right-arrow" />
+   </div>
   );
 }

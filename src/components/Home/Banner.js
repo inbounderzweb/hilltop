@@ -5,6 +5,16 @@ import Image from "next/image";
 import banner1 from "../../assets/banners/homebanner.png";
 import banner3 from "../../assets/banners/homebanner2.png";
 
+import { Quicksand } from "next/font/google";
+
+// ✅ Create the font instance ONCE (outside component)
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+
 export default function FadeBanner() {
   const slides = useMemo(
     () => [
@@ -71,7 +81,7 @@ export default function FadeBanner() {
   {slide.title}
 </h1>
 
-            <p className="mt-3 text-white/80 text-[16px] md:text-[20px] lg:text-[22px]">
+            <p className={`mt-3 text-white text-[24px] lg:text-[36px] ${quicksand.className}`}>
               {slide.subtitle}
             </p>
           </div>

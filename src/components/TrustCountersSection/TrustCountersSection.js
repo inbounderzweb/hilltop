@@ -3,8 +3,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
-// ✅ Replace with your background image
+// ✅ Replace with your background images
 import globeBg from "../../assets/banners/globe.png";
+import globbgmobile from "../../assets/banners/globemobilebg.png";
 
 function useInViewRepeat(threshold = 0.45) {
   const ref = useRef(null);
@@ -16,7 +17,6 @@ function useInViewRepeat(threshold = 0.45) {
     const el = ref.current;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        // Trigger whenever it becomes visible enough
         if (entry.isIntersecting) {
           setInViewTick((t) => t + 1);
         }
@@ -35,11 +35,6 @@ function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
 }
 
-
-function useCountUp({ to, duration = 1200, tick }) {
-  const [val, setVal] = useState(0);
-
-
 function useCountUp({ to, duration = 1200, tick }) {
   const [val, setVal] = useState(0);
 
@@ -47,8 +42,7 @@ function useCountUp({ to, duration = 1200, tick }) {
     let raf = 0;
     const start = performance.now();
 
-    // restart from 0 every time "tick" changes
-    setVal(0);
+    // setVal(0);
 
     const loop = (now) => {
       const p = Math.min(1, (now - start) / duration);
@@ -64,29 +58,8 @@ function useCountUp({ to, duration = 1200, tick }) {
   return val;
 }
 
-
-
-
-
-  useEffect(() => {
-    let raf = 0;
-    const start = performance.now();
-
-    // restart from 0 every time "tick" changes
-    setVal(0);
-
-    const loop = (now) => {
-      const p = Math.min(1, (now - start) / duration);
-      const eased = easeOutCubic(p);
-      setVal(Math.round(eased * to));
-      if (p < 1) raf = requestAnimationFrame(loop);
-    };
-
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-  }, [to, duration, tick]);
-
-  return val;
+function formatWithCommas(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 export default function TrustCountersSection() {
@@ -102,7 +75,6 @@ export default function TrustCountersSection() {
     []
   );
 
-  // Animated values (re-run whenever user reaches section)
   const v0 = useCountUp({ to: stats[0].to, duration: 1100, tick: inViewTick });
   const v1 = useCountUp({ to: stats[1].to, duration: 1200, tick: inViewTick });
   const v2 = useCountUp({ to: stats[2].to, duration: 1150, tick: inViewTick });
@@ -111,46 +83,83 @@ export default function TrustCountersSection() {
   const values = [v0, v1, v2, v3];
 
   return (
-    <section
-      ref={ref}
-      className="relative w-full overflow-hidden bg-black"
-    >
-      {/* Background image */}
+    <section ref={ref} className="relative w-full overflow-hidden bg-black">
+      {/* Background images */}
       <div className="absolute inset-0">
+        {/* Desktop BG */}
         <Image
           src={globeBg}
           alt="Global network background"
           fill
-          className="object-cover"
-          priority={false}
+          className="hidden md:block object-cover"
           sizes="100vw"
+          priority={false}
         />
-        {/* dark overlay to match screenshot */}
+        {/* Mobile BG */}
+        <Image
+          src={globbgmobile}
+          alt="Global network background mobile"
+          fill
+          className="block md:hidden object-cover"
+          sizes="100vw"
+          priority={false}
+        />
+
+        {/* overlays (premium) */}
         <div className="absolute inset-0 bg-black/10" />
-        {/* top fade for premium look */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/60" />
       </div>
 
       {/* Content */}
-      <div className="relative mx-auto max-w-[1400px] px-4 md:px-10 py-16 md:py-24">
+      <div
+        className="
+          relative mx-auto max-w-[1400px] px-4 md:px-10
+          py-16 md:py-24
+          min-h-[740px] md:min-h-[520px]
+          flex flex-col
+        "
+      >
         {/* Headline */}
         <div className="text-center">
-          <h2 className="text-white/95 font-[500] leading-[1.08] tracking-wide text-[30px] md:text-[52px]">
+          <h2
+            className="
+              text-white/95 font-[500]
+              leading-[1.08] tracking-wide
+              text-[34px] md:text-[52px]
+            "
+          >
             A Legacy of Trust
             <br />
-            Revered Across the World
+            Revered Across the
+            <br className="md:hidden" />
+            World
           </h2>
         </div>
 
-        {/* Counters */}
-        <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-0">
+        {/* ✅ MOBILE layout (like screenshot): stacked single column */}
+        <div className="mt-14 md:hidden flex flex-col items-center gap-16">
           {stats.map((s, idx) => (
             <div key={s.label} className="text-center">
-              <div className="font-[500] text-white leading-none text-[54px] md:text-[84px]">
+              <div className="font-[500] text-white leading-none text-[64px]">
                 {formatWithCommas(values[idx])}
                 {s.suffix}
               </div>
-              <div className="mt-2 text-white/70 text-[13px] md:text-[16px] tracking-wide">
+              <div className="mt-4 text-white/75 text-[18px] tracking-wide">
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ✅ DESKTOP layout (4 columns) */}
+        <div className="hidden md:grid mt-14 grid-cols-4 gap-y-0">
+          {stats.map((s, idx) => (
+            <div key={s.label} className="text-center">
+              <div className="font-[500] text-white leading-none text-[84px]">
+                {formatWithCommas(values[idx])}
+                {s.suffix}
+              </div>
+              <div className="mt-2 text-white/70 text-[16px] tracking-wide">
                 {s.label}
               </div>
             </div>
@@ -159,9 +168,4 @@ export default function TrustCountersSection() {
       </div>
     </section>
   );
-}
-
-function formatWithCommas(n) {
-  // 8000 -> 8,000
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

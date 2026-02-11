@@ -1,25 +1,16 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 
-/**
- * ✅ TestimonialSlider (matches your UI)
- * - Desktop: 3 cards visible (responsive), arrows bottom-right
- * - Mobile: 1 big card visible
- * - Bottom progress bar (like screenshot)
- * - Auto slide ON (pause on hover / focus)
- * - Smooth slide (translateX)
- *
- * Replace avatar imports with your real images.
- */
-
-// demo avatars (replace)
 import a1 from "../../assets/testimonials/ts1.png";
 import a2 from "../../assets/testimonials/ts2.png";
 import a3 from "../../assets/testimonials/ts1.png";
 import a4 from "../../assets/testimonials/ts2.png";
 import a5 from "../../assets/testimonials/ts1.png";
+
+import LeftArrow from "../../assets/icons/arrowbackward.svg";
+import RightArrow from "../../assets/icons/arrow_foreward.svg";
 
 function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
@@ -72,18 +63,16 @@ export default function TestimonialsSlider() {
     []
   );
 
-  // how many cards visible (responsive)
   const [perView, setPerView] = useState(3);
   const [index, setIndex] = useState(0);
 
-  // autoplay
   const [paused, setPaused] = useState(false);
   const intervalRef = useRef(null);
 
-  // track width math
-  const wrapRef = useRef(null);
+  // ✅ MOBILE track control
+  const mobileTrackRef = useRef(null);
+  const mobileStepRef = useRef(0);
 
-  // ✅ update perView by breakpoint (mobile = 1, tablet=2, desktop=3)
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
@@ -96,16 +85,62 @@ export default function TestimonialsSlider() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // keep index in bounds when perView changes
-  useEffect(() => {
-    const maxIndex = Math.max(0, testimonials.length - perView);
-    setIndex((i) => clamp(i, 0, maxIndex));
-  }, [perView, testimonials.length]);
-
   const maxIndex = Math.max(0, testimonials.length - perView);
 
-  const next = () => setIndex((i) => (i >= maxIndex ? 0 : i + 1));
-  const prev = () => setIndex((i) => (i <= 0 ? maxIndex : i - 1));
+  // useEffect(() => {
+  //   setIndex((i) => clamp(i, 0, maxIndex));
+  // }, [perView, testimonials.length, maxIndex]);
+
+  // ✅ Measure mobile "step" = card width + gap, for arrow scrolling
+  useEffect(() => {
+    if (perView !== 1) return;
+    const el = mobileTrackRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const card = el.querySelector("[data-ts-card='true']");
+      if (!card) return;
+
+      const cardW = card.getBoundingClientRect().width;
+      const styles = window.getComputedStyle(el);
+      const gap = parseFloat((styles.columnGap || styles.gap || "16").toString()) || 16;
+
+      mobileStepRef.current = cardW + gap;
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [perView]);
+
+  const scrollToMobileIndex = useCallback((nextIndex) => {
+    const el = mobileTrackRef.current;
+    if (!el) return;
+
+    const step = mobileStepRef.current || 0;
+    if (!step) return;
+
+    el.scrollTo({
+      left: nextIndex * step,
+      behavior: "smooth",
+    });
+  }, []);
+
+  const next = useCallback(() => {
+    setIndex((i) => {
+      const ni = i >= maxIndex ? 0 : i + 1;
+      if (perView === 1) scrollToMobileIndex(ni);
+      return ni;
+    });
+  }, [maxIndex, perView, scrollToMobileIndex]);
+
+  const prev = useCallback(() => {
+    setIndex((i) => {
+      const ni = i <= 0 ? maxIndex : i - 1;
+      if (perView === 1) scrollToMobileIndex(ni);
+      return ni;
+    });
+  }, [maxIndex, perView, scrollToMobileIndex]);
 
   // ✅ autoplay (pause on hover/focus)
   useEffect(() => {
@@ -120,87 +155,102 @@ export default function TestimonialsSlider() {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
       intervalRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paused, perView, testimonials.length, maxIndex]);
+  }, [paused, perView, testimonials.length, next]);
 
-  /**
-   * Layout:
-   * - Title centered
-   * - Slider cards row
-   * - Bottom row: progress bar centered + arrows right (with gap BELOW slider)
-   */
   return (
     <section className="w-full bg-[#1f1f1f] text-white py-14 md:py-20 overflow-hidden">
       <div className="mx-auto max-w-[1600px] px-4 md:px-10">
-        {/* Title */}
         <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-[400]">
           Testimonials
         </h2>
 
-        {/* Slider area */}
         <div
-          ref={wrapRef}
           className="mt-10 md:mt-12"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
           onBlurCapture={() => setPaused(false)}
         >
-          {/* Cards viewport */}
-          <div className="overflow-hidden">
+          {/* ✅ MOBILE: scroll + snap + arrows work */}
+          <div className="md:hidden">
             <div
-              className="flex gap-6 md:gap-7 transition-transform duration-700 ease-out will-change-transform"
-              style={{
-                transform: `translateX(calc(-${index} * (min(440px, 88vw) + ${perView === 1 ? "0px" : "28px"})))`,
+              ref={mobileTrackRef}
+              className="
+                flex overflow-x-auto
+                snap-x snap-mandatory scroll-smooth
+                gap-4 px-4
+                [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+              "
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                const step = mobileStepRef.current || 0;
+                if (!step) return;
+
+                const i = Math.round(el.scrollLeft / step);
+                setIndex(clamp(i, 0, maxIndex));
               }}
             >
               {testimonials.map((t) => (
-                <TestimonialCard key={t.id} t={t} />
+                <TestimonialCard key={t.id} t={t} snap />
               ))}
             </div>
-          </div>
 
-          {/* ✅ bottom controls (separated from slider with spacing) */}
-          <div className="mt-10 md:mt-12 flex items-center justify-between gap-6">
-            {/* spacer left */}
-            <div className="w-[110px] hidden md:block" />
-
-            {/* progress bar centered */}
-            <ProgressBar value={index} max={maxIndex} />
-
-            {/* arrows right */}
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                type="button"
-                onClick={prev}
-                className="h-10 w-10 rounded-full border border-white/20 text-white/80 hover:bg-white/10 transition"
-                aria-label="Previous testimonial"
-              >
-                <ArrowLeft />
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                className="h-10 w-10 rounded-full border border-white/20 text-white/80 hover:bg-white/10 transition"
-                aria-label="Next testimonial"
-              >
-                <ArrowRight />
-              </button>
+            <div className="mt-8 flex items-center justify-between gap-4">
+              <div className="w-[70px]" />
+              <ProgressBar value={index} max={maxIndex} />
+              <div className="flex items-center gap-3 shrink-0">
+                <button type="button" onClick={prev} className="transition" aria-label="Previous testimonial">
+                  <ArrowLeft />
+                </button>
+                <button type="button" onClick={next} className="transition" aria-label="Next testimonial">
+                  <ArrowRight />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Mobile: keep progress bar visible with good spacing */}
+          {/* ✅ TABLET/DESKTOP: translateX slider */}
+          <div className="hidden md:block">
+            <div className="overflow-hidden">
+              <div
+                className="flex gap-6 md:gap-7 transition-transform duration-700 ease-out will-change-transform"
+                style={{
+                  transform: `translateX(calc(-${index} * (min(440px, 88vw) + 28px)))`,
+                }}
+              >
+                {testimonials.map((t) => (
+                  <TestimonialCard key={t.id} t={t} />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 md:mt-12 flex items-center justify-between gap-6">
+              <div className="w-[110px]" />
+              <ProgressBar value={index} max={maxIndex} />
+              <div className="flex items-center gap-3 shrink-0">
+                <button type="button" onClick={prev} className="transition" aria-label="Previous testimonial">
+                  <ArrowLeft />
+                </button>
+                <button type="button" onClick={next} className="transition" aria-label="Next testimonial">
+                  <ArrowRight />
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 }
 
-function TestimonialCard({ t }) {
+function TestimonialCard({ t, snap = false }) {
   return (
     <div
+      data-ts-card="true"
       className={[
         "shrink-0",
+        snap ? "snap-center" : "",
         "w-[88vw] max-w-[440px]",
         "md:w-[520px] md:max-w-[520px]",
         "lg:w-[520px]",
@@ -208,24 +258,22 @@ function TestimonialCard({ t }) {
         "px-7 md:px-10 py-10 md:py-12",
         "shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
         "flex flex-col items-center text-center",
-      ].join(" ")}
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      {/* avatar */}
       <div className="relative w-[78px] h-[78px] rounded-full overflow-hidden ring-2 ring-white/10">
         <Image src={t.avatar} alt={t.name} fill className="object-cover" />
       </div>
 
-      {/* name */}
       <div className="mt-5 text-[18px] md:text-[20px] tracking-wide text-white/90">
         {t.name}
       </div>
 
-      {/* text */}
       <p className="mt-6 text-white/70 leading-relaxed text-[16px] md:text-[18px] max-w-[36ch]">
         {t.text}
       </p>
 
-      {/* stars */}
       <div className="mt-8 flex items-center justify-center gap-2 text-[#c79a3a]">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star key={i} filled={i < (t.stars ?? 5)} />
@@ -236,7 +284,6 @@ function TestimonialCard({ t }) {
 }
 
 function ProgressBar({ value, max }) {
-  // max is number of steps, value 0..max
   const pct = max === 0 ? 1 : value / max;
   return (
     <div className="flex-1 flex justify-center">
@@ -274,28 +321,16 @@ function Star({ filled }) {
 
 function ArrowLeft() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M15 6L9 12L15 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div>
+      <Image src={LeftArrow} alt="left-arrow" />
+    </div>
   );
 }
 
 function ArrowRight() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M9 6L15 12L9 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div>
+      <Image src={RightArrow} alt="right-arrow" />
+    </div>
   );
 }
