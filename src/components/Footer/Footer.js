@@ -5,12 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 
 import logo from "../../assets/logos/logo.svg";
+import { Quicksand } from "next/font/google";
+
+// ✅ Create the font instance ONCE (outside component)
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#2a2a2a] text-white">
+    <footer className={`w-full bg-[#2a2a2a] text-white ${quicksand.className}`}>
       {/* Top content */}
-      <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-14 md:py-12">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-12 md:py-12">
         {/* Desktop */}
         <div className="hidden md:grid grid-cols-[1.1fr_1fr_0.9fr] gap-10 items-start">
           {/* Left: Logo + Locations */}
@@ -33,8 +41,10 @@ export default function Footer() {
           </div>
 
           {/* Middle: Quick Links */}
-          <div className="relative pl-10">
-            <div className="absolute left-0 top-2 bottom-2 w-px bg-white/25" />
+          <div className="relative pl-10 h-full">
+            {/* divider should match right column height */}
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/25" />
+
             <h4 className="text-white/90 text-[18px] font-[600] mb-6">Quick Links</h4>
 
             <div className="grid grid-cols-2 gap-x-10 gap-y-4">
@@ -60,16 +70,14 @@ export default function Footer() {
           </div>
 
           {/* Right: Social */}
-          <div className="relative pl-10">
-            <div className="absolute left-0 top-2 bottom-2 w-px bg-white/25" />
+          <div className="relative pl-10 h-full">
+            {/* divider should match middle column height */}
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/25" />
+
             <h4 className="text-white/90 text-[18px] font-[600] mb-6">Follow us</h4>
 
             <div className="space-y-4">
-              <SocialRow
-                href="https://instagram.com"
-                label="Instagram"
-                icon={<InstagramIcon />}
-              />
+              <SocialRow href="https://instagram.com" label="Instagram" icon={<InstagramIcon />} />
               <SocialRow href="https://facebook.com" label="Facebook" icon={<FacebookIcon />} />
               <SocialRow href="https://x.com" label="X.com" icon={<XIcon />} />
             </div>
@@ -80,7 +88,7 @@ export default function Footer() {
         <div className="md:hidden">
           {/* Center logo */}
           <div className="flex justify-center">
-            <div className="w-[230px]">
+            <div className="w-[210px]">
               <Image src={logo} alt="HILLTOP" className="h-auto w-full" priority />
             </div>
           </div>
@@ -103,11 +111,11 @@ export default function Footer() {
           <Divider />
 
           {/* Quick links */}
-          <h4 className="text-center text-white/90 text-[34px] font-[400] tracking-wide">
+          <h4 className="text-center text-white/90 text-[22px] font-[500] tracking-wide">
             Quick Links
           </h4>
 
-          <div className="mt-8 grid grid-cols-2 gap-x-10 gap-y-10 text-[28px] leading-tight">
+          <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-6 text-[16px] leading-snug">
             <Link className="text-white/80 hover:text-white transition" href="/about">
               About us
             </Link>
@@ -131,8 +139,8 @@ export default function Footer() {
           <Divider />
 
           {/* Social */}
-          <div className="flex items-center justify-center gap-8">
-            <span className="text-white/90 text-[34px] font-[400]">Follow us</span>
+          <div className="flex items-center justify-center gap-6">
+            <span className="text-white/90 text-[18px] font-[500]">Follow us</span>
 
             <a
               className="text-white/90 hover:text-white transition"
@@ -141,7 +149,7 @@ export default function Footer() {
               rel="noreferrer"
               aria-label="Instagram"
             >
-              <InstagramIcon size={44} />
+              <InstagramIcon size={26} />
             </a>
             <a
               className="text-white/90 hover:text-white transition"
@@ -150,7 +158,7 @@ export default function Footer() {
               rel="noreferrer"
               aria-label="Facebook"
             >
-              <FacebookIcon size={44} />
+              <FacebookIcon size={26} />
             </a>
             <a
               className="text-white/90 hover:text-white transition"
@@ -159,7 +167,7 @@ export default function Footer() {
               rel="noreferrer"
               aria-label="X"
             >
-              <XIcon size={44} />
+              <XIcon size={26} />
             </a>
           </div>
 
@@ -170,12 +178,12 @@ export default function Footer() {
       {/* Bottom copyright */}
       <div className="border-t border-white/25">
         <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-6">
-          <p className="text-white/70 text-[14px] md:text-[14px]">
+          <p className="hidden md:block text-white/70 text-[14px]">
             Copyright © 2026 - All Rights Reserved
           </p>
 
-          {/* Mobile matches your centered line */}
-          <p className="md:hidden text-center text-white/80 mt-2 text-[22px]">
+          {/* Mobile centered line */}
+          <p className="md:hidden text-center text-white/70 text-[12px]">
             Copyright © 2026 - All Rights Reserved
           </p>
         </div>
@@ -227,7 +235,7 @@ function SocialRow({ href, label, icon }) {
 }
 
 function Divider() {
-  return <div className="my-10 h-px w-full bg-white/25" />;
+  return <div className="my-8 h-px w-full bg-white/25" />;
 }
 
 /* -------------------- mobile helpers -------------------- */
@@ -235,8 +243,8 @@ function Divider() {
 function FooterBlockMobile({ title, children }) {
   return (
     <div>
-      <p className="text-white text-[34px] font-[700] tracking-wide">{title}</p>
-      <div className="mt-6 space-y-6">{children}</div>
+      <p className="text-white text-[18px] font-[700] tracking-wide">{title}</p>
+      <div className="mt-5 space-y-4">{children}</div>
     </div>
   );
 }
@@ -245,7 +253,7 @@ function FooterLinkMobile({ href, children }) {
   return (
     <Link
       href={href}
-      className="block text-[#d7a447] text-[28px] font-[500] tracking-wide hover:text-white transition"
+      className="block text-[#d7a447] text-[16px] font-[500] tracking-wide hover:text-white transition"
     >
       {children}
     </Link>

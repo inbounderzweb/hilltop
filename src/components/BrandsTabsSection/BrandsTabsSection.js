@@ -61,7 +61,7 @@ export default function BrandsTabsSection() {
         {/* MAIN CARD */}
         <div
           className="relative overflow-hidden shadow-[0_22px_70px_rgba(0,0,0,0.45)]"
-          style={{ background: CARD, borderRadius: 38 }}
+          style={{ background: CARD }}
         >
           {/* TAB STRIP (INSIDE CARD) */}
           <div className="">
@@ -132,7 +132,7 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
         "flex items-center justify-center",
         "text-[#a06a22] text-[22px] md:text-[28px] font-[500]",
         "transition-all duration-300",
-        active ? "z-[2]" : "z-[1] opacity-90 hover:opacity-100",
+        active ? "z-[2]" : "z-[1] opacity-90 hover:opacity-100 rounded-t-2xl",
       ].join(" ")}
       style={{
         background: active ? cardColor : stripColor,

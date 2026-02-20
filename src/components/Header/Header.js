@@ -8,6 +8,7 @@ import NavBar from "./NavBar";
 import logo from "../../assets/logos/logo.svg";
 import Closebtn from "../../assets/icons/closebtn.svg";
 import Burger from "../../assets/icons/burger.svg";
+import Link from "next/link";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function Header() {
       {/* Top bar: centered logo + right toggle button */}
       <div className="relative flex items-center justify-between lg:justify-center pt-[22px] pb-[10px]">
         <div className="inline-flex items-center justify-center">
-          <Image src={logo} alt="HILLTOP" priority className="w-[190px] h-auto" />
+          <Link href={'/'}><Image src={logo} alt="HILLTOP" priority className="w-[190px] h-auto" /></Link>
         </div>
 
         <button

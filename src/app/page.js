@@ -13,7 +13,6 @@ import TrustCountersSection from "@/components/TrustCountersSection/TrustCounter
 export default function Home() {
   return (
     <div className="">
-  
     <FadeBanner />
     <CollectionsScrollSlider />
     <GeologicalSignaturesSection />
