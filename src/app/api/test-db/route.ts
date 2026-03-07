@@ -1,5 +1,7 @@
 import db from "@/lib/db";
 
+export const dynamic = "force-static";
+
 export async function GET() {
     try {
         const [rows] = await db.query("SELECT NOW() AS now");
