@@ -18,11 +18,11 @@ export default function NavBar({ isOpen, setIsOpen }) {
   const navLinks = useMemo(
     () => [
       { label: "Our Story", href: "/about" },
-      { label: "Products", href: "/products", isProducts: true },
+      { label: "Products", href: "/listing", isProducts: true },
       { label: "Live Inventory", href: "https://hilltopstones.stoneprofitsweb.com/" },
       { label: "Blog & FAQ", href: "/blogs" },
       { label: "Career", href: "/career" },
-      { label: "Locate Us", href: "/locate-us" },
+      { label: "Locate Us", href: "/locate" },
     ],
     []
   );
@@ -116,9 +116,8 @@ export default function NavBar({ isOpen, setIsOpen }) {
                         aria-label="Toggle products menu"
                       >
                         <span
-                          className={`inline-flex transition-transform duration-200 ${
-                            productsOpen ? "rotate-180" : ""
-                          }`}
+                          className={`inline-flex transition-transform duration-200 ${productsOpen ? "rotate-180" : ""
+                            }`}
                           aria-hidden="true"
                         >
                           <CaretIcon />
@@ -187,9 +186,8 @@ export default function NavBar({ isOpen, setIsOpen }) {
               return (
                 <li key={item.label}>
                   <div
-                    className={`w-full px-[18px] py-[16px] flex items-center justify-center gap-3 ${
-                      isLast ? "" : "border-b border-white/10"
-                    }`}
+                    className={`w-full px-[18px] py-[16px] flex items-center justify-center gap-3 ${isLast ? "" : "border-b border-white/10"
+                      }`}
                   >
                     {/* ✅ Products as Link */}
                     <Link
@@ -214,9 +212,8 @@ export default function NavBar({ isOpen, setIsOpen }) {
                       aria-label="Toggle products menu"
                     >
                       <span
-                        className={`inline-flex transition-transform duration-200 ${
-                          productsOpen ? "rotate-180" : ""
-                        }`}
+                        className={`inline-flex transition-transform duration-200 ${productsOpen ? "rotate-180" : ""
+                          }`}
                         aria-hidden="true"
                       >
                         <CaretIcon />
@@ -248,9 +245,8 @@ export default function NavBar({ isOpen, setIsOpen }) {
               <li key={item.label}>
                 <Link
                   href={item.href}
-                  className={`block text-[#F4E0C2] px-[18px] py-[16px] text-center ${
-                    isLast ? "" : "border-b border-white/10"
-                  }`}
+                  className={`block text-[#F4E0C2] px-[18px] py-[16px] text-center ${isLast ? "" : "border-b border-white/10"
+                    }`}
                   onClick={closeAll}
                 >
                   {item.label}

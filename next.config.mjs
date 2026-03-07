@@ -6,7 +6,7 @@ images: { unoptimized: true },
 assetPrefix: "./",   // ⭐ IMPORTANT FIX
 
   // basePath: '/hilltop',
-  // assetPrefix: '/hilltop/',
+  assetPrefix: '/',
 
 };
 

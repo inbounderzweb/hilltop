@@ -14,7 +14,7 @@ export default function BrandsTabsSection() {
   const [tab, setTab] = useState("India");
 
   // colors
-  const CARD = "#f2ddb9";  // big box
+  const CARD = "white";  // big box
   const STRIP = "#f7efe2"; // tab strip background
 
   const data = useMemo(
@@ -131,50 +131,14 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
         "relative flex-1 h-[50px] md:h-[86px]",
         "flex items-center justify-center",
         "text-[#a06a22] text-[22px] md:text-[28px] font-[500]",
-        "transition-all duration-300",
-        active ? "z-[2]" : "z-[1] opacity-90 hover:opacity-100 rounded-t-2xl",
+        "transition-all duration-600",
+        active ? "z-[2]" : "z-[1] opacity-90 hover:opacity-100",
       ].join(" ")}
       style={{
         background: active ? cardColor : stripColor,
       }}
       aria-pressed={active}
     >
-      {/* ✅ Carve the INVERTED S only for the ACTIVE tab */}
-      {active && (
-        <>
-          {/* TOP CUT (inner edge) */}
-          <span
-            aria-hidden="true"
-            className="absolute"
-            style={{
-              width: CUT,
-              height: CUT,
-              background: stripColor,
-              top: 0,
-              ...(isLeft ? { right: -CUT } : { left: -CUT }),
-              ...(isLeft
-                ? { borderBottomLeftRadius: CUT }
-                : { borderBottomRightRadius: CUT }),
-            }}
-          />
-
-          {/* BOTTOM CUT (inner edge) */}
-          <span
-            aria-hidden="true"
-            className="absolute"
-            style={{
-              width: CUT,
-              height: CUT,
-              background: stripColor,
-              bottom: 0,
-              ...(isLeft ? { right: -CUT } : { left: -CUT }),
-              ...(isLeft
-                ? { borderTopLeftRadius: CUT }
-                : { borderTopRightRadius: CUT }),
-            }}
-          />
-        </>
-      )}
 
       {label}
     </button>
