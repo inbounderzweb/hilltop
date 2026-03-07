@@ -21,10 +21,13 @@ export default function AdminDashboard() {
             .find(row => row.startsWith('admin_auth='))
             ?.split('=')[1];
 
-        if (hasAuthCookie === 'true') {
-            setIsAuthenticated(true);
-        } else {
+        if (hasAuthCookie !== 'true') {
             router.push('/admin/login');
+        } else {
+            // Push to the end of the event loop to avoid synchronous state update during render Phase
+            setTimeout(() => {
+                setIsAuthenticated(true);
+            }, 0);
         }
     }, [router]);
 
