@@ -76,7 +76,7 @@ export default function AddProductForm({ onSwitchTab, categories }) {
 
                 <div className="pt-6 border-t border-white/10 flex justify-end">
                     <button type="submit" className="bg-[#eba14d] hover:bg-[#d89243] text-black font-semibold px-8 py-3 rounded-xl transition duration-300 shadow-md">
-                        Save Product
+                        Save Product .
                     </button>
                 </div>
             </form>
