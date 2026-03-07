@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 
 // ✅ Replace these with your real images
-import eng1 from "@/assets/EngineeredSec/eng3.png";
-import eng2 from "@/assets/EngineeredSec/eng2.png";
-import eng3 from "@/assets/EngineeredSec/eng1.png";
+import eng1 from "@/assets/engineeredSec/eng3.png";
+import eng2 from "@/assets/engineeredSec/eng2.png";
+import eng3 from "@/assets/engineeredSec/eng1.png";
 
 
 import { Quicksand } from "next/font/google";
@@ -29,7 +29,7 @@ export default function EngineeredSurface() {
         <div className="text-center">
           <h2 className="text-[30px] md:text-[44px] font-[500] tracking-wide">
             <span className="text-[#DA9C39]">
-             Engineered Surfaces
+              Engineered Surfaces
             </span>
           </h2>
           <p className={`mt-2 text-white text-[16px] md:text-[24px] ${quicksand.className}`}>
