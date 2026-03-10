@@ -1,8 +1,8 @@
-
 "use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
 
 import NavBar from "./NavBar";
 import logo from "../../assets/logos/logo.svg";
@@ -35,7 +35,9 @@ export default function Header() {
         </button>
       </div>
 
-      <NavBar isOpen={menuOpen} setIsOpen={setMenuOpen} />
+      <AnimatePresence>
+        {menuOpen && <NavBar isOpen={menuOpen} setIsOpen={setMenuOpen} />}
+      </AnimatePresence>
     </header>
   );
 }

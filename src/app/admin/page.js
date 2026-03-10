@@ -7,12 +7,13 @@ import DashboardOverview from '@/components/admin/DashboardOverview';
 import AddProductForm from '@/components/admin/AddProductForm';
 import AddCategoryForm from '@/components/admin/AddCategoryForm';
 import ProductsList from '@/components/admin/ProductsList';
+import ManageVariationsForm from '@/components/admin/ManageVariationsForm';
 
 export default function AdminDashboard() {
     const router = useRouter();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [activeTab, setActiveTab] = useState('dashboard');
-    const [categories, setCategories] = useState(['Marble', 'Granite', 'Quartzite', 'Onyx']);
+    const [editingProduct, setEditingProduct] = useState(null);
 
     useEffect(() => {
         // Check cookie on mount
@@ -30,6 +31,11 @@ export default function AdminDashboard() {
             }, 0);
         }
     }, [router]);
+
+    const handleEditProduct = (product) => {
+        setEditingProduct(product);
+        setActiveTab('add-product');
+    };
 
     const handleLogout = () => {
         document.cookie = "admin_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -55,25 +61,31 @@ export default function AdminDashboard() {
 
                 <nav className="flex-1 flex flex-row md:flex-col gap-2 overflow-x-auto whitespace-nowrap mb-6 md:mb-0">
                     <button
-                        onClick={() => setActiveTab('dashboard')}
+                        onClick={() => { setActiveTab('dashboard'); setEditingProduct(null); }}
                         className={`text-left px-4 py-3 rounded-xl transition duration-300 md:w-full ${activeTab === 'dashboard' ? 'bg-[#eba14d] text-black font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
                     >
                         Dashboard
                     </button>
                     <button
-                        onClick={() => setActiveTab('add-product')}
-                        className={`text-left px-4 py-3 rounded-xl transition duration-300 md:w-full ${activeTab === 'add-product' ? 'bg-[#eba14d] text-black font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
+                        onClick={() => { setActiveTab('add-product'); setEditingProduct(null); }}
+                        className={`text-left px-4 py-3 rounded-xl transition duration-300 md:w-full ${activeTab === 'add-product' && !editingProduct ? 'bg-[#eba14d] text-black font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
                     >
                         Add Product
                     </button>
                     <button
-                        onClick={() => setActiveTab('add-category')}
+                        onClick={() => { setActiveTab('add-category'); setEditingProduct(null); }}
                         className={`text-left px-4 py-3 rounded-xl transition duration-300 md:w-full ${activeTab === 'add-category' ? 'bg-[#eba14d] text-black font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
                     >
                         Categories
                     </button>
                     <button
-                        onClick={() => setActiveTab('product-list')}
+                        onClick={() => { setActiveTab('variations'); setEditingProduct(null); }}
+                        className={`text-left px-4 py-3 rounded-xl transition duration-300 md:w-full ${activeTab === 'variations' ? 'bg-[#eba14d] text-black font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
+                    >
+                        Variations
+                    </button>
+                    <button
+                        onClick={() => { setActiveTab('product-list'); setEditingProduct(null); }}
                         className={`text-left px-4 py-3 rounded-xl transition duration-300 md:w-full ${activeTab === 'product-list' ? 'bg-[#eba14d] text-black font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
                     >
                         Products List
@@ -103,10 +115,11 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="max-w-6xl mx-auto">
-                    {activeTab === 'dashboard' && <DashboardOverview />}
-                    {activeTab === 'add-product' && <AddProductForm onSwitchTab={setActiveTab} categories={categories} />}
-                    {activeTab === 'add-category' && <AddCategoryForm categories={categories} setCategories={setCategories} />}
-                    {activeTab === 'product-list' && <ProductsList />}
+                    {activeTab === 'dashboard' && <DashboardOverview setActiveTab={setActiveTab} />}
+                    {activeTab === 'add-product' && <AddProductForm onSwitchTab={setActiveTab} initialData={editingProduct} />}
+                    {activeTab === 'add-category' && <AddCategoryForm />}
+                    {activeTab === 'variations' && <ManageVariationsForm />}
+                    {activeTab === 'product-list' && <ProductsList onEdit={handleEditProduct} />}
                 </div>
             </main>
         </div>

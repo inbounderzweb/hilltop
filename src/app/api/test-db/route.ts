@@ -1,13 +1,22 @@
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
     try {
-        const [rows] = await db.query("SELECT NOW() AS now");
-        return Response.json({ success: true, rows });
-    } catch (error) {
-        console.error(error);
-        return Response.json({ success: false, error: "DB connection failed" }, { status: 500 });
+        const [rows] = await db.query("SELECT NOW() as now");
+
+        return Response.json({
+            success: true,
+            time: rows,
+        });
+
+    } catch (error: any) {
+        console.error("DB ERROR:", error);
+
+        return Response.json({
+            success: false,
+            error: error.message,
+        });
     }
 }

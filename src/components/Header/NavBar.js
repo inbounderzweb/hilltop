@@ -4,6 +4,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Quicksand } from "next/font/google";
+import { motion } from "framer-motion";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -12,13 +13,29 @@ const quicksand = Quicksand({
 });
 
 export default function NavBar({ isOpen, setIsOpen }) {
+  const [categories, setCategories] = useState([]);
   const [productsOpen, setProductsOpen] = useState(false);
   const rootRef = useRef(null);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        if (data.success) {
+          setCategories(data.categories);
+        }
+      } catch (err) {
+        console.error("Failed to fetch categories for navbar", err);
+      }
+    }
+    fetchCategories();
+  }, []);
 
   const navLinks = useMemo(
     () => [
       { label: "Our Story", href: "/about" },
-      { label: "Products", href: "/listing", isProducts: true },
+      { label: "Products", href: "/products", isProducts: true },
       { label: "Live Inventory", href: "https://hilltopstones.stoneprofitsweb.com/" },
       { label: "Blog & FAQ", href: "/blogs" },
       { label: "Career", href: "/career" },
@@ -28,15 +45,11 @@ export default function NavBar({ isOpen, setIsOpen }) {
   );
 
   const productLinks = useMemo(
-    () => [
-      { label: "Granite", href: "/products/granite" },
-      { label: "Porcelain", href: "/products/porcelain" },
-      { label: "Marble", href: "/products/marble" },
-      { label: "Quartz", href: "/products/quartz" },
-      { label: "Quartzite", href: "/products/quartzite" },
-      { label: "SPC", href: "/products/spc" },
-    ],
-    []
+    () => categories.map(cat => ({
+      label: cat.name,
+      href: `/products/${cat.name}`
+    })),
+    [categories]
   );
 
   function closeAll() {
@@ -71,10 +84,15 @@ export default function NavBar({ isOpen, setIsOpen }) {
     if (!isOpen) setProductsOpen(false);
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
-    <div ref={rootRef} className="relative z-[999]">
+    <motion.div
+      ref={rootRef}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="relative z-[999]"
+    >
       {/* ================= DESKTOP PILL NAV ================= */}
       <nav
         aria-label="Primary navigation"
@@ -91,26 +109,30 @@ export default function NavBar({ isOpen, setIsOpen }) {
             if (item.isProducts) {
               return (
                 <React.Fragment key={item.label}>
-                  <li className="relative flex items-center justify-center">
-                    {/* ✅ Products as Link (fast navigation) */}
-                    <div className="inline-flex items-center gap-2">
+                  <li
+                    className="relative flex items-center justify-center"
+                    onMouseEnter={() => setProductsOpen(true)}
+                    onMouseLeave={() => setProductsOpen(false)}
+                  >
+                    <div className="inline-flex items-center gap-1 group cursor-pointer">
                       <Link
                         href={item.href}
-                        className="text-[#F4E0C2] px-3 py-2 inline-flex items-center whitespace-nowrap"
-                        onClick={closeAll}
+                        className="text-[#F4E0C2] px-3 py-2 inline-flex items-center whitespace-nowrap hover:text-[#eba14d] transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setProductsOpen(!productsOpen);
+                        }}
                       >
                         {item.label}
                       </Link>
 
-                      {/* ✅ Caret is the toggle */}
                       <button
                         type="button"
                         data-nav-toggle="true"
-                        className="text-[#F4E0C2] px-2 py-2 inline-flex items-center"
+                        className="text-[#F4E0C2] pr-3 py-2 inline-flex items-center"
                         onClick={(e) => {
                           e.preventDefault();
-                          e.stopPropagation();
-                          setProductsOpen((s) => !s);
+                          setProductsOpen(!productsOpen);
                         }}
                         aria-expanded={productsOpen}
                         aria-label="Toggle products menu"
@@ -126,18 +148,31 @@ export default function NavBar({ isOpen, setIsOpen }) {
                     </div>
 
                     {productsOpen && (
-                      <div className="absolute top-[calc(100%+14px)] left-1/2 -translate-x-1/2 w-[560px] bg-[#343434] rounded-b-[22px] p-[18px]">
+                      <div className="absolute top-[calc(100%-8px)] left-1/2 -translate-x-1/2 w-[560px] bg-[#343434] rounded-b-[22px] p-[18px] shadow-2xl border border-white/5 pt-6">
                         <div className="grid grid-cols-2 gap-x-[22px] gap-y-[14px]">
-                          {productLinks.map((p) => (
-                            <Link
-                              key={p.label}
-                              href={p.href}
-                              className="text-[#F4E0C2] px-2 py-[10px] border-b border-white/10"
-                              onClick={closeAll}
-                            >
-                              {p.label}
-                            </Link>
-                          ))}
+                          {productLinks.length > 0 ? (
+                            productLinks.map((p) => (
+                              <Link
+                                key={p.label}
+                                href={p.href}
+                                className="text-[#F4E0C2] px-2 py-[10px] border-b border-white/10 hover:border-[#eba14d]/50 hover:text-[#eba14d] transition-colors"
+                                onClick={closeAll}
+                              >
+                                {p.label}
+                              </Link>
+                            ))
+                          ) : (
+                            ["Granite", "Marble", "Quartzite", "Quartz", "Semi Precious"].map((cat) => (
+                              <Link
+                                key={cat}
+                                href={`/products/${cat}`}
+                                className="text-[#F4E0C2] px-2 py-[10px] border-b border-white/10 hover:border-[#eba14d]/50 hover:text-[#eba14d] transition-colors"
+                                onClick={closeAll}
+                              >
+                                {cat}
+                              </Link>
+                            ))
+                          )}
                         </div>
                       </div>
                     )}
@@ -155,7 +190,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
                 <li className="flex items-center justify-center">
                   <Link
                     href={item.href}
-                    className="text-[#F4E0C2] px-3 py-2 whitespace-nowrap"
+                    className="text-[#F4E0C2] px-3 py-2 whitespace-nowrap hover:text-[#eba14d] transition-colors"
                     onClick={closeAll}
                   >
                     {item.label}
@@ -175,7 +210,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
         className={[
           quicksand.className,
           "md:hidden w-[min(420px,calc(100%-60px))] absolute right-0",
-          "bg-[#373737]/90 backdrop-blur-md rounded-l-[18px] py-4",
+          "bg-[#373737]/90 backdrop-blur-md rounded-l-[18px] py-4 shadow-2xl",
         ].join(" ")}
       >
         <ul className="m-0 p-0 list-none">
@@ -189,24 +224,22 @@ export default function NavBar({ isOpen, setIsOpen }) {
                     className={`w-full px-[18px] py-[16px] flex items-center justify-center gap-3 ${isLast ? "" : "border-b border-white/10"
                       }`}
                   >
-                    {/* ✅ Products as Link */}
-                    <Link
-                      href={item.href}
-                      className="text-[#F4E0C2] inline-flex items-center"
-                      onClick={closeAll}
+                    <div
+                      className="text-[#F4E0C2] inline-flex items-center cursor-pointer"
+                      onClick={(e) => {
+                        setProductsOpen(!productsOpen);
+                      }}
                     >
                       {item.label}
-                    </Link>
+                    </div>
 
-                    {/* ✅ Toggle */}
                     <button
                       type="button"
                       data-nav-toggle="true"
                       className="text-[#F4E0C2] inline-flex items-center"
                       onClick={(e) => {
                         e.preventDefault();
-                        e.stopPropagation();
-                        setProductsOpen((s) => !s);
+                        setProductsOpen(!productsOpen);
                       }}
                       aria-expanded={productsOpen}
                       aria-label="Toggle products menu"
@@ -224,7 +257,12 @@ export default function NavBar({ isOpen, setIsOpen }) {
                   {productsOpen && (
                     <div className="mx-4 my-3 bg-[#343434] rounded-bl-[18px] p-[14px]">
                       <div className="grid grid-cols-2 gap-x-[18px] gap-y-[12px]">
-                        {productLinks.map((p) => (
+                        {(productLinks.length > 0 ? productLinks : [
+                          { label: "Granite", href: "/products/Granite" },
+                          { label: "Marble", href: "/products/Marble" },
+                          { label: "Quartzite", href: "/products/Quartzite" },
+                          { label: "Quartz", href: "/products/Quartz" }
+                        ]).map((p) => (
                           <Link
                             key={p.label}
                             href={p.href}
@@ -256,7 +294,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
           })}
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

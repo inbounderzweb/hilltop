@@ -1,13 +1,26 @@
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'hilltop',
+declare global {
+    var db: any | undefined;
+}
+
+const pool = globalThis.db || mysql.createPool({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
+    connectTimeout: 20000, // Increase timeout slightly
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
 
-export default pool;
+if (process.env.NODE_ENV !== "production") {
+    globalThis.db = pool;
+}
+
+export const db = pool;

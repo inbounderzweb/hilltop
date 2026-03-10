@@ -59,13 +59,13 @@ export default function VisionaryLeaders() {
               {/* Image box */}
               <div className="relative w-full max-w-[320px] lg:max-w-none aspect-[4/4.6] rounded-2xl overflow-hidden bg-[#D9D9D9] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
                 {/* If you don’t have images yet, keep the grey box by leaving Image commented */}
-                <Image
+                {/* <Image
                   src={p.img}
                   alt={p.name}
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw"
-                />
+                /> */}
               </div>
 
               {/* Text */}
