@@ -1,11 +1,37 @@
+
+# for Localhost
+# version: 1
+# frontend:
+#   phases:
+#     preBuild:
+#       commands:
+#         - npm ci --cache .npm --prefer-offline
+#     build:
+#       commands:
+#         - npm run build
+#   artifacts:
+#     baseDirectory: .next
+#     files:
+#       - '**/*'
+#   cache:
+#     paths:
+#       - .next/cache/**/*
+#       - .npm/**/*
+
+
+
+# for production
+
+
 version: 1
 frontend:
   phases:
     preBuild:
       commands:
-        - npm ci --cache .npm --prefer-offline
+        - npm ci
     build:
       commands:
+        - env | grep -e DB_HOST -e DB_PORT -e DB_USER -e DB_PASSWORD -e DB_NAME -e DB_SSL >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
@@ -13,5 +39,5 @@ frontend:
       - '**/*'
   cache:
     paths:
+      - node_modules/**/*
       - .next/cache/**/*
-      - .npm/**/*
