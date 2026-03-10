@@ -27,7 +27,7 @@ const quicksand = Quicksand({
 export default function ProductDetails({ productId }) {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [activeImage, setActiveImage] = useState(null);
+    const [activeImage, setActiveImage] = useState({ url: null, link: null });
     const [error, setError] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
 
@@ -42,7 +42,11 @@ export default function ProductDetails({ productId }) {
 
                 if (data.success) {
                     setProduct(data.product);
-                    setActiveImage(data.product.image_url);
+                    // Set both URL and Link for the initial view
+                    setActiveImage({
+                        url: data.product.image_url,
+                        link: null // Main image currently doesn't have a separate link field
+                    });
 
                     // Fetch related products (same category)
                     const relatedRes = await fetch(`/api/products?t=${Date.now()}`);
@@ -129,16 +133,37 @@ export default function ProductDetails({ productId }) {
                     {/* Left: Gallery Section */}
                     <div className="lg:col-span-7 space-y-6">
                         <div className="relative aspect-[4/3] w-full bg-[#222222] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl group">
-                            <Image
-                                src={activeImage || product.image_url}
-                                alt={product.product_name}
-                                fill
-                                className="object-cover transition-all duration-700 ease-out group-hover:scale-105"
-                                priority
-                            />
+                            {activeImage.link ? (
+                                <a
+                                    href={activeImage.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block relative w-full h-full cursor-alias"
+                                >
+                                    <Image
+                                        src={activeImage.url || product.image_url}
+                                        alt={product.product_name}
+                                        fill
+                                        className="object-cover transition-all duration-700 ease-out group-hover:scale-105"
+                                        priority
+                                    />
+                                    {/* Link Indicator Overlay */}
+                                    <div className="absolute top-8 right-8 bg-[#eba14d] text-black w-12 h-12 rounded-2xl flex items-center justify-center shadow-2xl animate-bounce-subtle z-10">
+                                        <ExternalLink size={20} />
+                                    </div>
+                                </a>
+                            ) : (
+                                <Image
+                                    src={activeImage.url || product.image_url}
+                                    alt={product.product_name}
+                                    fill
+                                    className="object-cover transition-all duration-700 ease-out group-hover:scale-105"
+                                    priority
+                                />
+                            )}
 
                             {/* Overlay Controls */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         </div>
 
                         {/* Thumbnails */}
@@ -147,10 +172,10 @@ export default function ProductDetails({ productId }) {
                                 {allImages.map((img, idx) => (
                                     <div key={idx} className="relative">
                                         <button
-                                            onClick={() => setActiveImage(img.url)}
-                                            className={`relative w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all ${activeImage === img.url
-                                                    ? 'border-[#eba14d] scale-95 ring-4 ring-[#eba14d]/20'
-                                                    : 'border-white/5 grayscale-[50%] hover:grayscale-0 hover:border-white/20'
+                                            onClick={() => setActiveImage({ url: img.url, link: img.link })}
+                                            className={`relative w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all ${activeImage.url === img.url
+                                                ? 'border-[#eba14d] scale-95 ring-4 ring-[#eba14d]/20'
+                                                : 'border-white/5 grayscale-[50%] hover:grayscale-0 hover:border-white/20'
                                                 }`}
                                         >
                                             <Image
@@ -165,10 +190,10 @@ export default function ProductDetails({ productId }) {
                                                 href={img.link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="absolute -top-1 -right-1 w-6 h-6 bg-[#eba14d] text-black rounded-lg flex items-center justify-center shadow-lg hover:bg-white transition-colors"
+                                                className={`absolute -top-1 -right-1 w-7 h-7 bg-[#eba14d] text-black rounded-lg flex items-center justify-center shadow-lg hover:bg-white transition-colors z-10 ${activeImage.url === img.url ? 'ring-2 ring-black' : ''}`}
                                                 title="View Source"
                                             >
-                                                <ExternalLink size={10} />
+                                                <ExternalLink size={12} />
                                             </a>
                                         )}
                                     </div>

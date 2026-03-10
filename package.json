@@ -6,8 +6,7 @@
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "find node_modules -name \"lightningcss-darwin-x64\" -type d -exec sh -c 'cp \"$1/lightningcss.darwin-x64.node\" \"${1%/*}/lightningcss/lightningcss.darwin-x64.node\" 2>/dev/null || true' _ {} \\;"
+    "lint": "eslint"
   },
   "dependencies": {
     "@butterfail/tailwindcss-inverted-radius": "^0.1.2",
@@ -29,14 +28,10 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.21.0",
-    "@aws-amplify/backend-cli": "^1.8.2",
     "@tailwindcss/postcss": "^4",
     "@types/aws-lambda": "^8.10.161",
     "@types/node": "25.2.2",
     "@types/react": "19.2.13",
-    "aws-cdk-lib": "^2.234.1",
-    "constructs": "^10.5.1",
     "esbuild": "^0.27.3",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
