@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import a1 from "../../assets/testimonials/ts1.png";
 import a2 from "../../assets/testimonials/ts2.png";
@@ -160,7 +161,7 @@ export default function TestimonialsSlider() {
   return (
     <section className="w-full bg-[#1f1f1f] text-white py-14 md:py-20 overflow-hidden">
       <div className="mx-auto max-w-[1600px] px-4 md:px-10">
-        <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-[400]">
+        <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-normal">
           Testimonials
         </h2>
 
@@ -209,19 +210,29 @@ export default function TestimonialsSlider() {
             </div>
           </div>
 
-          {/* ✅ TABLET/DESKTOP: translateX slider */}
+          {/* ✅ TABLET/DESKTOP: dragging and touch enabled */}
           <div className="hidden md:block">
             <div className="overflow-hidden">
-              <div
-                className="flex gap-6 md:gap-7 transition-transform duration-700 ease-out will-change-transform"
-                style={{
-                  transform: `translateX(calc(-${index} * (min(440px, 88vw) + 28px)))`,
+              <motion.div
+                className="flex gap-6 md:gap-7 cursor-grab active:cursor-grabbing will-change-transform"
+                animate={{ x: `calc(-${index} * (min(440px, 88vw) + 28px))` }}
+                transition={{ type: "spring", stiffness: 170, damping: 26 }}
+                drag="x"
+                dragConstraints={{
+                  left: -maxIndex * (Math.min(440, window?.innerWidth * 0.88) + 28),
+                  right: 0
+                }}
+                dragElastic={0.1}
+                onDragEnd={(_, info) => {
+                  const swipeThreshold = 50;
+                  if (info.offset.x < -swipeThreshold) next();
+                  else if (info.offset.x > swipeThreshold) prev();
                 }}
               >
                 {testimonials.map((t) => (
                   <TestimonialCard key={t.id} t={t} />
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             <div className="mt-10 md:mt-12 flex items-center justify-between gap-6">

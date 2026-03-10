@@ -116,7 +116,7 @@ function MobileSlides({ slides, active, setActive, openLightbox }) {
         "
       >
         {/* Top shadow */}
-        <div className="pointer-events-none sticky top-0 z-10 h-12 bg-gradient-to-b from-black/50 to-transparent" />
+        <div className="pointer-events-none sticky top-0 z-10 h-12 bg-linear-to-b from-black/50 to-transparent" />
 
         <div className="grid grid-cols-1 gap-4">
           {slides.map((s, idx) => {
@@ -147,7 +147,7 @@ function MobileSlides({ slides, active, setActive, openLightbox }) {
         </div>
 
         {/* Bottom shadow */}
-        <div className="pointer-events-none sticky bottom-0 -mt-[4.5rem] rounded-[5px] z-10 h-12 bg-gradient-to-t from-black to-transparent via-10%" />
+        <div className="pointer-events-none sticky bottom-0 -mt-18 rounded-[5px] z-10 h-12 bg-linear-to-t from-black to-transparent via-10%" />
       </div>
     </div>
   );
@@ -362,7 +362,7 @@ export default function CollectionsScrollSlider() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center text-white/90 text-[28px] md:text-[40px] font-[400]"
+          className="text-center text-white/90 text-[28px] md:text-[40px] font-normal"
         >
           A Quiet Balance Of Strength &amp; Beauty
         </motion.h2>
@@ -378,13 +378,13 @@ export default function CollectionsScrollSlider() {
             <motion.div
               data-track="true"
               className="flex gap-7 will-change-transform"
-              animate={!isMobile ? { x: translateXStyle } : undefined}
-              transition={!isMobile ? smoothSpring : undefined}
-              style={isMobile ? { x } : undefined}
-              drag={isMobile ? "x" : false}
-              dragElastic={0.08}
-              dragMomentum={true}
-              onDragEnd={isMobile ? onDragEndMobile : undefined}
+              animate={!isMobile ? { x: translateXStyle } : { x: -active * stepPxRef.current }}
+              transition={smoothSpring}
+              drag="x"
+              dragConstraints={{ left: -maxActive * stepPxRef.current, right: 0 }}
+              dragElastic={0.1}
+              dragMomentum={false}
+              onDragEnd={onDragEndMobile}
             >
               {slides.map((s, idx) => {
                 const isActiveCard = idx === active;
@@ -442,44 +442,44 @@ export default function CollectionsScrollSlider() {
             </motion.div>
           </div>
 
-        <div className="max-w-[1400px] mx-auto px-4 md:px-10 mt-8 relative flex items-center">
-  {/* Center CTA */}
-  <motion.button
-    type="button"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-    className="
+          <div className="max-w-[1400px] mx-auto px-4 md:px-10 mt-8 relative flex items-center">
+            {/* Center CTA */}
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="
       absolute left-1/2 -translate-x-1/2
-      rounded-[10px] px-6 py-3 font-[600] text-[#1b1b1b]
+      rounded-[10px] px-6 py-3 font-semibold text-[#1b1b1b]
       bg-[#c79a3a] hover:bg-[#d2a241] transition
     "
-  >
-    Explore Collections
-  </motion.button>
+            >
+              Explore Collections
+            </motion.button>
 
-  {/* Right arrows */}
-  <div className="ml-auto hidden md:flex items-center gap-3">
-    <button
-      type="button"
-      onClick={prev}
-      disabled={active === 0}
-      className="h-10 w-10 disabled:opacity-30 disabled:cursor-not-allowed transition"
-      aria-label="Previous"
-    >
-      <ArrowLeft />
-    </button>
+            {/* Right arrows */}
+            <div className="ml-auto hidden md:flex items-center gap-3">
+              <button
+                type="button"
+                onClick={prev}
+                disabled={active === 0}
+                className="h-10 w-10 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                aria-label="Previous"
+              >
+                <ArrowLeft />
+              </button>
 
-    <button
-      type="button"
-      onClick={next}
-      disabled={active === maxActive}
-      className="h-10 w-10 disabled:opacity-30 disabled:cursor-not-allowed transition"
-      aria-label="Next"
-    >
-      <ArrowRight />
-    </button>
-  </div>
-</div>
+              <button
+                type="button"
+                onClick={next}
+                disabled={active === maxActive}
+                className="h-10 w-10 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                aria-label="Next"
+              >
+                <ArrowRight />
+              </button>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -488,7 +488,7 @@ export default function CollectionsScrollSlider() {
       <AnimatePresence>
         {lightboxOpen && (
           <motion.div
-            className="fixed inset-0 z-[2000] bg-black/80 backdrop-blur-sm flex items-center justify-center px-4"
+            className="fixed inset-0 z-2000 bg-black/80 backdrop-blur-sm flex items-center justify-center px-4"
             onClick={closeLightbox}
             role="dialog"
             aria-modal="true"
@@ -497,7 +497,7 @@ export default function CollectionsScrollSlider() {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="relative w-full max-w-[1100px] aspect-[16/9] bg-black rounded-[16px] overflow-hidden"
+              className="relative w-full max-w-[1100px] aspect-video bg-black rounded-[16px] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

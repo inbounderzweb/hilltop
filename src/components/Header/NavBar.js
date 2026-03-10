@@ -37,7 +37,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
       { label: "Our Story", href: "/about" },
       { label: "Products", href: "/products", isProducts: true },
       { label: "Live Inventory", href: "https://hilltopstones.stoneprofitsweb.com/" },
-      { label: "Blog & FAQ", href: "/blogs" },
+      { label: "Blogs & FAQs", href: "/blogs" },
       { label: "Career", href: "/career" },
       { label: "Locate Us", href: "/locate" },
     ],
@@ -91,7 +91,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="relative z-[999]"
+      className="relative z-999"
     >
       {/* ================= DESKTOP PILL NAV ================= */}
       <nav

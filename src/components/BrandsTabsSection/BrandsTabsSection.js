@@ -14,8 +14,8 @@ export default function BrandsTabsSection() {
   const [tab, setTab] = useState("India");
 
   // colors
-  const CARD = "white";  // big box
-  const STRIP = "#f7efe2"; // tab strip background
+  const CARD = "white";
+  const STRIP = "#181818"; // Deep neutral for a "recessed" inactive base
 
   const data = useMemo(
     () => ({
@@ -128,19 +128,26 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
       type="button"
       onClick={onClick}
       className={[
-        "relative flex-1 h-[50px] md:h-[86px]",
-        "flex items-center justify-center",
-        "text-[#a06a22] text-[22px] md:text-[28px] font-[500]",
-        "transition-all duration-600",
-        active ? "z-[2]" : "z-[1] opacity-90 hover:opacity-100",
+        "relative flex-1 h-[50px] md:h-[86px] overflow-hidden",
+        "flex items-center justify-center transition-all duration-700 text-[22px] md:text-[28px]",
+        active
+          ? "text-[#DA9C39] font-bold z-[2] scale-100 opacity-100"
+          : "text-white/60 font-medium z-[1] scale-[0.97] opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0"
       ].join(" ")}
       style={{
         background: active ? cardColor : stripColor,
       }}
       aria-pressed={active}
     >
-
-      {label}
+      <span className="relative flex flex-col items-center">
+        {label}
+        <span
+          className={[
+            "mt-1 w-12 h-[3px] bg-[#DA9C39] rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(218,156,57,0.7)]",
+            active ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-0"
+          ].join(" ")}
+        />
+      </span>
     </button>
   );
 }

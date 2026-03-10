@@ -42,8 +42,8 @@ export default function EngineeredSurface() {
           {/* Block 1: Image left, text right */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
             <div className="md:col-span-7">
-              <div className="relative w-full overflow-hidden rounded-[0px]">
-                <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px]">
+              <div className="relative w-full overflow-hidden rounded-[18px]">
+                <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px] hover:transform transition-[transform,scale] duration-500 ease-in-out hover:scale-[1.02]">
                   <Image
                     src={eng1}
                     alt="Engineering image - 1"
@@ -85,8 +85,8 @@ export default function EngineeredSurface() {
             <div className="md:col-span-7 order-1 md:order-2">
               {/* slight offset like reference */}
               <div className="md:ml-auto md:w-[92%]">
-                <div className="relative w-full overflow-hidden rounded-[0px]">
-                  <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px]">
+                <div className="relative w-full overflow-hidden rounded-[18px]">
+                  <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px] hover:transform transition-[transform,scale] duration-500 ease-in-out hover:scale-[1.02]">
                     <Image
                       src={eng2}
                       alt="Engineering image - 2"
@@ -103,8 +103,8 @@ export default function EngineeredSurface() {
           {/* Block 3: Image left, text right */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
             <div className="md:col-span-7">
-              <div className="relative w-full overflow-hidden rounded-[0px]">
-                <div className="relative w-full h-[240px] sm:h-[300px] md:h-[420px]">
+              <div className="relative w-full overflow-hidden rounded-[18px]">
+                <div className="relative w-full h-[240px] sm:h-[300px] md:h-[420px] hover:transform transition-[transform,scale] duration-500 ease-in-out hover:scale-[1.02]">
                   <Image
                     src={eng3}
                     alt="Engineering image - 3"

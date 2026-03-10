@@ -24,10 +24,10 @@ export default function Footer() {
           {/* Left: Logo + Locations */}
           <div>
             <div className="w-[220px]">
-              <Image src={logo} alt="HILLTOP" className="h-auto w-full" priority />
+              <Image src={logo} alt="HILLTOP" className="h-auto w-full -ml-3" priority />
             </div>
 
-            <div className="mt-7 space-y-6">
+            <div className="mt-7 space-y-3">
               <FooterBlock title="INDIA">
                 <FooterLink href="/india/head-quarters">Head Quarters</FooterLink>
                 <FooterLink href="/india/factory">Factory</FooterLink>
@@ -204,12 +204,12 @@ function FooterBlock({ title, children }) {
 }
 
 function FooterLink({ href, children, muted }) {
-  return (
+  return ( 
     <Link
       href={href}
       className={[
         muted ? "text-white/75" : "text-[#d7a447]",
-        "text-[14px] tracking-wide hover:opacity-100 hover:text-white transition",
+        "text-[14px] tracking-wide hover:opacity-100 hover:text-white pr-[6px] transition",
         "inline-block",
       ].join(" ")}
     >

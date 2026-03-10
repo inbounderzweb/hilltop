@@ -132,7 +132,7 @@ export default function ProductDetails({ productId }) {
 
                     {/* Left: Gallery Section */}
                     <div className="lg:col-span-7 space-y-6">
-                        <div className="relative aspect-[4/3] w-full bg-[#222222] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl group">
+                        <div className="relative aspect-4/3 w-full bg-[#222222] rounded-4xl overflow-hidden border border-white/5 shadow-2xl group">
                             {activeImage.link ? (
                                 <a
                                     href={activeImage.link}
@@ -163,7 +163,7 @@ export default function ProductDetails({ productId }) {
                             )}
 
                             {/* Overlay Controls */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         </div>
 
                         {/* Thumbnails */}
@@ -175,7 +175,7 @@ export default function ProductDetails({ productId }) {
                                             onClick={() => setActiveImage({ url: img.url, link: img.link })}
                                             className={`relative w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all ${activeImage.url === img.url
                                                 ? 'border-[#eba14d] scale-95 ring-4 ring-[#eba14d]/20'
-                                                : 'border-white/5 grayscale-[50%] hover:grayscale-0 hover:border-white/20'
+                                                : 'border-white/5 grayscale-50 hover:grayscale-0 hover:border-white/20'
                                                 }`}
                                         >
                                             <Image
@@ -233,7 +233,7 @@ export default function ProductDetails({ productId }) {
 
                             <div className="pt-10 border-t border-white/5 space-y-6">
                                 <div className="flex items-center gap-6">
-                                    <button className="flex-1 bg-[#eba14d] text-black h-16 rounded-[1.5rem] font-bold text-sm uppercase tracking-widest hover:bg-white transition-all shadow-xl shadow-[#eba14d]/10 transform hover:-translate-y-1 active:scale-95">
+                                    <button className="flex-1 bg-[#eba14d] text-black h-16 rounded-3xl font-bold text-sm uppercase tracking-widest hover:bg-white transition-all shadow-xl shadow-[#eba14d]/10 transform hover:-translate-y-1 active:scale-95">
                                         Inquire Now
                                     </button>
                                 </div>
@@ -258,8 +258,8 @@ export default function ProductDetails({ productId }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {relatedProducts.map((p) => (
                                 <Link key={p.id} href={`/products/details/${p.id}`} className="group">
-                                    <div className="bg-[#222222] border border-white/5 rounded-[2rem] p-4 hover:border-[#eba14d]/20 transition-all duration-500">
-                                        <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-4 bg-[#1a1a1a]">
+                                    <div className="bg-[#222222] border border-white/5 rounded-4xl p-4 hover:border-[#eba14d]/20 transition-all duration-500">
+                                        <div className="relative aspect-4/3 rounded-3xl overflow-hidden mb-4 bg-[#1a1a1a]">
                                             <Image
                                                 src={p.image_url}
                                                 alt={p.product_name}
@@ -283,7 +283,7 @@ export default function ProductDetails({ productId }) {
 
 function InfoCard({ icon, label, value }) {
     return (
-        <div className="bg-[#222222] border border-white/5 p-6 rounded-[2rem] hover:border-[#eba14d]/20 transition-all group">
+        <div className="bg-[#222222] border border-white/5 p-6 rounded-4xl hover:border-[#eba14d]/20 transition-all group">
             <div className="mb-4 w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#eba14d]/10 transition-colors">
                 {icon}
             </div>

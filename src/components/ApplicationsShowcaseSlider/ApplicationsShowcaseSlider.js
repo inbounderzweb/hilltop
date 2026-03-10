@@ -151,7 +151,7 @@ export default function ApplicationsTabbedSlider() {
                   type="button"
                   onClick={() => setTab(idx)}
                   className={[
-                    "relative text-[28px] font-[400] tracking-wide",
+                    "relative text-[28px] font-normal tracking-wide",
                     "transition-colors duration-300",
                     isActive ? "text-[#b6842c]" : "text-white/85 hover:text-white",
                   ].join(" ")}
@@ -184,7 +184,7 @@ export default function ApplicationsTabbedSlider() {
                   onClick={() => setTab(idx)}
                   className={[
                     "relative shrink-0",
-                    "text-[26px] font-[400] tracking-wide",
+                    "text-[26px] font-normal tracking-wide",
                     "transition-colors duration-300",
                     isActive ? "text-[#b6842c]" : "text-white/90",
                   ].join(" ")}
@@ -209,17 +209,24 @@ export default function ApplicationsTabbedSlider() {
         {/* ✅ MOBILE: Image full-width, no right preview */}
         {!isDesktop ? (
           <div className="w-full">
-            <div className="relative w-full aspect-[4/3] overflow-hidden bg-black px-4 pt-4">
+            <div className="relative w-full aspect-4/3 overflow-hidden bg-black px-4 pt-4">
               <div className="relative w-full h-full overflow-hidden bg-black">
                 <AnimatePresence initial={false} mode="wait">
                   <motion.div
                     key={`${activeTab.key}-${activeSlide.key}`}
-                    className="absolute inset-0"
+                    className="absolute inset-0 cursor-grab active:cursor-grabbing"
                     onAnimationStart={() => (isAnimatingRef.current = true)}
                     onAnimationComplete={() => (isAnimatingRef.current = false)}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={(_, info) => {
+                      if (info.offset.x < -50) next();
+                      else if (info.offset.x > 50) prev();
+                    }}
                   >
                     <motion.div
-                      className="absolute inset-0"
+                      className="absolute inset-0 pointer-events-none select-none"
                       initial={{ opacity: 0, scale: 1.03 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 1.02 }}
@@ -232,6 +239,7 @@ export default function ApplicationsTabbedSlider() {
                         priority
                         className="object-cover"
                         sizes="100vw"
+                        draggable={false}
                       />
                     </motion.div>
                   </motion.div>
@@ -264,17 +272,24 @@ export default function ApplicationsTabbedSlider() {
         ) : (
           /* ✅ DESKTOP: preview strip + bottom bar */
           <div className="w-full">
-            <div className="relative w-full aspect-[16/6] overflow-hidden bg-black">
+            <div className="relative w-full aspect-16/6 overflow-hidden bg-black">
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={`${activeTab.key}-${activeSlide.key}`}
-                  className="absolute inset-0"
+                  className="absolute inset-0 cursor-grab active:cursor-grabbing"
                   onAnimationStart={() => (isAnimatingRef.current = true)}
                   onAnimationComplete={() => (isAnimatingRef.current = false)}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(_, info) => {
+                    if (info.offset.x < -50) next();
+                    else if (info.offset.x > 50) prev();
+                  }}
                 >
                   {/* Main */}
                   <motion.div
-                    className="absolute inset-0"
+                    className="absolute inset-0 pointer-events-none select-none"
                     initial={{ opacity: 0, scale: 1.03 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.02 }}
@@ -287,12 +302,13 @@ export default function ApplicationsTabbedSlider() {
                       priority
                       className="object-cover"
                       sizes="1500px"
+                      draggable={false}
                     />
                   </motion.div>
 
                   {/* Right preview */}
                   <motion.div
-                    className="absolute right-0 top-0 h-full w-[26%] overflow-hidden"
+                    className="absolute right-0 top-0 h-full w-[26%] overflow-hidden pointer-events-none select-none"
                     initial={{ x: dir > 0 ? 80 : -80, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: dir > 0 ? -60 : 60, opacity: 0 }}
@@ -305,14 +321,15 @@ export default function ApplicationsTabbedSlider() {
                         fill
                         className="object-cover"
                         sizes="400px"
+                        draggable={false}
                       />
                     </div>
-                    <div className="absolute left-0 top-0 h-full w-[12px] bg-gradient-to-r from-black/40 to-transparent" />
+                    <div className="absolute left-0 top-0 h-full w-[12px] bg-linear-to-r from-black/40 to-transparent" />
                   </motion.div>
 
                   {/* sweep */}
                   <motion.div
-                    className="pointer-events-none absolute inset-y-0 -left-[35%] w-[35%] bg-gradient-to-r from-transparent via-white/10 to-transparent blur-[2px]"
+                    className="pointer-events-none absolute inset-y-0 -left-[35%] w-[35%] bg-linear-to-r from-transparent via-white/10 to-transparent blur-[2px]"
                     initial={{ x: 0, opacity: 0 }}
                     animate={{ x: "220%", opacity: [0, 1, 0] }}
                     transition={{ duration: 1.2, ease: "easeInOut", delay: 0.15 }}
@@ -383,16 +400,16 @@ if (typeof document !== "undefined") {
 
 function ArrowLeft() {
   return (
-     <div>
-    <Image  src={LeftArrow} alt="left-arrow" />
-   </div>
+    <div>
+      <Image src={LeftArrow} alt="left-arrow" />
+    </div>
   );
 }
 
 function ArrowRight() {
   return (
-   <div>
-    <Image  src={RightArrow} alt="right-arrow" />
-   </div>
+    <div>
+      <Image src={RightArrow} alt="right-arrow" />
+    </div>
   );
 }

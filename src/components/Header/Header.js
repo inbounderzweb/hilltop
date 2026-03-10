@@ -16,7 +16,7 @@ export default function Header() {
   const handleToggle = () => setMenuOpen((v) => !v);
 
   return (
-    <header className="fixed top-0 text-[#F4E0C2] left-0 w-full z-[999] bg-black">
+    <header className="fixed top-0 text-[#F4E0C2] left-0 w-full z-50 bg-black">
       {/* Top bar: centered logo + right toggle button */}
       <div className="relative flex items-center justify-between lg:justify-center pt-[22px] pb-[10px]">
         <div className="inline-flex items-center justify-center">
@@ -29,7 +29,7 @@ export default function Header() {
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={handleToggle}
-          className="absolute right-[28px] top-[18px] inline-flex items-center justify-center pt-3 text-[#F4E0C2] bg-transparent border-0 cursor-pointer z-[1002]"
+          className="absolute right-[28px] top-[18px] inline-flex items-center justify-center pt-3 text-[#F4E0C2] bg-transparent border-0 cursor-pointer z-1002"
         >
           {menuOpen ? <CloseIcon /> : <HamburgerIcon />}
         </button>
@@ -57,4 +57,3 @@ function CloseIcon() {
     </div>
   );
 }
-// test
