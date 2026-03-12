@@ -219,7 +219,7 @@ export default function TestimonialsSlider() {
                 transition={{ type: "spring", stiffness: 170, damping: 26 }}
                 drag="x"
                 dragConstraints={{
-                  left: -maxIndex * (Math.min(440, window?.innerWidth * 0.88) + 28),
+                  left: -maxIndex * (Math.min(440, (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.88) + 28),
                   right: 0
                 }}
                 dragElastic={0.1}

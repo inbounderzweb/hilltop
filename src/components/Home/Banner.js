@@ -51,7 +51,7 @@ export default function FadeBanner() {
   const prev = () => setActive((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="relative w-full h-[650px] md:h-[880px] overflow-hidden group touch-pan-y">
+    <section className="relative w-full h-[650px] md:h-[950px] overflow-hidden group touch-pan-y">
       <motion.div
         className="w-full h-full cursor-grab active:cursor-grabbing"
         drag="x"
