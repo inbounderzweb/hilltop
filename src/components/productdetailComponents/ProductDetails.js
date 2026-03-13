@@ -104,178 +104,155 @@ export default function ProductDetails({ productId }) {
     ];
 
     return (
-        <div className={`min-h-screen bg-[#1b1b1b] text-white py-20 ${quicksand.className}`}>
-            <div className="mx-auto w-[95%] xl:w-[85%] px-4">
+        <div className="min-h-screen bg-[#1b1b1b] text-white py-14 md:py-20">
+            <div className="mx-auto w-[92%] xl:w-[85%] max-w-[1400px]">
 
-                {/* Navigation / Header */}
-                <div className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <Link
-                        href="/products"
-                        className="group inline-flex items-center gap-2 text-white/40 hover:text-[#eba14d] transition-colors"
-                    >
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#eba14d]/10 transition-all border border-white/5 group-hover:border-[#eba14d]/20">
-                            <ArrowLeft size={18} />
-                        </div>
-                        <span className="font-bold uppercase tracking-widest text-[11px]">Back to Collection</span>
-                    </Link>
-
-                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/20">
-                        <span className="hover:text-white transition-colors cursor-default">Products</span>
-                        <ChevronRight size={10} />
-                        <span className="hover:text-white transition-colors cursor-default">{product.category}</span>
-                        <ChevronRight size={10} />
-                        <span className="text-[#eba14d]">{product.product_name}</span>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
                     {/* Left: Gallery Section */}
-                    <div className="lg:col-span-7 space-y-6">
-                        <div className="relative aspect-4/3 w-full bg-[#222222] rounded-4xl overflow-hidden border border-white/5 shadow-2xl group">
-                            {activeImage.link ? (
-                                <a
-                                    href={activeImage.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block relative w-full h-full cursor-alias"
-                                >
-                                    <Image
-                                        src={activeImage.url || product.image_url}
-                                        alt={product.product_name}
-                                        fill
-                                        className="object-cover transition-all duration-700 ease-out group-hover:scale-105"
-                                        priority
-                                    />
-                                    {/* Link Indicator Overlay */}
-                                    <div className="absolute top-8 right-8 bg-[#eba14d] text-black w-12 h-12 rounded-2xl flex items-center justify-center shadow-2xl animate-bounce-subtle z-10">
-                                        <ExternalLink size={20} />
-                                    </div>
-                                </a>
-                            ) : (
-                                <Image
-                                    src={activeImage.url || product.image_url}
-                                    alt={product.product_name}
-                                    fill
-                                    className="object-cover transition-all duration-700 ease-out group-hover:scale-105"
-                                    priority
-                                />
-                            )}
+                    <div className="space-y-6">
+                        <div className="relative aspect-4/3 w-full bg-[#222222] rounded-xl overflow-hidden shadow-2xl group">
+                            <Image
+                                src={activeImage.url || product.image_url}
+                                alt={product.product_name}
+                                fill
+                                className="object-cover"
+                                priority
+                            />
 
-                            {/* Overlay Controls */}
-                            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            {/* Navigation Arrows inside image */}
+                            <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none">
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        const currentIndex = allImages.findIndex(img => img.url === activeImage.url);
+                                        const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+                                        setActiveImage(allImages[prevIndex]);
+                                    }}
+                                    className="w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center backdrop-blur-sm border border-white/20 hover:bg-[#eba14d] hover:text-black transition-all pointer-events-auto"
+                                >
+                                    <ChevronLeft size={24} />
+                                </button>
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        const currentIndex = allImages.findIndex(img => img.url === activeImage.url);
+                                        const nextIndex = (currentIndex + 1) % allImages.length;
+                                        setActiveImage(allImages[nextIndex]);
+                                    }}
+                                    className="w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center backdrop-blur-sm border border-white/20 hover:bg-[#eba14d] hover:text-black transition-all pointer-events-auto"
+                                >
+                                    <ChevronRight size={24} />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Thumbnails */}
                         {allImages.length > 1 && (
-                            <div className="flex flex-wrap gap-4 pt-2">
+                            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
                                 {allImages.map((img, idx) => (
-                                    <div key={idx} className="relative">
-                                        <button
-                                            onClick={() => setActiveImage({ url: img.url, link: img.link })}
-                                            className={`relative w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all ${activeImage.url === img.url
-                                                ? 'border-[#eba14d] scale-95 ring-4 ring-[#eba14d]/20'
-                                                : 'border-white/5 grayscale-50 hover:grayscale-0 hover:border-white/20'
-                                                }`}
-                                        >
-                                            <Image
-                                                src={img.url}
-                                                alt={`${product.product_name} gallery ${idx}`}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </button>
-                                        {img.link && (
-                                            <a
-                                                href={img.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`absolute -top-1 -right-1 w-7 h-7 bg-[#eba14d] text-black rounded-lg flex items-center justify-center shadow-lg hover:bg-white transition-colors z-10 ${activeImage.url === img.url ? 'ring-2 ring-black' : ''}`}
-                                                title="View Source"
-                                            >
-                                                <ExternalLink size={12} />
-                                            </a>
-                                        )}
-                                    </div>
+                                    <button
+                                        key={idx}
+                                        onClick={() => setActiveImage({ url: img.url, link: img.link })}
+                                        className={`relative w-24 aspect-4/3 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeImage.url === img.url
+                                            ? 'border-[#eba14d]'
+                                            : 'border-transparent opacity-60 hover:opacity-100'
+                                            }`}
+                                    >
+                                        <Image
+                                            src={img.url}
+                                            alt={`${product.product_name} thumbnail ${idx}`}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </button>
                                 ))}
                             </div>
                         )}
                     </div>
 
                     {/* Right: Info Section */}
-                    <div className="lg:col-span-5 flex flex-col justify-center">
-                        <div className="space-y-8">
-                            <div>
-                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#eba14d]/10 border border-[#eba14d]/20 rounded-full mb-6">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#eba14d] animate-pulse" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#eba14d]">{product.category}</span>
-                                </div>
-                                <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6 tracking-tight">
-                                    {product.product_name}
-                                </h1>
-                                <p className="text-white/40 text-lg leading-relaxed font-medium">
-                                    {product.description}
-                                </p>
-                            </div>
+                    <div className="flex flex-col pt-4">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-normal mb-8 tracking-wide">
+                            {product.product_name}
+                        </h1>
 
-                            <div className="grid grid-cols-2 gap-4 lg:gap-6">
-                                <InfoCard
-                                    icon={<Globe size={20} className="text-[#eba14d]" />}
-                                    label="Origin"
-                                    value={product.origin}
-                                />
-                                <InfoCard
-                                    icon={<Palette size={20} className="text-[#eba14d]" />}
-                                    label="Color Family"
-                                    value={product.color_family}
-                                />
-                            </div>
+                        <p className={`text-white/70 text-base md:text-lg leading-relaxed mb-10 max-w-xl ${quicksand.className}`}>
+                            {product.description || `In 1989, Kamal Giria and Nilesh Giria set out with a vision to create a trusted brand in the stone industry. Their pursuit of excellence led to the establishment of Hill Top, which today stands as one of India's largest manufacturers of granite, marble, and quartz. Now flaunting over three decades of expertise, Hill Top has earned loyalty and recognition from a growing customer base across the world.`}
+                        </p>
 
-                            <div className="pt-10 border-t border-white/5 space-y-6">
-                                <div className="flex items-center gap-6">
-                                    <button className="flex-1 bg-[#eba14d] text-black h-16 rounded-3xl font-bold text-sm uppercase tracking-widest hover:bg-white transition-all shadow-xl shadow-[#eba14d]/10 transform hover:-translate-y-1 active:scale-95">
-                                        Inquire Now
-                                    </button>
-                                </div>
-                                <p className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-white/20">
-                                    Genuine {product.category} curated for Hilltop
-                                </p>
+                        <div className="border-t border-white/20 pt-8 space-y-6">
+                            <div className="grid grid-cols-2 pb-6 border-b border-white/10">
+                                <span className="text-[#DA9C39] text-xl font-medium">Category</span>
+                                <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.category}</span>
                             </div>
+                            <div className="grid grid-cols-2 pb-6 border-b border-white/10">
+                                <span className="text-[#DA9C39] text-xl font-medium">Colour</span>
+                                <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.base_color || product.color_family || "N/A"}</span>
+                            </div>
+                            <div className="grid grid-cols-2 pb-6">
+                                <span className="text-[#DA9C39] text-xl font-medium">Origin</span>
+                                <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.origin}</span>
+                            </div>
+                        </div>
+
+                        <div className="mt-10">
+                            <Link href="/locate" className="inline-block">
+                                <button className={`bg-[#DA9C39] text-black px-12 py-4 rounded-xl font-bold hover:brightness-110 transition-all active:scale-95 ${quicksand.className}`}>
+                                    Contact us
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
 
-                {/* Related Products Section */}
-                {relatedProducts.length > 0 && (
-                    <div className="mt-32 pt-20 border-t border-white/5">
-                        <h3 className="text-3xl md:text-4xl font-bold mb-12 flex items-center justify-between">
-                            <span>You May Also Like</span>
-                            <Link href="/products" className="text-sm text-[#eba14d] hover:text-white transition-colors flex items-center gap-2">
-                                View All <ArrowRight size={16} />
-                            </Link>
-                        </h3>
+                {/* Related Section */}
+                <div className="mt-32">
+                    <div className="text-center mb-16">
+                        <div className="w-full h-px bg-white/20 mb-16"></div>
+                        <h2 className="text-4xl md:text-5xl lg:text-7xl font-normal">
+                            You may also like
+                        </h2>
+                    </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {relatedProducts.map((p) => (
-                                <Link key={p.id} href={`/products/details/${p.id}`} className="group">
-                                    <div className="bg-[#222222] border border-white/5 rounded-4xl p-4 hover:border-[#eba14d]/20 transition-all duration-500">
-                                        <div className="relative aspect-4/3 rounded-3xl overflow-hidden mb-4 bg-[#1a1a1a]">
-                                            <Image
-                                                src={p.image_url}
-                                                alt={p.product_name}
-                                                fill
-                                                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                            />
-                                        </div>
-                                        <h4 className="font-bold text-lg group-hover:text-[#eba14d] transition-colors">{p.product_name}</h4>
-                                        <p className="text-white/20 text-xs font-bold uppercase tracking-widest mt-1">{p.origin}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {relatedProducts.length > 0 ? (
+                            relatedProducts.map((p) => (
+                                <Link key={p.id} href={`/products/details/${p.id}`} className="group block">
+                                    <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-4">
+                                        <Image
+                                            src={p.image_url}
+                                            alt={p.product_name}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                                        <span className="text-white text-lg font-normal">
+                                            {p.product_name}
+                                        </span>
+                                        <ArrowRight size={18} className="text-white" />
                                     </div>
                                 </Link>
-                            ))}
-                        </div>
+                            ))
+                        ) : (
+                            // Fallback dummy items for design accuracy if no related products
+                            [1, 2, 3, 4].map((i) => (
+                                <div key={i} className="group cursor-pointer">
+                                    <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-4 bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-700">
+                                        <div className="absolute inset-0 flex items-center justify-center text-white/10 italic">Stone Visual</div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-white text-lg font-normal">
+                                            Cosmopolitan
+                                        </span>
+                                        <ArrowRight size={18} className="text-white" />
+                                    </div>
+                                </div>
+                            ))
+                        )}
                     </div>
-                )}
-
+                </div>
             </div>
         </div>
     )

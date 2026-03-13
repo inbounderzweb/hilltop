@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Package, Layers, Palette, Loader2, ArrowRight } from 'lucide-react';
+import { Package, Layers, Palette, Loader2, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function DashboardOverview({ setActiveTab }) {
-    const [stats, setStats] = useState({ products: 0, categories: 0, variations: 0 });
+    const [stats, setStats] = useState({ products: 0, categories: 0, variations: 0, blogs: 0 });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -46,46 +46,102 @@ export default function DashboardOverview({ setActiveTab }) {
             icon: <Palette className="text-[#eba14d]" size={24} />,
             tab: 'variations',
             label: "Variations"
+        },
+        {
+            title: "Blog Stories",
+            value: stats.blogs,
+            icon: <BookOpen className="text-[#eba14d]" size={24} />,
+            tab: 'blogs-list',
+            label: "Blogs"
         }
     ];
 
     return (
-        <div className="animate-in fade-in duration-500">
-            <div className="flex justify-between items-center mb-10">
-                <h1 className="text-3xl font-semibold tracking-wide text-white">
-                    Dashboard Overview
-                </h1>
-                {loading && <Loader2 size={24} className="animate-spin text-[#eba14d]" />}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="space-y-8">
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {statCards.map((card, idx) => (
                     <button
                         key={idx}
                         onClick={() => setActiveTab(card.tab)}
-                        className="bg-[#222222] p-8 rounded-3xl border border-white/5 hover:border-[#eba14d]/40 transition-all shadow-xl group text-left relative overflow-hidden flex flex-col justify-between"
+                        className="group relative bg-[#151515] hover:bg-[#1a1a1a] p-4 rounded-xl border border-white/5 hover:border-[#eba14d]/30 transition-all duration-500 shadow-2xl text-left overflow-hidden flex flex-col min-h-[130px]"
                     >
-                        {/* Background Decoration */}
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-                            {card.icon}
-                        </div>
+                        {/* Background Decor */}
+                        {/* <div className="absolute -right-2 -top-2 text-white/5 group-hover:text-[#eba14d]/5 transition-colors duration-500 transform group-hover:scale-110">
+                            {React.cloneElement(card.icon, { size: 60 })}
+                        </div> */}
 
-                        <div>
-                            <div className="bg-white/5 w-12 h-12 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-[#eba14d]/10 transition-colors">
-                                {card.icon}
+                        <div className="relative z-10 flex flex-col h-full">
+                            <div className="flex items-center justify-between mb-auto">
+                                <div className="p-1.5 bg-white/5 rounded-lg border border-white/5 group-hover:border-[#eba14d]/20 transition-all">
+                                    {React.cloneElement(card.icon, { size: 14, className: "text-white/40 group-hover:text-[#eba14d] transition-colors" })}
+                                </div>
+                                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ArrowRight size={12} className="text-[#eba14d]" />
+                                </div>
                             </div>
-                            <h3 className="text-white/50 text-sm font-medium uppercase tracking-widest mb-2">{card.title}</h3>
-                            <p className="text-5xl font-bold text-white group-hover:text-[#eba14d] transition-colors leading-none">
-                                {loading ? "..." : card.value}
-                            </p>
+
+                            <div className="mt-2.5">
+                                <div className="text-xl font-bold text-white tracking-tight leading-none mb-1">
+                                    {loading ? (
+                                        <div className="h-5 w-8 bg-white/5 animate-pulse rounded" />
+                                    ) : (
+                                        card.value
+                                    )}
+                                </div>
+                                <div className="text-white/40 text-[8px] font-black uppercase tracking-[0.2em] leading-none">
+                                    {card.title}
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="mt-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/30 group-hover:text-[#eba14d] transition-colors">
-                            Manage {card.label}
-                            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        {/* Progress Bar Decor */}
+                        <div className="absolute bottom-0 left-0 h-[2px] bg-[#eba14d]/20 w-full">
+                            <div className="h-full bg-[#eba14d] w-0 group-hover:w-full transition-all duration-700 ease-out" />
                         </div>
                     </button>
                 ))}
+            </div>
+
+            {/* Quick Actions / Getting Started (Placeholder for future) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-2">
+                <div className="lg:col-span-2 bg-[#151515] border border-white/5 rounded-xl p-6">
+                    <div className="text-white font-bold text-sm mb-1">Inventory Health</div>
+                    <div className="text-white/20 text-[10px] font-medium mb-4">Manage your slabs and categories to keep your catalogue up to date.</div>
+
+                    <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3.5 bg-white/5 rounded-xl border border-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                                <span className="text-xs font-medium">Database Synced</span>
+                            </div>
+                            <span className="text-[9px] font-bold text-white/30 uppercase">Just Now</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 bg-white/5 rounded-xl border border-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#eba14d]" />
+                                <span className="text-xs font-medium">Active Categories</span>
+                            </div>
+                            <span className="text-[9px] font-bold text-white/30 uppercase">{stats.categories} Total</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-[#eba14d]/10 border border-[#eba14d]/10 rounded-xl p-6 flex flex-col justify-center relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-6 opacity-10">
+                        <Palette size={80} className="text-[#eba14d]" />
+                    </div>
+                    <div className="text-[#eba14d] font-bold text-sm mb-1">Customization</div>
+                    <div className="text-[#eba14d]/60 text-[10px] font-medium mb-5 leading-relaxed">
+                        Add new variations and color families to provide more choices to your customers.
+                    </div>
+                    <button
+                        onClick={() => setActiveTab('variations')}
+                        className="bg-[#eba14d] text-black text-[10px] font-bold uppercase tracking-widest py-2.5 rounded-lg hover:brightness-110 transition mt-auto"
+                    >
+                        Configure Now
+                    </button>
+                </div>
             </div>
         </div>
     );

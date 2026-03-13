@@ -79,12 +79,12 @@ export default function ManageVariationsForm() {
 
     return (
         <div className="bg-[#222222] rounded-2xl border border-white/5 shadow-xl p-8 animate-in fade-in duration-500">
-            <h2 className="text-2xl font-semibold text-white mb-2 tracking-wide flex items-center gap-2">
+            <span className="text-sm font-semibold text-white mb-2 tracking-wide flex items-center gap-2">
                 <Palette className="text-[#eba14d]" size={24} />
                 Manage Color Variations
                 {fetching && <Loader2 size={20} className="animate-spin text-[#eba14d] ml-2" />}
-            </h2>
-            <p className="text-white/50 text-sm mb-8">Add colors that will be available in the product selection dropdown.</p>
+            </span>
+            <p className="text-white/50 text-xs mb-8">Add colors that will be available in the product selection dropdown.</p>
 
             <form onSubmit={handleAddColor} className="mb-10">
                 <label className="block text-sm font-medium text-white/70 mb-2">New Color Name <span className="text-red-500">*</span></label>

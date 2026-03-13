@@ -2,66 +2,88 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-    import { Quicksand } from "next/font/google";
+import { Quicksand } from "next/font/google";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
-/** Simple FAQ Accordion (2 columns like your screenshot)
- * - No external UI lib needed
- * - Lorem ipsum answers included
- */
 
 const FAQ_DATA = {
   general: {
-    title: "General Question",
+    title: "General Questions",
     left: [
       {
-        q: "Can we supply other countries ?",
-        a: "Yes. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc non blandit massa, vitae tincidunt lectus.",
+        q: "Can we supply to other countries?",
+        a: "Yes, Hilltop Surfaces is a global exporter. We have a robust international logistics network that allows us to supply our premium granite, marble, and quartz slabs to customers across the world, including frequent shipments to the USA and Europe.",
       },
       {
         q: "Can you quote and manufacture from a drawing?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        a: "Absolutely. Our expert team specializes in bespoke manufacturing. If you provide a professional drawing or architectural plan, we can quote accurately and use our advanced machinery to cut and finish the stones to your exact specifications.",
       },
       {
-        q: "Can I buy my materials from you directly?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
+        q: "Can I buy materials from you directly?",
+        a: "Yes, we work with both trade professionals and individual homeowners. You can visit our experience centers or contact our sales team directly to select your slabs and finalize your purchase for your residential or commercial projects.",
       },
       {
         q: "Can natural stone be used on the exteriors of homes?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.",
+        a: "Many natural stones like Granite and certain Quartzites are ideal for exteriors due to their durability and resistance to weather. They are commonly used for wall cladding, entryways, and outdoor landscaping to provide a timeless, elegant look.",
       },
       {
         q: "How to choose the suitable stone?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet.",
+        a: "The best stone depends on the application. For high-traffic kitchen counters, we recommend Granite or Quartz for their scratch resistance. For statement walls or bathrooms, Marble offers unparalleled luxury. Our consultants can guide you based on your lifestyle and aesthetic goals.",
       },
       {
         q: "What is the difference between granite and marble?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor.",
+        a: "Granite is a volcanic rock known for its extreme hardness and resistance to acid and scratches, making it perfect for heavy-duty use. Marble is a metamorphic rock prized for its unique veining and classic beauty, though it is softer and requires more care.",
       },
       {
-        q: "What are some of the most commonly used granite colours?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis.",
+        q: "What are some of the most commonly used granite colors?",
+        a: "Popular choices include classic absolute blacks, sophisticated greys like Steel Grey, and iconic patterned stones like Colonial White or Alaska White. We offer a wide spectrum from neutral earth tones to vibrant, exotic patterns.",
       },
       {
         q: "What are the different types of finishes in a natural stone?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo. Vestibulum id ligula porta felis euismod semper.",
+        a: "We offer various finishes including Polished (high shine), Honed (matte/satin), Leathered (textured but soft), and Flamed (rough texture for slip resistance). Each finish completely changes the look and feel of the stone.",
       },
     ],
     right: [
-      { q: "What is Semi- Precious Stones (Slabs)?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum." },
-      { q: "Are you insured?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum." },
-      { q: "Is your work Guaranteed ?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed odio dui. Integer posuere erat a ante venenatis dapibus posuere velit aliquet." },
-      { q: "Can we choose our own slabs ?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros." },
-      { q: 'Do you use “1st grade” material ?', a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Nulla vitae elit libero, a pharetra augue." },
-      { q: "What is Quartzite?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor." },
-      { q: "What is EQS (ENGINEERED QUARTZ STONE / AGGLOMERATED STONE)?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam." },
-      { q: "What is Marble?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue." },
-      { q: "What is Granite?", a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et." },
+      {
+        q: "What are Semi-Precious Stones (Slabs)?",
+        a: "Our semi-precious collection features rare minerals like Agate, Amethyst, and Quartz crystals bonded together to create translucent, jewel-like slabs. These are often backlit to create stunning, glowing feature walls in luxury interiors."
+      },
+      {
+        q: "Are you insured?",
+        a: "Yes, Hilltop Surfaces is a fully licensed and insured manufacturer. We adhere to all international safety and business standards to ensure that every transaction and project is handled with the highest level of professionalism and security."
+      },
+      {
+        q: "Is your work Guaranteed?",
+        a: "We stand by the quality of our craftsmanship. All our stones undergo rigorous quality checks. While natural stones have inherent variations, we guarantee that the slabs you receive meet our strict standards for integrity and finish."
+      },
+      {
+        q: "Can we choose our own slabs?",
+        a: "We encourage it! We believe every stone has its own personality. You are welcome to visit our warehouse or view high-resolution photos of specific slab bundles to hand-pick the exact piece of nature that will go into your home."
+      },
+      {
+        q: 'Do you use “1st grade” material?',
+        a: "Exclusively. We pride ourselves on sourcing top-tier blocks from the finest quarries. Our reputation is built on quality, so we never compromise by using sub-par materials for our clients' projects."
+      },
+      {
+        q: "What is Quartzite?",
+        a: "Quartzite is a natural stone that starts as sandstone and is transformed through heat and pressure into a very hard material. It often looks like marble but performs more like granite, offering a perfect blend of style and strength."
+      },
+      {
+        q: "What is EQS (Engineered Quartz Stone)?",
+        a: "EQS is a man-made surface created by combining approximately 90-93% crushed natural quartz with resins and pigments. It is non-porous, highly resistant to stains and bacteria, and offers consistent patterns unavailable in natural stone."
+      },
+      {
+        q: "What is Marble?",
+        a: "Marble is a classic natural stone formed from limestone. It is synonymous with luxury and has been used for centuries in the world's finest architecture. Its hallmark is its graceful veining and soft, luminous appearance."
+      },
+      {
+        q: "What is Granite?",
+        a: "Granite is an exceptionally hard natural igneous rock. Composed of minerals like quartz and fieldspar, it is one of the most durable materials on earth, making it the gold standard for kitchen countertops and flooring."
+      },
     ],
   },
 
@@ -70,21 +92,21 @@ const FAQ_DATA = {
     left: [
       {
         q: "What is the installation process of granite?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper.",
+        a: "The process involves precision templating of your space, water-jet cutting the slabs to size, and expert edge profiling. Our specialized installers then carefully place the pieces, secure the seams with color-matched resin, and ensure a level, perfect fit.",
       },
       {
-        q: "How long does the shipping of products take?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.",
+        q: "How long does shipping take?",
+        a: "Shipping times vary by destination. For local orders, delivery is typically within a few days. For international exports, it generally takes 4-8 weeks depending on the shipping lanes and customs clearance processes.",
       },
     ],
     right: [
       {
-        q: "How do you package the stones while transporting to other?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla.",
+        q: "How do you package the stones for transport?",
+        a: "We use heavy-duty, internationally compliant wooden crates (ISPM 15 certified). Each slab is separated by protective layers to prevent scratching, and the crates are securely braced within shipping containers to ensure zero movement during transit.",
       },
       {
-        q: "What are the steps taken for Quality Control?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod.",
+        q: "What steps are taken for Quality Control?",
+        a: "Our QC process is multi-staged: from raw block inspection at the quarry to scanning slabs with advanced sensors during polishing. Every finished slab is manually inspected for vein consistency, thickness accuracy, and surface perfection before shipping.",
       },
     ],
   },
@@ -116,9 +138,8 @@ function FaqItem({ q, a, isOpen, onToggle }) {
       <button
         type="button"
         onClick={onToggle}
-        className={`w-full flex items-center justify-between gap-6 py-5 text-left ${
-          isOpen ? "text-white" : "text-white/85"
-        }`}
+        className={`w-full flex items-center justify-between gap-6 py-5 text-left ${isOpen ? "text-white" : "text-white/85"
+          }`}
       >
         <span className="text-[15px] md:text-[16px] leading-snug tracking-wide">
           {q}
@@ -184,8 +205,6 @@ function TwoColFaq({ left, right, defaultOpenKey = "0L" }) {
 }
 
 export default function FAQSection() {
-
-
   return (
     <section className={`relative w-full overflow-hidden py-16 md:py-24 ${quicksand.className}`}>
 
@@ -197,18 +216,17 @@ export default function FAQSection() {
 
       <div className="mx-auto w-full max-w-6xl px-6">
         {/* Heading */}
-        <h2 className="text-center text-white text-[44px] md:text-[58px] leading-tight tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+        <h2 className="text-center text-white text-[44px] md:text-[58px] leading-tight tracking-wide font-medium [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
           FAQ
         </h2>
 
         <p className="mx-auto mt-4 max-w-3xl text-center text-white/60 text-[13px] md:text-[14px] leading-relaxed">
-          Find answers to your questions about our products, shipping, and installation. This page covers general inquiries and provides clear
-          information to assist you with your needs. For further assistance, please contact our support team.
+          Find comprehensive answers to your questions about our premium product range, global shipping capabilities, and expert installation services. We are dedicated to providing clear information to ensure your experience with Hilltop Surfaces is seamless.
         </p>
 
         {/* General */}
         <div className="mt-10 md:mt-14">
-          <h3 className="text-center text-white text-[18px] md:text-[20px] font-[600] tracking-wide">
+          <h3 className="text-center text-white text-[18px] md:text-[20px] font-semibold tracking-wide">
             {FAQ_DATA.general.title}
           </h3>
           <div className="mt-6">
@@ -222,7 +240,7 @@ export default function FAQSection() {
 
         {/* Shipping */}
         <div className="mt-14 md:mt-16">
-          <h3 className="text-center text-white text-[18px] md:text-[20px] font-[600] tracking-wide">
+          <h3 className="text-center text-white text-[18px] md:text-[20px] font-semibold tracking-wide">
             {FAQ_DATA.shipping.title}
           </h3>
           <div className="mt-6">

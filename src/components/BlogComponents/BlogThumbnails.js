@@ -3,70 +3,20 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import thumb1 from "../../assets/blogs/thumb1.jpg";
-import thumb2 from "../../assets/blogs/thumb2.jpg";
-import thumb3 from "../../assets/blogs/thumb3.jpg";
-import thumb4 from "../../assets/blogs/thumb4.jpg";
-import thumb5 from "../../assets/blogs/thumb5.jpg";
-import thumb6 from "../../assets/blogs/thumb6.jpg";
-import thumb7 from "../../assets/blogs/thumb7.jpg";
+import { Quicksand } from "next/font/google";
 
-const DEFAULT_POSTS = [
-  {
-    title: "Everything You Need to Know About Quartz",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb1,
-    href: "/blogs/quartz",
-  },
-  {
-    title: "Choosing Between Granite & EQS?",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb2,
-    href: "/blogs/granite-vs-eqs",
-  },
-  {
-    title: "Everything You Need to Know About Porcelain",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb3,
-    href: "/blogs/porcelain",
-  },
-  {
-    title: "Everything You Need to Know About Semi-Precious Stones",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb4,
-    href: "/blogs/semi-precious",
-  },
-  {
-    title: "Granite Slabs: Where do they come from?",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb5,
-    href: "/blogs/granite-slabs-origin",
-  },
-  {
-    title: "The Colors, Colors and Patterns of Granite",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb6,
-    href: "/blogs/granite-colors",
-  },
-  {
-    title: "What is Granite?",
-    excerpt: "Quartz is one of the most abundant minerals on Earth. It is composed of...",
-    image: thumb7,
-    href: "/blogs/what-is-granite",
-  },
-];
-
-function clampText(text = "", max = 110) {
-  if (text.length <= max) return text;
-  return text.slice(0, max).trim() + "...";
-}
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 function BlogCard({ post }) {
   return (
     <article className="group h-full flex flex-col">
       {/* Image */}
       <div
-        className="relative w-full aspect-[4/3] overflow-hidden bg-white/10 shadow-[0_10px_32px_rgba(0,0,0,0.45)]"
+        className="relative w-full aspect-4/3 overflow-hidden bg-white/10 shadow-[0_10px_32px_rgba(0,0,0,0.45)]"
         style={{ borderRadius: "14px" }}
       >
         <Image
@@ -80,12 +30,18 @@ function BlogCard({ post }) {
 
       {/* Text container */}
       <div className="mt-6 flex flex-col flex-1">
-        <h3 className="text-white text-[22px] md:text-[24px] leading-snug tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+        <div className="flex items-center gap-2 mb-3 text-[#DA9C39] text-[12px] font-medium tracking-wider uppercase">
+          <span>{post.author || "Hilltop"}</span>
+          <span className="w-1 h-1 rounded-full bg-white/20"></span>
+          <span className="text-white/40">{post.date ? new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ""}</span>
+        </div>
+
+        <h3 className={`text-white text-[22px] md:text-[24px] leading-snug tracking-wide font-medium ${quicksand.className}`}>
           {post.title}
         </h3>
 
-        <p className="mt-3 text-white/65 text-[14px] md:text-[15px] leading-relaxed">
-          {clampText(post.excerpt, 110)}
+        <p className="mt-3 text-white/65 text-[14px] md:text-[15px] leading-relaxed line-clamp-2">
+          {post.excerpt}
         </p>
 
         {/* Button aligned at bottom */}
@@ -105,10 +61,10 @@ function BlogCard({ post }) {
 
 export default function BlogThumbnails({
   title,
-  posts = DEFAULT_POSTS,
+  posts = [],
 }) {
   return (
-    <section className="relative w-full overflow-hidden py-14 md:py-20">
+    <section className="relative w-full overflow-hidden py-14 md:py-20 min-h-[400px] flex items-center">
       {/* Background (same dark + soft radial glow) */}
       <div className="absolute inset-0 -z-10 bg-[#151515]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(65%_55%_at_50%_10%,rgba(255,255,255,0.08),transparent_60%)]" />
@@ -117,16 +73,24 @@ export default function BlogThumbnails({
 
       <div className="mx-auto w-full max-w-6xl px-6">
         {title ? (
-          <h2 className="mb-10 text-center text-white text-[40px] md:text-[52px] tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+          <h2 className={`mb-10 text-center text-white text-[40px] md:text-[52px] tracking-wide font-medium ${quicksand.className}`}>
             {title}
           </h2>
         ) : null}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-14">
-          {posts.map((post, idx) => (
-            <BlogCard key={idx} post={post} />
-          ))}
-        </div>
+        {posts.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-white/40 text-xl md:text-2xl font-medium tracking-wide">
+              No blogs were published yet. Stay tuned for our latest insights!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-14">
+            {posts.map((post, idx) => (
+              <BlogCard key={idx} post={post} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

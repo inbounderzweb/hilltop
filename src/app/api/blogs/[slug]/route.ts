@@ -1,0 +1,39 @@
+import { db } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
+
+export async function GET(
+    request: Request,
+    { params }: { params: Promise<{ slug: string }> }
+) {
+    try {
+        const { slug } = await params;
+        const [rows]: any = await db.query(
+            "SELECT * FROM blogs WHERE slug = ?",
+            [slug]
+        );
+
+        if (rows.length === 0) {
+            return Response.json(
+                { success: false, error: "Blog post not found" },
+                { status: 404 }
+            );
+        }
+
+        const [related]: any = await db.query(
+            "SELECT id, title, slug, excerpt, image_url FROM blogs WHERE slug != ? ORDER BY created_at DESC LIMIT 3",
+            [slug]
+        );
+
+        return Response.json({
+            success: true,
+            blog: rows[0],
+            related: related
+        });
+    } catch (error: any) {
+        return Response.json(
+            { success: false, error: error?.message || "Failed to fetch blog post" },
+            { status: 500 }
+        );
+    }
+}

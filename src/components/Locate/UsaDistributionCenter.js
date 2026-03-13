@@ -46,28 +46,25 @@ function MailIcon({ className = "" }) {
 
 const LOCATIONS = [
   {
-    title: "HILLTOP STONES",
-    subtitle: "PVT LTD, INDIA",
-    address:
-      "No 736, Gupta House, 7th Cross Road, 3rd Block, Koramangala, Bengaluru - 560 034, Karnataka, India.",
-    phone: "+91 80 2222 7778",
-    email: "banglore@hilltopgranite.com",
+    title: "HILLTOP GRANITE",
+    subtitle: "AUSTIN, TX",
+    address: "2120 Grand Ave Pkwy # 150, Austin, TX 78728, USA",
+    phone: "+1 512 220 2140",
+    email: "austin@hilltopgranite.com",
   },
   {
-    title: "HILLTOP STONES",
-    subtitle: "PVT LTD, INDIA",
-    address:
-      "No 736, Gupta House, 7th Cross Road, 3rd Block, Koramangala, Bengaluru - 560 034, Karnataka, India.",
-    phone: "+91 80 2222 7778",
-    email: "banglore@hilltopgranite.com",
+    title: "HILLTOP GRANITE",
+    subtitle: "DALLAS, TX",
+    address: "12401 N Stemmons Fwy #140, Farmers Branch, TX 75234, USA",
+    phone: "+1 972 243 3156",
+    email: "dallas@hilltopgranite.com",
   },
   {
-    title: "HILLTOP STONES",
-    subtitle: "PVT LTD, INDIA",
-    address:
-      "No 736, Gupta House, 7th Cross Road, 3rd Block, Koramangala, Bengaluru - 560 034, Karnataka, India.",
-    phone: "+91 80 2222 7778",
-    email: "banglore@hilltopgranite.com",
+    title: "HILLTOP GRANITE",
+    subtitle: "HOUSTON, TX",
+    address: "8760 Clay Rd Suite B, Houston, TX 77080, USA",
+    phone: "+1 832 867 9053",
+    email: "houston@hilltopgranite.com",
   },
 ];
 
@@ -135,7 +132,7 @@ export default function UsaDistributionCenter() {
           </div>
 
           {/* Main panel (behind tab) */}
-          <div className="relative rounded-[0px] lg:rounded-[24px] bg-[#3a3a3a] px-6 pt-14 pb-10 sm:px-12 sm:pt-16 sm:pb-12">
+          <div className="relative rounded-none lg:rounded-[24px] bg-[#3a3a3a] px-6 pt-14 pb-10 sm:px-12 sm:pt-16 sm:pb-12">
             <div className="grid gap-10 lg:grid-cols-3">
               {LOCATIONS.map((item, idx) => (
                 <LocationCard key={idx} item={item} />

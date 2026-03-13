@@ -88,83 +88,86 @@ export default function ProductsList({ onEdit }) {
 
     return (
         <>
-            <div className="bg-[#222222] rounded-2xl border border-white/5 shadow-xl overflow-hidden animate-in fade-in duration-500">
-                <div className="p-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div className="flex items-center gap-3">
-                        <h2 className="text-xl font-semibold text-white/90">Added Products</h2>
+            <div className="bg-[#222222] rounded-xl border border-white/5 shadow-xl overflow-hidden animate-in fade-in duration-500">
+                <div className="p-4 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-white/90 uppercase tracking-widest">Added Products</span>
                         <button
                             onClick={fetchProducts}
-                            className={`p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition ${loading ? 'animate-spin' : ''}`}
+                            className={`p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition ${loading ? 'animate-spin' : ''}`}
                             title="Refresh List"
                         >
-                            <RefreshCw size={16} />
+                            <RefreshCw size={12} />
                         </button>
                     </div>
                     <input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search products..."
-                        className="bg-[#1a1a1a] border border-white/10 text-sm rounded-lg px-4 py-2 text-white placeholder:text-white/30 outline-none focus:border-[#eba14d] transition w-full sm:w-64"
+                        className="bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-1.5 text-white placeholder:text-white/20 outline-none focus:border-[#eba14d] transition w-full sm:w-48"
                     />
                 </div>
 
                 {error && (
-                    <div className="m-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-500 text-sm">
-                        <AlertCircle size={18} />
+                    <div className="m-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 text-red-500 text-[11px]">
+                        <AlertCircle size={14} />
                         <p>{error}</p>
-                        <button onClick={fetchProducts} className="ml-auto font-semibold underline">Retry</button>
+                        <button onClick={fetchProducts} className="ml-auto font-bold underline uppercase tracking-widest">Retry</button>
                     </div>
                 )}
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse min-w-[850px]">
+                    <table className="w-full text-left border-collapse min-w-[700px]">
                         <thead>
-                            <tr className="bg-[#1a1a1a] border-b border-white/10 text-white/50 uppercase text-xs font-semibold tracking-wider">
-                                <th className="p-4 w-16 text-center">ID</th>
-                                <th className="p-4">Image</th>
-                                <th className="p-4">Product Info</th>
-                                <th className="p-4">Category</th>
-                                <th className="p-4">Color/Origin</th>
-                                <th className="p-4 text-right">Actions</th>
+                            <tr className="bg-[#1a1a1a] border-b border-white/10 text-white/30 uppercase text-[10px] font-bold tracking-[0.15em]">
+                                <th className="p-3 w-12 text-center">ID</th>
+                                <th className="p-3 w-16">Slab</th>
+                                <th className="p-3">Product Detail</th>
+                                <th className="p-3">Category</th>
+                                <th className="p-3">Variation</th>
+                                <th className="p-3 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-white/5">
+                        <tbody className="divide-y divide-white/3">
                             {filteredProducts.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="p-12 text-center text-white/30">
-                                        <div className="mb-2">No products found</div>
-                                        <button onClick={fetchProducts} className="text-[#eba14d] text-sm hover:underline">Refresh database</button>
+                                    <td colSpan={6} className="p-10 text-center text-white/20 text-xs">
+                                        <div className="mb-1">No products found</div>
+                                        <button onClick={fetchProducts} className="text-[#eba14d] text-[10px] font-bold uppercase tracking-widest hover:underline">Refresh database</button>
                                     </td>
                                 </tr>
                             ) : (
                                 filteredProducts.map((p) => (
-                                    <tr key={p.id} className="hover:bg-white/[0.02] transition">
-                                        <td className="p-4 text-sm font-medium text-white/30 text-center">#{p.id}</td>
-                                        <td className="p-4">
-                                            <div className="w-12 h-12 rounded-lg overflow-hidden border border-white/10 bg-[#1a1a1a]">
+                                    <tr key={p.id} className="hover:bg-white/1 transition">
+                                        <td className="p-3 text-[10px] font-bold text-white/20 text-center">#{p.id}</td>
+                                        <td className="p-3">
+                                            <div className="w-10 h-10 rounded border border-white/10 overflow-hidden bg-black/40">
                                                 <img src={p.image_url} className="w-full h-full object-cover" alt={p.product_name} />
                                             </div>
                                         </td>
-                                        <td className="p-4">
-                                            <div className="font-medium text-white/90">{p.product_name}</div>
-                                            <div className="text-[10px] text-white/30 mt-0.5 uppercase tracking-widest font-semibold">{p.category}</div>
+                                        <td className="p-3">
+                                            <div className="font-semibold text-white/80 text-sm leading-tight mb-0.5">{p.product_name}</div>
+                                            <div className="text-[9px] text-white/30 font-bold uppercase tracking-widest">{p.origin}</div>
                                         </td>
-                                        <td className="p-4 font-medium text-white/70">
-                                            {p.category}
+                                        <td className="p-3">
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#eba14d]/60 px-2 py-0.5 bg-[#eba14d]/5 rounded">
+                                                {p.category}
+                                            </span>
                                         </td>
-                                        <td className="p-4 text-sm text-white/40">
-                                            {p.color_family} • {p.origin}
+                                        <td className="p-3 text-[11px] text-white/50 leading-relaxed">
+                                            {p.color_family}
+                                            {p.thickness && <div className="text-[9px] text-white/20">{p.thickness}</div>}
                                         </td>
-                                        <td className="p-4 text-right">
-                                            <div className="flex items-center justify-end gap-2">
-                                                <button onClick={() => setSelectedProduct(p)} className="p-2.5 bg-white/5 hover:bg-white/10 text-white/70 rounded-xl transition group" title="View Details">
-                                                    <Eye size={18} className="group-hover:scale-110 transition" />
+                                        <td className="p-3 text-right">
+                                            <div className="flex items-center justify-end gap-1.5 text-white/30">
+                                                <button onClick={() => setSelectedProduct(p)} className="p-1.5 hover:text-white transition" title="Preview">
+                                                    <Eye size={14} />
                                                 </button>
-                                                <button onClick={() => onEdit(p)} className="p-2.5 bg-white/5 hover:bg-[#eba14d]/10 text-[#eba14d] rounded-xl transition group" title="Edit">
-                                                    <Edit3 size={18} className="group-hover:scale-110 transition" />
+                                                <button onClick={() => onEdit(p)} className="p-1.5 hover:text-[#eba14d] transition" title="Edit">
+                                                    <Edit3 size={14} />
                                                 </button>
-                                                <button onClick={() => deleteProduct(p.id)} disabled={deletingId === p.id} className="p-2.5 bg-white/5 hover:bg-red-500/10 text-red-500 rounded-xl transition group disabled:opacity-30" title="Delete">
-                                                    <Trash2 size={18} className="group-hover:scale-110 transition" />
+                                                <button onClick={() => deleteProduct(p.id)} disabled={deletingId === p.id} className="p-1.5 hover:text-red-500 transition disabled:opacity-30" title="Delete">
+                                                    <Trash2 size={14} />
                                                 </button>
                                             </div>
                                         </td>

@@ -134,6 +134,17 @@ export default function ApplicationsTabbedSlider() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slideIndex, tabIndex]);
 
+  // Handle scrollbar style injection
+  useEffect(() => {
+    const id = "no-scrollbar-style";
+    if (!document.getElementById(id)) {
+      const style = document.createElement("style");
+      style.id = id;
+      style.innerHTML = noScrollbarCss;
+      document.head.appendChild(style);
+    }
+  }, []);
+
   const progress = ((slideIndex + 1) / slides.length) * 100;
 
   return (
@@ -387,16 +398,6 @@ const noScrollbarCss = `
 .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
 `;
 
-// You can put this in globals.css instead
-if (typeof document !== "undefined") {
-  const id = "no-scrollbar-style";
-  if (!document.getElementById(id)) {
-    const style = document.createElement("style");
-    style.id = id;
-    style.innerHTML = noScrollbarCss;
-    document.head.appendChild(style);
-  }
-}
 
 function ArrowLeft() {
   return (

@@ -1,9 +1,15 @@
-// src/components/About/AboutBanner.jsx
 import React from "react";
 import Image from "next/image";
 import banner from "../../assets/about/banner.png";
+import { Quicksand } from "next/font/google";
 
-export default function BlogBanner() {
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+export default function CareerBanner() {
   return (
     <section className="relative w-full h-[260px] md:h-[360px] overflow-hidden">
       {/* Background image */}
@@ -22,9 +28,9 @@ export default function BlogBanner() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex items-center justify-center h-full px-6">
-        <h1 className="text-[#F4E0C2] text-3xl md:text-5xl font-semibold tracking-wide">
-          Blogs
+      <div className="relative z-10 flex items-center justify-center h-full px-6 text-center">
+        <h1 className={`text-[#F4E0C2] text-3xl md:text-5xl font-semibold tracking-wide ${quicksand.className}`}>
+          Insights & Stories
         </h1>
       </div>
     </section>

@@ -30,7 +30,9 @@ export default function Footer() {
             <div className="mt-7 space-y-3">
               <FooterBlock title="INDIA">
                 <FooterLink href="/india/head-quarters">Head Quarters</FooterLink>
+                <div className="text-white/60 text-[12px] mt-1">+91 99000 63557</div>
                 <FooterLink href="/india/factory">Factory</FooterLink>
+                <div className="text-white/60 text-[12px] mt-1">+91 89519 43587</div>
                 <FooterLink href="/india/showroom">Showroom</FooterLink>
               </FooterBlock>
 
@@ -179,12 +181,12 @@ export default function Footer() {
       <div className="border-t border-white/25">
         <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-6">
           <p className="hidden md:block text-white/70 text-[14px]">
-            Copyright © 2026 - All Rights Reserved
+            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer">Inbounderz</a> All Rights Reserved
           </p>
 
           {/* Mobile centered line */}
           <p className="md:hidden text-center text-white/70 text-[12px]">
-            Copyright © 2026 - All Rights Reserved
+            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer">Inbounderz</a> All Rights Reserved
           </p>
         </div>
       </div>
@@ -204,7 +206,7 @@ function FooterBlock({ title, children }) {
 }
 
 function FooterLink({ href, children, muted }) {
-  return ( 
+  return (
     <Link
       href={href}
       className={[

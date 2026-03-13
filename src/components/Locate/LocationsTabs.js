@@ -19,31 +19,34 @@ const DATA = {
   hq: [
     {
       title: "HILLTOP STONES",
-      subtitle: "PVT LTD, INDIA",
+      subtitle: "PVT LTD, HEAD OFFICE",
       address:
-        "No 736, Gupta House, 7th Cross Road,3rd Block, Koramangala, Bengaluru - 560 034 Karnataka, India.",
-      phone: "+91 80 2222 7778",
-      email: "banglore@hilltopgranite.com",
+        "No 736, Gupta House, 7th Cross Road, 3rd Block, Koramangala, Bengaluru - 560 034 Karnataka, India.",
+      phone: "+91 99000 63557",
+      email: "info@hilltopgranite.com",
+      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5833215849!2d77.6223!3d12.9344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14434608c029%3A0x1d473489e2480e6!2sKoramangala%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
   factory: [
     {
       title: "HILLTOP STONES",
-      subtitle: "INDIA GRANITE, FACTORY",
+      subtitle: "INDIA GRANITE FACTORY",
       address:
         "220/2b, Thyagarasanapalli Village NH7 Hosur - Krishnagiri Road, Shoolagiri PO & Taluk Krishnagiri District, Tamilnadu - 635117 India",
-      phone: "+91 80 2222 7778",
-      email: "banglore@hilltopgranite.com",
+      phone: "+91 89519 43587",
+      email: "factory@hilltopgranite.com",
+      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.895!2d78.0123!3d12.6789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae71!2sShoolagiri!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
   experience: [
     {
       title: "COLORS OF RAINBOW",
-      subtitle: "FACTORY",
+      subtitle: "EXPERIENCE CENTRE",
       address:
         "Sy.no.209/5B & 6B, 321/1 Gollapalli Shoolagiri PO & Taluk, Krishnagiri Tamilnadu - 635117, India",
-      phone: "+91 80 2222 7778",
-      email: "banglore@hilltopgranite.com",
+      phone: "+91 89519 43587",
+      email: "rainbow@hilltopgranite.com",
+      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d78.01!3d12.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae!2sKrishnagiri!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
 };
@@ -85,41 +88,58 @@ function MailIcon({ className = "" }) {
 
 function LocationCardCentered({ item }) {
   return (
-    <div className={`mx-auto flex w-full max-w-2xl flex-col items-center text-center ${quicksand.className}`}>
-      <div className="text-white">
-        <div className="text-[18px] sm:text-[20px] font-semibold tracking-wide leading-tight">
-          {item.title}
+    <div className={`mx-auto flex w-full max-w-5xl flex-col lg:flex-row items-start gap-10 ${quicksand.className}`}>
+      <div className="flex-1 text-left">
+        <div className="text-white">
+          <div className="text-[20px] sm:text-[24px] font-bold tracking-wide leading-tight text-[#c89b3c]">
+            {item.title}
+          </div>
+          <div className="text-[18px] sm:text-[20px] font-semibold tracking-wide leading-tight mt-1">
+            {item.subtitle}
+          </div>
         </div>
-        <div className="text-[18px] sm:text-[20px] font-semibold tracking-wide leading-tight">
-          {item.subtitle}
+
+        <p className="mt-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70 max-w-xl">
+          {item.address}
+        </p>
+
+        <div className="mt-10 space-y-5">
+          <a
+            href={`tel:${item.phone.replace(/\s/g, "")}`}
+            className="flex items-center gap-4 text-white/80 hover:text-[#c89b3c] transition-colors group"
+          >
+            <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#c89b3c]/10 transition-colors">
+              <PhoneIcon className="h-5 w-5 text-[#c89b3c]" />
+            </span>
+            <span className="text-[16px] sm:text-[17px] font-medium">{item.phone}</span>
+          </a>
+
+          <a
+            href={`mailto:${item.email}`}
+            className="flex items-center gap-4 text-white/80 hover:text-[#c89b3c] transition-colors group"
+          >
+            <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#c89b3c]/10 transition-colors">
+              <MailIcon className="h-5 w-5 text-[#c89b3c]" />
+            </span>
+            <span className="text-[16px] sm:text-[17px] font-medium break-all">{item.email}</span>
+          </a>
         </div>
       </div>
 
-      <p className="mt-5 text-[14px] sm:text-[15px] leading-relaxed text-white/70 max-w-xl">
-        {item.address}
-      </p>
-
-      <div className="mt-8 space-y-4">
-        <a
-          href={`tel:${item.phone.replace(/\s/g, "")}`}
-          className="flex items-center justify-center gap-3 text-white/80 hover:text-white"
-        >
-          <span className="text-[#c89b3c]">
-            <PhoneIcon className="h-5 w-5" />
-          </span>
-          <span className="text-[15px] sm:text-[16px]">{item.phone}</span>
-        </a>
-
-        <a
-          href={`mailto:${item.email}`}
-          className="flex items-center justify-center gap-3 text-white/80 hover:text-white"
-        >
-          <span className="text-[#c89b3c]">
-            <MailIcon className="h-5 w-5" />
-          </span>
-          <span className="text-[15px] sm:text-[16px] break-all">{item.email}</span>
-        </a>
-      </div>
+      {item.map_url && (
+        <div className="flex-1 w-full h-[300px] lg:h-[400px] rounded-lg overflow-hidden border border-white/5 shadow-2xl">
+          <iframe
+            src={item.map_url}
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="grayscale invert contrast-125 opacity-80 hover:opacity-100 transition-opacity duration-500"
+          ></iframe>
+        </div>
+      )}
     </div>
   );
 }
@@ -179,7 +199,7 @@ export default function IndiaLocationsTabs() {
             className={[
               "relative",
               "mt-[-10px] sm:mt-[-14px]",
-              "rounded-[0px] sm:rounded-[32px]",
+              "rounded-none sm:rounded-[32px]",
               "bg-[#2f2f2f]",
               "px-6 py-12 sm:px-12 sm:py-14",
             ].join(" ")}

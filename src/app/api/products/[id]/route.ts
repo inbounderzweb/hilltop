@@ -53,49 +53,78 @@ export async function PUT(
         const color_family = formData.get("color_family")?.toString().trim();
         const description = formData.get("description")?.toString().trim();
 
+        // New Fields
+        const thickness = formData.get("thickness")?.toString().trim();
+        const base_color = formData.get("base_color")?.toString().trim();
+        const product_video_url = formData.get("product_video_url")?.toString().trim();
+
         // Handle main image if updated
         const image = formData.get("image") as File | null;
         let image_url = formData.get("existing_image_url")?.toString();
 
-        if (image && image.size > 0) {
-            const bytes = await image.arrayBuffer();
+        const uploadsDir = path.join(process.cwd(), "public", "uploads");
+        await mkdir(uploadsDir, { recursive: true });
+
+        const saveFile = async (file: File) => {
+            const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
-            const fileName = `${uuidv4()}.${image.name.split(".").pop()}`;
-            const filePath = path.join(process.cwd(), "public/uploads", fileName);
+            const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
+            const fileName = `${uuidv4()}.${ext}`;
+            const filePath = path.join(uploadsDir, fileName);
             await writeFile(filePath, buffer);
-            image_url = `/uploads/${fileName}`;
+            return `/uploads/${fileName}`;
+        };
+
+        if (image && image.size > 0) {
+            image_url = await saveFile(image);
+        }
+
+        // Handle Book Match Images
+        const existingBookMatch = JSON.parse(formData.get("existing_book_match")?.toString() || "[]");
+        const newBookMatchFiles = formData.getAll("book_match_images") as File[];
+        let bookMatchUrls = [...existingBookMatch];
+        for (const file of newBookMatchFiles) {
+            if (file && file.size > 0) {
+                const url = await saveFile(file);
+                bookMatchUrls.push(url);
+            }
+        }
+
+        // Handle Application Images
+        const existingApplication = JSON.parse(formData.get("existing_application")?.toString() || "[]");
+        const newApplicationFiles = formData.getAll("application_images") as File[];
+        let applicationUrls = [...existingApplication];
+        for (const file of newApplicationFiles) {
+            if (file && file.size > 0) {
+                const url = await saveFile(file);
+                applicationUrls.push(url);
+            }
         }
 
         // Handle gallery
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
         const existing_gallery = JSON.parse(formData.get("existing_gallery")?.toString() || "[]");
-
         let gallery = [...existing_gallery];
+        const newGalleryImages = formData.getAll("gallery_images") as File[];
 
-        // Handle new gallery images
-        const gallery_images = formData.getAll("gallery_images") as File[];
-        const uploadsDir = path.join(process.cwd(), "public", "uploads");
-        await mkdir(uploadsDir, { recursive: true });
-
-        for (let i = 0; i < gallery_images.length; i++) {
-            const file = gallery_images[i];
+        for (let i = 0; i < newGalleryImages.length; i++) {
+            const file = newGalleryImages[i];
             if (file && file.size > 0) {
-                const bytes = await file.arrayBuffer();
-                const buffer = Buffer.from(bytes);
-                const fileName = `${uuidv4()}.${file.name.split(".").pop()}`;
-                await writeFile(path.join(uploadsDir, fileName), buffer);
-                gallery.push({
-                    url: `/uploads/${fileName}`,
-                    link: gallery_links[i] || ""
-                });
+                const url = await saveFile(file);
+                gallery.push({ url, link: gallery_links[i] || "" });
             }
         }
 
         await db.query(
             `UPDATE products SET 
-            product_name = ?, category = ?, origin = ?, color_family = ?, description = ?, image_url = ?, gallery = ?
+            product_name = ?, category = ?, origin = ?, color_family = ?, description = ?, image_url = ?, gallery = ?,
+            thickness = ?, base_color = ?, product_video_url = ?, book_match_images = ?, application_images = ?
             WHERE id = ?`,
-            [product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery), id]
+            [
+                product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery),
+                thickness, base_color, product_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls),
+                id
+            ]
         );
 
         return Response.json({ success: true, message: "Product updated successfully" });

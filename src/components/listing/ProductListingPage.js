@@ -3,9 +3,9 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import arrow_forward from "../../assets/dproducts/arrow_forward.svg"
+
 import { Quicksand } from "next/font/google";
-import { Loader2, Search, SlidersHorizontal, Package, Check, ChevronRight } from 'lucide-react';
+import { Loader2, Search, SlidersHorizontal, Package, Check, ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react';
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -114,47 +114,37 @@ export default function ProductListingPage({ initialCategory }) {
     }, [query, selectedCategories, selectedColors]);
 
     return (
-        <div className={`min-h-screen bg-[#1b1b1b] text-white pb-20 ${quicksand.className}`}>
-            <div className="mx-auto w-[95%] xl:w-[85%] px-4">
+        <div className="min-h-screen bg-[#151515] text-white py-14 md:py-20">
+            <div className="mx-auto w-[92%] xl:w-[85%] max-w-[1400px]">
 
-                {/* Header Section */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
-                    <div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">Our Collection</h2>
-                        <p className="text-white/40 max-w-xl">
-                            Browse our exquisite selection of natural stones curated from across the globe.
-                            Showing <span className="text-[#eba14d] font-semibold">{filtered.length}</span> products.
-                        </p>
-                    </div>
-
-                    <div className="relative w-full md:w-96 group">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#eba14d] transition-colors" size={20} />
-                        <input
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search stones..."
-                            className="w-full bg-[#222222] border border-white/5 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/10 outline-none focus:border-[#eba14d] focus:ring-1 focus:ring-[#eba14d]/20 transition-all"
-                        />
-                    </div>
-                </div>
-
-                <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
+                <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10 lg:gap-16">
 
                     {/* Sidebar Filters */}
-                    <aside className="space-y-8">
+                    <aside className="bg-[#222222] rounded-xl p-8 h-fit space-y-10">
+                        {/* Search */}
+                        <div className="space-y-4">
+                            <h3 className="text-white text-base font-bold font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>Search</h3>
+                            <div className="relative group">
+                                <input
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    placeholder="Product keywords"
+                                    className={`w-full bg-[#151515] border border-white/10 rounded px-4 py-3 text-white placeholder:text-white/20 outline-none focus:border-[#DA9C39] transition-all ${quicksand.className}`}
+                                />
+                            </div>
+                        </div>
+
                         {/* Categories */}
-                        <div className="bg-[#222222] rounded-3xl p-6 border border-white/5">
-                            <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-white/40 mb-6">
-                                <SlidersHorizontal size={14} /> Categories
-                            </h3>
-                            <div className="space-y-2">
-                                <FilterButton
-                                    label="All Varieties"
+                        <div className="space-y-6">
+                            <h3 className="text-white text-base font-bold font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>Categories</h3>
+                            <div className="space-y-4">
+                                <CheckboxItem
+                                    label="All"
                                     active={selectedCategories.size === 0}
                                     onClick={() => setSelectedCategories(new Set())}
                                 />
                                 {categories.map(cat => (
-                                    <FilterButton
+                                    <CheckboxItem
                                         key={cat}
                                         label={cat}
                                         active={selectedCategories.has(cat)}
@@ -164,17 +154,19 @@ export default function ProductListingPage({ initialCategory }) {
                             </div>
                         </div>
 
-                        {/* Colors */}
-                        <div className="bg-[#222222] rounded-3xl p-6 border border-white/5">
-                            <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/40 mb-6">Colors</h3>
-                            <div className="grid grid-cols-1 gap-2">
-                                <FilterButton
-                                    label="All Colors"
+                        <div className="w-full h-px bg-white/10"></div>
+
+                        {/* Colour */}
+                        <div className="space-y-6">
+                            <h3 className="text-white text-base font-bold font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>Colour</h3>
+                            <div className="space-y-4">
+                                <CheckboxItem
+                                    label="All"
                                     active={selectedColors.size === 0}
                                     onClick={() => setSelectedColors(new Set())}
                                 />
                                 {colors.map(color => (
-                                    <FilterButton
+                                    <CheckboxItem
                                         key={color}
                                         label={color}
                                         active={selectedColors.has(color)}
@@ -183,59 +175,66 @@ export default function ProductListingPage({ initialCategory }) {
                                 ))}
                             </div>
                         </div>
-
-                        <button
-                            onClick={resetFilters}
-                            className="w-full py-4 text-xs font-bold uppercase tracking-widest text-[#eba14d] border border-[#eba14d]/20 rounded-2xl hover:bg-[#eba14d]/5 transition-all"
-                        >
-                            Reset All Filters
-                        </button>
                     </aside>
 
-                    {/* Main Grid */}
+                    {/* Main Content */}
                     <main>
                         {loading ? (
-                            <div className="flex flex-col items-center justify-center min-h-[500px] bg-[#222222]/30 rounded-[3rem] border border-white/5">
-                                <Loader2 className="animate-spin text-[#eba14d] mb-4" size={48} />
-                                <p className="text-white/20 tracking-widest uppercase text-[10px] font-bold">Synchronizing Database...</p>
+                            <div className="flex flex-col items-center justify-center min-h-[500px]">
+                                <Loader2 className="animate-spin text-[#DA9C39] mb-4" size={48} />
+                                <p className={`text-white/40 tracking-widest uppercase text-xs font-bold ${quicksand.className}`}>Loading Products...</p>
                             </div>
                         ) : (
-                            <>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                            <div className="space-y-16">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-12 gap-x-8">
                                     {paged.map((p) => (
-                                        <ProductCard key={p.id} product={p} />
+                                        <Link key={p.id} href={`/products/details/${p.id}`} className="group block">
+                                            <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-6">
+                                                <Image
+                                                    src={p.image_url}
+                                                    alt={p.product_name}
+                                                    fill
+                                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                />
+                                            </div>
+                                            <div className="flex items-center justify-center gap-2 group-hover:translate-x-1 transition-transform">
+                                                <span className="text-white text-lg font-normal font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>
+                                                    {p.product_name}
+                                                </span>
+                                                <ArrowRight size={18} className="text-white" />
+                                            </div>
+                                        </Link>
                                     ))}
                                 </div>
 
                                 {filtered.length === 0 && (
-                                    <div className="flex flex-col items-center justify-center min-h-[400px] bg-[#222222]/30 rounded-[3rem] border border-white/5 px-6 text-center">
-                                        <div className="bg-white/5 p-6 rounded-full mb-6">
-                                            <Package className="text-white/10" size={40} />
-                                        </div>
-                                        <h3 className="text-xl font-semibold mb-2">No Matching Stones Found</h3>
-                                        <p className="text-white/30 text-sm max-w-xs">
-                                            Try broadening your search or choosing a different color/category combination.
-                                        </p>
+                                    <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+                                        <Package className="text-white/10 mb-6" size={60} />
+                                        <h3 className="text-2xl font-normal font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>No Products Found</h3>
+                                        <p className={`text-white/40 mt-2 ${quicksand.className}`}>Try adjusting your filters or search keywords.</p>
                                     </div>
                                 )}
 
                                 {/* Pagination */}
                                 {totalPages > 1 && (
-                                    <div className="mt-16 flex items-center justify-center gap-2">
-                                        <PaginationButton
-                                            icon="‹"
+                                    <div className="flex items-center justify-center gap-8 pt-10">
+                                        <button
                                             onClick={() => setPage(p => Math.max(1, p - 1))}
                                             disabled={safePage === 1}
-                                        />
+                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all font-serif"
+                                        >
+                                            <ChevronLeft size={18} />
+                                            <span className="text-[14px]">Previous page</span>
+                                        </button>
 
-                                        <div className="flex gap-2">
+                                        <div className="flex items-center gap-6">
                                             {[...Array(totalPages)].map((_, i) => (
                                                 <button
                                                     key={i}
                                                     onClick={() => setPage(i + 1)}
-                                                    className={`w-12 h-12 rounded-2xl font-bold transition-all ${safePage === i + 1
-                                                            ? 'bg-[#eba14d] text-black shadow-lg shadow-[#eba14d]/20'
-                                                            : 'bg-[#222222] text-white/40 hover:text-white border border-white/5'
+                                                    className={`text-[14px] transition-all font-serif ${safePage === i + 1
+                                                        ? 'text-[#DA9C39] font-bold'
+                                                        : 'text-white/30 hover:text-white'
                                                         }`}
                                                 >
                                                     {i + 1}
@@ -243,14 +242,17 @@ export default function ProductListingPage({ initialCategory }) {
                                             ))}
                                         </div>
 
-                                        <PaginationButton
-                                            icon="›"
+                                        <button
                                             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                             disabled={safePage === totalPages}
-                                        />
+                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all font-serif"
+                                        >
+                                            <span className="text-[14px]">Next page</span>
+                                            <ChevronRight size={18} />
+                                        </button>
                                     </div>
                                 )}
-                            </>
+                            </div>
                         )}
                     </main>
                 </div>
@@ -259,70 +261,25 @@ export default function ProductListingPage({ initialCategory }) {
     )
 }
 
-function FilterButton({ label, active, onClick }) {
+function CheckboxItem({ label, active, onClick }) {
     return (
-        <button
-            onClick={onClick}
-            className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl border transition-all ${active
-                    ? 'bg-[#eba14d]/10 border-[#eba14d]/30 text-[#eba14d]'
-                    : 'bg-transparent border-transparent text-white/40 hover:bg-white/5 hover:text-white'
-                }`}
-        >
-            <span className="text-sm font-medium">{label}</span>
-            {active && <Check size={16} />}
-        </button>
-    )
-}
-
-function PaginationButton({ icon, onClick, disabled }) {
-    return (
-        <button
-            onClick={onClick}
-            disabled={disabled}
-            className="w-12 h-12 rounded-2xl bg-[#222222] text-white/40 hover:text-white border border-white/5 disabled:opacity-20 transition-all flex items-center justify-center font-bold text-xl"
-        >
-            {icon}
-        </button>
-    )
-}
-
-function ProductCard({ product }) {
-    return (
-        <Link href={`/products/details/${product.id}`} className="group h-full">
-            <div className="bg-[#222222] border border-white/5 rounded-[2.5rem] p-4 h-full hover:border-[#eba14d]/40 hover:shadow-2xl hover:shadow-black/50 transition-all duration-500 flex flex-col">
-                <div className="relative w-full aspect-[11/10] overflow-hidden rounded-[2rem] bg-[#1a1a1a]">
-                    <Image
-                        src={product.image_url}
-                        alt={product.product_name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-1000"
-                    />
-
-                    {/* Badge */}
-                    <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#eba14d]">{product.category}</span>
-                    </div>
-                </div>
-
-                <div className="mt-6 flex-1 px-2 pb-2 flex flex-col justify-between">
-                    <div>
-                        <h3 className="text-xl font-bold text-white group-hover:text-[#eba14d] transition-colors line-clamp-1 mb-2">
-                            {product.product_name}
-                        </h3>
-                        <div className="flex items-center gap-4 text-white/30 text-[11px] font-bold uppercase tracking-widest">
-                            <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-[#eba14d]" /> {product.origin}</span>
-                            <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-white/20" /> {product.color_family}</span>
-                        </div>
-                    </div>
-
-                    <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 group-hover:text-[#eba14d] transition-colors">View Details</span>
-                        <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-[#eba14d] group-hover:text-black transition-all group-hover:rotate-45">
-                            <ChevronRight size={20} />
-                        </div>
-                    </div>
-                </div>
+        <label className="flex items-center gap-3 cursor-pointer group w-fit">
+            <div
+                onClick={onClick}
+                className={`w-4 h-4 rounded border transition-all flex items-center justify-center ${active
+                    ? 'bg-transparent border-[#DA9C39]'
+                    : 'bg-transparent border-white/20 group-hover:border-white/40'
+                    }`}
+            >
+                {active && <Check size={12} className="text-[#DA9C39] stroke-3" />}
             </div>
-        </Link>
+            <span
+                onClick={onClick}
+                className={`text-[15px] transition-colors ${active ? 'text-white' : 'text-white/60 hover:text-white'} font-serif!`}
+                style={{ fontFamily: 'var(--font-apollo), serif' }}
+            >
+                {label}
+            </span>
+        </label>
     )
 }

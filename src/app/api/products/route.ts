@@ -16,6 +16,11 @@ export async function POST(req: Request) {
         const description = formData.get("description")?.toString().trim();
         const image = formData.get("image") as File | null;
 
+        // New Fields
+        const thickness = formData.get("thickness")?.toString().trim();
+        const base_color = formData.get("base_color")?.toString().trim();
+        const product_video_url = formData.get("product_video_url")?.toString().trim();
+
         if (
             !product_name ||
             !category ||
@@ -30,72 +35,74 @@ export async function POST(req: Request) {
             );
         }
 
-        if (image.size > 500 * 1024) {
-            return Response.json(
-                { success: false, error: "Image size must be less than 500KB" },
-                { status: 400 }
-            );
-        }
-
-        const bytes = await image.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
         const uploadsDir = path.join(process.cwd(), "public", "uploads");
         await mkdir(uploadsDir, { recursive: true });
 
-        const originalName = image.name || "image";
-        const ext = originalName.includes(".")
-            ? originalName.split(".").pop()
-            : "jpg";
+        // Helper to save files
+        const saveFile = async (file: File) => {
+            const bytes = await file.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+            const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
+            const fileName = `${uuidv4()}.${ext}`;
+            const filePath = path.join(uploadsDir, fileName);
+            await writeFile(filePath, buffer);
+            return `/uploads/${fileName}`;
+        };
 
-        const fileName = `${uuidv4()}.${ext}`;
-        const filePath = path.join(uploadsDir, fileName);
+        const image_url = await saveFile(image);
 
-        await writeFile(filePath, buffer);
+        // Handle Book Match Images
+        const bookMatchFiles = formData.getAll("book_match_images") as File[];
+        let bookMatchUrls = [];
+        for (const file of bookMatchFiles) {
+            if (file && file.size > 0) {
+                const url = await saveFile(file);
+                bookMatchUrls.push(url);
+            }
+        }
 
-        const image_url = `/uploads/${fileName}`;
+        // Handle Application Images
+        const applicationFiles = formData.getAll("application_images") as File[];
+        let applicationUrls = [];
+        for (const file of applicationFiles) {
+            if (file && file.size > 0) {
+                const url = await saveFile(file);
+                applicationUrls.push(url);
+            }
+        }
 
-        // Handle Gallery
+        // Handle Gallery (keeping for backward compatibility if needed)
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
         const gallery_images = formData.getAll("gallery_images") as File[];
-
         let gallery = [];
         for (let i = 0; i < gallery_images.length; i++) {
             const file = gallery_images[i];
             if (file && file.size > 0) {
-                const bytesG = await file.arrayBuffer();
-                const bufferG = Buffer.from(bytesG);
-                const fileNameG = `${uuidv4()}.${file.name.split(".").pop()}`;
-                await writeFile(path.join(uploadsDir, fileNameG), bufferG);
-                gallery.push({
-                    url: `/uploads/${fileNameG}`,
-                    link: gallery_links[i] || ""
-                });
+                const url = await saveFile(file);
+                gallery.push({ url, link: gallery_links[i] || "" });
             }
         }
 
         const [result] = await db.query(
-            `INSERT INTO products
-      (product_name, category, origin, color_family, description, image_url, gallery)
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery)]
+            `INSERT INTO products 
+            (product_name, category, origin, color_family, description, image_url, gallery, thickness, base_color, product_video_url, book_match_images, application_images) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery),
+                thickness, base_color, product_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls)
+            ]
         );
 
         return Response.json({
             success: true,
             message: "Product added successfully",
             image_url,
-            gallery,
             result,
         });
     } catch (error: any) {
         console.error("PRODUCT INSERT ERROR:", error);
-
         return Response.json(
-            {
-                success: false,
-                error: error?.message || "Something went wrong",
-            },
+            { success: false, error: error?.message || "Something went wrong" },
             { status: 500 }
         );
     }

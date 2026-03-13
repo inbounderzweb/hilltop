@@ -79,51 +79,51 @@ export default function AddCategoryForm() {
     };
 
     return (
-        <div className="bg-[#222222] rounded-2xl border border-white/5 shadow-xl p-8 animate-in fade-in duration-500">
-            <h2 className="text-2xl font-semibold text-white mb-2 tracking-wide flex items-center gap-3">
+        <div className="bg-[#222222] rounded-xl border border-white/5 shadow-xl p-6 animate-in fade-in duration-500">
+            <span className="text-sm font-semibold text-white mb-1 tracking-wide flex items-center gap-3">
                 Manage Categories
-                {fetching && <Loader2 size={20} className="animate-spin text-[#eba14d]" />}
-            </h2>
-            <p className="text-white/50 text-sm mb-8">Add new categories to organize your products. These will appear in the product creation dropdown.</p>
+                {fetching && <Loader2 size={16} className="animate-spin text-[#eba14d]" />}
+            </span>
+            <p className="text-white/40 text-xs mb-6 px-1">Add new categories to organize your products.</p>
 
-            <form onSubmit={handleSubmit} className="mb-10">
-                <label className="block text-sm font-medium text-white/70 mb-2">New Category Name <span className="text-red-500">*</span></label>
-                <div className="flex flex-col sm:flex-row gap-4">
+            <form onSubmit={handleSubmit} className="mb-8">
+                <label className="block text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1.5 px-1">New Category Name <span className="text-red-500">*</span></label>
+                <div className="flex flex-col sm:flex-row gap-3">
                     <input
                         name="categoryName"
                         required
                         placeholder="e.g. Limestone"
                         disabled={loading}
-                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:border-[#eba14d] outline-none transition ring-0 focus:ring-1 focus:ring-[#eba14d] disabled:opacity-50"
+                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-[#eba14d] outline-none transition disabled:opacity-50"
                     />
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-[#eba14d] hover:bg-[#d89243] text-black font-semibold px-8 py-3 rounded-xl transition duration-300 shadow-md whitespace-nowrap disabled:opacity-50 flex items-center justify-center gap-2"
+                        className="bg-[#eba14d] hover:bg-[#d89243] text-black font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-lg transition shadow-md whitespace-nowrap disabled:opacity-50 flex items-center justify-center gap-2"
                     >
-                        {loading ? <Loader2 size={18} className="animate-spin" /> : <Plus size={18} />}
-                        {loading ? "Adding..." : "Add Category"}
+                        {loading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                        {loading ? "ADDING..." : "ADD CATEGORY"}
                     </button>
                 </div>
             </form>
 
-            <div>
-                <h3 className="text-sm font-medium text-white/70 mb-4 px-1 flex items-center gap-2">
+            <div className="pt-6 border-t border-white/5">
+                <h3 className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-4 px-1 flex items-center gap-2">
                     Active Categories ({categories.length})
                 </h3>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2.5">
                     {categories.length === 0 && !fetching ? (
-                        <p className="text-white/20 text-sm italic py-4">No categories added yet. Add one above.</p>
+                        <p className="text-white/20 text-xs italic py-2">No categories yet.</p>
                     ) : (
                         categories.map((cat) => (
-                            <div key={cat.id} className="flex items-center gap-2 pl-4 pr-3 py-2 bg-[#1a1a1a] border border-white/10 rounded-xl group hover:border-[#eba14d]/30 transition-colors">
-                                <span className="text-sm text-white/90">{cat.name}</span>
+                            <div key={cat.id} className="flex items-center gap-2 pl-3 pr-2 py-1.5 bg-[#1a1a1a] border border-white/10 rounded-lg group hover:border-[#eba14d]/30 transition-colors">
+                                <span className="text-xs text-white/80">{cat.name}</span>
                                 <button
                                     className="p-1 text-white/10 hover:text-red-500 transition-colors"
                                     onClick={() => handleDelete(cat.id, cat.name)}
                                     title="Delete Category"
                                 >
-                                    <Trash2 size={14} />
+                                    <Trash2 size={12} />
                                 </button>
                             </div>
                         ))

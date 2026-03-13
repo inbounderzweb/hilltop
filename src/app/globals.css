@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #272727;
+  --background: #151515;
+  --foreground: #ffffff;
+  --accent: #DA9C39;
 }
 
+/* Typography Consistency */
+h1 {
+  @apply text-[48px] md:text-[64px] lg:text-[72px] font-medium leading-tight tracking-wide;
+}
+
+h2 {
+  @apply text-[34px] md:text-[52px] font-medium leading-tight tracking-wide;
+}
+
+h3 {
+  @apply text-[22px] md:text-[28px] font-semibold leading-snug tracking-wide;
+}
+
+p {
+  @apply text-[15px] md:text-[17px] leading-relaxed opacity-80;
+}
+
+/* Content Spacing */
+section {
+  @apply py-14 md:py-24;
+}
+
+/* Image Formatting - Slabs must be rectangular */
+.slab-image {
+  @apply rounded-none overflow-hidden aspect-video object-cover;
+}
+
+/* Non-slab images can have subtle curves if necessary, but minimizing as per req */
+.rounded-2xl,
+.rounded-xl,
+.rounded-3xl {
+  border-radius: 4px !important;
+  /* Minimize curved edges */
+}
 
 /* hide scrollbar but keep scroll */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE + Edge */
-  scrollbar-width: none;     /* Firefox */
-}
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE + Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
 
 /* Smooth transitions for all images */
 img {
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-              opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
@@ -40,17 +77,7 @@ img {
   transform: scale(1.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #272727;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  /* font-family: Arial, Helvetica, sans-serif; */
 }
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

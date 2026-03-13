@@ -26,6 +26,9 @@ export default function CareerApplySection({
 
   const fileRef = React.useRef(null);
 
+  const [loading, setLoading] = React.useState(false);
+  const [status, setStatus] = React.useState(null);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));
@@ -36,12 +39,41 @@ export default function CareerApplySection({
     setForm((p) => ({ ...p, resume: file }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const payload = { ...form };
-    if (onSubmit) onSubmit(payload);
-    // demo behavior: you can remove this reset if you want
-    // setForm({ fullName: "", job: "", email: "", phone: "", resume: null });
+    if (!form.resume) {
+      setStatus({ type: 'error', message: 'Please upload your resume in PDF format.' });
+      return;
+    }
+
+    setLoading(true);
+    setStatus(null);
+
+    const formData = new FormData();
+    formData.append('fullName', form.fullName);
+    formData.append('job', form.job);
+    formData.append('email', form.email);
+    formData.append('phone', form.phone);
+    formData.append('resume', form.resume);
+
+    try {
+      const response = await fetch('/api/enquiries/career', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setStatus({ type: 'success', message: 'Application submitted successfully! Our team will contact you soon.' });
+        setForm({ fullName: "", job: "", email: "", phone: "", resume: null });
+      } else {
+        setStatus({ type: 'error', message: data.error || 'Something went wrong.' });
+      }
+    } catch (err) {
+      setStatus({ type: 'error', message: 'Failed to submit application. Please try again later.' });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -54,7 +86,7 @@ export default function CareerApplySection({
 
       <div className="mx-auto w-full max-w-6xl px-6">
         {/* heading + copy */}
-        <h2 className="text-center text-white text-[36px] md:text-[46px] font-[500] tracking-wide">
+        <h2 className="text-center text-white text-[36px] md:text-[46px] font-medium tracking-wide">
           Be Part of Our Mission
         </h2>
 
@@ -63,13 +95,15 @@ export default function CareerApplySection({
           professionals to join our journey of innovation and excellence. Whether you&apos;re a seasoned expert or an ambitious newcomer, HillTop offers you
           the opportunity to work with rare, exquisite materials and be a part of creating timeless masterpieces for clients worldwide. Explore a career
           where luxury, creativity, and growth go hand in hand. Step into a world of possibilities and build your future with HillTop.
+          <br />
+          <span className="block mt-4 text-[#DA9C39] font-bold">Email your resume to: jobs@hilltopgranite.com</span>
         </p>
 
         {/* content */}
         <div className="mt-10 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* illustration */}
           <div className="relative w-full max-w-[560px] mx-auto lg:mx-0">
-            <div className="relative w-full aspect-[16/9]">
+            <div className="relative w-full aspect-video">
               <Image
                 src={illustrationSrc}
                 alt="Career illustration"
@@ -177,20 +211,26 @@ export default function CareerApplySection({
                   <button
                     type="button"
                     onClick={() => fileRef.current?.click()}
-                    className="shrink-0 h-[38px] px-6 rounded-xl bg-white/80 text-black/80 text-[14px] font-[600] hover:bg-white transition"
+                    className="shrink-0 h-[38px] px-6 rounded-xl bg-white/80 text-black/80 text-[14px] font-semibold hover:bg-white transition"
                   >
                     Browse
                   </button>
                 </div>
               </div>
 
-              {/* Submit aligned right like screenshot */}
+              {status && (
+                <div className={`md:col-span-2 p-3 rounded-xl text-center text-sm font-medium ${status.type === 'success' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+                  {status.message}
+                </div>
+              )}
+
               <div className="md:col-span-2 flex justify-center md:justify-end pt-2">
                 <button
                   type="submit"
-                  className="h-[54px] w-full md:w-[280px] rounded-2xl bg-[#DA9C39] text-black font-[700] text-[18px] tracking-wide hover:brightness-110 transition"
+                  disabled={loading}
+                  className={`h-[54px] w-full md:w-[280px] rounded-2xl bg-[#DA9C39] text-black font-bold text-[18px] tracking-wide transition ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:brightness-110'}`}
                 >
-                  Submit now
+                  {loading ? "Submitting..." : "Submit now"}
                 </button>
               </div>
             </div>
