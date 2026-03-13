@@ -19,13 +19,17 @@ function BlogCard({ post }) {
         className="relative w-full aspect-4/3 overflow-hidden bg-white/10 shadow-[0_10px_32px_rgba(0,0,0,0.45)]"
         style={{ borderRadius: "14px" }}
       >
-        <Image
-          src={post.image}
-          alt={post.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          sizes="(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 25vw"
-        />
+        <Link
+          href={post.href || "#"}>
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 25vw"
+          />
+        </Link>
+
       </div>
 
       {/* Text container */}
@@ -85,7 +89,7 @@ export default function BlogThumbnails({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-14">
             {posts.map((post, idx) => (
               <BlogCard key={idx} post={post} />
             ))}

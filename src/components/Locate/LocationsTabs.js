@@ -152,8 +152,8 @@ export default function IndiaLocationsTabs() {
   const item = items[0];
 
   return (
-    <section className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
         {/* Title */}
         <div className="text-center">
           <h2 className="text-white text-3xl sm:text-4xl tracking-[0.25em] font-medium">
@@ -212,6 +212,6 @@ export default function IndiaLocationsTabs() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

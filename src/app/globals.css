@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #151515;
+  --background: #1f1f1f;
   --foreground: #ffffff;
   --accent: #DA9C39;
 }
@@ -25,7 +25,7 @@ p {
 
 /* Content Spacing */
 section {
-  @apply py-14 md:py-24;
+  @apply py-10 md:py-16;
 }
 
 /* Image Formatting - Slabs must be rectangular */

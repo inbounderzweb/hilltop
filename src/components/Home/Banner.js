@@ -51,7 +51,7 @@ export default function FadeBanner() {
   const prev = () => setActive((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="relative w-full h-[650px] md:h-[950px] overflow-hidden group touch-pan-y">
+    <section className="relative w-full h-[650px] md:h-[850px] overflow-hidden touch-pan-y">
       <motion.div
         className="w-full h-full cursor-grab active:cursor-grabbing"
         drag="x"
@@ -95,9 +95,9 @@ export default function FadeBanner() {
                 {slide.title}
               </h1>
 
-              <p className={`mt-2 text-white/90 text-[26px] lg:text-[40px] drop-shadow-lg ${quicksand.className}`}>
+              <span className={` text-white text-[16px] lg:text-[30px] ${quicksand.className}`}>
                 {slide.subtitle}
-              </p>
+              </span>
             </div>
           </div>
         ))}

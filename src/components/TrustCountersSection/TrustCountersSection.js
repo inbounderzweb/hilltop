@@ -83,7 +83,7 @@ export default function TrustCountersSection() {
   const values = [v0, v1, v2, v3];
 
   return (
-    <section ref={ref} className="relative w-full overflow-hidden bg-black">
+    <section ref={ref} className="relative w-full overflow-hidden bg-[#1f1f1f]">
       {/* Background images */}
       <div className="absolute inset-0">
         {/* Desktop BG */}

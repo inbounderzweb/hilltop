@@ -148,9 +148,9 @@ export default function ApplicationsTabbedSlider() {
   const progress = ((slideIndex + 1) / slides.length) * 100;
 
   return (
-    <section className="w-full bg-[#1f1f1f]">
+    <div className="w-full bg-[#1f1f1f] py-4">
       {/* TOP TAB BAR */}
-      <div className="w-full bg-[#141414]">
+      <div className="w-full bg-[#1f1f1f]">
         <div className="mx-auto max-w-[1500px] px-4 md:px-10">
           {/* ✅ Desktop: normal row */}
           <div className="hidden md:flex items-center gap-16 h-[86px]">
@@ -388,7 +388,7 @@ export default function ApplicationsTabbedSlider() {
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }
 

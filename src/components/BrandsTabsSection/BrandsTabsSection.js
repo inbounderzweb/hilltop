@@ -15,7 +15,7 @@ export default function BrandsTabsSection() {
 
   // colors
   const CARD = "white";
-  const STRIP = "#181818"; // Deep neutral for a "recessed" inactive base
+  const STRIP = "#da9c3a"; // Deep neutral for a "recessed" inactive base
 
   const data = useMemo(
     () => ({
@@ -56,8 +56,8 @@ export default function BrandsTabsSection() {
   const active = data[tab];
 
   return (
-    <section className="w-full bg-[#1f1f1f] py-10 md:py-14">
-      <div className="mx-auto max-w-[1400px] px-4 md:px-10">
+    <section className="w-full py-8 md:py-12 ">
+      <div className="mx-auto max-w-[1400px]">
         {/* MAIN CARD */}
         <div
           className="relative overflow-hidden shadow-[0_22px_70px_rgba(0,0,0,0.45)]"
@@ -77,7 +77,7 @@ export default function BrandsTabsSection() {
                     label="USA"
                     side="left"
                     active={tab === "USA"}
-                    onClick={() => setTab("USA")}
+                    onClick={() => setTab(tab === "USA" ? "India" : "USA")}
                     cardColor={CARD}
                     stripColor={STRIP}
                   />
@@ -85,7 +85,7 @@ export default function BrandsTabsSection() {
                     label="India"
                     side="right"
                     active={tab === "India"}
-                    onClick={() => setTab("India")}
+                    onClick={() => setTab(tab === "India" ? "USA" : "India")}
                     cardColor={CARD}
                     stripColor={STRIP}
                   />
@@ -131,8 +131,8 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
         "relative flex-1 h-[50px] md:h-[86px] overflow-hidden",
         "flex items-center justify-center transition-all duration-700 text-[22px] md:text-[28px]",
         active
-          ? "text-[#DA9C39] font-bold z-[2] scale-100 opacity-100"
-          : "text-white/60 font-medium z-[1] scale-[0.97] opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+          ? "text-[#DA9C39] font-bold"
+          : "text-white font-medium"
       ].join(" ")}
       style={{
         background: active ? cardColor : stripColor,

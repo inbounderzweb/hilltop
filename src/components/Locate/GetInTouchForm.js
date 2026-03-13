@@ -73,8 +73,8 @@ export default function GetInTouchForm() {
   };
 
   return (
-    <section className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
-      <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+    <div className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
+      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         {/* Heading */}
         <div className="text-center">
           <h2 className="text-white text-[44px] sm:text-[54px] leading-none font-medium">
@@ -206,7 +206,7 @@ export default function GetInTouchForm() {
           </div>
         </form>
       </div>
-    </section>
+    </div>
   );
 }
 

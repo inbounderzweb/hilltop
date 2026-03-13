@@ -13,7 +13,8 @@ import {
     ChevronLeft,
     ChevronRight,
     ExternalLink,
-    ArrowRight
+    ArrowRight,
+    Play
 } from 'lucide-react'
 import Link from 'next/link'
 import { Quicksand } from "next/font/google";
@@ -27,7 +28,7 @@ const quicksand = Quicksand({
 export default function ProductDetails({ productId }) {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [activeImage, setActiveImage] = useState({ url: null, link: null });
+    const [activeItem, setActiveItem] = useState({ url: null, link: null, type: 'image' });
     const [error, setError] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
 
@@ -43,9 +44,10 @@ export default function ProductDetails({ productId }) {
                 if (data.success) {
                     setProduct(data.product);
                     // Set both URL and Link for the initial view
-                    setActiveImage({
+                    setActiveItem({
                         url: data.product.image_url,
-                        link: null // Main image currently doesn't have a separate link field
+                        link: null,
+                        type: 'image'
                     });
 
                     // Fetch related products (same category)
@@ -98,10 +100,17 @@ export default function ProductDetails({ productId }) {
         );
     }
 
-    const allImages = [
-        { url: product.image_url, link: null },
-        ...(Array.isArray(product.gallery) ? product.gallery : [])
+    const allItems = [
+        { url: product.image_url, link: null, type: 'image' },
+        ...(Array.isArray(product.gallery) ? product.gallery.map(img => ({ ...img, type: 'image' })) : []),
+        ...(product.product_video_url ? [{ url: product.product_video_url, link: null, type: 'video' }] : [])
     ];
+
+    const getYouTubeId = (url) => {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url?.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    };
 
     return (
         <div className="min-h-screen bg-[#1b1b1b] text-white py-14 md:py-20">
@@ -111,23 +120,46 @@ export default function ProductDetails({ productId }) {
 
                     {/* Left: Gallery Section */}
                     <div className="space-y-6">
-                        <div className="relative aspect-4/3 w-full bg-[#222222] rounded-xl overflow-hidden shadow-2xl group">
-                            <Image
-                                src={activeImage.url || product.image_url}
-                                alt={product.product_name}
-                                fill
-                                className="object-cover"
-                                priority
-                            />
+                        <div className="relative aspect-4/3 w-full bg-[#222222] rounded-xl overflow-hidden shadow-2xl group flex items-center justify-center">
+                            {activeItem.type === 'video' ? (
+                                <div className="absolute inset-0 w-full h-full">
+                                    {getYouTubeId(activeItem.url) ? (
+                                        <iframe
+                                            className="w-full h-full"
+                                            src={`https://www.youtube.com/embed/${getYouTubeId(activeItem.url)}?autoplay=0&controls=1`}
+                                            title="Product Video"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        ></iframe>
+                                    ) : (
+                                        <video
+                                            className="w-full h-full object-contain"
+                                            controls
+                                            src={activeItem.url}
+                                        >
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    )}
+                                </div>
+                            ) : (
+                                <Image
+                                    src={activeItem.url || product.image_url}
+                                    alt={product.product_name}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                />
+                            )}
 
                             {/* Navigation Arrows inside image */}
-                            <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none">
+                            <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        const currentIndex = allImages.findIndex(img => img.url === activeImage.url);
-                                        const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-                                        setActiveImage(allImages[prevIndex]);
+                                        const currentIndex = allItems.findIndex(item => item.url === activeItem.url);
+                                        const prevIndex = (currentIndex - 1 + allItems.length) % allItems.length;
+                                        setActiveItem(allItems[prevIndex]);
                                     }}
                                     className="w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center backdrop-blur-sm border border-white/20 hover:bg-[#eba14d] hover:text-black transition-all pointer-events-auto"
                                 >
@@ -136,9 +168,9 @@ export default function ProductDetails({ productId }) {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        const currentIndex = allImages.findIndex(img => img.url === activeImage.url);
-                                        const nextIndex = (currentIndex + 1) % allImages.length;
-                                        setActiveImage(allImages[nextIndex]);
+                                        const currentIndex = allItems.findIndex(item => item.url === activeItem.url);
+                                        const nextIndex = (currentIndex + 1) % allItems.length;
+                                        setActiveItem(allItems[nextIndex]);
                                     }}
                                     className="w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center backdrop-blur-sm border border-white/20 hover:bg-[#eba14d] hover:text-black transition-all pointer-events-auto"
                                 >
@@ -148,23 +180,30 @@ export default function ProductDetails({ productId }) {
                         </div>
 
                         {/* Thumbnails */}
-                        {allImages.length > 1 && (
+                        {allItems.length > 1 && (
                             <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
-                                {allImages.map((img, idx) => (
+                                {allItems.map((item, idx) => (
                                     <button
                                         key={idx}
-                                        onClick={() => setActiveImage({ url: img.url, link: img.link })}
-                                        className={`relative w-24 aspect-4/3 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeImage.url === img.url
+                                        onClick={() => setActiveItem(item)}
+                                        className={`relative w-24 aspect-4/3 shrink-0 rounded-lg overflow-hidden border-2 transition-all flex items-center justify-center bg-[#2a2a2a] ${activeItem.url === item.url
                                             ? 'border-[#eba14d]'
                                             : 'border-transparent opacity-60 hover:opacity-100'
                                             }`}
                                     >
-                                        <Image
-                                            src={img.url}
-                                            alt={`${product.product_name} thumbnail ${idx}`}
-                                            fill
-                                            className="object-cover"
-                                        />
+                                        {item.type === 'video' ? (
+                                            <div className="flex flex-col items-center justify-center w-full h-full bg-[#333] text-white">
+                                                <Play size={24} className="fill-[#eba14d] text-[#eba14d]" />
+                                                <span className="text-[10px] mt-1 font-bold">VIDEO</span>
+                                            </div>
+                                        ) : (
+                                            <Image
+                                                src={item.url}
+                                                alt={`${product.product_name} thumbnail ${idx}`}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        )}
                                     </button>
                                 ))}
                             </div>
@@ -190,9 +229,13 @@ export default function ProductDetails({ productId }) {
                                 <span className="text-[#DA9C39] text-xl font-medium">Colour</span>
                                 <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.base_color || product.color_family || "N/A"}</span>
                             </div>
-                            <div className="grid grid-cols-2 pb-6">
+                            <div className="grid grid-cols-2 pb-6 border-b border-white/10">
                                 <span className="text-[#DA9C39] text-xl font-medium">Origin</span>
                                 <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.origin}</span>
+                            </div>
+                            <div className="grid grid-cols-2 pb-6">
+                                <span className="text-[#DA9C39] text-xl font-medium">Thickness</span>
+                                <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.thickness || "Standard"}</span>
                             </div>
                         </div>
 

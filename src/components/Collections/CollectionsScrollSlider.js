@@ -354,7 +354,7 @@ export default function CollectionsScrollSlider() {
   const translateXStyle = `calc(-${active} * (min(560px, 78vw) + 28px))`;
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#1f1f1f] text-white py-12 md:py-20 overflow-hidden">
+    <section ref={sectionRef} className="w-full bg-[#1f1f1f] text-white pt-4  overflow-hidden">
       {/* Title */}
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
         <motion.h2

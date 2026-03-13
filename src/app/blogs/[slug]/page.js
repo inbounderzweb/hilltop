@@ -93,18 +93,18 @@ export default function BlogDetailPage() {
                         </div>
 
                         {/* Title Section */}
-                        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-8 ${quicksand.className}`}>
+                        <span className={`text-3xl font-bold leading-[1.15] mb-8 ${quicksand.className}`}>
                             {blog.title}
-                        </h1>
+                        </span>
 
                         {/* Meta Info */}
-                        <div className="flex flex-wrap gap-8 mb-12 text-white/40 text-[13px] uppercase tracking-widest font-medium border-b border-white/5 pb-8">
+                        <div className="flex flex-wrap gap-8 mb-12 my-2 text-white text-[13px] uppercase tracking-widest font-medium border-b border-white/5 pb-8">
                             <div className="flex items-center gap-2">
-                                <Calendar size={14} className="text-[#DA9C39]" />
+                                <Calendar size={14} className={`text-white ${quicksand.className}`} />
                                 {new Date(blog.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
                             </div>
                             <div className="flex items-center gap-2">
-                                <User size={14} className="text-[#DA9C39]" />
+                                <User size={14} className={`text-white ${quicksand.className}`} />
                                 {blog.author_name || "Hilltop Surfaces"}
                             </div>
                         </div>
@@ -112,13 +112,13 @@ export default function BlogDetailPage() {
                         {/* Detailed Content */}
                         <div className="prose prose-invert prose-gold max-w-none">
                             {/* Excerpt */}
-                            <p className="text-xl text-white/80 font-light leading-relaxed mb-12 italic border-l-2 border-[#DA9C39]/40 pl-6">
+                            <p className={`text-xl text-white/80 font-light leading-relaxed mb-12 italic border-l-2 border-[#DA9C39]/40 pl-6 ${quicksand.className}`}>
                                 {blog.excerpt}
                             </p>
 
                             {/* Full Content */}
                             <div
-                                className="text-white/70 text-lg leading-[1.8] space-y-8"
+                                className={`text-white/70 text-lg leading-[1.8] space-y-8 ${quicksand.className}`}
                                 dangerouslySetInnerHTML={{ __html: blog.content.replace(/\n/g, '<br/>') }}
                             />
                         </div>
@@ -154,7 +154,7 @@ export default function BlogDetailPage() {
                                         <h3 className={`text-white text-lg font-medium leading-snug group-hover:text-[#DA9C39] transition-colors duration-300 ${quicksand.className}`}>
                                             {item.title}
                                         </h3>
-                                        <p className="mt-3 text-white/50 text-[14px] leading-relaxed line-clamp-2">
+                                        <p className={`mt-3 text-white text-[14px] leading-relaxed line-clamp-2 ${quicksand.className}`}>
                                             {item.excerpt}
                                         </p>
                                         <div className="mt-5">

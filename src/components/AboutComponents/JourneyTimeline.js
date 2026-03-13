@@ -52,9 +52,9 @@ function Row({ item, index }) {
       transition={{ duration: 0.55, delay: index * 0.06, ease: [0.21, 0.9, 0.2, 1] }}
       className="group relative"
     >
-      
 
-      <div className="grid grid-cols-12 gap-6 py-10 md:py-12">
+
+      <div className="grid grid-cols-12 gap-6 py-4">
         {/* YEAR */}
         <div className="col-span-12 md:col-span-2">
           <div className="text-[32px] md:text-[34px] leading-none tracking-wide text-[#DA9C39] font-[600] font-[Appolo]">
@@ -87,7 +87,7 @@ function Row({ item, index }) {
         </div>
       </div>
 
-      
+
     </motion.div>
   );
 }
@@ -101,7 +101,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(55%_45%_at_20%_55%,rgba(255,255,255,0.06),transparent_65%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_80%_60%,rgba(255,255,255,0.05),transparent_70%)]" />
 
-      <div className="mx-auto w-full max-w-5xl px-6 py-10 md:py-14">
+      <div className="mx-auto w-full max-w-5xl px-6 py-4">
         {/* STATIC HEADING (won't scroll) */}
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
@@ -113,13 +113,13 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           {title}
         </motion.h2>
 
-  
-        
+
+
 
         {/* SCROLL AREA */}
         <div className="relative mt-0">
           {/* top shadow */}
-          
+
 
           {/* bottom shadow */}
           <div className="pointer-events-none absolute left-0 bottom-0 z-10 h-28 w-full bg-gradient-to-t from-[#1E1E1E]/95 via-[#1E1E1E]/60 to-transparent" />

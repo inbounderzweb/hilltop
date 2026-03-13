@@ -19,8 +19,8 @@ const quicksand = Quicksand({
 
 export default function GeologicalSignaturesSection() {
   return (
-    <section className="w-full bg-[#1f1f1f] text-white overflow-hidden">
-      <div className="mx-auto max-w-[1400px] px-0 md:px-10 md:py-20">
+    <div className="w-full bg-[#1f1f1f] text-white overflow-hidden">
+      <div className="mx-auto max-w-[1400px] px-0 md:px-10">
         {/* Top Heading */}
         <div className="text-center">
           <h2 className="text-[30px] md:text-[44px] font-[500] tracking-wide">
@@ -53,11 +53,11 @@ export default function GeologicalSignaturesSection() {
             </div>
 
             <div className="md:col-span-5 md:pl-4 text-center md:text-left">
-              <h3 className="text-[34px] md:text-[44px] leading-[1.08] font-[500] text-white/90">
+              <h2 className="leading-[1.08] font-[500] text-white/90">
                 Born of
                 <br />
                 Earth&apos;s Forces
-              </h3>
+              </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
                 Forged through time, pressure, and natural processes, stone carries
                 the quiet strength of the planet itself.
@@ -68,11 +68,11 @@ export default function GeologicalSignaturesSection() {
           {/* Block 2: Text left, image right */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
             <div className="md:col-span-5 md:pr-4 order-2 md:order-1 text-center md:text-left">
-              <h3 className="text-[34px] md:text-[44px] leading-[1.08] font-[500] text-white/90">
+              <h2 className="leading-[1.08] font-[500] text-white/90">
                 Marked By Strokes
                 <br />
                 That Never Repeat
-              </h3>
+              </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
                 Each pattern so unique, no two stones are ever alike.
               </p>
@@ -113,11 +113,11 @@ export default function GeologicalSignaturesSection() {
             </div>
 
             <div className="md:col-span-5 md:pl-4 text-center md:text-left">
-              <h3 className="text-[34px] md:text-[44px] leading-[1.08] font-[500] text-white/90">
+              <h2 className="leading-[1.08] font-[500] text-white/90">
                 Mother Nature&apos;s
                 <br />
                 Own Masterpieces
-              </h3>
+              </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
                 Where raw beauty attains a form both timeless and exquisite.
               </p>
@@ -128,6 +128,6 @@ export default function GeologicalSignaturesSection() {
         {/* Soft vignette like premium pages */}
         <div className="pointer-events-none absolute left-0 right-0 -z-10" />
       </div>
-    </section>
+    </div>
   );
 }

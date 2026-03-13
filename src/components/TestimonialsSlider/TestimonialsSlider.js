@@ -159,7 +159,7 @@ export default function TestimonialsSlider() {
   }, [paused, perView, testimonials.length, next]);
 
   return (
-    <section className="w-full bg-[#1f1f1f] text-white py-14 md:py-20 overflow-hidden">
+    <section className="w-full bg-[#1f1f1f] text-white py-4 overflow-hidden">
       <div className="mx-auto max-w-[1600px] px-4 md:px-10">
         <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-normal">
           Testimonials

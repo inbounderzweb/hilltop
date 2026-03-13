@@ -123,20 +123,20 @@ export default function ProductListingPage({ initialCategory }) {
                     <aside className="bg-[#222222] rounded-xl p-8 h-fit space-y-10">
                         {/* Search */}
                         <div className="space-y-4">
-                            <h3 className="text-white text-base font-bold font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>Search</h3>
+                            <h3 className={`text-white text-base font-bold ${quicksand.className}`}>Search</h3>
                             <div className="relative group">
                                 <input
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
-                                    placeholder="Product keywords"
-                                    className={`w-full bg-[#151515] border border-white/10 rounded px-4 py-3 text-white placeholder:text-white/20 outline-none focus:border-[#DA9C39] transition-all ${quicksand.className}`}
+                                    placeholder="Marble, Granite, Quartz..."
+                                    className={`w-full bg-black/20 placeholder:text-white border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#DA9C39] outline-none transition-all duration-700 ease-out ${quicksand.className}`}
                                 />
                             </div>
                         </div>
 
                         {/* Categories */}
                         <div className="space-y-6">
-                            <h3 className="text-white text-base font-bold font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>Categories</h3>
+                            <h3 className={`text-white text-base font-bold ${quicksand.className}`}>Categories</h3>
                             <div className="space-y-4">
                                 <CheckboxItem
                                     label="All"
@@ -158,7 +158,7 @@ export default function ProductListingPage({ initialCategory }) {
 
                         {/* Colour */}
                         <div className="space-y-6">
-                            <h3 className="text-white text-base font-bold font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>Colour</h3>
+                            <h3 className={`text-white text-base font-bold ${quicksand.className}`}>Colour</h3>
                             <div className="space-y-4">
                                 <CheckboxItem
                                     label="All"
@@ -194,11 +194,11 @@ export default function ProductListingPage({ initialCategory }) {
                                                     src={p.image_url}
                                                     alt={p.product_name}
                                                     fill
-                                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                    className="object-cover"
                                                 />
                                             </div>
-                                            <div className="flex items-center justify-center gap-2 group-hover:translate-x-1 transition-transform">
-                                                <span className="text-white text-lg font-normal font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>
+                                            <div className="flex items-center justify-center gap-2 group-hover:translate-x-1 transition-transform duration-1000 ease-out">
+                                                <span className={`text-white text-lg font-normal ${quicksand.className}`}>
                                                     {p.product_name}
                                                 </span>
                                                 <ArrowRight size={18} className="text-white" />
@@ -210,7 +210,7 @@ export default function ProductListingPage({ initialCategory }) {
                                 {filtered.length === 0 && (
                                     <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
                                         <Package className="text-white/10 mb-6" size={60} />
-                                        <h3 className="text-2xl font-normal font-serif!" style={{ fontFamily: 'var(--font-apollo), serif' }}>No Products Found</h3>
+                                        <h3 className={`text-2xl font-normal ${quicksand.className}`}>No Products Found</h3>
                                         <p className={`text-white/40 mt-2 ${quicksand.className}`}>Try adjusting your filters or search keywords.</p>
                                     </div>
                                 )}
@@ -221,7 +221,7 @@ export default function ProductListingPage({ initialCategory }) {
                                         <button
                                             onClick={() => setPage(p => Math.max(1, p - 1))}
                                             disabled={safePage === 1}
-                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all font-serif"
+                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700 font-serif"
                                         >
                                             <ChevronLeft size={18} />
                                             <span className="text-[14px]">Previous page</span>
@@ -232,7 +232,7 @@ export default function ProductListingPage({ initialCategory }) {
                                                 <button
                                                     key={i}
                                                     onClick={() => setPage(i + 1)}
-                                                    className={`text-[14px] transition-all font-serif ${safePage === i + 1
+                                                    className={`text-[14px] transition-all duration-700 font-serif ${safePage === i + 1
                                                         ? 'text-[#DA9C39] font-bold'
                                                         : 'text-white/30 hover:text-white'
                                                         }`}
@@ -245,7 +245,7 @@ export default function ProductListingPage({ initialCategory }) {
                                         <button
                                             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                             disabled={safePage === totalPages}
-                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all font-serif"
+                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700 font-serif"
                                         >
                                             <span className="text-[14px]">Next page</span>
                                             <ChevronRight size={18} />
@@ -266,7 +266,7 @@ function CheckboxItem({ label, active, onClick }) {
         <label className="flex items-center gap-3 cursor-pointer group w-fit">
             <div
                 onClick={onClick}
-                className={`w-4 h-4 rounded border transition-all flex items-center justify-center ${active
+                className={`w-4 h-4 rounded border transition-all duration-700 flex items-center justify-center ${active
                     ? 'bg-transparent border-[#DA9C39]'
                     : 'bg-transparent border-white/20 group-hover:border-white/40'
                     }`}
@@ -275,8 +275,7 @@ function CheckboxItem({ label, active, onClick }) {
             </div>
             <span
                 onClick={onClick}
-                className={`text-[15px] transition-colors ${active ? 'text-white' : 'text-white/60 hover:text-white'} font-serif!`}
-                style={{ fontFamily: 'var(--font-apollo), serif' }}
+                className={`text-[15px] transition-colors duration-700 ${active ? 'text-white' : 'text-white/60 hover:text-white'} ${quicksand.className}`}
             >
                 {label}
             </span>

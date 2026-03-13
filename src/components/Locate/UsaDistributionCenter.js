@@ -111,8 +111,8 @@ function LocationCard({ item }) {
 
 export default function UsaDistributionCenter() {
   return (
-    <section className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
         {/* Title */}
         <div className="text-center">
           <h2 className="text-white text-4xl sm:text-5xl tracking-[0.28em] font-medium">
@@ -141,6 +141,6 @@ export default function UsaDistributionCenter() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

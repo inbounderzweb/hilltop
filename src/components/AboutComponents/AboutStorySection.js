@@ -32,7 +32,7 @@ export default function AboutStorySection() {
               className="object-cover object-center"
             />
 
-        
+
           </div>
 
           {/* Right story text */}
@@ -71,7 +71,7 @@ export default function AboutStorySection() {
               Our Purpose
             </h3>
 
-            <p className="mt-5 text-white/80 text-[15px] md:text-[16px] leading-relaxed max-w-[640px]">
+            <p className={`mt-5 text-white/80 text-[15px] md:text-[16px] leading-relaxed max-w-[640px] ${quicksand.className}`}>
               To redefine the standards of stone craftsmanship worldwide through
               innovative solutions, an expert team with a proven track record,
               and a passion for quality.
@@ -87,7 +87,7 @@ export default function AboutStorySection() {
 
           {/* Values card */}
           <div >
-  
+
             <Image src={foundersImg} alt="founder-image" />
           </div>
         </div>
