@@ -22,10 +22,6 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
 
     // Gallery state
     const [gallery, setGallery] = useState([]); // [{ file: null, link: "", existingUrl: "" }]
-    const [bookMatchImages, setBookMatchImages] = useState([]); // Array of Files
-    const [applicationImages, setApplicationImages] = useState([]); // Array of Files
-    const [existingBookMatchUrls, setExistingBookMatchUrls] = useState([]);
-    const [existingApplicationUrls, setExistingApplicationUrls] = useState([]);
 
     // Real-time fetching state
     const [categories, setCategories] = useState([]);
@@ -83,9 +79,6 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                 product_video_url: initialData.product_video_url || "",
             });
             setExistingImageUrl(initialData.image_url || "");
-            setExistingBookMatchUrls(initialData.book_match_images ? (typeof initialData.book_match_images === 'string' ? JSON.parse(initialData.book_match_images) : initialData.book_match_images) : []);
-            setExistingApplicationUrls(initialData.application_images ? (typeof initialData.application_images === 'string' ? JSON.parse(initialData.application_images) : initialData.application_images) : []);
-
             if (initialData.gallery && Array.isArray(initialData.gallery)) {
                 setGallery(initialData.gallery.map(item => ({
                     file: null,
@@ -159,15 +152,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             }
             if (isEdit) {
                 payload.append("existing_image_url", existingImageUrl);
-                payload.append("existing_book_match", JSON.stringify(existingBookMatchUrls));
-                payload.append("existing_application", JSON.stringify(existingApplicationUrls));
             }
-
-            // Book Match Images
-            bookMatchImages.forEach(file => payload.append("book_match_images", file));
-
-            // Application Images
-            applicationImages.forEach(file => payload.append("application_images", file));
 
             // Gallery handling
             const links = [];
@@ -363,50 +348,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-white/5">
-                    {/* Book Match Images */}
-                    <div>
-                        <label className="block text-[11px] font-bold text-white/40 uppercase tracking-wider mb-2">Book Match Visuals</label>
-                        <input
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={(e) => setBookMatchImages([...e.target.files])}
-                            className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-white text-[11px]"
-                        />
-                        <div className="flex flex-wrap gap-1.5 mt-2">
-                            {existingBookMatchUrls.map((url, i) => (
-                                <div key={i} className="relative h-12 w-16 border border-white/10 rounded overflow-hidden">
-                                    <img src={url} className="w-full h-full object-cover" />
-                                    <button type="button" onClick={() => setExistingBookMatchUrls(existingBookMatchUrls.filter((_, idx) => idx !== i))} className="absolute top-0 right-0 bg-red-500 text-white p-0.5">
-                                        <X size={8} />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Application Images */}
-                    <div>
-                        <label className="block text-[11px] font-bold text-white/40 uppercase tracking-wider mb-2">Application Images</label>
-                        <input
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={(e) => setApplicationImages([...e.target.files])}
-                            className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-white text-[11px]"
-                        />
-                        <div className="flex flex-wrap gap-1.5 mt-2">
-                            {existingApplicationUrls.map((url, i) => (
-                                <div key={i} className="relative h-12 w-16 border border-white/10 rounded overflow-hidden">
-                                    <img src={url} className="w-full h-full object-cover" />
-                                    <button type="button" onClick={() => setExistingApplicationUrls(existingApplicationUrls.filter((_, idx) => idx !== i))} className="absolute top-0 right-0 bg-red-500 text-white p-0.5">
-                                        <X size={8} />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                <div className="pt-2 border-t border-white/5">
                 </div>
 
                 {/* Gallery Section */}

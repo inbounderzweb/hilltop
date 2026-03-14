@@ -79,27 +79,11 @@ export async function PUT(
             image_url = await saveFile(image);
         }
 
-        // Handle Book Match Images
-        const existingBookMatch = JSON.parse(formData.get("existing_book_match")?.toString() || "[]");
-        const newBookMatchFiles = formData.getAll("book_match_images") as File[];
-        let bookMatchUrls = [...existingBookMatch];
-        for (const file of newBookMatchFiles) {
-            if (file && file.size > 0) {
-                const url = await saveFile(file);
-                bookMatchUrls.push(url);
-            }
-        }
+        // Handle Book Match Images (Removed)
+        let bookMatchUrls: string[] = [];
 
-        // Handle Application Images
-        const existingApplication = JSON.parse(formData.get("existing_application")?.toString() || "[]");
-        const newApplicationFiles = formData.getAll("application_images") as File[];
-        let applicationUrls = [...existingApplication];
-        for (const file of newApplicationFiles) {
-            if (file && file.size > 0) {
-                const url = await saveFile(file);
-                applicationUrls.push(url);
-            }
-        }
+        // Handle Application Images (Removed)
+        let applicationUrls: string[] = [];
 
         // Handle gallery
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");

@@ -51,25 +51,11 @@ export async function POST(req: Request) {
 
         const image_url = await saveFile(image);
 
-        // Handle Book Match Images
-        const bookMatchFiles = formData.getAll("book_match_images") as File[];
-        let bookMatchUrls = [];
-        for (const file of bookMatchFiles) {
-            if (file && file.size > 0) {
-                const url = await saveFile(file);
-                bookMatchUrls.push(url);
-            }
-        }
+        // Handle Book Match Images (Removed)
+        let bookMatchUrls: string[] = [];
 
-        // Handle Application Images
-        const applicationFiles = formData.getAll("application_images") as File[];
-        let applicationUrls = [];
-        for (const file of applicationFiles) {
-            if (file && file.size > 0) {
-                const url = await saveFile(file);
-                applicationUrls.push(url);
-            }
-        }
+        // Handle Application Images (Removed)
+        let applicationUrls: string[] = [];
 
         // Handle Gallery (keeping for backward compatibility if needed)
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
