@@ -79,9 +79,10 @@ export default function Footer() {
             <h4 className="text-white/90 text-[18px] font-[600] mb-6">Follow us</h4>
 
             <div className="space-y-4">
-              <SocialRow href="https://instagram.com" label="Instagram" icon={<InstagramIcon />} />
-              <SocialRow href="https://facebook.com" label="Facebook" icon={<FacebookIcon />} />
-              <SocialRow href="https://x.com" label="X.com" icon={<XIcon />} />
+              <SocialRow href="https://www.instagram.com/hilltopgraniteofficial/" label="Instagram" icon={<InstagramIcon />} />
+              <SocialRow href="https://www.facebook.com/HilltopGraniteBangalore/" label="Facebook" icon={<FacebookIcon />} />
+              <SocialRow href="https://www.youtube.com/@hilltopgraniteofficial7267" label="YouTube" icon={<YoutubeIcon />} />
+              <SocialRow href="https://www.linkedin.com/company/hilltopstones?originalSubdomain=in" label="LinkedIn" icon={<LinkedinIcon />} />
             </div>
           </div>
         </div>
@@ -146,7 +147,7 @@ export default function Footer() {
 
             <a
               className="text-white/90 hover:text-white transition"
-              href="https://instagram.com"
+              href="https://www.instagram.com/hilltopgraniteofficial/"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
@@ -155,7 +156,7 @@ export default function Footer() {
             </a>
             <a
               className="text-white/90 hover:text-white transition"
-              href="https://facebook.com"
+              href="https://www.facebook.com/HilltopGraniteBangalore/"
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook"
@@ -164,12 +165,21 @@ export default function Footer() {
             </a>
             <a
               className="text-white/90 hover:text-white transition"
-              href="https://x.com"
+              href="https://www.youtube.com/@hilltopgraniteofficial7267"
               target="_blank"
               rel="noreferrer"
-              aria-label="X"
+              aria-label="YouTube"
             >
-              <XIcon size={26} />
+              <YoutubeIcon size={26} />
+            </a>
+            <a
+              className="text-white/90 hover:text-white transition"
+              href="https://www.linkedin.com/company/hilltopstones?originalSubdomain=in"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+            >
+              <LinkedinIcon size={26} />
             </a>
           </div>
 
@@ -298,13 +308,33 @@ function FacebookIcon({ size = 22 }) {
   );
 }
 
-function XIcon({ size = 22 }) {
+function YoutubeIcon({ size = 22 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M6 4h4.2l3.2 4.6L17.7 4H21l-6 7.1L21.4 20h-4.2l-3.6-5.1L9 20H5.6l6.4-7.6L6 4Z"
+        d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path
+        d="m9.75 15.02 5.75-3.02-5.75-3.02v6.04z"
         fill="currentColor"
       />
+    </svg>
+  );
+}
+
+function LinkedinIcon({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="4" cy="4" r="2" fill="currentColor" />
     </svg>
   );
 }
