@@ -8,6 +8,10 @@ import logo2 from "../../assets/logos/l2.png";
 import logo3 from "../../assets/logos/l3.png";
 import logo4 from "../../assets/logos/l4.png";
 import logo5 from "../../assets/logos/l5.png";
+import usalogo1 from "../../assets/logos/usalogo1.png";
+import usalogo2 from "../../assets/logos/usalogo2.png";
+import usalogo3 from "../../assets/logos/usalogo3.png";
+
 
 
 export default function BrandsTabsSection() {
@@ -28,10 +32,10 @@ export default function BrandsTabsSection() {
           { id: "usa-5", src: logo5, alt: "Logo 5" },
         ],
         partnered: [
-          { id: "usa-p1", src: logo2, alt: "Logo 2" },
-          { id: "usa-p2", src: logo5, alt: "Logo 5" },
-          { id: "usa-p3", src: logo4, alt: "Logo 4" },
-          { id: "usa-p4", src: logo1, alt: "Logo 1" },
+          { id: "usa-p1", src: usalogo1, alt: "Logo 2" },
+          { id: "usa-p2", src: usalogo2, alt: "Logo 5" },
+          { id: "usa-p3", src: usalogo3, alt: "Logo 4" },
+          // { id: "usa-p4", src: logo1, alt: "Logo 1" },
         ],
       },
       India: {
