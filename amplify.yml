@@ -31,7 +31,7 @@ frontend:
         - npm ci
     build:
       commands:
-        - env | grep -e DB_HOST -e DB_PORT -e DB_USER -e DB_PASSWORD -e DB_NAME -e DB_SSL >> .env.production
+        - env | grep -e DB_HOST -e DB_PORT -e DB_USER -e DB_PASSWORD -e DB_NAME -e DB_SSL -e S3_UPLOAD_KEY -e S3_UPLOAD_SECRET -e S3_UPLOAD_BUCKET -e S3_UPLOAD_REGION >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
