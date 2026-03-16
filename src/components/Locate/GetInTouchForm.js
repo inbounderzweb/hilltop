@@ -44,7 +44,7 @@ const COUNTRY_CODES = [
   { code: "+973", flag: "🇧🇭", label: "Bahrain" },
 ];
 
-export default function GetInTouchForm() {
+export default function GetInTouchForm({ initialProducts = [] }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,7 +53,7 @@ export default function GetInTouchForm() {
     message: ""
   });
   const [countryCode, setCountryCode] = useState("+91");
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(initialProducts);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
 

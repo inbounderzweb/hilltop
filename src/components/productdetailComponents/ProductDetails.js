@@ -18,6 +18,8 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { Quicksand } from "next/font/google";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -31,6 +33,21 @@ export default function ProductDetails({ productId }) {
     const [activeItem, setActiveItem] = useState({ url: null, link: null, type: 'image' });
     const [error, setError] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
+
+    const [sliderRef, instanceRef] = useKeenSlider({
+        slides: {
+            perView: 1.2,
+            spacing: 16,
+        },
+        breakpoints: {
+            "(min-width: 640px)": {
+                slides: { perView: 2.2, spacing: 20 },
+            },
+            "(min-width: 1024px)": {
+                slides: { perView: 4, spacing: 30 },
+            },
+        },
+    });
 
     useEffect(() => {
         if (!productId) return;
@@ -50,13 +67,20 @@ export default function ProductDetails({ productId }) {
                         type: 'image'
                     });
 
-                    // Fetch related products (same category)
+                    // Fetch related products (same category, or just other recent products)
                     const relatedRes = await fetch(`/api/products?t=${Date.now()}`);
                     const relatedData = await relatedRes.json();
                     if (relatedData.success) {
-                        const filtered = relatedData.products
-                            .filter(p => p.category === data.product.category && p.id !== data.product.id)
-                            .slice(0, 4);
+                        // Priority 1: Same category
+                        let filtered = relatedData.products.filter(
+                            p => p.category === data.product.category && p.id !== data.product.id
+                        );
+                        
+                        // Priority 2: If same category is empty, take any other products
+                        if (filtered.length === 0) {
+                            filtered = relatedData.products.filter(p => p.id !== data.product.id);
+                        }
+                        
                         setRelatedProducts(filtered);
                     }
                 } else {
@@ -258,41 +282,45 @@ export default function ProductDetails({ productId }) {
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {relatedProducts.length > 0 ? (
-                            relatedProducts.map((p) => (
-                                <Link key={p.id} href={`/products/details/${p.id}`} className="group block">
-                                    <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-4">
-                                        <Image
-                                            src={p.image_url}
-                                            alt={p.product_name}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                    </div>
-                                    <div className="flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                                        <span className="text-white text-lg font-normal">
-                                            {p.product_name}
-                                        </span>
-                                        <ArrowRight size={18} className="text-white" />
-                                    </div>
-                                </Link>
-                            ))
-                        ) : (
-                            // Fallback dummy items for design accuracy if no related products
-                            [1, 2, 3, 4].map((i) => (
-                                <div key={i} className="group cursor-pointer">
-                                    <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-4 bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-700">
-                                        <div className="absolute inset-0 flex items-center justify-center text-white/10 italic">Stone Visual</div>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-white text-lg font-normal">
-                                            Cosmopolitan
-                                        </span>
-                                        <ArrowRight size={18} className="text-white" />
-                                    </div>
+                    <div className="relative group/slider px-2">
+                        <div ref={sliderRef} className="keen-slider">
+                            {relatedProducts.map((p) => (
+                                <div key={p.id} className="keen-slider__slide">
+                                    <Link href={`/products/details/${p.id}`} className="group block">
+                                        <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-4">
+                                            <Image
+                                                src={p.image_url}
+                                                alt={p.product_name}
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                        </div>
+                                        <div className="flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                                            <span className="text-white text-lg font-normal">
+                                                {p.product_name}
+                                            </span>
+                                            <ArrowRight size={18} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        </div>
+                                    </Link>
                                 </div>
-                            ))
+                            ))}
+                        </div>
+
+                        {relatedProducts.length > 1 && (
+                            <>
+                                <button
+                                    onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
+                                    className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#DA9C39] hover:text-black transition-all z-10 opacity-0 group-hover/slider:opacity-100 hidden md:flex"
+                                >
+                                    <ChevronLeft size={24} />
+                                </button>
+                                <button
+                                    onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
+                                    className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#DA9C39] hover:text-black transition-all z-10 opacity-0 group-hover/slider:opacity-100 hidden md:flex"
+                                >
+                                    <ChevronRight size={24} />
+                                </button>
+                            </>
                         )}
                     </div>
                 </div>
