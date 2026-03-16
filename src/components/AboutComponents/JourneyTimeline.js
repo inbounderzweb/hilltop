@@ -12,6 +12,49 @@ const quicksand = Quicksand({
 
 const DEFAULT_ITEMS = [
   {
+    year: "1989",
+    title: "The Beginning",
+    bullets: ["Operations began in Malur, Bangalore, with a circular sawing plant and an annual capacity of 300,000 sq. ft."],
+  },
+  {
+    year: "1992",
+    title: "Warehouse Expansion",
+    bullets: ["Warehouses opened in Mumbai and Kolkata to enhance distribution."],
+  },
+  {
+    year: "1994",
+    title: "Flagship Showroom",
+    bullets: ["Opened a flagship showroom in Bangalore’s Bannerghatta Road marble market."],
+  },
+  {
+    year: "2000",
+    title: "First Gang-Saw Plant",
+    bullets: ["Introduced the first gang-saw plant with Italian technology."],
+  },
+  {
+    year: "2006",
+    title: "Export-Oriented Unit (EOU)",
+    bullets: ["Established a 100% EOU in Bangalore with an annual capacity of 2,000,000 sq. ft."],
+  },
+  {
+    year: "2007",
+    title: "Global Expansion",
+    bullets: [
+      "Opened the first international outlet in Houston, Texas.",
+      "Implemented a 1.25 MW windmill in Hosur, reducing carbon emissions by 300 tons."
+    ],
+  },
+  {
+    year: "2008",
+    title: "Showroom & Warehouse in Canada",
+    bullets: ["Launched a 50,000 sq. ft showroom showcasing over 200 products; commended by the Ministry of Commerce, India."],
+  },
+  {
+    year: "2013",
+    title: "No Child Labour Certification",
+    bullets: ["Earned certification from the Government of Tamil Nadu for ethical labour practices."],
+  },
+  {
     year: "2014",
     title: "Production Upgrade",
     bullets: ["Annual capacity increased to 3.6 million sq. ft. with new machinery."],
@@ -21,6 +64,14 @@ const DEFAULT_ITEMS = [
     title: "Showroom in Dallas",
     bullets: [
       "Opened a 60,000 sq. ft showroom in Dallas, Texas, showcasing 250+ containers of stone & ceramic products.",
+    ],
+  },
+  {
+    year: "2019",
+    title: "Rebranding & Quartz Plant",
+    bullets: [
+      "Rebranded to Hilltop Stones & Interiors (USA).",
+      "Established a state-of-the-art Quartz Plant in Tamil Nadu."
     ],
   },
   {
@@ -54,7 +105,7 @@ function Row({ item, index }) {
     >
 
 
-      <div className="grid grid-cols-12 gap-6 py-4">
+      <div className="grid grid-cols-12 gap-6 py-8 md:py-10 border-b border-white/5 last:border-0">
         {/* YEAR */}
         <div className="col-span-12 md:col-span-2">
           <div className="text-[32px] md:text-[34px] leading-none tracking-wide text-[#DA9C39] font-[600] font-[Appolo]">
@@ -108,7 +159,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.21, 0.9, 0.2, 1] }}
-          className="text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)]"
+          className="text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)] mb-12 md:mb-16"
         >
           {title}
         </motion.h2>
@@ -125,7 +176,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           <div className="pointer-events-none absolute left-0 bottom-0 z-10 h-28 w-full bg-gradient-to-t from-[#1E1E1E]/95 via-[#1E1E1E]/60 to-transparent" />
 
 
-          <div className="h-[300px] overflow-y-auto pr-2 scroll-smooth no-scrollbar">
+          <div className="h-[450px] md:h-[600px] overflow-y-auto pr-2 scroll-smooth no-scrollbar">
             {items.map((item, idx) => (
               <Row key={`${item.year}-${idx}`} item={item} index={idx} />
             ))}
