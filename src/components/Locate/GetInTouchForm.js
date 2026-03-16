@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Quicksand } from "next/font/google";
 
 const quicksand = Quicksand({
@@ -53,8 +53,24 @@ export default function GetInTouchForm() {
     message: ""
   });
   const [countryCode, setCountryCode] = useState("+91");
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('/api/products?t=' + Date.now());
+        const data = await res.json();
+        if (data.success) {
+          setProducts(data.products);
+        }
+      } catch (err) {
+        console.error("Failed to fetch products for form", err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -179,12 +195,14 @@ export default function GetInTouchForm() {
                   required
                 >
                   <option value="" disabled>
-                    Purpose of Enquiry
+                    Select Product
                   </option>
-                  <option value="product">Product enquiry</option>
-                  <option value="pricing">Pricing & quotation</option>
-                  <option value="bulk">Bulk / project requirement</option>
-                  <option value="support">Support</option>
+                  {products.map((p) => (
+                    <option key={p.id} value={p.product_name}>
+                      {p.product_name}
+                    </option>
+                  ))}
+                  <option value="other">Other / General Enquiry</option>
                 </select>
 
                 <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/80">
