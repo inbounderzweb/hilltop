@@ -159,7 +159,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.21, 0.9, 0.2, 1] }}
-          className="text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)] mb-12 md:mb-16"
+          className={`text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-[500] mb-12 md:mb-16`}
         >
           {title}
         </motion.h2>
