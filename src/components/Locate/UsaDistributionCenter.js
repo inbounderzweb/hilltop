@@ -51,6 +51,7 @@ const LOCATIONS = [
     address: "2120 Grand Ave Pkwy # 150, Austin, TX 78728, USA",
     phone: "+1 512 220 2140",
     email: "austin@hilltopgranite.com",
+    map_url: "https://maps.google.com/maps?q=2120+Grand+Ave+Pkwy+%23+150%2C+Austin%2C+TX+78728%2C+USA&output=embed"
   },
   {
     title: "HILLTOP GRANITE",
@@ -58,6 +59,7 @@ const LOCATIONS = [
     address: "12401 N Stemmons Fwy #140, Farmers Branch, TX 75234, USA",
     phone: "+1 972 243 3156",
     email: "dallas@hilltopgranite.com",
+    map_url: "https://maps.google.com/maps?q=12401+N+Stemmons+Fwy+%23140%2C+Farmers+Branch%2C+TX+75234%2C+USA&output=embed"
   },
   {
     title: "HILLTOP GRANITE",
@@ -65,12 +67,13 @@ const LOCATIONS = [
     address: "8760 Clay Rd Suite B, Houston, TX 77080, USA",
     phone: "+1 832 867 9053",
     email: "houston@hilltopgranite.com",
+    map_url: "https://maps.google.com/maps?q=8760+Clay+Rd+Suite+B%2C+Houston%2C+TX+77080%2C+USA&output=embed"
   },
 ];
 
 function LocationCard({ item }) {
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 flex flex-col h-full">
       <div className="text-white">
         <p className="text-[20px] sm:text-[22px] font-semibold tracking-wide leading-tight">
           {item.title}
@@ -84,7 +87,23 @@ function LocationCard({ item }) {
         {item.address}
       </p>
 
-      <div className="mt-7 space-y-4">
+      {/* Map Box */}
+      {item.map_url && (
+        <div className="mt-5 w-full h-[180px] rounded-xl overflow-hidden border border-white/5 shadow-inner">
+          <iframe
+            src={item.map_url}
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="grayscale invert contrast-125 opacity-70 hover:opacity-100 transition-opacity duration-500"
+          ></iframe>
+        </div>
+      )}
+
+      <div className="mt-7 space-y-4 mb-2">
         <a
           href={`tel:${item.phone.replace(/\s/g, "")}`}
           className="flex items-center gap-3 text-white/85 hover:text-white transition"

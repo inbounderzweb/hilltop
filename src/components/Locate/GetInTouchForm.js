@@ -30,6 +30,20 @@ function ChevronDown({ className = "" }) {
   );
 }
 
+const COUNTRY_CODES = [
+  { code: "+91", flag: "🇮🇳", label: "India" },
+  { code: "+1", flag: "🇺🇸", label: "USA" },
+  { code: "+1", flag: "🇨🇦", label: "Canada" },
+  { code: "+44", flag: "🇬🇧", label: "UK" },
+  { code: "+971", flag: "🇦🇪", label: "UAE" },
+  { code: "+61", flag: "🇦🇺", label: "Australia" },
+  { code: "+968", flag: "🇴🇲", label: "Oman" },
+  { code: "+974", flag: "🇶🇦", label: "Qatar" },
+  { code: "+966", flag: "🇸🇦", label: "Saudi" },
+  { code: "+965", flag: "🇰🇼", label: "Kuwait" },
+  { code: "+973", flag: "🇧🇭", label: "Bahrain" },
+];
+
 export default function GetInTouchForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -38,6 +52,7 @@ export default function GetInTouchForm() {
     purpose: "",
     message: ""
   });
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
 
@@ -51,11 +66,16 @@ export default function GetInTouchForm() {
     setLoading(true);
     setStatus(null);
 
+    const submissionData = {
+      ...formData,
+      phone: `${countryCode} ${formData.phone}`
+    };
+
     try {
       const response = await fetch('/api/enquiries/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(submissionData)
       });
 
       const data = await response.json();
@@ -101,12 +121,27 @@ export default function GetInTouchForm() {
               <FieldInput placeholder="Full Name" name="name" value={formData.name} onChange={handleChange} required />
               <FieldInput placeholder="Email id" name="email" type="email" value={formData.email} onChange={handleChange} required />
 
-              {/* Phone with +91 prefix */}
-              <div className="relative">
-                <div className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-white text-[18px] sm:text-[20px]">
-                  +91
+              {/* Phone with Country Code selector */}
+              <div className="relative flex">
+                <div className="relative">
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="h-full rounded-l-2xl bg-[#2a2a2a] text-white text-[18px] sm:text-[20px] px-4 py-5 sm:py-6 border border-white/10 border-right-0 outline-none appearance-none cursor-pointer hover:bg-[#333] transition"
+                  >
+                    {COUNTRY_CODES.map((c, i) => (
+                      <option key={i} value={c.code}>
+                        {c.flag} {c.code}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-white/40">
+                    <ChevronDown className="h-4 w-4" />
+                  </div>
                 </div>
-                <div className="pointer-events-none absolute left-[64px] top-1/2 -translate-y-1/2 h-7 w-px bg-white/25" />
+                
+                <div className="h-full w-px bg-white/10 self-stretch" />
+                
                 <input
                   name="phone"
                   value={formData.phone}
@@ -114,12 +149,11 @@ export default function GetInTouchForm() {
                   inputMode="numeric"
                   placeholder="Phone Number"
                   className={[
-                    "w-full rounded-2xl bg-[#2a2a2a] text-white/90",
+                    "flex-1 rounded-r-2xl bg-[#2a2a2a] text-white/90",
                     "px-5 py-5 sm:py-6",
-                    "pl-[88px]",
                     "text-[18px] sm:text-[20px]",
                     "outline-none",
-                    "border border-white/10",
+                    "border border-white/10 border-left-0",
                     "placeholder:text-white/30",
                     "focus:border-white/20",
                   ].join(" ")}
