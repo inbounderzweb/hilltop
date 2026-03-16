@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { uploadFile } from "@/lib/storage";
 import { v4 as uuidv4 } from "uuid";
 
 export const dynamic = "force-dynamic";
@@ -39,20 +38,7 @@ export async function POST(req: Request) {
             slug = `${slug}-${Date.now().toString().slice(-4)}`;
         }
 
-        const bytes = await image.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const uploadsDir = path.join(process.cwd(), "public", "uploads", "blogs");
-        await mkdir(uploadsDir, { recursive: true });
-
-        const originalName = image.name || "image";
-        const ext = originalName.includes(".") ? originalName.split(".").pop() : "jpg";
-        const fileName = `${uuidv4()}.${ext}`;
-        const filePath = path.join(uploadsDir, fileName);
-
-        await writeFile(filePath, buffer);
-
-        const image_url = `/uploads/blogs/${fileName}`;
+        const image_url = await uploadFile(image, "blogs");
 
         const [result] = await db.query(
             `INSERT INTO blogs (title, author_name, slug, excerpt, content, image_url) VALUES (?, ?, ?, ?, ?, ?)`,

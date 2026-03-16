@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { uploadFile } from "@/lib/storage";
 import { v4 as uuidv4 } from "uuid";
 
 export const dynamic = "force-dynamic";
@@ -59,19 +58,7 @@ export async function PUT(
 
         // Handle image update if a new file is provided
         if (image && image.size > 0) {
-            const bytes = await image.arrayBuffer();
-            const buffer = Buffer.from(bytes);
-
-            const uploadsDir = path.join(process.cwd(), "public", "uploads", "blogs");
-            await mkdir(uploadsDir, { recursive: true });
-
-            const originalName = image.name || "image";
-            const ext = originalName.includes(".") ? originalName.split(".").pop() : "jpg";
-            const fileName = `${uuidv4()}.${ext}`;
-            const filePath = path.join(uploadsDir, fileName);
-
-            await writeFile(filePath, buffer);
-            image_url = `/uploads/blogs/${fileName}`;
+            image_url = await uploadFile(image, "blogs");
         }
 
         await db.query(

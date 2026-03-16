@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/mail";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { uploadFile } from "@/lib/storage";
 import { v4 as uuidv4 } from "uuid";
 
 export const dynamic = "force-dynamic";
@@ -23,16 +22,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const uploadsDir = path.join(process.cwd(), "public", "uploads", "resumes");
-        await mkdir(uploadsDir, { recursive: true });
-
-        // Save Resume
-        const bytes = await resume.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        const fileName = `${uuidv4()}-${resume.name}`;
-        const filePath = path.join(uploadsDir, fileName);
-        await writeFile(filePath, buffer);
-        const resume_url = `/uploads/resumes/${fileName}`;
+        const resume_url = await uploadFile(resume, "resumes");
 
         await db.query(
             "INSERT INTO career_enquiries (full_name, job_role, email, phone, resume_url) VALUES (?, ?, ?, ?, ?)",

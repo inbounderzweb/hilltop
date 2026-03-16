@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { uploadFile } from "@/lib/storage";
 import { v4 as uuidv4 } from "uuid";
 
 export const dynamic = "force-dynamic";
@@ -35,21 +34,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const uploadsDir = path.join(process.cwd(), "public", "uploads");
-        await mkdir(uploadsDir, { recursive: true });
-
-        // Helper to save files
-        const saveFile = async (file: File) => {
-            const bytes = await file.arrayBuffer();
-            const buffer = Buffer.from(bytes);
-            const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
-            const fileName = `${uuidv4()}.${ext}`;
-            const filePath = path.join(uploadsDir, fileName);
-            await writeFile(filePath, buffer);
-            return `/uploads/${fileName}`;
-        };
-
-        const image_url = await saveFile(image);
+        const image_url = await uploadFile(image, "products");
 
         // Handle Book Match Images (Removed)
         let bookMatchUrls: string[] = [];
@@ -57,14 +42,14 @@ export async function POST(req: Request) {
         // Handle Application Images (Removed)
         let applicationUrls: string[] = [];
 
-        // Handle Gallery (keeping for backward compatibility if needed)
+        // Handle Gallery
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
         const gallery_images = formData.getAll("gallery_images") as File[];
         let gallery = [];
         for (let i = 0; i < gallery_images.length; i++) {
             const file = gallery_images[i];
             if (file && file.size > 0) {
-                const url = await saveFile(file);
+                const url = await uploadFile(file, "gallery");
                 gallery.push({ url, link: gallery_links[i] || "" });
             }
         }
