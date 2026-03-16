@@ -29,11 +29,30 @@ export async function uploadFile(file: File, folder: string = "uploads"): Promis
         return `/${folder}/${path.basename(filePath)}`;
     }
 
+    // Validation for Production
+    const key = process.env.S3_UPLOAD_KEY;
+    const secret = process.env.S3_UPLOAD_SECRET;
+    const bucket = process.env.S3_UPLOAD_BUCKET;
+    const region = process.env.S3_UPLOAD_REGION || "ap-south-1";
+
+    if (!key || !secret || !bucket) {
+        const missing = [];
+        if (!key) missing.push("S3_UPLOAD_KEY");
+        if (!secret) missing.push("S3_UPLOAD_SECRET");
+        if (!bucket) missing.push("S3_UPLOAD_BUCKET");
+        
+        const errorMsg = `CRITICAL CONFIG ERROR: Missing ${missing.join(", ")}. Ensure these are set in AWS Amplify Environment Variables.`;
+        console.error(errorMsg);
+        throw new Error(errorMsg);
+    }
+
     try {
+        console.log(`Starting S3 upload to bucket: ${bucket}, region: ${region}, file: ${fileName}, size: ${buffer.length} bytes`);
+        
         const parallelUploads3 = new Upload({
             client: s3Client,
             params: {
-                Bucket: process.env.S3_UPLOAD_BUCKET || "",
+                Bucket: bucket,
                 Key: fileName,
                 Body: buffer,
                 ContentType: file.type || "image/jpeg",
@@ -41,14 +60,26 @@ export async function uploadFile(file: File, folder: string = "uploads"): Promis
         });
 
         await parallelUploads3.done();
+        console.log(`Successfully uploaded ${fileName} to S3`);
         
-        // Return the public URL
-        // If the bucket is public, it's https://BUCKET.s3.REGION.amazonaws.com/KEY
-        // Or if you use a CDN/CloudFront, you might want to return that.
-        // For now, return the S3 URL format
-        return `https://${process.env.S3_UPLOAD_BUCKET}.s3.${process.env.S3_UPLOAD_REGION}.amazonaws.com/${fileName}`;
-    } catch (error) {
-        console.error("S3 Upload Error:", error);
-        throw new Error("Failed to upload image to S3");
+        return `https://${bucket}.s3.${region}.amazonaws.com/${fileName}`;
+    } catch (error: any) {
+        console.error("DETAILED S3 UPLOAD ERROR:", error);
+        
+        // Handle common S3 errors with helpful messages
+        let friendlyMessage = error.message || "Unknown S3 error";
+        if (error.name === "CredentialsError" || error.code === "CredentialsError") {
+            friendlyMessage = "AWS Credentials Error: Check if S3_UPLOAD_KEY and S3_UPLOAD_SECRET are correct and active.";
+        } else if (error.name === "InvalidAccessKeyId") {
+            friendlyMessage = "Invalid AWS Access Key ID. Please check your S3_UPLOAD_KEY.";
+        } else if (error.name === "SignatureDoesNotMatch") {
+            friendlyMessage = "AWS Secret Access Key is incorrect (Signature Mismatch). Please check your S3_UPLOAD_SECRET.";
+        } else if (error.name === "NoSuchBucket") {
+            friendlyMessage = `S3 Bucket "${bucket}" not found. Create it in AWS Console or check S3_UPLOAD_BUCKET.`;
+        } else if (error.name === "AccessDenied") {
+            friendlyMessage = `Access Denied for bucket "${bucket}". Ensure your IAM user has s3:PutObject and s3:PutObjectAcl permissions.`;
+        }
+        
+        throw new Error(`S3 Upload Failed: ${friendlyMessage} [Code: ${error.name || error.code || 'None'}]`);
     }
 }
