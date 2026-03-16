@@ -233,10 +233,10 @@ export default function ProductDetails({ productId }) {
                                 <span className="text-[#DA9C39] text-xl font-medium">Origin</span>
                                 <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.origin}</span>
                             </div>
-                            <div className="grid grid-cols-2 pb-6">
+                            {/* <div className="grid grid-cols-2 pb-6">
                                 <span className="text-[#DA9C39] text-xl font-medium">Thickness</span>
                                 <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.thickness || "Standard"}</span>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="mt-10">
