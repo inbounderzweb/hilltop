@@ -33,7 +33,7 @@ export default function EngineeredSurface() {
             </span>
           </h2>
           <p className={`mt-2 text-white text-[16px] md:text-[24px] ${quicksand.className}`}>
-            Nature-Formed Materials
+            Precision-Crafted Materials
           </p>
         </div>
 

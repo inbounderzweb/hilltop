@@ -56,6 +56,7 @@ export async function uploadFile(file: File, folder: string = "uploads"): Promis
                 Key: fileName,
                 Body: buffer,
                 ContentType: file.type || "image/jpeg",
+                ACL: "public-read",
             },
         });
 

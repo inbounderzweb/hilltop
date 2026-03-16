@@ -30,9 +30,9 @@ export default function Footer() {
             <div className="mt-7 space-y-3">
               <FooterBlock title="INDIA">
                 <FooterLink href="/india/head-quarters">Head Quarters</FooterLink>
-                <div className="text-white/60 text-[12px] mt-1">+91 99000 63557</div>
+                {/* <div className="text-white/60 text-[12px] mt-1">+91 99000 63557</div> */}
                 <FooterLink href="/india/factory">Factory</FooterLink>
-                <div className="text-white/60 text-[12px] mt-1">+91 89519 43587</div>
+                {/* <div className="text-white/60 text-[12px] mt-1">+91 89519 43587</div> */}
                 <FooterLink href="/india/showroom">Showroom</FooterLink>
               </FooterBlock>
 
