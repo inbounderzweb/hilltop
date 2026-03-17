@@ -49,23 +49,23 @@ export default function Footer() {
 
             <h4 className="text-white/90 text-[18px] font-[600] mb-6">Quick Links</h4>
 
-            <div className="grid grid-cols-2 gap-x-10 gap-y-4">
-              <FooterLink muted href="/about">
+            <div className="grid grid-cols-2 gap-x-10 gap-y-4 text-[#d7a447]">
+              <FooterLink href="/about">
                 About us
               </FooterLink>
-              <FooterLink muted href="/blog">
+              <FooterLink href="/blog">
                 Blog
               </FooterLink>
-              <FooterLink muted href="/products">
+              <FooterLink href="/products">
                 Products
               </FooterLink>
-              <FooterLink muted href="/career">
+              <FooterLink href="/career">
                 Career
               </FooterLink>
-              <FooterLink muted href="/us-line">
-                US Line
+              <FooterLink href="/locate#usa">
+                US line
               </FooterLink>
-              <FooterLink muted href="/faq">
+              <FooterLink href="/faq">
                 FAQ
               </FooterLink>
             </div>
@@ -118,25 +118,13 @@ export default function Footer() {
             Quick Links
           </h4>
 
-          <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-6 text-[16px] leading-snug">
-            <Link className="text-white/80 hover:text-white transition" href="/about">
-              About us
-            </Link>
-            <Link className="text-white/80 hover:text-white transition" href="/blog">
-              Blog
-            </Link>
-            <Link className="text-white/80 hover:text-white transition" href="/products">
-              Products
-            </Link>
-            <Link className="text-white/80 hover:text-white transition" href="/career">
-              Career
-            </Link>
-            <Link className="text-white/80 hover:text-white transition" href="/us-line">
-              US Line
-            </Link>
-            <Link className="text-white/80 hover:text-white transition" href="/faq">
-              FAQ
-            </Link>
+          <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-6">
+            <FooterLinkMobile href="/about">About us</FooterLinkMobile>
+            <FooterLinkMobile href="/blog">Blog</FooterLinkMobile>
+            <FooterLinkMobile href="/products">Products</FooterLinkMobile>
+            <FooterLinkMobile href="/career">Career</FooterLinkMobile>
+            <FooterLinkMobile href="/locate#usa">Locate Us</FooterLinkMobile>
+            <FooterLinkMobile href="/faq">FAQ</FooterLinkMobile>
           </div>
 
           <Divider />

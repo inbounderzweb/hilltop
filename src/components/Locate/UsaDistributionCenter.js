@@ -83,7 +83,7 @@ function LocationCard({ item }) {
         </p>
       </div>
 
-      <p className="mt-3 text-[14px] sm:text-[15px] leading-relaxed text-white/70 max-w-prose">
+      <p className={`mt-3 text-[14px] sm:text-[15px] leading-relaxed text-white/70 max-w-prose ${quicksand.className}`}>
         {item.address}
       </p>
 
@@ -111,7 +111,7 @@ function LocationCard({ item }) {
           <span className="text-[#c89b3c]">
             <PhoneIcon className="h-5 w-5" />
           </span>
-          <span className="text-[15px] sm:text-[16px]">{item.phone}</span>
+          <span className={`text-[15px] sm:text-[16px] ${quicksand.className}`}>{item.phone}</span>
         </a>
 
         <a
@@ -121,7 +121,7 @@ function LocationCard({ item }) {
           <span className="text-[#c89b3c]">
             <MailIcon className="h-5 w-5" />
           </span>
-          <span className="text-[15px] sm:text-[16px] break-all">{item.email}</span>
+          <span className={`text-[15px] sm:text-[16px] break-all ${quicksand.className}`}>{item.email}</span>
         </a>
       </div>
     </div>
@@ -130,7 +130,7 @@ function LocationCard({ item }) {
 
 export default function UsaDistributionCenter() {
   return (
-    <div className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
+    <div className={`w-full bg-[#1b1b1b] pt-10`} id="usa">
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
         {/* Title */}
         <div className="text-center">
@@ -145,7 +145,7 @@ export default function UsaDistributionCenter() {
           <div className="z-20 flex justify-center">
             <div className="w-full max-w-5xl rounded-t-[22px] bg-[#2b2b2b] px-6 py-6 sm:px-10 sm:py-7">
               <div className="text-center text-white text-[16px] sm:text-[18px] tracking-[0.18em] font-medium">
-                Distribution Center
+                Experience Center
               </div>
             </div>
           </div>

@@ -45,7 +45,7 @@ const DATA = {
       address:
         "Sy.no.209/5B & 6B, 321/1 Gollapalli Shoolagiri PO & Taluk, Krishnagiri Tamilnadu - 635117, India",
       phone: "+91 89519 43587",
-      email: "rainbow@hilltopgranite.com",
+      email: "sales@colorsofrainbow.com",
       map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d78.01!3d12.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae!2sKrishnagiri!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
@@ -88,18 +88,18 @@ function MailIcon({ className = "" }) {
 
 function LocationCardCentered({ item }) {
   return (
-    <div className={`mx-auto flex w-full max-w-5xl flex-col lg:flex-row items-start gap-10 ${quicksand.className}`}>
+    <div className={`mx-auto flex w-full max-w-5xl flex-col lg:flex-row items-start gap-10`}>
       <div className="flex-1 text-left">
         <div className="text-white">
-          <div className="text-[20px] sm:text-[24px] font-bold tracking-wide leading-tight text-[#c89b3c]">
+          <div className={`text-[20px] sm:text-[24px] font-bold tracking-wide leading-tight text-[#c89b3c]`}>
             {item.title}
           </div>
-          <div className="text-[18px] sm:text-[20px] font-semibold tracking-wide leading-tight mt-1">
+          <div className={`text-[18px] sm:text-[20px] font-semibold tracking-wide leading-tight mt-1 ${quicksand.className}`}>
             {item.subtitle}
           </div>
         </div>
 
-        <p className="mt-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70 max-w-xl">
+        <p className={`mt-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70 max-w-xl ${quicksand.className}`}>
           {item.address}
         </p>
 
@@ -111,7 +111,7 @@ function LocationCardCentered({ item }) {
             <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#c89b3c]/10 transition-colors">
               <PhoneIcon className="h-5 w-5 text-[#c89b3c]" />
             </span>
-            <span className="text-[16px] sm:text-[17px] font-medium">{item.phone}</span>
+            <span className={`text-[16px] sm:text-[17px] font-medium ${quicksand.className}`}>{item.phone}</span>
           </a>
 
           <a
@@ -121,7 +121,7 @@ function LocationCardCentered({ item }) {
             <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#c89b3c]/10 transition-colors">
               <MailIcon className="h-5 w-5 text-[#c89b3c]" />
             </span>
-            <span className="text-[16px] sm:text-[17px] font-medium break-all">{item.email}</span>
+            <span className={`text-[16px] sm:text-[17px] font-medium break-all ${quicksand.className}`}>{item.email}</span>
           </a>
         </div>
       </div>
@@ -145,14 +145,14 @@ function LocationCardCentered({ item }) {
 }
 
 export default function IndiaLocationsTabs() {
-  const [active, setActive] = useState("factory");
+  const [active, setActive] = useState("hq");
   const items = useMemo(() => DATA?.[active] ?? [], [active]);
 
   // since you said each tab currently has only ONE address, we take first item
   const item = items[0];
 
   return (
-    <div className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
+    <div className={`w-full bg-[#1b1b1b]`}>
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
         {/* Title */}
         <div className="text-center">

@@ -67,7 +67,7 @@ export default function TrustCountersSection() {
 
   const stats = useMemo(
     () => [
-      { to: 40, suffix: "+", label: "Years Expertise" },
+      { to: 36, suffix: "+", label: "Years Expertise" },
       { to: 500, suffix: "+", label: "Stone Variants" },
       { to: 65, suffix: "+", label: "Countries Served" },
       { to: 8000, suffix: "+", label: "Satisfied Customers" },

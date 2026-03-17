@@ -81,7 +81,7 @@ export default function BrandsTabsSection() {
                     label="USA"
                     side="left"
                     active={tab === "USA"}
-                    onClick={() => setTab(tab === "USA" ? "India" : "USA")}
+                    onClick={() => setTab("USA")}
                     cardColor={CARD}
                     stripColor={STRIP}
                   />
@@ -89,7 +89,7 @@ export default function BrandsTabsSection() {
                     label="India"
                     side="right"
                     active={tab === "India"}
-                    onClick={() => setTab(tab === "India" ? "USA" : "India")}
+                    onClick={() => setTab("India")}
                     cardColor={CARD}
                     stripColor={STRIP}
                   />
@@ -135,11 +135,11 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
         "relative flex-1 h-[50px] md:h-[86px] overflow-hidden",
         "flex items-center justify-center transition-all duration-700 text-[22px] md:text-[28px]",
         active
-          ? "text-[#DA9C39] font-bold"
-          : "text-white font-medium"
+          ? "text-white font-bold"
+          : "text-[#DA9C39] font-medium"
       ].join(" ")}
       style={{
-        background: active ? cardColor : stripColor,
+        background: active ? stripColor : cardColor,
       }}
       aria-pressed={active}
     >
@@ -147,8 +147,8 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
         {label}
         <span
           className={[
-            "mt-1 w-12 h-[3px] bg-[#DA9C39] rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(218,156,57,0.7)]",
-            active ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-0"
+            "mt-1 w-12 h-[3px] bg-white rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(255,255,255,0.7)]",
+            active ? "translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-0"
           ].join(" ")}
         />
       </span>

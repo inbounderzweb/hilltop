@@ -12,6 +12,7 @@ import slide5 from "../../assets/slides/slide5.png";
 
 import arrowf from "../../assets/icons/arrow_foreward.svg";
 import arrowb from "../../assets/icons/arrowbackward.svg";
+import Link from "next/link";
 
 /**
  * visibleCount:
@@ -454,7 +455,7 @@ export default function CollectionsScrollSlider() {
       bg-[#c79a3a] hover:bg-[#d2a241] transition
     "
             >
-              Explore Collections
+              <Link href="/products">Explore Collections</Link>
             </motion.button>
 
             {/* Right arrows */}

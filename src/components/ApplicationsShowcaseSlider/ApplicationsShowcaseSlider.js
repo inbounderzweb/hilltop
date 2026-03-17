@@ -76,17 +76,7 @@ function useIsDesktop(breakpointPx = 768) {
 export default function ApplicationsTabbedSlider() {
   const tabs = useMemo(
     () => [
-      {
-        key: "bathroom",
-        label: "Bathroom",
-        slides: [
-          { key: "b1", image: b1, alt: "Bathroom 1" },
-          { key: "b2", image: b2, alt: "Bathroom 2" },
-          { key: "b3", image: b3, alt: "Bathroom 3" },
-          { key: "b4", image: b4, alt: "Bathroom 4" },
-          { key: "b5", image: b5, alt: "Bathroom 5" },
-        ],
-      },
+
       {
         key: "bedroom",
         label: "Bedroom",
@@ -97,6 +87,19 @@ export default function ApplicationsTabbedSlider() {
           { key: "br4", image: br4, alt: "Bedroom 4" },
           { key: "br5", image: br5, alt: "Bedroom 5" },
           { key: "br6", image: br6, alt: "Bedroom 6" },
+        ],
+      },
+      {
+        key: "livingroom",
+        label: "Livingroom",
+        slides: [
+          { key: "l1", image: l1, alt: "Livingroom 1" },
+          { key: "l2", image: l2, alt: "Livingroom 2" },
+          { key: "l3", image: l3, alt: "Livingroom 3" },
+          { key: "l4", image: l4, alt: "Livingroom 4" },
+          { key: "l5", image: l5, alt: "Livingroom 5" },
+          { key: "l6", image: l6, alt: "Livingroom 6" },
+          { key: "l7", image: l7, alt: "Livingroom 7" },
         ],
       },
       {
@@ -116,21 +119,19 @@ export default function ApplicationsTabbedSlider() {
         ],
       },
       {
-        key: "livingroom",
-        label: "Livingroom",
+        key: "bathroom",
+        label: "Bathroom",
         slides: [
-          { key: "l1", image: l1, alt: "Livingroom 1" },
-          { key: "l2", image: l2, alt: "Livingroom 2" },
-          { key: "l3", image: l3, alt: "Livingroom 3" },
-          { key: "l4", image: l4, alt: "Livingroom 4" },
-          { key: "l5", image: l5, alt: "Livingroom 5" },
-          { key: "l6", image: l6, alt: "Livingroom 6" },
-          { key: "l7", image: l7, alt: "Livingroom 7" },
+          { key: "b1", image: b1, alt: "Bathroom 1" },
+          { key: "b2", image: b2, alt: "Bathroom 2" },
+          { key: "b3", image: b3, alt: "Bathroom 3" },
+          { key: "b4", image: b4, alt: "Bathroom 4" },
+          { key: "b5", image: b5, alt: "Bathroom 5" },
         ],
       },
       {
         key: "others",
-        label: "Others",
+        label: "Other Exteriors",
         slides: [
           { key: "o1", image: o1, alt: "Others 1" },
           { key: "o2", image: o2, alt: "Others 2" },

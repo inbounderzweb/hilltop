@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Quicksand } from "next/font/google";
 
 const quicksand = Quicksand({
@@ -54,22 +54,32 @@ export default function GetInTouchForm({ initialProducts = [] }) {
   });
   const [countryCode, setCountryCode] = useState("+91");
   const [products, setProducts] = useState(initialProducts);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
 
+
+
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch('/api/products?t=' + Date.now());
-        const data = await res.json();
-        if (data.success) {
-          setProducts(data.products);
+        const [prodRes, catRes] = await Promise.all([
+          fetch('/api/products?t=' + Date.now()),
+          fetch('/api/categories?t=' + Date.now())
+        ]);
+        const [prodData, catData] = await Promise.all([prodRes.json(), catRes.json()]);
+
+        if (prodData.success) {
+          setProducts(prodData.products);
+        }
+        if (catData.success) {
+          setCategories(catData.categories.map(c => c.name));
         }
       } catch (err) {
-        console.error("Failed to fetch products for form", err);
+        console.error("Failed to fetch data for form", err);
       }
     };
-    fetchProducts();
+    fetchData();
   }, []);
 
   const handleChange = (e) => {
@@ -109,7 +119,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
   };
 
   return (
-    <div className={`w-full bg-[#1b1b1b] ${quicksand.className}`}>
+    <div className={`w-full bg-[#1b1b1b] pt-10`} id="contactform">
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         {/* Heading */}
         <div className="text-center">
@@ -117,7 +127,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
             Get in Touch
           </h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-white/80 text-[18px] sm:text-[22px] leading-relaxed">
+          <p className={`mx-auto mt-6 max-w-3xl text-white/80 text-[18px] sm:text-[22px] leading-relaxed ${quicksand.className}`}>
             Have a question about our stone collections, finishes, sizes, or project
             suitability?
             <br className="hidden sm:block" />
@@ -131,7 +141,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
           onSubmit={handleSubmit}
           className="mx-auto mt-10 sm:mt-12"
         >
-          <div className="grid gap-6 sm:gap-7 md:grid-cols-2">
+          <div className={`grid gap-6 sm:gap-7 md:grid-cols-2 ${quicksand.className}`}>
             {/* Left column */}
             <div className="space-y-6 sm:space-y-7">
               <FieldInput placeholder="Full Name" name="name" value={formData.name} onChange={handleChange} required />
@@ -155,9 +165,9 @@ export default function GetInTouchForm({ initialProducts = [] }) {
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </div>
-                
+
                 <div className="h-full w-px bg-white/10 self-stretch" />
-                
+
                 <input
                   name="phone"
                   value={formData.phone}
@@ -195,11 +205,11 @@ export default function GetInTouchForm({ initialProducts = [] }) {
                   required
                 >
                   <option value="" disabled>
-                    Select Product
+                    Select Category
                   </option>
-                  {products.map((p) => (
-                    <option key={p.id} value={p.product_name}>
-                      {p.product_name}
+                  {categories.map((cat, i) => (
+                    <option key={i} value={cat}>
+                      {cat}
                     </option>
                   ))}
                   <option value="other">Other / General Enquiry</option>

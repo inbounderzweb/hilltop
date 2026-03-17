@@ -10,10 +10,10 @@ async function page() {
 
   return (
     <div>
-        <LocateBanner />
-        <LocationsTabs />
-        <UsaDistributionCenter />
-        <GetInTouchForm initialProducts={products} />
+      <LocateBanner />
+      <LocationsTabs />
+      <UsaDistributionCenter />
+      <GetInTouchForm initialProducts={products} />
     </div>
   )
 }

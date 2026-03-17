@@ -9,7 +9,13 @@ import a2 from "../../assets/testimonials/ts2.png";
 import a3 from "../../assets/testimonials/ts1.png";
 import a4 from "../../assets/testimonials/ts2.png";
 import a5 from "../../assets/testimonials/ts1.png";
+import { Quicksand } from "next/font/google";
 
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 import LeftArrow from "../../assets/icons/arrowbackward.svg";
 import RightArrow from "../../assets/icons/arrow_foreward.svg";
@@ -314,7 +320,7 @@ function TestimonialCard({ t, snap = false }) {
         {t.name}
       </div>
 
-      <p className="mt-6 text-white/70 leading-relaxed text-[16px] md:text-[18px] max-w-[36ch]">
+      <p className={`mt-6 text-white/70 leading-relaxed text-[16px] md:text-[18px] max-w-[36ch] ${quicksand.className}`}>
         {t.text}
       </p>
 

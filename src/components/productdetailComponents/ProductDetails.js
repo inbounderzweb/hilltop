@@ -75,12 +75,12 @@ export default function ProductDetails({ productId }) {
                         let filtered = relatedData.products.filter(
                             p => p.category === data.product.category && p.id !== data.product.id
                         );
-                        
+
                         // Priority 2: If same category is empty, take any other products
                         if (filtered.length === 0) {
                             filtered = relatedData.products.filter(p => p.id !== data.product.id);
                         }
-                        
+
                         setRelatedProducts(filtered);
                     }
                 } else {
@@ -264,7 +264,7 @@ export default function ProductDetails({ productId }) {
                         </div>
 
                         <div className="mt-10">
-                            <Link href="/locate" className="inline-block">
+                            <Link href="/locate#contactform" className="inline-block">
                                 <button className={`bg-[#DA9C39] text-black px-12 py-4 rounded-xl font-bold hover:brightness-110 transition-all active:scale-95 ${quicksand.className}`}>
                                     Contact us
                                 </button>
