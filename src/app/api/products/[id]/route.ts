@@ -65,6 +65,14 @@ export async function PUT(
             image_url = await uploadFile(image, "products");
         }
 
+        // Handle video if updated
+        const video = formData.get("product_video") as File | null;
+        let final_video_url = formData.get("existing_video_url")?.toString() || "";
+
+        if (video && video.size > 0) {
+            final_video_url = await uploadFile(video, "videos");
+        }
+
         // Handle Book Match Images (Removed)
         let bookMatchUrls: string[] = [];
 
@@ -92,7 +100,7 @@ export async function PUT(
             WHERE id = ?`,
             [
                 product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery),
-                thickness, base_color, product_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls),
+                thickness, base_color, final_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls),
                 id
             ]
         );

@@ -35,6 +35,14 @@ export async function POST(req: Request) {
         }
 
         const image_url = await uploadFile(image, "products");
+        
+        // Handle Video Upload
+        const videoFile = formData.get("product_video") as File | null;
+        let final_video_url = product_video_url || "";
+        
+        if (videoFile && videoFile.size > 0) {
+            final_video_url = await uploadFile(videoFile, "videos");
+        }
 
         // Handle Book Match Images (Removed)
         let bookMatchUrls: string[] = [];
@@ -60,7 +68,7 @@ export async function POST(req: Request) {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery),
-                thickness, base_color, product_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls)
+                thickness, base_color, final_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls)
             ]
         );
 

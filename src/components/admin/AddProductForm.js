@@ -18,7 +18,9 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
     });
 
     const [mainImage, setMainImage] = useState(null);
+    const [videoFile, setVideoFile] = useState(null);
     const [existingImageUrl, setExistingImageUrl] = useState("");
+    const [existingVideoUrl, setExistingVideoUrl] = useState("");
 
     // Gallery state
     const [gallery, setGallery] = useState([]); // [{ file: null, link: "", existingUrl: "" }]
@@ -79,6 +81,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                 product_video_url: initialData.product_video_url || "",
             });
             setExistingImageUrl(initialData.image_url || "");
+            setExistingVideoUrl(initialData.product_video_url || "");
             if (initialData.gallery && Array.isArray(initialData.gallery)) {
                 setGallery(initialData.gallery.map(item => ({
                     file: null,
@@ -102,6 +105,16 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             return;
         }
         setMainImage(file);
+    };
+
+    const handleVideoChange = (e) => {
+        const file = e.target.files?.[0] || null;
+        if (file && file.size > 5 * 1024 * 1024) {
+            alert("Video size must be less than 5MB");
+            e.target.value = "";
+            return;
+        }
+        setVideoFile(file);
     };
 
     const addGalleryItem = () => {
@@ -150,8 +163,12 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             if (mainImage) {
                 payload.append("image", mainImage);
             }
+            if (videoFile) {
+                payload.append("product_video", videoFile);
+            }
             if (isEdit) {
                 payload.append("existing_image_url", existingImageUrl);
+                payload.append("existing_video_url", existingVideoUrl);
             }
 
             // Gallery handling
@@ -196,6 +213,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                     description: "",
                 });
                 setMainImage(null);
+                setVideoFile(null);
                 setGallery([]);
             }
 
@@ -308,14 +326,20 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                         </div>
 
                         <div>
-                            <label className="block text-[11px] font-bold text-white/40 uppercase tracking-wider mb-1.5">Product Video URL</label>
+                            <label className="block text-[11px] font-bold text-white/40 uppercase tracking-wider mb-1.5">Product Video (Max 5MB)</label>
                             <input
-                                name="product_video_url"
-                                value={formData.product_video_url}
-                                onChange={handleChange}
-                                placeholder="YouTube/Vimeo link"
-                                className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-[#eba14d] outline-none transition"
+                                type="file"
+                                accept="video/*"
+                                onChange={handleVideoChange}
+                                className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white focus:border-[#eba14d] outline-none transition"
                             />
+                            {isEdit && existingVideoUrl && !videoFile && (
+                                <div className="mt-2">
+                                    <a href={existingVideoUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#eba14d] hover:underline font-semibold uppercase tracking-wider">
+                                        View Current Video
+                                    </a>
+                                </div>
+                            )}
                         </div>
 
                         <div>
