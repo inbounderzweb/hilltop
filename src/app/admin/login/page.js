@@ -31,11 +31,11 @@ export default function AdminLogin() {
                     Enter your credentials to access the admin portal
                 </p>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-8 text-center">
+                {/* <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-8 text-center">
                     <p className="text-xs text-white/60 mb-1">Demo Credentials:</p>
                     <p className="text-sm text-white/90 font-mono">Username: <span className="text-[#eba14d]">admin</span></p>
                     <p className="text-sm text-white/90 font-mono">Password: <span className="text-[#eba14d]">admin123</span></p>
-                </div>
+                </div> */}
 
                 {error && (
                     <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-lg mb-6 text-center">
