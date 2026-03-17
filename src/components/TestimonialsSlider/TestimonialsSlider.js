@@ -10,6 +10,7 @@ import a3 from "../../assets/testimonials/ts1.png";
 import a4 from "../../assets/testimonials/ts2.png";
 import a5 from "../../assets/testimonials/ts1.png";
 
+
 import LeftArrow from "../../assets/icons/arrowbackward.svg";
 import RightArrow from "../../assets/icons/arrow_foreward.svg";
 
@@ -59,6 +60,38 @@ export default function TestimonialsSlider() {
           "Stunning slabs and an amazing experience. The showroom organization makes it easy to decide quickly.",
         stars: 5,
         avatar: a5,
+      },
+      {
+        id: 6,
+        name: "ANA & HILLTOP TEAM",
+        text:
+          "Overall, I highly recommend Hilltop to anyone looking for high-quality countertop slabs and excellent customer service. Thank you, Hilltop and Ana, for your dedication to providing exceptional products and service!",
+        stars: 5,
+        avatar: a1,
+      },
+      {
+        id: 7,
+        name: "RAY & RYAN",
+        text:
+          "Hilltop has great selection of Natural stones, Quartz and Porcelain Slabs. Ray & Ryan are always helpful. Their customer service is far better than other wholesaler. They also have very nice showroom.",
+        stars: 5,
+        avatar: a2,
+      },
+      {
+        id: 8,
+        name: "DEREK",
+        text:
+          "Wow just WOW!! The selection here is incredible…you could spend a whole day looking and not see it all. BUT their selection is NOTHING compared to the customer service. Derek listened to what we were looking for and within 15 minutes, we’d found the perfect slab. He knows the inventory and knows design. Highly recommend!",
+        stars: 5,
+        avatar: a3,
+      },
+      {
+        id: 9,
+        name: "KAMAL GIRIA",
+        text:
+          "It was a great experience visiting Hilltop Factory,The team gave me full knowledge about natural stones and their process of manufacturing. Thank you so much Mr.Kamal Giria for giving me this opportunity to visit your factory.",
+        stars: 5,
+        avatar: a4,
       },
     ],
     []

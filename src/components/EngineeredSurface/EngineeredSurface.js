@@ -40,7 +40,7 @@ export default function EngineeredSurface() {
         {/* Layout Wrapper */}
         <div className="mt-12 md:mt-16 space-y-12 md:space-y-24">
           {/* Block 1: Image left, text right */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
             <div className="md:col-span-7">
               <div className="relative w-full overflow-hidden rounded-[18px]">
                 <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px] hover:transform transition-[transform,scale] duration-500 ease-in-out hover:scale-[1.02]">
@@ -69,7 +69,7 @@ export default function EngineeredSurface() {
           </div>
 
           {/* Block 2: Text left, image right */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
             <div className="md:col-span-5 md:pr-4 order-2 md:order-1 text-center md:text-left">
               <h2 className="leading-[1.08] font-[500] text-white/90">
                 Where Science
@@ -99,7 +99,7 @@ export default function EngineeredSurface() {
           </div>
 
           {/* Block 3: Image left, text right */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
             <div className="md:col-span-7">
               <div className="relative w-full overflow-hidden rounded-[18px]">
                 <div className="relative w-full h-[240px] sm:h-[300px] md:h-[420px] hover:transform transition-[transform,scale] duration-500 ease-in-out hover:scale-[1.02]">

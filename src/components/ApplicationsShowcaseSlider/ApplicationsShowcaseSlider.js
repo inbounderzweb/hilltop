@@ -5,21 +5,50 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 // ✅ Replace with your real images
-import k1 from "../../assets/showcaseslides/showcase1.jpg";
-import k2 from "../../assets/showcaseslides/showcase2.png";
-import k3 from "../../assets/showcaseslides/showcase1.jpg";
+// Bathroom Images
+import b1 from "../../assets/showcaseslides/bathroom/bathroom_1.jpg";
+import b2 from "../../assets/showcaseslides/bathroom/bathroom_2.jpg";
+import b3 from "../../assets/showcaseslides/bathroom/bathroom_3.jpg";
+import b4 from "../../assets/showcaseslides/bathroom/bathroom_4.jpg";
+import b5 from "../../assets/showcaseslides/bathroom/bathroom_5.jpg";
 
-import f1 from "../../assets/showcaseslides/showcase1.jpg";
-import f2 from "../../assets/showcaseslides/showcase2.png";
-import f3 from "../../assets/showcaseslides/showcase1.jpg";
+// Bedroom Images
+import br1 from "../../assets/showcaseslides/bedroom/bedroom_1.jpg";
+import br2 from "../../assets/showcaseslides/bedroom/bedroom_2.jpg";
+import br3 from "../../assets/showcaseslides/bedroom/bedroom_3.jpg";
+import br4 from "../../assets/showcaseslides/bedroom/bedroom_4.jpg";
+import br5 from "../../assets/showcaseslides/bedroom/bedroom_5.jpg";
+import br6 from "../../assets/showcaseslides/bedroom/bedroom_6.jpg";
 
-import o1 from "../../assets/showcaseslides/showcase1.jpg";
-import o2 from "../../assets/showcaseslides/showcase2.png";
-import o3 from "../../assets/showcaseslides/showcase1.jpg";
+// Kitchen Images
+import k1 from "../../assets/showcaseslides/kitchen/kitchen_1.jpg";
+import k2 from "../../assets/showcaseslides/kitchen/kitchen_2.jpg";
+import k3 from "../../assets/showcaseslides/kitchen/kitchen_3.jpg";
+import k4 from "../../assets/showcaseslides/kitchen/kitchen_4.jpg";
+import k5 from "../../assets/showcaseslides/kitchen/kitchen_5.jpg";
+import k6 from "../../assets/showcaseslides/kitchen/kitchen_6.jpg";
+import k7 from "../../assets/showcaseslides/kitchen/kitchen_7.jpg";
+import k8 from "../../assets/showcaseslides/kitchen/kitchen_8.jpg";
+import k9 from "../../assets/showcaseslides/kitchen/kitchen_9.jpg";
+import k10 from "../../assets/showcaseslides/kitchen/kitchen_10.jpg";
 
-import e1 from "../../assets/showcaseslides/showcase1.jpg";
-import e2 from "../../assets/showcaseslides/showcase2.png";
-import e3 from "../../assets/showcaseslides/showcase1.jpg";
+// Living Room Images
+import l1 from "../../assets/showcaseslides/livingroom/livingroom_1.jpg";
+import l2 from "../../assets/showcaseslides/livingroom/livingroom_2.jpg";
+import l3 from "../../assets/showcaseslides/livingroom/livingroom_3.jpg";
+import l4 from "../../assets/showcaseslides/livingroom/livingroom_4.jpg";
+import l5 from "../../assets/showcaseslides/livingroom/livingroom_5.jpg";
+import l6 from "../../assets/showcaseslides/livingroom/livingroom_6.jpg";
+import l7 from "../../assets/showcaseslides/livingroom/livingroom_7.jpg";
+
+// Others Images
+import o1 from "../../assets/showcaseslides/others/others_1.jpg";
+import o2 from "../../assets/showcaseslides/others/others_2.jpg";
+import o3 from "../../assets/showcaseslides/others/others_3.jpg";
+import o4 from "../../assets/showcaseslides/others/others_4.jpg";
+import o5 from "../../assets/showcaseslides/others/others_5.jpg";
+import o6 from "../../assets/showcaseslides/others/others_6.jpg";
+import o7 from "../../assets/showcaseslides/others/others_7.jpg";
 
 import LeftArrow from '../../assets/icons/arrowbackward.svg';
 import RightArrow from '../../assets/icons/arrow_foreward.svg';
@@ -48,39 +77,68 @@ export default function ApplicationsTabbedSlider() {
   const tabs = useMemo(
     () => [
       {
+        key: "bathroom",
+        label: "Bathroom",
+        slides: [
+          { key: "b1", image: b1, alt: "Bathroom 1" },
+          { key: "b2", image: b2, alt: "Bathroom 2" },
+          { key: "b3", image: b3, alt: "Bathroom 3" },
+          { key: "b4", image: b4, alt: "Bathroom 4" },
+          { key: "b5", image: b5, alt: "Bathroom 5" },
+        ],
+      },
+      {
+        key: "bedroom",
+        label: "Bedroom",
+        slides: [
+          { key: "br1", image: br1, alt: "Bedroom 1" },
+          { key: "br2", image: br2, alt: "Bedroom 2" },
+          { key: "br3", image: br3, alt: "Bedroom 3" },
+          { key: "br4", image: br4, alt: "Bedroom 4" },
+          { key: "br5", image: br5, alt: "Bedroom 5" },
+          { key: "br6", image: br6, alt: "Bedroom 6" },
+        ],
+      },
+      {
         key: "kitchen",
         label: "Kitchen",
         slides: [
           { key: "k1", image: k1, alt: "Kitchen 1" },
           { key: "k2", image: k2, alt: "Kitchen 2" },
           { key: "k3", image: k3, alt: "Kitchen 3" },
+          { key: "k4", image: k4, alt: "Kitchen 4" },
+          { key: "k5", image: k5, alt: "Kitchen 5" },
+          { key: "k6", image: k6, alt: "Kitchen 6" },
+          { key: "k7", image: k7, alt: "Kitchen 7" },
+          { key: "k8", image: k8, alt: "Kitchen 8" },
+          { key: "k9", image: k9, alt: "Kitchen 9" },
+          { key: "k10", image: k10, alt: "Kitchen 10" },
         ],
       },
       {
-        key: "flooring",
-        label: "Flooring",
+        key: "livingroom",
+        label: "Livingroom",
         slides: [
-          { key: "f1", image: f1, alt: "Flooring 1" },
-          { key: "f2", image: f2, alt: "Flooring 2" },
-          { key: "f3", image: f3, alt: "Flooring 3" },
+          { key: "l1", image: l1, alt: "Livingroom 1" },
+          { key: "l2", image: l2, alt: "Livingroom 2" },
+          { key: "l3", image: l3, alt: "Livingroom 3" },
+          { key: "l4", image: l4, alt: "Livingroom 4" },
+          { key: "l5", image: l5, alt: "Livingroom 5" },
+          { key: "l6", image: l6, alt: "Livingroom 6" },
+          { key: "l7", image: l7, alt: "Livingroom 7" },
         ],
       },
       {
-        key: "other",
-        label: "Other Interiors",
+        key: "others",
+        label: "Others",
         slides: [
-          { key: "o1", image: o1, alt: "Other Interiors 1" },
-          { key: "o2", image: o2, alt: "Other Interiors 2" },
-          { key: "o3", image: o3, alt: "Other Interiors 3" },
-        ],
-      },
-      {
-        key: "exterior",
-        label: "Exterior Applications",
-        slides: [
-          { key: "e1", image: e1, alt: "Exterior 1" },
-          { key: "e2", image: e2, alt: "Exterior 2" },
-          { key: "e3", image: e3, alt: "Exterior 3" },
+          { key: "o1", image: o1, alt: "Others 1" },
+          { key: "o2", image: o2, alt: "Others 2" },
+          { key: "o3", image: o3, alt: "Others 3" },
+          { key: "o4", image: o4, alt: "Others 4" },
+          { key: "o5", image: o5, alt: "Others 5" },
+          { key: "o6", image: o6, alt: "Others 6" },
+          { key: "o7", image: o7, alt: "Others 7" },
         ],
       },
     ],
@@ -220,7 +278,7 @@ export default function ApplicationsTabbedSlider() {
         {/* ✅ MOBILE: Image full-width, no right preview */}
         {!isDesktop ? (
           <div className="w-full">
-            <div className="relative w-full aspect-4/3 overflow-hidden bg-black px-4 pt-4">
+            <div className="relative w-full aspect-4/3 overflow-hidden bg-black px-1 md:px-4 pt-1 md:pt-4">
               <div className="relative w-full h-full overflow-hidden bg-black">
                 <AnimatePresence initial={false} mode="wait">
                   <motion.div
