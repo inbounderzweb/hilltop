@@ -7,9 +7,6 @@ import FadeBanner from "@/components/Home/Banner";
 import TestimonialsSlider from "@/components/TestimonialsSlider/TestimonialsSlider";
 import TrustCountersSection from "@/components/TrustCountersSection/TrustCountersSection";
 
-import GmbReviewsSlider from "@/components/GmbReviewsSlider/GmbReviewsSlider";
-
-
 export default function Home() {
   return (
     <div className="">
@@ -21,7 +18,6 @@ export default function Home() {
       <BrandsTabsSection />
       <ApplicationsShowcaseSlider />
       <TestimonialsSlider />
-      <GmbReviewsSlider />
     </div>
   );
 }
