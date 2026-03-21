@@ -43,8 +43,8 @@ export const metadata = {
     description: "Experience the timeless beauty of natural stones with Hilltop Surfaces. Our curated collection brings elegance to your space.",
     type: "website",
     locale: "en_US",
-    url: "https://hilltopsurfaces.com", // Assuming the domain
-    siteName: "Hilltop Surfaces",
+    url: "https://www.hilltopgranite.com", // Correct domain
+    siteName: "Hilltop Granites",
   },
   twitter: {
     card: "summary_large_image",
