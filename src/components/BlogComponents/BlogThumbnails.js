@@ -37,14 +37,14 @@ function BlogCard({ post }) {
         <div className="flex items-center gap-2 mb-3 text-[#DA9C39] text-[12px] font-medium tracking-wider uppercase">
           <span>{post.author || "Hilltop"}</span>
           <span className="w-1 h-1 rounded-full bg-white/20"></span>
-          <span className="text-white/40">{post.date ? new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ""}</span>
+          <span className="text-white">{post.date ? new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ""}</span>
         </div>
 
         <h3 className={`text-white text-[22px] md:text-[24px] leading-snug tracking-wide font-medium ${quicksand.className}`}>
           {post.title}
         </h3>
 
-        <p className="mt-3 text-white/65 text-[14px] md:text-[15px] leading-relaxed line-clamp-2">
+        <p className={`mt-3 text-white text-[14px] md:text-[15px] leading-relaxed line-clamp-2 ${quicksand.className}`}>
           {post.excerpt}
         </p>
 
@@ -84,7 +84,7 @@ export default function BlogThumbnails({
 
         {posts.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-white/40 text-xl md:text-2xl font-medium tracking-wide">
+            <p className="text-white text-xl md:text-2xl font-medium tracking-wide">
               No blogs were published yet. Stay tuned for our latest insights!
             </p>
           </div>
