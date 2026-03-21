@@ -99,21 +99,11 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
 
     const handleMainImageChange = (e) => {
         const file = e.target.files?.[0] || null;
-        if (file && file.size > 500 * 1024) {
-            alert("Image size must be less than 500KB");
-            e.target.value = "";
-            return;
-        }
         setMainImage(file);
     };
 
     const handleVideoChange = (e) => {
         const file = e.target.files?.[0] || null;
-        if (file && file.size > 5 * 1024 * 1024) {
-            alert("Video size must be less than 5MB");
-            e.target.value = "";
-            return;
-        }
         setVideoFile(file);
     };
 
@@ -128,10 +118,6 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
     const updateGalleryItem = (index, field, value) => {
         const newGallery = [...gallery];
         if (field === 'file') {
-            if (value && value.size > 500 * 1024) {
-                alert("Image size must be less than 500KB");
-                return;
-            }
             newGallery[index].file = value;
         } else {
             newGallery[index][field] = value;
@@ -326,7 +312,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                         </div>
 
                         <div>
-                            <label className="block text-[11px] font-bold text-white/40 uppercase tracking-wider mb-1.5">Product Video (Max 5MB)</label>
+                            <label className="block text-[11px] font-bold text-white/40 uppercase tracking-wider mb-1.5">Product Video</label>
                             <input
                                 type="file"
                                 accept="video/*"
