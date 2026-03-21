@@ -151,83 +151,83 @@ export default function TestimonialsSlider() {
           ) : (
             <>
               {/* ✅ MOBILE: scroll + snap + arrows work */}
-          <div className="md:hidden">
-            <div
-              ref={mobileTrackRef}
-              className="
+              <div className="md:hidden">
+                <div
+                  ref={mobileTrackRef}
+                  className="
                 flex overflow-x-auto
                 snap-x snap-mandatory scroll-smooth
                 gap-4 px-4
                 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
               "
-              onScroll={(e) => {
-                const el = e.currentTarget;
-                const step = mobileStepRef.current || 0;
-                if (!step) return;
+                  onScroll={(e) => {
+                    const el = e.currentTarget;
+                    const step = mobileStepRef.current || 0;
+                    if (!step) return;
 
-                const i = Math.round(el.scrollLeft / step);
-                setIndex(clamp(i, 0, maxIndex));
-              }}
-            >
-              {testimonials.map((t) => (
-                <TestimonialCard key={t.id} t={t} snap />
-              ))}
-            </div>
+                    const i = Math.round(el.scrollLeft / step);
+                    setIndex(clamp(i, 0, maxIndex));
+                  }}
+                >
+                  {testimonials.map((t) => (
+                    <TestimonialCard key={t.id} t={t} snap />
+                  ))}
+                </div>
 
-            <div className="mt-8 flex items-center justify-between gap-4">
-              <div className="w-[70px]" />
-              <ProgressBar value={index} max={maxIndex} />
-              <div className="flex items-center gap-3 shrink-0">
-                <button type="button" onClick={prev} className="transition" aria-label="Previous testimonial">
-                  <ArrowLeft />
-                </button>
-                <button type="button" onClick={next} className="transition" aria-label="Next testimonial">
-                  <ArrowRight />
-                </button>
+                <div className="mt-8 flex items-center justify-between gap-4">
+                  <div className="w-[70px]" />
+                  <ProgressBar value={index} max={maxIndex} />
+                  <div className="flex items-center gap-3 shrink-0">
+                    <button type="button" onClick={prev} className="transition" aria-label="Previous testimonial">
+                      <ArrowLeft />
+                    </button>
+                    <button type="button" onClick={next} className="transition" aria-label="Next testimonial">
+                      <ArrowRight />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* ✅ TABLET/DESKTOP: dragging and touch enabled */}
-          <div className="hidden md:block">
-            <div className="overflow-hidden">
-              <motion.div
-                className="flex gap-6 md:gap-7 cursor-grab active:cursor-grabbing will-change-transform"
-                animate={{ x: `calc(-${index} * (min(440px, 88vw) + 28px))` }}
-                transition={{ type: "spring", stiffness: 170, damping: 26 }}
-                drag="x"
-                dragConstraints={{
-                  left: -maxIndex * (Math.min(440, (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.88) + 28),
-                  right: 0
-                }}
-                dragElastic={0.1}
-                onDragEnd={(_, info) => {
-                  const swipeThreshold = 50;
-                  if (info.offset.x < -swipeThreshold) next();
-                  else if (info.offset.x > swipeThreshold) prev();
-                }}
-              >
-                {testimonials.map((t) => (
-                  <TestimonialCard key={t.id} t={t} />
-                ))}
-              </motion.div>
-            </div>
+              {/* ✅ TABLET/DESKTOP: dragging and touch enabled */}
+              <div className="hidden md:block">
+                <div className="overflow-hidden">
+                  <motion.div
+                    className="flex gap-6 md:gap-7 cursor-grab active:cursor-grabbing will-change-transform"
+                    animate={{ x: `calc(-${index} * (min(440px, 88vw) + 28px))` }}
+                    transition={{ type: "spring", stiffness: 170, damping: 26 }}
+                    drag="x"
+                    dragConstraints={{
+                      left: -maxIndex * (Math.min(440, (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.88) + 28),
+                      right: 0
+                    }}
+                    dragElastic={0.1}
+                    onDragEnd={(_, info) => {
+                      const swipeThreshold = 50;
+                      if (info.offset.x < -swipeThreshold) next();
+                      else if (info.offset.x > swipeThreshold) prev();
+                    }}
+                  >
+                    {testimonials.map((t) => (
+                      <TestimonialCard key={t.id} t={t} />
+                    ))}
+                  </motion.div>
+                </div>
 
-            <div className="mt-10 md:mt-12 flex items-center justify-between gap-6">
-              <div className="w-[110px]" />
-              <ProgressBar value={index} max={maxIndex} />
-              <div className="flex items-center gap-3 shrink-0">
-                <button type="button" onClick={prev} className="transition" aria-label="Previous testimonial">
-                  <ArrowLeft />
-                </button>
-                <button type="button" onClick={next} className="transition" aria-label="Next testimonial">
-                  <ArrowRight />
-                </button>
+                <div className="mt-10 md:mt-12 flex items-center justify-between gap-6">
+                  <div className="w-[110px]" />
+                  <ProgressBar value={index} max={maxIndex} />
+                  <div className="flex items-center gap-3 shrink-0">
+                    <button type="button" onClick={prev} className="transition" aria-label="Previous testimonial">
+                      <ArrowLeft />
+                    </button>
+                    <button type="button" onClick={next} className="transition" aria-label="Next testimonial">
+                      <ArrowRight />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          </>
-        )}
+            </>
+          )}
 
         </div>
       </div>
@@ -278,6 +278,7 @@ function TestimonialCard({ t, snap = false }) {
       </div>
     </div>
   );
+
 }
 
 function ProgressBar({ value, max }) {
