@@ -88,7 +88,7 @@ export default function BlogDetailPage() {
                         <div className="mb-6">
                             <Link href="/blogs" className="inline-flex items-center gap-2 text-[#DA9C39] hover:text-white transition-colors duration-300">
                                 <ArrowLeft size={16} />
-                                <span className="text-xs font-bold uppercase tracking-wider">Back to Insights</span>
+                                <span className="text-xs font-bold uppercase tracking-wider">Back to Blogs</span>
                             </Link>
                         </div>
 
@@ -112,20 +112,20 @@ export default function BlogDetailPage() {
                         {/* Detailed Content */}
                         <div className="prose prose-invert prose-gold max-w-none">
                             {/* Excerpt */}
-                            <p className={`text-xl text-white/80 font-light leading-relaxed mb-12 italic border-l-2 border-[#DA9C39]/40 pl-6 ${quicksand.className}`}>
+                            <p className={`text-xl text-white font-light leading-relaxed mb-12 italic border-l-2 border-[#DA9C39]/40 pl-6 ${quicksand.className}`}>
                                 {blog.excerpt}
                             </p>
 
                             {/* Full Content */}
                             <div
-                                className={`text-white/70 text-lg leading-[1.8] space-y-8 ${quicksand.className}`}
+                                className={`text-white text-lg leading-[1.8] space-y-8 ${quicksand.className}`}
                                 dangerouslySetInnerHTML={{ __html: blog.content.replace(/\n/g, '<br/>') }}
                             />
                         </div>
 
                         {/* Bottom navigation */}
                         <div className="mt-20 pt-8 border-t border-white/5">
-                            <Link href="/blogs" className="text-white/30 hover:text-[#DA9C39] transition-colors flex items-center gap-2 group w-fit">
+                            <Link href="/blogs" className="text-white hover:text-[#DA9C39] transition-colors flex items-center gap-2 group w-fit">
                                 <span className="text-sm font-bold uppercase tracking-widest">Discover more stories</span>
                                 <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                             </Link>

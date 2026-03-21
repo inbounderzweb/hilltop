@@ -27,13 +27,11 @@ export default function Footer() {
               <Image src={logo} alt="HILLTOP" className="h-auto w-full -ml-3" priority />
             </div>
 
-            <div className="mt-7 space-y-3">
+            <div className="mt-7">
               <FooterBlock title="INDIA">
                 <FooterLink href="/india/head-quarters">Head Quarters</FooterLink>
-                {/* <div className="text-white/60 text-[12px] mt-1">+91 99000 63557</div> */}
                 <FooterLink href="/india/factory">Factory</FooterLink>
-                {/* <div className="text-white/60 text-[12px] mt-1">+91 89519 43587</div> */}
-                <FooterLink href="/india/showroom">Showroom</FooterLink>
+                <FooterLink href="/india/showroom">Experience Centre</FooterLink>
               </FooterBlock>
 
               <FooterBlock title="USA">
@@ -47,7 +45,7 @@ export default function Footer() {
             {/* divider should match right column height */}
             <div className="absolute left-0 top-0 bottom-0 w-px bg-white/25" />
 
-            <h4 className="text-white/90 text-[18px] font-[600] mb-6">Quick Links</h4>
+            <h4 className="text-white/90 text-[18px] font-semibold mb-6">Quick Links</h4>
 
             <div className="grid grid-cols-2 gap-x-10 gap-y-4 text-[#d7a447]">
               <FooterLink href="/about">
@@ -76,7 +74,7 @@ export default function Footer() {
             {/* divider should match middle column height */}
             <div className="absolute left-0 top-0 bottom-0 w-px bg-white/25" />
 
-            <h4 className="text-white/90 text-[18px] font-[600] mb-6">Follow us</h4>
+            <h4 className="text-white/90 text-[18px] font-semibold mb-6">Follow us</h4>
 
             <div className="space-y-4">
               <SocialRow href="https://www.instagram.com/hilltopgraniteofficial/" label="Instagram" icon={<InstagramIcon />} />
@@ -101,7 +99,7 @@ export default function Footer() {
             <FooterBlockMobile title="INDIA">
               <FooterLinkMobile href="/india/head-quarters">Head Quarters</FooterLinkMobile>
               <FooterLinkMobile href="/india/factory">Factory</FooterLinkMobile>
-              <FooterLinkMobile href="/india/showroom">Showroom</FooterLinkMobile>
+              <FooterLinkMobile href="/india/showroom">Experience Centre</FooterLinkMobile>
             </FooterBlockMobile>
 
             <FooterBlockMobile title="USA">
@@ -114,7 +112,7 @@ export default function Footer() {
           <Divider />
 
           {/* Quick links */}
-          <h4 className="text-center text-white/90 text-[22px] font-[500] tracking-wide">
+          <h4 className="text-center text-white/90 text-[22px] font-medium tracking-wide">
             Quick Links
           </h4>
 
@@ -131,7 +129,7 @@ export default function Footer() {
 
           {/* Social */}
           <div className="flex items-center justify-center gap-6">
-            <span className="text-white/90 text-[18px] font-[500]">Follow us</span>
+            <span className="text-white/90 text-[18px] font-medium">Follow us</span>
 
             <a
               className="text-white/90 hover:text-white transition"
@@ -197,8 +195,8 @@ export default function Footer() {
 function FooterBlock({ title, children }) {
   return (
     <div>
-      <p className="text-white/95 text-[14px] font-[700] tracking-[0.18em]">{title}</p>
-      <div className="mt-3 space-y-2">{children}</div>
+      <p className="text-white/95 text-[14px] font-bold tracking-[0.18em]">{title}</p>
+      <div className="mt-4 space-y-4">{children}</div>
     </div>
   );
 }
@@ -209,7 +207,7 @@ function FooterLink({ href, children, muted }) {
       href={href}
       className={[
         muted ? "text-white/75" : "text-[#d7a447]",
-        "text-[14px] tracking-wide hover:opacity-100 hover:text-white pr-[6px] transition",
+        "text-[14px] tracking-wide hover:opacity-100 hover:text-white pr-[12px] transition",
         "inline-block",
       ].join(" ")}
     >
@@ -243,7 +241,7 @@ function Divider() {
 function FooterBlockMobile({ title, children }) {
   return (
     <div>
-      <p className="text-white text-[18px] font-[700] tracking-wide">{title}</p>
+      <p className="text-white text-[18px] font-bold tracking-wide">{title}</p>
       <div className="mt-5 space-y-4">{children}</div>
     </div>
   );
@@ -253,7 +251,7 @@ function FooterLinkMobile({ href, children }) {
   return (
     <Link
       href={href}
-      className="block text-[#d7a447] text-[16px] font-[500] tracking-wide hover:text-white transition"
+      className="block text-[#d7a447] text-[16px] font-medium tracking-wide hover:text-white transition"
     >
       {children}
     </Link>

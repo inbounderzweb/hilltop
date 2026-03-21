@@ -32,7 +32,7 @@ export default function BlogBanner() {
       {/* Content */}
       <div className="relative z-10 flex items-end justify-center h-full px-6 text-center">
         <h2 className="text-[#F4E0C2] font-semibold">
-          Insights & Stories
+          Blogs
         </h2>
       </div>
     </section>

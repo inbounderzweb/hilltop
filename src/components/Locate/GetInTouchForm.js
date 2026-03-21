@@ -30,19 +30,7 @@ function ChevronDown({ className = "" }) {
   );
 }
 
-const COUNTRY_CODES = [
-  { code: "+91", flag: "🇮🇳", label: "India" },
-  { code: "+1", flag: "🇺🇸", label: "USA" },
-  { code: "+1", flag: "🇨🇦", label: "Canada" },
-  { code: "+44", flag: "🇬🇧", label: "UK" },
-  { code: "+971", flag: "🇦🇪", label: "UAE" },
-  { code: "+61", flag: "🇦🇺", label: "Australia" },
-  { code: "+968", flag: "🇴🇲", label: "Oman" },
-  { code: "+974", flag: "🇶🇦", label: "Qatar" },
-  { code: "+966", flag: "🇸🇦", label: "Saudi" },
-  { code: "+965", flag: "🇰🇼", label: "Kuwait" },
-  { code: "+973", flag: "🇧🇭", label: "Bahrain" },
-];
+import { COUNTRY_CODES } from "../../data/countryCodes";
 
 export default function GetInTouchForm({ initialProducts = [] }) {
   const [formData, setFormData] = useState({
@@ -52,7 +40,13 @@ export default function GetInTouchForm({ initialProducts = [] }) {
     purpose: "",
     message: ""
   });
-  const [countryCode, setCountryCode] = useState("+91");
+  const sortedCountries = useMemo(() => {
+    return [...COUNTRY_CODES].sort((a, b) => a.label.localeCompare(b.label));
+  }, []);
+
+  const [selectedCountry, setSelectedCountry] = useState(
+    COUNTRY_CODES.find(c => c.label === "India") || COUNTRY_CODES[0]
+  );
   const [products, setProducts] = useState(initialProducts);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -94,7 +88,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
 
     const submissionData = {
       ...formData,
-      phone: `${countryCode} ${formData.phone}`
+      phone: `${selectedCountry.code} ${formData.phone}`
     };
 
     try {
@@ -151,13 +145,16 @@ export default function GetInTouchForm({ initialProducts = [] }) {
               <div className="relative flex">
                 <div className="relative">
                   <select
-                    value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
+                    value={selectedCountry.label}
+                    onChange={(e) => {
+                      const country = COUNTRY_CODES.find(c => c.label === e.target.value);
+                      setSelectedCountry(country);
+                    }}
                     className="h-full rounded-l-2xl bg-[#2a2a2a] text-white text-[18px] sm:text-[20px] px-4 py-5 sm:py-6 border border-white/10 border-right-0 outline-none appearance-none cursor-pointer hover:bg-[#333] transition"
                   >
-                    {COUNTRY_CODES.map((c, i) => (
-                      <option key={i} value={c.code}>
-                        {c.flag} {c.code}
+                    {sortedCountries.map((c, i) => (
+                      <option key={i} value={c.label}>
+                        {c.flag} {c.code} ({c.label})
                       </option>
                     ))}
                   </select>
