@@ -27,6 +27,8 @@ import ManageVariationsForm from '@/components/admin/ManageVariationsForm';
 import AddBlogForm from '@/components/admin/AddBlogForm';
 import BlogsList from '@/components/admin/BlogsList';
 import EnquiriesList from '@/components/admin/EnquiriesList';
+import AddTestimonialForm from '@/components/admin/AddTestimonialForm';
+import TestimonialsList from '@/components/admin/TestimonialsList';
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -40,6 +42,7 @@ export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState('dashboard');
     const [editingProduct, setEditingProduct] = useState(null);
     const [editingBlog, setEditingBlog] = useState(null);
+    const [editingTestimonial, setEditingTestimonial] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
@@ -69,6 +72,11 @@ export default function AdminDashboard() {
         setActiveTab('add-blog');
     };
 
+    const handleEditTestimonial = (testimonial) => {
+        setEditingTestimonial(testimonial);
+        setActiveTab('add-testimonial');
+    };
+
     const handleLogout = () => {
         document.cookie = "admin_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         setIsAuthenticated(false);
@@ -78,6 +86,7 @@ export default function AdminDashboard() {
     const resetStates = () => {
         setEditingProduct(null);
         setEditingBlog(null);
+        setEditingTestimonial(null);
     };
 
     const menuItems = [
@@ -88,6 +97,8 @@ export default function AdminDashboard() {
         { id: 'product-list', label: 'Products List', icon: <List size={14} />, reset: true },
         { id: 'add-blog', label: 'Add Blog', icon: <FileText size={14} />, reset: true, hideOnEdit: true },
         { id: 'blogs-list', label: 'Blogs List', icon: <List size={14} />, reset: true },
+        { id: 'add-testimonial', label: 'Add Testimonial', icon: <PlusCircle size={14} />, reset: true },
+        { id: 'testimonials-list', label: 'Testimonials List', icon: <List size={14} />, reset: true },
         { id: 'customer-enquiries', label: 'Customer Enquiries', icon: <MessageSquare size={14} />, reset: true },
         { id: 'career-enquiries', label: 'Career Applications', icon: <Briefcase size={14} />, reset: true },
     ];
@@ -150,7 +161,8 @@ export default function AdminDashboard() {
                         // For add-product/add-blog, highlight if editing too
                         const isEffectivelyActive = isActive ||
                             (item.id === 'add-product' && editingProduct) ||
-                            (item.id === 'add-blog' && editingBlog);
+                            (item.id === 'add-blog' && editingBlog) ||
+                            (item.id === 'add-testimonial' && editingTestimonial);
 
                         return (
                             <button
@@ -174,7 +186,8 @@ export default function AdminDashboard() {
                                     <span className="text-xs font-semibold tracking-wide">
                                         {item.id === 'add-product' && editingProduct ? 'Edit Product' :
                                             item.id === 'add-blog' && editingBlog ? 'Edit Blog' :
-                                                item.label}
+                                                item.id === 'add-testimonial' && editingTestimonial ? 'Edit Testimonial' :
+                                                    item.label}
                                     </span>
                                 </div>
                                 {isEffectivelyActive && <ChevronRight size={12} className="opacity-40" />}
@@ -206,7 +219,9 @@ export default function AdminDashboard() {
                                             activeTab === 'variations' ? 'Manage Colors' :
                                                 activeTab === 'product-list' ? 'Inventory' :
                                                     activeTab === 'add-blog' ? (editingBlog ? 'Edit Story' : 'New Story') :
-                                                        activeTab === 'blogs-list' ? 'Insights' : 'Dashboard'}
+                                                        activeTab === 'blogs-list' ? 'Insights' : 
+                                                            activeTab === 'add-testimonial' ? (editingTestimonial ? 'Edit Testimonial' : 'New Testimonial') :
+                                                                activeTab === 'testimonials-list' ? 'Testimonials' : 'Dashboard'}
                             </div>
                             <div className="text-white/30 text-[9px] font-semibold uppercase tracking-widest">
                                 {new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
@@ -234,6 +249,8 @@ export default function AdminDashboard() {
                         {activeTab === 'product-list' && <ProductsList onEdit={handleEditProduct} />}
                         {activeTab === 'add-blog' && <AddBlogForm onSwitchTab={setActiveTab} initialData={editingBlog} />}
                         {activeTab === 'blogs-list' && <BlogsList onEdit={handleEditBlog} />}
+                        {activeTab === 'add-testimonial' && <AddTestimonialForm onSwitchTab={setActiveTab} initialData={editingTestimonial} />}
+                        {activeTab === 'testimonials-list' && <TestimonialsList onEdit={handleEditTestimonial} />}
                         {activeTab === 'customer-enquiries' && <EnquiriesList type="contact" />}
                         {activeTab === 'career-enquiries' && <EnquiriesList type="career" />}
                     </div>

@@ -25,83 +25,18 @@ function clamp(n, min, max) {
 }
 
 export default function TestimonialsSlider() {
-  const testimonials = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "KIM BOLD",
-        text:
-          "Very nice selections and having the slabs organized by type and even by color really helps! We purchased some beautiful granite here!",
-        stars: 5,
-        avatar: a1,
-      },
-      {
-        id: 2,
-        name: "CHADD KAWATA",
-        text:
-          "Great selection, staff worked seamlessly with our GC and fabricators to install on time and with quality. I am back for my second counter top for our new home.",
-        stars: 5,
-        avatar: a2,
-      },
-      {
-        id: 3,
-        name: "JASON E",
-        text:
-          "Awesome showroom, great selection of stone and the staff is very friendly and helpful!",
-        stars: 5,
-        avatar: a3,
-      },
-      {
-        id: 4,
-        name: "SARAH L",
-        text:
-          "Professional team and premium materials. The entire process was smooth—from selection to delivery.",
-        stars: 5,
-        avatar: a4,
-      },
-      {
-        id: 5,
-        name: "MICHAEL R",
-        text:
-          "Stunning slabs and an amazing experience. The showroom organization makes it easy to decide quickly.",
-        stars: 5,
-        avatar: a5,
-      },
-      {
-        id: 6,
-        name: "ANA & HILLTOP TEAM",
-        text:
-          "Overall, I highly recommend Hilltop to anyone looking for high-quality countertop slabs and excellent customer service. Thank you, Hilltop and Ana, for your dedication to providing exceptional products and service!",
-        stars: 5,
-        avatar: a1,
-      },
-      {
-        id: 7,
-        name: "RAY & RYAN",
-        text:
-          "Hilltop has great selection of Natural stones, Quartz and Porcelain Slabs. Ray & Ryan are always helpful. Their customer service is far better than other wholesaler. They also have very nice showroom.",
-        stars: 5,
-        avatar: a2,
-      },
-      {
-        id: 8,
-        name: "DEREK",
-        text:
-          "Wow just WOW!! The selection here is incredible…you could spend a whole day looking and not see it all. BUT their selection is NOTHING compared to the customer service. Derek listened to what we were looking for and within 15 minutes, we’d found the perfect slab. He knows the inventory and knows design. Highly recommend!",
-        stars: 5,
-        avatar: a3,
-      },
-      {
-        id: 9,
-        name: "KAMAL GIRIA",
-        text:
-          "It was a great experience visiting Hilltop Factory,The team gave me full knowledge about natural stones and their process of manufacturing. Thank you so much Mr.Kamal Giria for giving me this opportunity to visit your factory.",
-        stars: 5,
-        avatar: a4,
-      },
-    ],
-    []
-  );
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/testimonials')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.testimonials) {
+          setTestimonials(data.testimonials);
+        }
+      })
+      .catch(err => console.error("Failed to fetch testimonials", err));
+  }, []);
 
   const [perView, setPerView] = useState(3);
   const [index, setIndex] = useState(0);
@@ -211,7 +146,11 @@ export default function TestimonialsSlider() {
           onFocusCapture={() => setPaused(true)}
           onBlurCapture={() => setPaused(false)}
         >
-          {/* ✅ MOBILE: scroll + snap + arrows work */}
+          {testimonials.length === 0 ? (
+            <div className="text-center text-white/50 py-10">No testimonials available.</div>
+          ) : (
+            <>
+              {/* ✅ MOBILE: scroll + snap + arrows work */}
           <div className="md:hidden">
             <div
               ref={mobileTrackRef}
@@ -287,6 +226,8 @@ export default function TestimonialsSlider() {
               </div>
             </div>
           </div>
+          </>
+        )}
 
         </div>
       </div>
@@ -312,16 +253,22 @@ function TestimonialCard({ t, snap = false }) {
         .filter(Boolean)
         .join(" ")}
     >
-      {/* <div className="relative w-[78px] h-[78px] rounded-full overflow-hidden ring-2 ring-white/10">
-        <Image src={t.avatar} alt={t.name} fill className="object-cover" />
-      </div> */}
+      {t.avatar ? (
+        <div className="relative w-[78px] h-[78px] rounded-full overflow-hidden ring-2 ring-white/10 shrink-0">
+          <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+        </div>
+      ) : (
+        <div className="w-[78px] h-[78px] rounded-full border-2 border-white/10 bg-white/5 flex items-center justify-center text-white/20 text-xl font-bold uppercase overflow-hidden ring-2 ring-white/10 shrink-0">
+          {t.name?.charAt(0) || "?"}
+        </div>
+      )}
 
       <div className="mt-5 text-[18px] md:text-[20px] tracking-wide text-white/90">
         {t.name}
       </div>
 
       <p className={`mt-6 text-white/70 leading-relaxed text-[16px] md:text-[18px] max-w-[36ch] ${quicksand.className}`}>
-        {t.text}
+        {t.content}
       </p>
 
       <div className="mt-8 flex items-center justify-center gap-2 text-[#c79a3a]">

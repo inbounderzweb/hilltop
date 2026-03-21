@@ -3,8 +3,9 @@ import { uploadFile } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req: Request) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
     try {
+        const id = params.id;
         const formData = await req.formData();
 
         const name = formData.get("name")?.toString().trim();
@@ -24,38 +25,44 @@ export async function POST(req: Request) {
             avatar_url = await uploadFile(image, "testimonials");
         }
 
-        const [result] = await db.query(
-            `INSERT INTO testimonials (name, content, rating, avatar_url) VALUES (?, ?, ?, ?)`,
-            [name, content, rating, avatar_url]
-        );
+        if (avatar_url) {
+            await db.query(
+                `UPDATE testimonials SET name = ?, content = ?, rating = ?, avatar_url = ? WHERE id = ?`,
+                [name, content, rating, avatar_url, id]
+            );
+        } else {
+            await db.query(
+                `UPDATE testimonials SET name = ?, content = ?, rating = ? WHERE id = ?`,
+                [name, content, rating, id]
+            );
+        }
 
         return Response.json({
             success: true,
-            message: "Testimonial created successfully",
-            result,
+            message: "Testimonial updated successfully"
         });
     } catch (error: any) {
-        console.error("TESTIMONIAL INSERT ERROR:", error);
+        console.error("TESTIMONIAL UPDATE ERROR:", error);
         return Response.json(
-            { success: false, error: error?.message || "Something went wrong" },
+            { success: false, error: error?.message || "Failed to update testimonial" },
             { status: 500 }
         );
     }
 }
 
-export async function GET() {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
-        const [rows]: any = await db.query(
-            "SELECT id, name, content, rating as stars, avatar_url as avatar, created_at FROM testimonials ORDER BY created_at DESC"
-        );
+        const id = params.id;
+        
+        await db.query("DELETE FROM testimonials WHERE id = ?", [id]);
 
         return Response.json({
             success: true,
-            testimonials: rows,
+            message: "Testimonial deleted successfully"
         });
     } catch (error: any) {
         return Response.json(
-            { success: false, error: error?.message || "Failed to fetch testimonials" },
+            { success: false, error: error?.message || "Failed to delete testimonial" },
             { status: 500 }
         );
     }
