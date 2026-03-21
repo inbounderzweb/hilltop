@@ -3,9 +3,9 @@ import { uploadFile } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const id = params.id;
+        const { id } = await params;
         const formData = await req.formData();
 
         const name = formData.get("name")?.toString().trim();
@@ -50,9 +50,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const id = params.id;
+        const { id } = await params;
         
         await db.query("DELETE FROM testimonials WHERE id = ?", [id]);
 
