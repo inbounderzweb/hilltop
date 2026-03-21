@@ -312,9 +312,9 @@ function TestimonialCard({ t, snap = false }) {
         .filter(Boolean)
         .join(" ")}
     >
-      <div className="relative w-[78px] h-[78px] rounded-full overflow-hidden ring-2 ring-white/10">
+      {/* <div className="relative w-[78px] h-[78px] rounded-full overflow-hidden ring-2 ring-white/10">
         <Image src={t.avatar} alt={t.name} fill className="object-cover" />
-      </div>
+      </div> */}
 
       <div className="mt-5 text-[18px] md:text-[20px] tracking-wide text-white/90">
         {t.name}

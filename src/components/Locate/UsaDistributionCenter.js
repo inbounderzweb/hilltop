@@ -151,7 +151,7 @@ export default function UsaDistributionCenter() {
           </div>
 
           {/* Main panel (behind tab) */}
-          <div className="relative rounded-none lg:rounded-[24px] bg-[#3a3a3a] px-6 pt-14 pb-10 sm:px-12 sm:pt-16 sm:pb-12">
+          <div className="relative rounded-b-[24px] lg:rounded-[24px] rounded-t-none lg:rounded-t-[24px] bg-[#3a3a3a] px-6 pt-10 pb-10 sm:px-12 sm:pt-16 sm:pb-12 mt-[-10px] lg:mt-[-20px] shadow-xl">
             <div className="grid gap-10 lg:grid-cols-3">
               {LOCATIONS.map((item, idx) => (
                 <LocationCard key={idx} item={item} />

@@ -169,7 +169,7 @@ export default function IndiaLocationsTabs() {
           <div
             role="tablist"
             aria-label="India locations"
-            className="relative z-10 mx-auto flex w-full max-w-5xl gap-2 sm:gap-6 justify-center"
+            className="relative z-10 mx-auto flex w-full flex-wrap max-w-5xl gap-1 sm:gap-6 justify-center"
           >
             {TABS.map((t) => {
               const isActive = t.key === active;
@@ -181,10 +181,10 @@ export default function IndiaLocationsTabs() {
                   type="button"
                   onClick={() => setActive(t.key)}
                   className={[
-                    "flex-1 rounded-t-2xl rounded-b-md sm:rounded-b-lg",
+                    "flex-1 rounded-t-xl sm:rounded-t-2xl rounded-b-md sm:rounded-b-lg",
                     "bg-[#2f2f2f]",
-                    "px-4 py-3 sm:px-10 sm:py-6",
-                    "text-sm sm:text-base font-medium",
+                    "px-2 py-3 sm:px-10 sm:py-6",
+                    "text-[12px] min-[375px]:text-[13px] sm:text-base font-medium whitespace-normal leading-tight",
                     "transition",
                     isActive ? "text-[#c89b3c]" : "text-white/85 hover:text-white",
                   ].join(" ")}
@@ -201,7 +201,7 @@ export default function IndiaLocationsTabs() {
             className={[
               "relative",
               "mt-[-10px] sm:mt-[-14px]",
-              "rounded-none sm:rounded-[32px]",
+              "rounded-2xl sm:rounded-[32px]",
               "bg-[#2f2f2f]",
               "px-6 py-12 sm:px-12 sm:py-14",
             ].join(" ")}

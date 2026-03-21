@@ -142,28 +142,28 @@ export default function GetInTouchForm({ initialProducts = [] }) {
               <FieldInput placeholder="Email id" name="email" type="email" value={formData.email} onChange={handleChange} required />
 
               {/* Phone with Country Code selector */}
-              <div className="relative flex">
-                <div className="relative">
+              <div className="flex items-stretch rounded-2xl bg-[#2a2a2a] border border-white/10 focus-within:border-white/20 overflow-hidden">
+                <div className="relative flex items-center shrink-0 w-[140px] sm:w-[180px]">
                   <select
                     value={selectedCountry.label}
                     onChange={(e) => {
                       const country = COUNTRY_CODES.find(c => c.label === e.target.value);
                       setSelectedCountry(country);
                     }}
-                    className="h-full rounded-l-2xl bg-[#2a2a2a] text-white text-[18px] sm:text-[20px] px-4 py-5 sm:py-6 border border-white/10 border-right-0 outline-none appearance-none cursor-pointer hover:bg-[#333] transition"
+                    className="w-full h-full bg-transparent text-white text-[18px] sm:text-[20px] pl-4 pr-9 py-5 sm:py-6 outline-none appearance-none cursor-pointer hover:bg-white/5 transition"
                   >
                     {sortedCountries.map((c, i) => (
-                      <option key={i} value={c.label}>
+                      <option key={i} value={c.label} className="bg-[#1b1b1b]">
                         {c.flag} {c.code} ({c.label})
                       </option>
                     ))}
                   </select>
-                  <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-white/40">
+                  <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/40">
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </div>
 
-                <div className="h-full w-px bg-white/10 self-stretch" />
+                <div className="w-px bg-white/10 self-stretch" />
 
                 <input
                   name="phone"
@@ -171,15 +171,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
                   onChange={handleChange}
                   inputMode="numeric"
                   placeholder="Phone Number"
-                  className={[
-                    "flex-1 rounded-r-2xl bg-[#2a2a2a] text-white/90",
-                    "px-5 py-5 sm:py-6",
-                    "text-[18px] sm:text-[20px]",
-                    "outline-none",
-                    "border border-white/10 border-left-0",
-                    "placeholder:text-white/30",
-                    "focus:border-white/20",
-                  ].join(" ")}
+                  className="flex-1 bg-transparent text-white/90 px-5 py-5 sm:py-6 text-[18px] sm:text-[20px] outline-none placeholder:text-white/30"
                   required
                 />
               </div>

@@ -40,7 +40,7 @@ function BlogCard({ post }) {
           <span className="text-white">{post.date ? new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ""}</span>
         </div>
 
-        <h3 className={`text-white text-[22px] md:text-[24px] leading-snug tracking-wide font-medium ${quicksand.className}`}>
+        <h3 className={`text-white text-[22px] md:text-[24px] leading-snug tracking-wide font-medium`}>
           {post.title}
         </h3>
 

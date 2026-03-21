@@ -95,7 +95,7 @@ export default function Footer() {
           </div>
 
           {/* India / USA */}
-          <div className="mt-10 grid grid-cols-2 gap-8">
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-8">
             <FooterBlockMobile title="INDIA">
               <FooterLinkMobile href="/india/head-quarters">Head Quarters</FooterLinkMobile>
               <FooterLinkMobile href="/india/factory">Factory</FooterLinkMobile>
@@ -128,7 +128,7 @@ export default function Footer() {
           <Divider />
 
           {/* Social */}
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <span className="text-white/90 text-[18px] font-medium">Follow us</span>
 
             <a
