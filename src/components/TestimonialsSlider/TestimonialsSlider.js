@@ -132,9 +132,31 @@ export default function TestimonialsSlider() {
     };
   }, [paused, perView, testimonials.length, next]);
 
+
+
+
+
+
+
+
+
   return (
     <section className="w-full bg-[#1f1f1f] text-white py-4 overflow-hidden">
       <div className="mx-auto max-w-[1600px] px-4 md:px-10">
+
+
+        <div className="w-fit mx-auto mb-6">
+          <div className="flex items-center justify-center gap-3 bg-white/5 px-6 py-2.5 rounded-full border border-white/10 shadow-sm">
+            <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.48 10.92v3.28h4.74c-.2 1.06-.9 1.95-2.02 2.71l2.72 2.13c1.58-1.47 2.49-3.62 2.49-6.12 0-.33-.03-.66-.08-1h-7.85z" fill="#4285F4" />
+              <path d="M12.48 5.68c1.69 0 3.21.58 4.41 1.72l3.29-3.29C18.17 2.14 15.54 1 12.48 1 7.6 1 3.5 4.3 2.1 8.76l3.2 2.49c.75-2.24 2.85-3.87 5.18-3.87z" fill="#EA4335" />
+              <path d="M12.48 22.12c2.4 0 4.41-.8 5.88-2.18l-2.72-2.13c-.81.55-1.85.87-3.16.87-2.33 0-4.43-1.63-5.18-3.87l-3.2 2.49c1.4 4.46 5.5 7.82 10.38 7.82z" fill="#34A853" />
+              <path d="M7.3 14.81c-.2-.58-.3-1.2-.3-1.81s.1-1.23.3-1.81l-3.2-2.49C3.12 10.15 2.65 11.51 2.65 13s.47 2.85 1.45 4.3l3.2-2.49z" fill="#FBBC05" />
+            </svg>
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] text-white/50 leading-none">Verified Google Reviews</span>
+          </div>
+        </div>
+
         <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-normal">
           Testimonials
         </h2>
