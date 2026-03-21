@@ -455,7 +455,7 @@ export default function CollectionsScrollSlider() {
       bg-[#c79a3a] hover:bg-[#d2a241] transition
     "
             >
-              <Link href="/products">Explore Collections</Link>
+              <Link href="/">Explore Collections</Link>
             </motion.button>
 
             {/* Right arrows */}

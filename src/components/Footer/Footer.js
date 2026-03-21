@@ -54,7 +54,7 @@ export default function Footer() {
               <FooterLink href="/blog">
                 Blog
               </FooterLink>
-              <FooterLink href="/products">
+              <FooterLink href="">
                 Products
               </FooterLink>
               <FooterLink href="/career">
