@@ -60,12 +60,12 @@ export default function ProductDetails({ productId }) {
 
                 if (data.success) {
                     setProduct(data.product);
-                    // Set both URL and Link for the initial view
-                    setActiveItem({
-                        url: data.product.image_url,
-                        link: null,
-                        type: 'image'
-                    });
+                    // Set default view to the second image (first gallery image) if available, otherwise primary
+                    const firstGalleryImage = (data.product.gallery && data.product.gallery.length > 0) 
+                        ? { url: data.product.gallery[0].url, link: data.product.gallery[0].link, type: 'image' }
+                        : { url: data.product.image_url, link: null, type: 'image' };
+
+                    setActiveItem(firstGalleryImage);
 
                     // Fetch related products (same category, or just other recent products)
                     const relatedRes = await fetch(`/api/products?t=${Date.now()}`);
@@ -257,10 +257,10 @@ export default function ProductDetails({ productId }) {
                                 <span className="text-[#DA9C39] text-xl font-medium">Origin</span>
                                 <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.origin}</span>
                             </div>
-                            {/* <div className="grid grid-cols-2 pb-6">
+                            <div className="grid grid-cols-2 pb-6">
                                 <span className="text-[#DA9C39] text-xl font-medium">Thickness</span>
                                 <span className={`text-white/90 text-lg ${quicksand.className}`}>{product.thickness || "Standard"}</span>
-                            </div> */}
+                            </div>
                         </div>
 
                         <div className="mt-10">
