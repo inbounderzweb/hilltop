@@ -129,7 +129,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
         e.target.value = "";
     };
 
-    const compressImage = async (file, maxWidth = 1920) => {
+    const compressImage = async (file, maxWidth = 1200) => {
         if (!file || !file.type.startsWith('image/')) return file;
         return new Promise((resolve) => {
             const reader = new FileReader();
@@ -155,13 +155,13 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                     canvas.toBlob((blob) => {
                         if (blob) {
                             resolve(new File([blob], file.name, {
-                                type: file.type || "image/jpeg",
+                                type: "image/jpeg",
                                 lastModified: Date.now()
                             }));
                         } else {
                             resolve(file);
                         }
-                    }, file.type || "image/jpeg", 0.7); // 70% quality for size reduction
+                    }, "image/jpeg", 0.6); // 60% quality, smaller footprint
                 };
                 img.onerror = () => resolve(file);
             };
@@ -216,18 +216,17 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             const links = [];
             const existingItems = [];
 
-            // Parallelize image compression to speed up submission
-            const galleryCompressionPromises = gallery.map(async (item) => {
+            // Execute compression sequentially to prevent browser RAM exhaustion/freezing
+            const processedGallery = [];
+            for (let i = 0; i < gallery.length; i++) {
+                const item = gallery[i];
                 if (item.file) {
                     const compressedFile = await compressImage(item.file);
-                    return { type: 'new', file: compressedFile, link: item.link };
+                    processedGallery.push({ type: 'new', file: compressedFile, link: item.link });
                 } else if (item.existingUrl) {
-                    return { type: 'existing', url: item.existingUrl, link: item.link };
+                    processedGallery.push({ type: 'existing', url: item.existingUrl, link: item.link });
                 }
-                return null;
-            });
-
-            const processedGallery = await Promise.all(galleryCompressionPromises);
+            }
             
             for (const item of processedGallery) {
                 if (item?.type === 'new') {
