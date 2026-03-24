@@ -18,6 +18,8 @@ const pool = globalThis.db || mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
     connectTimeout: 20000,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 10000,
     ssl: process.env.DB_SSL === "true" ? {
         rejectUnauthorized: false,
     } : undefined,
