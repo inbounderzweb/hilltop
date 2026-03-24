@@ -2,6 +2,10 @@
 
 import React, { useMemo, useState } from "react";
 import { Quicksand } from "next/font/google";
+import guptahouseImg from '../../assets/LocateUsimages/a3620d3053e7ccd597a0a575c0d57db6b40e7cf2.png';
+import factoryImg from '../../assets/LocateUsimages/ccb28a79e493c400f85d8cd7f08ea82ece7cf62b.png';
+import experienceImg from '../../assets/LocateUsimages/ce6c08a96339e6a03e30b05f4e2bce16186997b3.png';
+import Image from "next/image";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -18,6 +22,7 @@ const TABS = [
 const DATA = {
   hq: [
     {
+      image: guptahouseImg,
       title: "HILLTOP STONES",
       subtitle: "PVT LTD, HEAD OFFICE",
       address:
@@ -29,6 +34,7 @@ const DATA = {
   ],
   factory: [
     {
+      image: factoryImg,
       title: "HILLTOP STONES",
       subtitle: "INDIA GRANITE FACTORY",
       address:
@@ -40,6 +46,7 @@ const DATA = {
   ],
   experience: [
     {
+      image: experienceImg,
       title: "COLORS OF RAINBOW",
       subtitle: "EXPERIENCE CENTRE",
       address:
@@ -90,9 +97,10 @@ function MailIcon({ className = "" }) {
 
 function LocationCardCentered({ item }) {
   return (
-    <div className={`mx-auto flex w-full max-w-5xl flex-col lg:flex-row items-start gap-10`}>
+    <div className={`mx-auto flex w-full max-w-5xl flex-col lg:flex-row gap-10 items-start`}>
       <div className="flex-1 text-left">
         <div className="text-white">
+          <Image src={item.image} alt={item.title} width={400} height={300} className="mb-4 rounded-lg" />
           <div className={`text-[20px] sm:text-[24px] font-bold tracking-wide leading-tight text-[#c89b3c]`}>
             {item.title}
           </div>
@@ -129,7 +137,7 @@ function LocationCardCentered({ item }) {
       </div>
 
       {item.map_url && (
-        <div className="flex-1 w-full h-[300px] lg:h-[400px] rounded-lg overflow-hidden border border-white/5 shadow-2xl">
+        <div className="flex-1 w-full h-[300px] lg:h-[400px] rounded-lg overflow-hidden border border-white/5">
           <iframe
             src={item.map_url}
             width="100%"
