@@ -50,17 +50,20 @@ export async function POST(req: Request) {
         // Handle Application Images (Removed)
         let applicationUrls: string[] = [];
 
-        // Handle Gallery
+        // Handle Gallery Uploads in Parallel
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
         const gallery_images = formData.getAll("gallery_images") as File[];
-        let gallery = [];
-        for (let i = 0; i < gallery_images.length; i++) {
-            const file = gallery_images[i];
+        
+        const galleryUploadPromises = gallery_images.map(async (file, i) => {
             if (file && file.size > 0) {
                 const url = await uploadFile(file, "gallery");
-                gallery.push({ url, link: gallery_links[i] || "" });
+                return { url, link: gallery_links[i] || "" };
             }
-        }
+            return null;
+        });
+        
+        const uploadedGallery = await Promise.all(galleryUploadPromises);
+        let gallery = uploadedGallery.filter(item => item !== null);
 
         const [result] = await db.query(
             `INSERT INTO products 

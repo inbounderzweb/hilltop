@@ -79,19 +79,24 @@ export async function PUT(
         // Handle Application Images (Removed)
         let applicationUrls: string[] = [];
 
-        // Handle gallery
+        // Handle gallery in parallel
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
         const existing_gallery = JSON.parse(formData.get("existing_gallery")?.toString() || "[]");
         let gallery = [...existing_gallery];
         const newGalleryImages = formData.getAll("gallery_images") as File[];
 
-        for (let i = 0; i < newGalleryImages.length; i++) {
-            const file = newGalleryImages[i];
+        const galleryUploadPromises = newGalleryImages.map(async (file, i) => {
             if (file && file.size > 0) {
                 const url = await uploadFile(file, "gallery");
-                gallery.push({ url, link: gallery_links[i] || "" });
+                return { url, link: gallery_links[i] || "" };
             }
-        }
+            return null;
+        });
+
+        const uploadedNewGallery = await Promise.all(galleryUploadPromises);
+        uploadedNewGallery.forEach(item => {
+            if (item) gallery.push(item);
+        });
 
         await db.query(
             `UPDATE products SET 

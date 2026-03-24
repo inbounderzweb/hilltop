@@ -216,14 +216,25 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             const links = [];
             const existingItems = [];
 
-            for (let i = 0; i < gallery.length; i++) {
-                const item = gallery[i];
+            // Parallelize image compression to speed up submission
+            const galleryCompressionPromises = gallery.map(async (item) => {
                 if (item.file) {
                     const compressedFile = await compressImage(item.file);
-                    payload.append("gallery_images", compressedFile);
-                    links.push(item.link);
+                    return { type: 'new', file: compressedFile, link: item.link };
                 } else if (item.existingUrl) {
-                    existingItems.push({ url: item.existingUrl, link: item.link });
+                    return { type: 'existing', url: item.existingUrl, link: item.link };
+                }
+                return null;
+            });
+
+            const processedGallery = await Promise.all(galleryCompressionPromises);
+            
+            for (const item of processedGallery) {
+                if (item?.type === 'new') {
+                    payload.append("gallery_images", item.file);
+                    links.push(item.link);
+                } else if (item?.type === 'existing') {
+                    existingItems.push({ url: item.url, link: item.link });
                 }
             }
 
@@ -451,7 +462,17 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                                     <div>
                                         <label className="block text-[9px] font-bold text-white/30 uppercase tracking-widest mb-1.5">Gallery Image</label>
                                         <div className="flex items-center gap-3">
-                                            <input type="file" accept="image/*" onChange={(e) => updateGalleryItem(idx, 'file', e.target.files[0])} className="text-[10px] text-white/50 w-full" />
+                                            {!item.file && !item.existingUrl && (
+                                                <input type="file" accept="image/*" onChange={(e) => updateGalleryItem(idx, 'file', e.target.files[0])} className="text-[10px] text-white/50 w-full" />
+                                            )}
+                                            {item.file && (
+                                                <div className="text-[10px] text-[#eba14d] truncate font-bold bg-[#eba14d]/10 px-3 py-1.5 rounded w-full flex justify-between items-center">
+                                                    <span className="truncate">{item.file.name}</span>
+                                                    <button type="button" onClick={() => updateGalleryItem(idx, 'file', null)} className="ml-2 text-white/50 hover:text-red-500">
+                                                        <X size={12} />
+                                                    </button>
+                                                </div>
+                                            )}
                                             {item.existingUrl && !item.file && (
                                                 <img src={item.existingUrl} className="w-8 h-8 rounded border border-white/10" alt="Gallery" />
                                             )}
