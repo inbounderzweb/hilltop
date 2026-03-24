@@ -115,6 +115,60 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
         setGallery(gallery.filter((_, i) => i !== index));
     };
 
+    const handleMultipleGalleryItems = (e) => {
+        const files = Array.from(e.target.files);
+        if (!files.length) return;
+        
+        const newItems = files.map(file => ({
+            file,
+            link: "",
+            existingUrl: ""
+        }));
+        
+        setGallery((prev) => [...prev, ...newItems]);
+        e.target.value = "";
+    };
+
+    const compressImage = async (file, maxWidth = 1920) => {
+        if (!file || !file.type.startsWith('image/')) return file;
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            resolve(new File([blob], file.name, {
+                                type: file.type || "image/jpeg",
+                                lastModified: Date.now()
+                            }));
+                        } else {
+                            resolve(file);
+                        }
+                    }, file.type || "image/jpeg", 0.7); // 70% quality for size reduction
+                };
+                img.onerror = () => resolve(file);
+            };
+            reader.onerror = () => resolve(file);
+        });
+    };
+
     const updateGalleryItem = (index, field, value) => {
         const newGallery = [...gallery];
         if (field === 'file') {
@@ -147,7 +201,8 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             payload.append("product_video_url", formData.product_video_url);
 
             if (mainImage) {
-                payload.append("image", mainImage);
+                const compressedMain = await compressImage(mainImage);
+                payload.append("image", compressedMain);
             }
             if (videoFile) {
                 payload.append("product_video", videoFile);
@@ -161,14 +216,16 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             const links = [];
             const existingItems = [];
 
-            gallery.forEach((item) => {
+            for (let i = 0; i < gallery.length; i++) {
+                const item = gallery[i];
                 if (item.file) {
-                    payload.append("gallery_images", item.file);
+                    const compressedFile = await compressImage(item.file);
+                    payload.append("gallery_images", compressedFile);
                     links.push(item.link);
                 } else if (item.existingUrl) {
                     existingItems.push({ url: item.existingUrl, link: item.link });
                 }
-            });
+            }
 
             payload.append("gallery_links", JSON.stringify(links));
             payload.append("existing_gallery", JSON.stringify(existingItems));
@@ -365,9 +422,22 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                 <div className="space-y-4 pt-4 border-t border-white/5">
                     <div className="flex justify-between items-center">
                         <h3 className="text-sm font-semibold text-white/80 uppercase tracking-wider">Gallery & Links</h3>
-                        <button type="button" onClick={addGalleryItem} className="flex items-center gap-1.5 text-[10px] font-bold bg-[#eba14d]/10 hover:bg-[#eba14d]/20 text-[#eba14d] px-3 py-1.5 rounded uppercase tracking-wider transition">
-                            <Plus size={12} /> Add Item
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <label htmlFor="multi-gallery-upload" className="flex items-center gap-1.5 text-[10px] font-bold bg-[#eba14d] hover:bg-[#eba14d]/80 text-black px-3 py-1.5 rounded uppercase tracking-wider transition cursor-pointer">
+                                <Plus size={12} /> Add Multiple Files
+                            </label>
+                            <input
+                                id="multi-gallery-upload"
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleMultipleGalleryItems}
+                                className="hidden"
+                            />
+                            <button type="button" onClick={addGalleryItem} className="flex items-center gap-1.5 text-[10px] font-bold bg-[#eba14d]/10 hover:bg-[#eba14d]/20 text-[#eba14d] px-3 py-1.5 rounded uppercase tracking-wider transition">
+                                <Plus size={12} /> Empty Slot
+                            </button>
+                        </div>
                     </div>
 
                     <div className="grid gap-3">

@@ -82,7 +82,7 @@ export default function ProductListingPage({ initialCategory }) {
             const matchesCategory = !categoryFilteringOn || selectedCategories.has(p.category);
             const matchesColor = !colorFilteringOn || selectedColors.has(p.color_family);
             return matchesQuery && matchesCategory && matchesColor;
-        });
+        }).sort((a, b) => a.product_name.localeCompare(b.product_name));
     }, [products, query, selectedCategories, selectedColors]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));

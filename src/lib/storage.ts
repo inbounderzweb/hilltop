@@ -22,11 +22,11 @@ export async function uploadFile(file: File, folder: string = "uploads"): Promis
         console.warn("S3_UPLOAD_KEY not found, attempting local write (only works in dev)");
         const fs = require("fs/promises");
         const path = require("path");
-        const uploadsDir = path.join(process.cwd(), "public", folder);
+        const uploadsDir = path.join(process.cwd(), "public", "uploads", folder);
         await fs.mkdir(uploadsDir, { recursive: true });
         const filePath = path.join(uploadsDir, `${uuidv4()}.${ext}`);
         await fs.writeFile(filePath, buffer);
-        return `/${folder}/${path.basename(filePath)}`;
+        return `/uploads/${folder}/${path.basename(filePath)}`;
     }
 
     // Validation for Production
