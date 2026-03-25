@@ -61,7 +61,7 @@ export default function ProductDetails({ productId }) {
                 if (data.success) {
                     setProduct(data.product);
                     // Set default view to the second image (first gallery image) if available, otherwise primary
-                    const firstGalleryImage = (data.product.gallery && data.product.gallery.length > 0) 
+                    const firstGalleryImage = (data.product.gallery && data.product.gallery.length > 0)
                         ? { url: data.product.gallery[0].url, link: data.product.gallery[0].link, type: 'image' }
                         : { url: data.product.image_url, link: null, type: 'image' };
 
@@ -171,7 +171,7 @@ export default function ProductDetails({ productId }) {
                                     src={activeItem.url || product.image_url}
                                     alt={product.product_name}
                                     fill
-                                    className="object-cover"
+                                    className="object-contain"
                                     priority
                                 />
                             )}
