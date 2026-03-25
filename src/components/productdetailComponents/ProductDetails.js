@@ -144,7 +144,7 @@ export default function ProductDetails({ productId }) {
 
                     {/* Left: Gallery Section */}
                     <div className="space-y-6">
-                        <div className="relative aspect-4/3 w-full bg-[#222222] rounded-xl overflow-hidden shadow-2xl group flex items-center justify-center">
+                        <div className="relative aspect-3/2 w-full rounded-xl overflow-hidden shadow-2xl group flex items-center justify-center">
                             {activeItem.type === 'video' ? (
                                 <div className="absolute inset-0 w-full h-full">
                                     {getYouTubeId(activeItem.url) ? (
