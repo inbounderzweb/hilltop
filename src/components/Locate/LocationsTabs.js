@@ -5,6 +5,7 @@ import { Quicksand } from "next/font/google";
 import guptahouseImg from '../../assets/LocateUsimages/a3620d3053e7ccd597a0a575c0d57db6b40e7cf2.png';
 import factoryImg from '../../assets/LocateUsimages/ccb28a79e493c400f85d8cd7f08ea82ece7cf62b.png';
 import experienceImg from '../../assets/LocateUsimages/ce6c08a96339e6a03e30b05f4e2bce16186997b3.png';
+import colorsofrainbow from '../../assets/LocateUsimages/colorsofrainbowexpcenter.jpeg'
 import Image from "next/image";
 
 const quicksand = Quicksand({
@@ -46,7 +47,7 @@ const DATA = {
   ],
   experience: [
     {
-      image: experienceImg,
+      image: colorsofrainbow,
       title: "COLORS OF RAINBOW",
       subtitle: "EXPERIENCE CENTRE",
       address:
