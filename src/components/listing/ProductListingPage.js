@@ -13,7 +13,7 @@ const quicksand = Quicksand({
     display: "swap",
 });
 
-export default function ProductListingPage({ initialCategory }) {
+export default function ProductListingPage({ initialCategory, allowedCategories }) {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [colors, setColors] = useState([]);
@@ -23,7 +23,7 @@ export default function ProductListingPage({ initialCategory }) {
     const [selectedCategories, setSelectedCategories] = useState(new Set());
     const [selectedColors, setSelectedColors] = useState(new Set()); // Empty = All Colors
     const [page, setPage] = useState(1);
-    const PAGE_SIZE = 9; // Increased for better layout
+    const PAGE_SIZE = 10; // Increased for better layout
 
     // Initial Fetch for Categories and Colors (static-ish data)
     useEffect(() => {
@@ -35,7 +35,13 @@ export default function ProductListingPage({ initialCategory }) {
                 ]);
                 const [catData, colData] = await Promise.all([catRes.json(), colRes.json()]);
 
-                if (catData.success) setCategories(catData.categories.map(c => c.name));
+                if (catData.success) {
+                    let fetchedCats = catData.categories.map(c => c.name);
+                    if (allowedCategories) {
+                        fetchedCats = fetchedCats.filter(c => allowedCategories.includes(c));
+                    }
+                    setCategories(fetchedCats);
+                }
                 if (colData.success) setColors(colData.options.map(o => o.value));
             } catch (err) {
                 console.error("Failed to fetch filters", err);
@@ -78,12 +84,13 @@ export default function ProductListingPage({ initialCategory }) {
         const colorFilteringOn = selectedColors.size > 0;
 
         return products.filter((p) => {
+            const isAllowed = allowedCategories ? allowedCategories.includes(p.category) : true;
             const matchesQuery = !q || p.product_name.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q);
             const matchesCategory = !categoryFilteringOn || selectedCategories.has(p.category);
             const matchesColor = !colorFilteringOn || selectedColors.has(p.color_family);
-            return matchesQuery && matchesCategory && matchesColor;
+            return matchesQuery && matchesCategory && matchesColor && isAllowed;
         }).sort((a, b) => a.product_name.localeCompare(b.product_name));
-    }, [products, query, selectedCategories, selectedColors]);
+    }, [products, query, selectedCategories, selectedColors, allowedCategories]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     const safePage = Math.min(Math.max(1, page), totalPages);
