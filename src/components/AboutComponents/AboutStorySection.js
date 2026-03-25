@@ -18,7 +18,7 @@ const quicksand = Quicksand({
 
 export default function AboutStorySection() {
   return (
-    <section className="w-full text-white">
+    <section className="w-full text-white py-10 md:py-16">
       <div className="mx-auto">
         {/* ===== Top: Image + Story ===== */}
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 items-center">
@@ -64,7 +64,7 @@ export default function AboutStorySection() {
         </div>
 
         {/* ===== Bottom: Purpose + Values Card ===== */}
-        <div className="mt-14 md:mt-18 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 items-center w-[90%] mx-auto pb-12">
+        <div className="mt-10 md:mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 items-center w-[90%] mx-auto">
           {/* Our Purpose */}
           <div>
             <h3 className="text-[34px] md:text-[44px] leading-[1.1] font-light">

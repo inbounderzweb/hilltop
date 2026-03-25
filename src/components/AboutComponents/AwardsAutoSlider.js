@@ -132,7 +132,7 @@ export default function AwardsAutoSlider() {
   );
 
   return (
-    <section className="relative w-full md:w-[80%] mx-auto overflow-hidden py-4">
+    <section className="relative w-full md:w-[80%] mx-auto overflow-hidden py-10 md:py-16">
       {/* background like your reference */}
       <div className="absolute inset-0 -z-10 bg-[#0b0b0b]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(65%_60%_at_50%_10%,rgba(255,255,255,0.08),transparent_60%)]" />
@@ -144,7 +144,7 @@ export default function AwardsAutoSlider() {
           Awards
         </h2>
 
-        <div className="mt-10 md:mt-14">
+        <div className="mt-10 md:mt-16">
           <div
             ref={sliderRef}
             className="keen-slider"

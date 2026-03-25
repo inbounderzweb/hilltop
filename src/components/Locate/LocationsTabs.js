@@ -29,7 +29,7 @@ const DATA = {
         "No 736, Gupta House, 7th Cross Road, 3rd Block, Koramangala, Bengaluru - 560 034 Karnataka, India.",
       phone: "+91 99000 63557",
       email: "info@hilltopgranite.com",
-      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5833215849!2d77.6223!3d12.9344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14434608c029%3A0x1d473489e2480e6!2sKoramangala%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15555.155!2d77.6212752!3d12.9309165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15ca05a07dc9%3A0xc525945360401e8!2sHilltop%20(Stones)%20Granite%20Bangalore!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
   factory: [
@@ -163,7 +163,7 @@ export default function IndiaLocationsTabs() {
 
   return (
     <div className={`w-full bg-[#1b1b1b]`}>
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
+      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6">
         {/* Title */}
         <div className="text-center">
           <h2 className="text-white text-3xl sm:text-4xl tracking-[0.25em] font-medium">
@@ -172,7 +172,7 @@ export default function IndiaLocationsTabs() {
         </div>
 
         {/* Tabs + Panel wrapper */}
-        <div className="mt-10 sm:mt-12">
+        <div className="mt-16">
           {/* Tabs */}
           <div
             role="tablist"

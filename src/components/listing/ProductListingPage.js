@@ -186,10 +186,11 @@ export default function ProductListingPage({ initialCategory }) {
                             </div>
                         ) : (
                             <div className="space-y-16">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-12 gap-x-8">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-y-12 gap-x-8">
                                     {paged.map((p) => (
                                         <Link key={p.id} href={`/products/details/${p.id}`} className="group block">
-                                            <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-6">
+                                            {/* <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-6"> */}
+                                            <div className="relative aspect-2/1 rounded-xl overflow-hidden mb-6">
                                                 <Image
                                                     src={p.image_url}
                                                     alt={p.product_name}

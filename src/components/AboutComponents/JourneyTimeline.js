@@ -145,21 +145,21 @@ function Row({ item, index }) {
 
 export default function JourneyTimeline({ title = "The Journey", items = DEFAULT_ITEMS }) {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden py-10 md:py-16">
       {/* background */}
       <div className="absolute inset-0 -z-10" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(65%_55%_at_50%_20%,rgba(255,255,255,0.08),transparent_60%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(55%_45%_at_20%_55%,rgba(255,255,255,0.06),transparent_65%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_80%_60%,rgba(255,255,255,0.05),transparent_70%)]" />
 
-      <div className="mx-auto w-full max-w-5xl px-6 py-4">
+      <div className="mx-auto w-full max-w-5xl px-6">
         {/* STATIC HEADING (won't scroll) */}
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.21, 0.9, 0.2, 1] }}
-          className={`text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-[500] mb-12 md:mb-16`}
+          className={`text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-[500] mb-10 md:mb-16`}
         >
           {title}
         </motion.h2>

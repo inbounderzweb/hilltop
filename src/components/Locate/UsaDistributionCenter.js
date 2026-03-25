@@ -2,6 +2,10 @@
 
 import React from "react";
 import { Quicksand } from "next/font/google";
+import dallas from '../../assets/LocateUsimages/Dallas.jpeg'
+import austin from '../../assets/LocateUsimages/austin.jpeg'
+// import houston from '../../assets/LocateUsimages/houston.jpeg'
+import Image from "next/image";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -47,6 +51,7 @@ function MailIcon({ className = "" }) {
 const LOCATIONS = [
   {
     title: "HILLTOP GRANITE",
+    image: austin,
     subtitle: "AUSTIN, TX",
     address: "2120 Grand Ave Pkwy # 150, Austin, TX 78728, USA",
     phone: "+1 512 220 2140",
@@ -55,6 +60,7 @@ const LOCATIONS = [
   },
   {
     title: "HILLTOP GRANITE",
+    image: dallas,
     subtitle: "DALLAS, TX",
     address: "12401 N Stemmons Fwy #140, Farmers Branch, TX 75234, USA",
     phone: "+1 972 243 3156",
@@ -63,6 +69,7 @@ const LOCATIONS = [
   },
   {
     title: "HILLTOP GRANITE",
+    image: austin,
     subtitle: "HOUSTON, TX",
     address: "8760 Clay Rd Suite B, Houston, TX 77080, USA",
     phone: "+1 832 867 9053",
@@ -75,7 +82,8 @@ function LocationCard({ item }) {
   return (
     <div className="min-w-0 flex flex-col h-full">
       <div className="text-white">
-        <p className="text-[20px] sm:text-[22px] font-semibold tracking-wide leading-tight">
+        <Image src={item.image} alt={item.title} width={400} height={200} className="mb-4 rounded-lg" />
+        <p className="text-[20px] sm:text-[22px] font-semibold tracking-wide leading-tight mb-3">
           {item.title}
         </p>
         <p className="text-[20px] sm:text-[22px] font-semibold tracking-wide leading-tight">
@@ -103,7 +111,7 @@ function LocationCard({ item }) {
         </div>
       )}
 
-      <div className="mt-7 space-y-4 mb-2">
+      <div className="mt-7 space-y-4 mb-8">
         <a
           href={`tel:${item.phone.replace(/\s/g, "")}`}
           className="flex items-center gap-3 text-white/85 hover:text-white transition"
@@ -130,8 +138,8 @@ function LocationCard({ item }) {
 
 export default function UsaDistributionCenter() {
   return (
-    <div className={`w-full bg-[#1b1b1b] pt-10`} id="usa">
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
+    <div className={`w-full bg-[#1b1b1b]`} id="usa">
+      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6">
         {/* Title */}
         <div className="text-center">
           <h2 className="text-white text-4xl sm:text-5xl tracking-[0.28em] font-medium">
@@ -140,7 +148,7 @@ export default function UsaDistributionCenter() {
         </div>
 
         {/* Tab + Panel */}
-        <div className="relative mt-10 sm:mt-12">
+        <div className="relative mt-16">
           {/* Back tab (must stay ABOVE panel) */}
           <div className="z-20 flex justify-center">
             <div className="w-full max-w-5xl rounded-t-[22px] bg-[#2b2b2b] px-6 py-6 sm:px-10 sm:py-7">

@@ -39,7 +39,7 @@ const leaders = [
 
 export default function VisionaryLeaders() {
   return (
-    <section className="relative w-full overflow-hidden py-16 md:py-24">
+    <section className="relative w-full overflow-hidden py-10 md:py-16">
       {/* Background (same vibe as your ref) */}
       <div className="absolute inset-0 -z-10 bg-[#151515]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(65%_55%_at_50%_20%,rgba(255,255,255,0.08),transparent_60%)]" />
@@ -53,7 +53,7 @@ export default function VisionaryLeaders() {
         </h2>
 
         {/* Cards */}
-        <div className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        <div className="mt-10 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
           {leaders.map((p, idx) => (
             <div key={idx} className="flex flex-col items-center">
               {/* Image box */}
