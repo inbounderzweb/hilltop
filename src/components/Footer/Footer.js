@@ -118,11 +118,11 @@ export default function Footer() {
 
           <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-6">
             <FooterLinkMobile href="/about">About us</FooterLinkMobile>
-            <FooterLinkMobile href="/blog">Blog</FooterLinkMobile>
+            <FooterLinkMobile href="/blogs">Blog</FooterLinkMobile>
             <FooterLinkMobile href="/products">Products</FooterLinkMobile>
             <FooterLinkMobile href="/career">Career</FooterLinkMobile>
             <FooterLinkMobile href="/locate#usa">Locate Us</FooterLinkMobile>
-            <FooterLinkMobile href="/faq">FAQ</FooterLinkMobile>
+            <FooterLinkMobile href="/blogs">FAQ</FooterLinkMobile>
           </div>
 
           <Divider />
