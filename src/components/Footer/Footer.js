@@ -29,13 +29,13 @@ export default function Footer() {
 
             <div className="mt-7">
               <FooterBlock title="INDIA">
-                <FooterLink href="/india/head-quarters">Head Quarters</FooterLink>
-                <FooterLink href="/india/factory">Factory</FooterLink>
-                <FooterLink href="/india/showroom">Experience Centre</FooterLink>
+                <FooterLink href="/locate#hq">Head Quarters</FooterLink>
+                <FooterLink href="/locate#factory">Factory</FooterLink>
+                <FooterLink href="/locate#experience">Experience Centre</FooterLink>
               </FooterBlock>
 
               <FooterBlock title="USA">
-                <FooterLink href="/usa/distribution-center">Distribution Center</FooterLink>
+                <FooterLink href="/locate#usa">Distribution Center</FooterLink>
               </FooterBlock>
             </div>
           </div>
@@ -51,10 +51,10 @@ export default function Footer() {
               <FooterLink href="/about">
                 About us
               </FooterLink>
-              <FooterLink href="/blog">
+              <FooterLink href="/blogs">
                 Blog
               </FooterLink>
-              <FooterLink href="">
+              <FooterLink href="/products">
                 Products
               </FooterLink>
               <FooterLink href="/career">
@@ -63,7 +63,7 @@ export default function Footer() {
               <FooterLink href="/locate#usa">
                 US line
               </FooterLink>
-              <FooterLink href="/faq">
+              <FooterLink href="/blogs">
                 FAQ
               </FooterLink>
             </div>
@@ -97,13 +97,13 @@ export default function Footer() {
           {/* India / USA */}
           <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-8">
             <FooterBlockMobile title="INDIA">
-              <FooterLinkMobile href="/india/head-quarters">Head Quarters</FooterLinkMobile>
-              <FooterLinkMobile href="/india/factory">Factory</FooterLinkMobile>
-              <FooterLinkMobile href="/india/showroom">Experience Centre</FooterLinkMobile>
+              <FooterLinkMobile href="/locate#hq">Head Quarters</FooterLinkMobile>
+              <FooterLinkMobile href="/locate#factory">Factory</FooterLinkMobile>
+              <FooterLinkMobile href="/locate#experience">Experience Centre</FooterLinkMobile>
             </FooterBlockMobile>
 
             <FooterBlockMobile title="USA">
-              <FooterLinkMobile href="/usa/distribution-center">
+              <FooterLinkMobile href="/locate#usa">
                 Distribution Center
               </FooterLinkMobile>
             </FooterBlockMobile>

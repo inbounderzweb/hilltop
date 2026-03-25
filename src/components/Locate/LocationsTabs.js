@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Quicksand } from "next/font/google";
 import guptahouseImg from '../../assets/LocateUsimages/a3620d3053e7ccd597a0a575c0d57db6b40e7cf2.png';
 import factoryImg from '../../assets/LocateUsimages/ccb28a79e493c400f85d8cd7f08ea82ece7cf62b.png';
@@ -158,6 +158,20 @@ function LocationCardCentered({ item }) {
 export default function IndiaLocationsTabs() {
   const [active, setActive] = useState("hq");
   const items = useMemo(() => DATA?.[active] ?? [], [active]);
+
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window !== "undefined" && window.location.hash) {
+        const hash = window.location.hash.replace("#", "");
+        if (["hq", "factory", "experience"].includes(hash)) {
+          setActive(hash);
+        }
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   // since you said each tab currently has only ONE address, we take first item
   const item = items[0];
