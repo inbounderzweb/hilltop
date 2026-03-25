@@ -142,15 +142,15 @@ export default function GetInTouchForm({ initialProducts = [] }) {
               <FieldInput placeholder="Email id" name="email" type="email" value={formData.email} onChange={handleChange} required />
 
               {/* Phone with Country Code selector */}
-              <div className="flex items-stretch rounded-2xl bg-[#2a2a2a] border border-white/10 focus-within:border-white/20 overflow-hidden">
-                <div className="relative flex items-center shrink-0 w-[140px] sm:w-[180px]">
+              <div className="flex w-full items-stretch rounded-2xl bg-[#2a2a2a] border border-white/10 focus-within:border-white/20 overflow-hidden">
+                <div className="relative flex items-center shrink-0 w-[110px] sm:w-[180px]">
                   <select
                     value={selectedCountry.label}
                     onChange={(e) => {
                       const country = COUNTRY_CODES.find(c => c.label === e.target.value);
                       setSelectedCountry(country);
                     }}
-                    className="w-full h-full bg-transparent text-white text-[18px] sm:text-[20px] pl-4 pr-9 py-5 sm:py-6 outline-none appearance-none cursor-pointer hover:bg-white/5 transition"
+                    className="w-full h-full bg-transparent text-white text-[16px] sm:text-[20px] pl-3 sm:pl-4 pr-7 sm:pr-9 py-5 sm:py-6 outline-none appearance-none cursor-pointer hover:bg-white/5 transition"
                   >
                     {sortedCountries.map((c, i) => (
                       <option key={i} value={c.label} className="bg-[#1b1b1b]">
@@ -171,7 +171,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
                   onChange={handleChange}
                   inputMode="numeric"
                   placeholder="Phone Number"
-                  className="flex-1 bg-transparent text-white/90 px-5 py-5 sm:py-6 text-[18px] sm:text-[20px] outline-none placeholder:text-white/30"
+                  className="flex-1 min-w-0 w-full bg-transparent text-white/90 px-4 sm:px-5 py-5 sm:py-6 text-[16px] sm:text-[20px] outline-none placeholder:text-white/30"
                   required
                 />
               </div>

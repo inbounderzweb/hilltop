@@ -36,7 +36,7 @@ export default function AboutStorySection() {
           </div>
 
           {/* Right story text */}
-          <div className="pt-2 md:pt-4">
+          <div className="pt-2 md:pt-4 px-4">
             <h2 className="text-[34px] md:text-[44px] leading-[1.1] font-light">
               The Birth of a Legacy
             </h2>

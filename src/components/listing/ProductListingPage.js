@@ -229,7 +229,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                         <button
                                             onClick={() => setPage(p => Math.max(1, p - 1))}
                                             disabled={safePage === 1}
-                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700 font-serif"
+                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700"
                                         >
                                             <ChevronLeft size={18} />
                                             <span className="text-[14px]">Previous page</span>
@@ -253,7 +253,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                         <button
                                             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                             disabled={safePage === totalPages}
-                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700 font-serif"
+                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700"
                                         >
                                             <span className="text-[14px]">Next page</span>
                                             <ChevronRight size={18} />
