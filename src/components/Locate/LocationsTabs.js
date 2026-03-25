@@ -41,7 +41,7 @@ const DATA = {
         "220/2b, Thyagarasanapalli Village NH7 Hosur - Krishnagiri Road, Shoolagiri PO & Taluk Krishnagiri District, Tamilnadu - 635117 India",
       phone: "+91 89519 43587",
       email: "factory@hilltopgranite.com",
-      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.895!2d78.0123!3d12.6789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae71!2sShoolagiri!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d77.9962392!3d12.6660383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3badd6e185ec5dd9%3A0x43c48ca55a3f113e!2sHilltop%20Granite%20Factory!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
   experience: [
@@ -53,7 +53,7 @@ const DATA = {
         "Sy.no.209/5B & 6B, 321/1 Gollapalli Shoolagiri PO & Taluk, Krishnagiri Tamilnadu - 635117, India",
       phone: "+91 89519 43587",
       email: "sales@colorsofrainbow.com",
-      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d78.01!3d12.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae!2sKrishnagiri!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+      map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d78.0261205!3d12.6513251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3badd1ecadd100d9%3A0x9d52391536b432a4!2sColors%20of%20Rainbow!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
 };

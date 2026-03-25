@@ -50,31 +50,31 @@ function MailIcon({ className = "" }) {
 
 const LOCATIONS = [
   {
-    title: "HILLTOP GRANITE",
+    title: "HILLTOP STONES & INTERIORS",
     image: austin,
     subtitle: "AUSTIN, TX",
     address: "2120 Grand Ave Pkwy # 150, Austin, TX 78728, USA",
     phone: "+1 512 220 2140",
     email: "austin@hilltopgranite.com",
-    map_url: "https://maps.google.com/maps?q=2120+Grand+Ave+Pkwy+%23+150%2C+Austin%2C+TX+78728%2C+USA&output=embed"
+    map_url: "https://maps.google.com/maps?q=30.457545,-97.670947&t=&z=15&ie=UTF8&iwloc=&output=embed"
   },
   {
-    title: "HILLTOP GRANITE",
+    title: "HILLTOP GRANITE DALLAS",
     image: dallas,
     subtitle: "DALLAS, TX",
     address: "12401 N Stemmons Fwy #140, Farmers Branch, TX 75234, USA",
     phone: "+1 972 243 3156",
     email: "dallas@hilltopgranite.com",
-    map_url: "https://maps.google.com/maps?q=12401+N+Stemmons+Fwy+%23140%2C+Farmers+Branch%2C+TX+75234%2C+USA&output=embed"
+    map_url: "https://maps.google.com/maps?q=32.918694,-96.901442&t=&z=15&ie=UTF8&iwloc=&output=embed"
   },
   {
-    title: "HILLTOP GRANITE",
+    title: "HILLTOP STONES & INTERIORS",
     image: austin,
     subtitle: "HOUSTON, TX",
     address: "8760 Clay Rd Suite B, Houston, TX 77080, USA",
     phone: "+1 832 867 9053",
     email: "houston@hilltopgranite.com",
-    map_url: "https://maps.google.com/maps?q=8760+Clay+Rd+Suite+B%2C+Houston%2C+TX+77080%2C+USA&output=embed"
+    map_url: "https://maps.google.com/maps?q=29.834469,-95.510889&t=&z=15&ie=UTF8&iwloc=&output=embed"
   },
 ];
 
