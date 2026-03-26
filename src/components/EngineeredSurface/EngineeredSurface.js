@@ -7,7 +7,7 @@ import Link from "next/link";
 // ✅ Replace these with your real images
 import eng1 from "@/assets/engineeredSec/eng3.png";
 import eng2 from "@/assets/engineeredSec/eng2.png";
-import eng3 from "@/assets/engineeredSec/eng1.png";
+import eng3 from "@/assets/engineeredSec/masterpiece.png";
 
 
 import { Quicksand } from "next/font/google";
@@ -33,14 +33,15 @@ export default function EngineeredSurface() {
               Engineered Surfaces
             </span>
           </h2>
+
           <p className={`mt-2 text-white text-[16px] md:text-[24px] ${quicksand.className}`}>
             Precision-Crafted Materials
           </p>
-          
+
           {/* Tabs */}
           <div className={`mt-6 flex flex-wrap justify-center gap-4 ${quicksand.className}`}>
-            <Link href="/products/Quartz%20SPC" className="px-8 py-2 rounded-lg text-white/80 bg-[#2d2d2d] border border-white/10 hover:border-white/30 hover:text-white transition-all text-[15px] tracking-wide">
-              Quartz SPC
+            <Link href="/products/Quartz" className="px-8 py-2 rounded-lg text-white/80 bg-[#2d2d2d] border border-white/10 hover:border-white/30 hover:text-white transition-all text-[15px] tracking-wide">
+              Quartz
             </Link>
             <Link href="/products/Porcelain" className="px-8 py-2 rounded-lg text-white/80 bg-[#2d2d2d] border border-white/10 hover:border-white/30 hover:text-white transition-all text-[15px] tracking-wide">
               Porcelain

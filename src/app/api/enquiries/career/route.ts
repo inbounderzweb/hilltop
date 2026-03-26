@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         // Send Email Notification to Admin
         try {
             await sendEmail({
-                to: "jobs@hilltopgranite.com",
+                to: "dk.inbounderz@gmail.com",
                 subject: `New Job Application: ${job_role}`,
                 html: `
                     <div style="font-family: sans-serif; padding: 20px; color: #333;">
