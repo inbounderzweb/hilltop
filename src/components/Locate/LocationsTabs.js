@@ -23,7 +23,7 @@ const TABS = [
 const DATA = {
   hq: [
     {
-      image: guptahouseImg,
+      image: factoryImg,
       title: "HILLTOP STONES",
       subtitle: "PVT LTD, HEAD OFFICE",
       address:
@@ -35,7 +35,7 @@ const DATA = {
   ],
   factory: [
     {
-      image: factoryImg,
+      image: guptahouseImg,
       title: "HILLTOP STONES",
       subtitle: "INDIA GRANITE FACTORY",
       address:

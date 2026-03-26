@@ -60,7 +60,7 @@ export default function Footer() {
               <FooterLink href="/career">
                 Career
               </FooterLink>
-              <FooterLink href="/locate#usa">
+              <FooterLink href="https://hilltopstones.stoneprofitsweb.com/">
                 US line
               </FooterLink>
               <FooterLink href="/blogs">
@@ -121,7 +121,7 @@ export default function Footer() {
             <FooterLinkMobile href="/blogs">Blog</FooterLinkMobile>
             <FooterLinkMobile href="/products">Products</FooterLinkMobile>
             <FooterLinkMobile href="/career">Career</FooterLinkMobile>
-            <FooterLinkMobile href="/locate#usa">Locate Us</FooterLinkMobile>
+            <FooterLinkMobile href="https://hilltopstones.stoneprofitsweb.com/">US line</FooterLinkMobile>
             <FooterLinkMobile href="/blogs">FAQ</FooterLinkMobile>
           </div>
 
