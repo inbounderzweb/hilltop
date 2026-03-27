@@ -121,7 +121,7 @@ export default function Footer() {
             <FooterLinkMobile href="/blogs">Blog</FooterLinkMobile>
             <FooterLinkMobile href="/products">Products</FooterLinkMobile>
             <FooterLinkMobile href="/career">Career</FooterLinkMobile>
-            <FooterLinkMobile href="https://hilltopstones.stoneprofitsweb.com/">US line</FooterLinkMobile>
+            <FooterLinkMobile href="https://hilltopstones.stoneprofitsweb.com/">Live Inventory</FooterLinkMobile>
             <FooterLinkMobile href="/blogs">FAQ</FooterLinkMobile>
           </div>
 
