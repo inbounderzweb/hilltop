@@ -61,7 +61,7 @@ export default function Footer() {
                 Career
               </FooterLink>
               <FooterLink href="https://hilltopstones.stoneprofitsweb.com/">
-                US line
+                Live Inventory
               </FooterLink>
               <FooterLink href="/blogs">
                 FAQ

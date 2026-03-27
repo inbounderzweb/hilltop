@@ -50,39 +50,38 @@ export default function GeologicalSignaturesSection() {
         {/* Layout Wrapper */}
         <div className="mt-12 md:mt-16 space-y-12 md:space-y-24">
           {/* Block 1: Image left, text right */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-6 md:px-4">
             <div className="md:col-span-7">
               <Link href="/products/natural-stones" className="relative w-full overflow-hidden rounded-[18px] block cursor-pointer group">
-                <div className="relative w-full sm:h-[280px] md:h-[420px] transition-transform duration-500 ease-in-out group-hover:scale-[1.02]">
+                <div className="relative w-full h-[280px] sm:h-[320px] md:h-[420px] transition-transform duration-500 ease-in-out group-hover:scale-[1.02]">
                   <Image
                     src={earthImg}
                     alt="Geological landscape"
                     fill
                     className="object-cover"
-                    sizes=""
+                    sizes="(max-width: 768px) 100vw, 60vw"
                     priority
                   />
                 </div>
               </Link>
             </div>
 
-            <div className="md:col-span-5 md:pl-4 text-center md:text-left">
-              <h2 className="leading-[1.08] font-[500] text-white/90">
-                Born of
+            <div className="md:col-span-5 px-4 md:px-0 md:pl-4 text-center md:text-left">
+              <h2 className="text-[32px] md:text-[42px] leading-[1.08] font-[500] text-white/90">
+                Born Of
                 <br />
-                Earth&apos;s Forces
+                Volcanic Majesty
               </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
-                Forged through time, pressure, and natural processes, stone carries
-                the quiet strength of the planet itself.
+                Forged in fire from the earth&apos;s blazing core.
               </p>
             </div>
           </div>
 
           {/* Block 2: Text left, image right */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-6 md:px-4">
             <div className="md:col-span-5 md:pr-4 order-2 md:order-1 text-center md:text-left">
-              <h2 className="leading-[1.08] font-[500] text-white/90">
+              <h2 className="text-[32px] md:text-[42px] leading-[1.08] font-[500] text-white/90">
                 Marked By Strokes
                 <br />
                 That Never Repeat
@@ -93,10 +92,9 @@ export default function GeologicalSignaturesSection() {
             </div>
 
             <div className="md:col-span-7 order-1 md:order-2">
-              {/* slight offset like reference */}
               <div className="md:ml-auto md:w-[92%]">
                 <Link href="/products/natural-stones" className="relative w-full overflow-hidden rounded-[18px] block cursor-pointer group">
-                  <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px] transition-transform duration-500 ease-in-out group-hover:scale-[1.02]">
+                  <div className="relative w-full h-[280px] sm:h-[320px] md:h-[420px] transition-transform duration-500 ease-in-out group-hover:scale-[1.02]">
                     <Image
                       src={rockImg}
                       alt="Natural stone"
@@ -111,10 +109,10 @@ export default function GeologicalSignaturesSection() {
           </div>
 
           {/* Block 3: Image left, text right */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-6 md:px-4">
             <div className="md:col-span-7">
               <Link href="/products/natural-stones" className="relative w-full overflow-hidden rounded-[18px] block cursor-pointer group">
-                <div className="relative w-full h-[240px] sm:h-[300px] md:h-[420px] transition-transform duration-500 ease-in-out group-hover:scale-[1.02]">
+                <div className="relative w-full h-[280px] sm:h-[320px] md:h-[420px] transition-transform duration-500 ease-in-out group-hover:scale-[1.02]">
                   <Image
                     src={museumImg}
                     alt="Stone as art"
@@ -127,7 +125,7 @@ export default function GeologicalSignaturesSection() {
             </div>
 
             <div className="md:col-span-5 md:pl-4 text-center md:text-left">
-              <h2 className="leading-[1.08] font-[500] text-white/90">
+              <h2 className="text-[32px] md:text-[42px] leading-[1.08] font-[500] text-white/90">
                 Mother Nature&apos;s
                 <br />
                 Own Masterpieces
