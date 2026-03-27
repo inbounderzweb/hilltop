@@ -83,10 +83,14 @@ export default function TestimonialsSlider() {
       mobileStepRef.current = cardW + gap;
     };
 
-    measure();
+    // Use a small timeout to ensure cards have been rendered
+    const timeout = setTimeout(measure, 100);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, [perView]);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", measure);
+    }
+  }, [perView, testimonials.length]);
 
   const scrollToMobileIndex = useCallback((nextIndex) => {
     const el = mobileTrackRef.current;
@@ -304,7 +308,10 @@ function TestimonialCard({ t, snap = false }) {
 }
 
 function ProgressBar({ value, max }) {
-  const pct = max === 0 ? 1 : value / max;
+  // If we have 5 items, max is 4. Index is 0 to 4.
+  // We want to show progress across all of them.
+  const total = max + 1;
+  const pct = total <= 1 ? 1 : (value + 1) / total;
   return (
     <div className="flex-1 flex justify-center">
       <div className="w-full max-w-[520px]">
