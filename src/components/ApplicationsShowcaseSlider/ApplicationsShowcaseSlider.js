@@ -131,7 +131,7 @@ export default function ApplicationsTabbedSlider() {
       },
       {
         key: "others",
-        label: "Other Exteriors",
+        label: "Other Interiors",
         slides: [
           { key: "o1", image: o1, alt: "Others 1" },
           { key: "o2", image: o2, alt: "Others 2" },
