@@ -51,9 +51,13 @@ export async function POST(req: Request) {
                     </div>
                 `
             });
-        } catch (err) {
+        } catch (err: any) {
             console.error("FAILED TO SEND ADMIN EMAIL:", err);
-            // We don't fail the whole request just because email failed
+            // Temporarily returning the error so we can debug AWS Amplify SMTP issue
+            return Response.json({
+                success: false,
+                error: `Mail failed to send: ${err.message || String(err)}`,
+            }, { status: 500 });
         }
 
         return Response.json({
