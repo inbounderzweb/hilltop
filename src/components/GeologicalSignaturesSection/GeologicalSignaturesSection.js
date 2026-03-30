@@ -70,10 +70,10 @@ export default function GeologicalSignaturesSection() {
               <h2 className="text-[32px] md:text-[42px] leading-[1.08] font-[500] text-white/90">
                 Born Of
                 <br />
-                Volcanic Majesty
+                Earth’s Forces
               </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
-                Forged in fire from the earth&apos;s blazing core.
+                Forged through time, pressure, and natural processes, stone carries the quiet strength of the planet itself.
               </p>
             </div>
           </div>

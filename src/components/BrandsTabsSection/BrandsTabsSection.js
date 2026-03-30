@@ -11,6 +11,7 @@ import logo5 from "../../assets/logos/l5.png";
 import usalogo1 from "../../assets/logos/usalogo1.png";
 import usalogo2 from "../../assets/logos/usalogo2.png";
 import usalogo3 from "../../assets/logos/usalogo3.png";
+import newicon from "../../assets/logos/Layer_1.png";
 
 
 
@@ -35,7 +36,7 @@ export default function BrandsTabsSection() {
           { id: "usa-p1", src: usalogo1, alt: "Logo 2" },
           { id: "usa-p2", src: usalogo2, alt: "Logo 5" },
           { id: "usa-p3", src: usalogo3, alt: "Logo 4" },
-          // { id: "usa-p4", src: logo1, alt: "Logo 1" },
+          { id: "usa-p4", src: newicon, alt: "New Icon" },
         ],
       },
       India: {

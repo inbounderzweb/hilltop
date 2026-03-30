@@ -17,6 +17,7 @@ import {
     Play
 } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Quicksand } from "next/font/google";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
@@ -28,6 +29,7 @@ const quicksand = Quicksand({
 });
 
 export default function ProductDetails({ productId }) {
+    const router = useRouter();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeItem, setActiveItem] = useState({ url: null, link: null, type: 'image' });
@@ -236,6 +238,16 @@ export default function ProductDetails({ productId }) {
 
                     {/* Right: Info Section */}
                     <div className="flex flex-col pt-4">
+                        <div className="mb-8">
+                            <button 
+                                onClick={() => router.back()} 
+                                className={`inline-flex items-center gap-2 text-white/50 hover:text-[#DA9C39] transition-colors cursor-pointer ${quicksand.className}`}
+                            >
+                                <ArrowLeft size={16} />
+                                <span className="text-sm font-bold tracking-wider uppercase">Back to Collection</span>
+                            </button>
+                        </div>
+                        
                         <h1 className="text-4xl md:text-5xl lg:text-7xl font-normal mb-8 tracking-wide">
                             {product.product_name}
                         </h1>

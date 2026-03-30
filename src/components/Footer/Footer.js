@@ -66,6 +66,15 @@ export default function Footer() {
               <FooterLink href="/blogs">
                 FAQ
               </FooterLink>
+              <FooterLink href="/privacy-policy">
+                Privacy Policy
+              </FooterLink>
+              <FooterLink href="/disclaimer">
+                Disclaimer
+              </FooterLink>
+              <FooterLink href="/terms-and-conditions">
+                Terms & Conditions
+              </FooterLink>
             </div>
           </div>
 
@@ -123,6 +132,9 @@ export default function Footer() {
             <FooterLinkMobile href="/career">Career</FooterLinkMobile>
             <FooterLinkMobile href="https://hilltopstones.stoneprofitsweb.com/">Live Inventory</FooterLinkMobile>
             <FooterLinkMobile href="/blogs">FAQ</FooterLinkMobile>
+            <FooterLinkMobile href="/privacy-policy">Privacy Policy</FooterLinkMobile>
+            <FooterLinkMobile href="/disclaimer">Disclaimer</FooterLinkMobile>
+            <FooterLinkMobile href="/terms-and-conditions">Terms & Conditions</FooterLinkMobile>
           </div>
 
           <Divider />

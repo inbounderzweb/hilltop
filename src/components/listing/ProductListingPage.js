@@ -107,6 +107,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
             else next.add(value);
             return next;
         });
+        setPage(1);
     };
 
     const resetFilters = () => {
@@ -116,9 +117,19 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
         setPage(1);
     };
 
+    const hasMountedPage = React.useRef(false);
+
     useEffect(() => {
-        setPage(1);
-    }, [query, selectedCategories, selectedColors]);
+        if (!hasMountedPage.current) {
+            hasMountedPage.current = true;
+            const savedPage = sessionStorage.getItem('hilltop_products_page');
+            if (savedPage && savedPage !== '1') {
+                setPage(parseInt(savedPage, 10));
+            }
+        } else {
+            sessionStorage.setItem('hilltop_products_page', page.toString());
+        }
+    }, [page]);
 
     return (
         <div className="min-h-screen bg-[#151515] text-white py-14 md:py-20">
@@ -134,7 +145,10 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                             <div className="relative group">
                                 <input
                                     value={query}
-                                    onChange={(e) => setQuery(e.target.value)}
+                                    onChange={(e) => {
+                                        setQuery(e.target.value);
+                                        setPage(1);
+                                    }}
                                     placeholder="Marble, Granite, Quartz..."
                                     className={`w-full bg-black/20 placeholder:text-white border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#DA9C39] outline-none transition-all duration-700 ease-out ${quicksand.className}`}
                                 />
@@ -148,7 +162,10 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                 <CheckboxItem
                                     label="All"
                                     active={selectedCategories.size === 0}
-                                    onClick={() => setSelectedCategories(new Set())}
+                                    onClick={() => {
+                                        setSelectedCategories(new Set());
+                                        setPage(1);
+                                    }}
                                 />
                                 {categories.map(cat => (
                                     <CheckboxItem
@@ -170,7 +187,10 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                 <CheckboxItem
                                     label="All"
                                     active={selectedColors.size === 0}
-                                    onClick={() => setSelectedColors(new Set())}
+                                    onClick={() => {
+                                        setSelectedColors(new Set());
+                                        setPage(1);
+                                    }}
                                 />
                                 {colors.map(color => (
                                     <CheckboxItem
@@ -185,7 +205,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                     </aside>
 
                     {/* Main Content */}
-                    <main>
+                    <main className="min-w-0">
                         {loading ? (
                             <div className="flex flex-col items-center justify-center min-h-[500px]">
                                 <Loader2 className="animate-spin text-[#DA9C39] mb-4" size={48} />
@@ -235,19 +255,32 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                             <span className="text-[14px]">Previous page</span>
                                         </button>
 
-                                        <div className="flex items-center gap-6">
-                                            {[...Array(totalPages)].map((_, i) => (
-                                                <button
-                                                    key={i}
-                                                    onClick={() => setPage(i + 1)}
-                                                    className={`text-[14px] transition-all duration-700 font-serif ${safePage === i + 1
-                                                        ? 'text-[#DA9C39] font-bold'
-                                                        : 'text-white/30 hover:text-white'
-                                                        }`}
-                                                >
-                                                    {i + 1}
-                                                </button>
-                                            ))}
+                                        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                                            {(() => {
+                                                const getVisiblePages = (current, total) => {
+                                                    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+                                                    if (current <= 4) return [1, 2, 3, 4, 5, '...', total];
+                                                    if (current >= total - 3) return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+                                                    return [1, '...', current - 1, current, current + 1, '...', total];
+                                                };
+                                                
+                                                return getVisiblePages(safePage, totalPages).map((p, index) => (
+                                                    p === '...' ? (
+                                                        <span key={`ellipsis-${index}`} className="text-white/30 truncate">...</span>
+                                                    ) : (
+                                                        <button
+                                                            key={`page-${p}`}
+                                                            onClick={() => setPage(p)}
+                                                            className={`text-[14px] transition-all duration-700 font-serif ${safePage === p
+                                                                ? 'text-[#DA9C39] font-bold'
+                                                                : 'text-white/30 hover:text-white'
+                                                                }`}
+                                                        >
+                                                            {p}
+                                                        </button>
+                                                    )
+                                                ));
+                                            })()}
                                         </div>
 
                                         <button
