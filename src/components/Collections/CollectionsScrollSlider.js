@@ -295,7 +295,7 @@ export default function CollectionsScrollSlider() {
    * ✅ MOBILE swipe/seek (Framer Motion)
    */
   const x = useMotionValue(0);
-  const stepPxRef = useRef(0);
+  const [stepPx, setStepPx] = useState(0);
 
   useEffect(() => {
     if (!viewportRef.current) return;
@@ -308,7 +308,7 @@ export default function CollectionsScrollSlider() {
       const styles = window.getComputedStyle(viewportRef.current.querySelector("[data-track='true']"));
       const gap = parseFloat(styles.columnGap || styles.gap || "28") || 28;
 
-      stepPxRef.current = cardRect.width + gap;
+      setStepPx(cardRect.width + gap);
     };
 
     computeStep();
@@ -318,13 +318,13 @@ export default function CollectionsScrollSlider() {
 
   useEffect(() => {
     if (!isMobile) return;
-    const step = stepPxRef.current || 0;
+    const step = stepPx || 0;
     x.set(-active * step);
-  }, [active, isMobile, x]);
+  }, [active, isMobile, x, stepPx]);
 
   const onDragEndMobile = useCallback(
     (_e, info) => {
-      const step = stepPxRef.current || 0;
+      const step = stepPx || 0;
       if (!step) return;
 
       const dragged = info.offset.x;
@@ -342,7 +342,7 @@ export default function CollectionsScrollSlider() {
       nextIndex = Math.max(0, Math.min(nextIndex, maxActive));
       setActive(nextIndex);
     },
-    [active, maxActive]
+    [active, maxActive, stepPx]
   );
 
   const smoothSpring = {
@@ -379,10 +379,10 @@ export default function CollectionsScrollSlider() {
             <motion.div
               data-track="true"
               className="flex gap-7 will-change-transform"
-              animate={!isMobile ? { x: translateXStyle } : { x: -active * stepPxRef.current }}
+              animate={!isMobile ? { x: translateXStyle } : { x: -active * stepPx }}
               transition={smoothSpring}
               drag="x"
-              dragConstraints={{ left: -maxActive * stepPxRef.current, right: 0 }}
+              dragConstraints={{ left: -maxActive * stepPx, right: 0 }}
               dragElastic={0.1}
               dragMomentum={false}
               onDragEnd={onDragEndMobile}

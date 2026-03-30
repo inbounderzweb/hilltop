@@ -81,7 +81,7 @@ export default function TestimonialsList({ onEdit }) {
                             </div>
                         </div>
                         <p className="text-white/60 text-xs italic line-clamp-4 leading-relaxed bg-black/20 p-3 rounded-lg border border-white/5">
-                            "{t.content}"
+                            &quot;{t.content}&quot;
                         </p>
 
                         {/* Action buttons on hover */}

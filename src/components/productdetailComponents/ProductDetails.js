@@ -115,7 +115,7 @@ export default function ProductDetails({ productId }) {
                     <Info className="text-red-500" size={40} />
                 </div>
                 <h2 className="text-2xl font-bold mb-4">{error || "Product Not Found"}</h2>
-                <p className="text-white/40 mb-10 max-w-md">We couldn't find the stone you're looking for. It might have been moved or removed from our collection.</p>
+                <p className="text-white/40 mb-10 max-w-md">We couldn&apos;t find the stone you&apos;re looking for. It might have been moved or removed from our collection.</p>
                 <Link
                     href="/products"
                     className="flex items-center gap-2 bg-[#eba14d] text-black px-8 py-4 rounded-2xl font-bold hover:bg-[#d89243] transition-all shadow-xl shadow-[#eba14d]/10"
@@ -322,13 +322,13 @@ export default function ProductDetails({ productId }) {
                             <>
                                 <button
                                     onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
-                                    className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#DA9C39] hover:text-black transition-all z-10 opacity-0 group-hover/slider:opacity-100 hidden md:flex"
+                                    className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/5 border border-white/10 hidden md:flex items-center justify-center text-white hover:bg-[#DA9C39] hover:text-black transition-all z-10 opacity-0 group-hover/slider:opacity-100"
                                 >
                                     <ChevronLeft size={24} />
                                 </button>
                                 <button
                                     onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
-                                    className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#DA9C39] hover:text-black transition-all z-10 opacity-0 group-hover/slider:opacity-100 hidden md:flex"
+                                    className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/5 border border-white/10 hidden md:flex items-center justify-center text-white hover:bg-[#DA9C39] hover:text-black transition-all z-10 opacity-0 group-hover/slider:opacity-100"
                                 >
                                     <ChevronRight size={24} />
                                 </button>
