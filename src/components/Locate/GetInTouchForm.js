@@ -51,6 +51,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
 
 
@@ -83,6 +84,12 @@ export default function GetInTouchForm({ initialProducts = [] }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!acceptTerms) {
+      setStatus({ type: 'error', message: 'Please accept the terms and conditions to proceed.' });
+      return;
+    }
+
     setLoading(true);
     setStatus(null);
 
@@ -230,6 +237,18 @@ export default function GetInTouchForm({ initialProducts = [] }) {
                 required
               />
             </div>
+          </div>
+
+          <div className="mt-8 md:pl-[calc(50%+12px)]">
+            <label className="flex items-center gap-3 cursor-pointer text-white/80 w-max">
+              <input 
+                type="checkbox" 
+                checked={acceptTerms} 
+                onChange={(e) => setAcceptTerms(e.target.checked)} 
+                className="w-5 h-5 accent-[#d59b33] rounded cursor-pointer shrink-0" 
+              />
+              <span className="text-[15px] sm:text-[18px]">I accept the terms and conditions</span>
+            </label>
           </div>
 
           {status && (

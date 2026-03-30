@@ -28,6 +28,7 @@ export default function CareerApplySection({
 
   const [loading, setLoading] = React.useState(false);
   const [status, setStatus] = React.useState(null);
+  const [acceptTerms, setAcceptTerms] = React.useState(false);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -43,6 +44,10 @@ export default function CareerApplySection({
     e.preventDefault();
     if (!form.resume) {
       setStatus({ type: 'error', message: 'Please upload your resume in PDF format.' });
+      return;
+    }
+    if (!acceptTerms) {
+      setStatus({ type: 'error', message: 'Please accept the terms and conditions to proceed.' });
       return;
     }
 
@@ -216,6 +221,18 @@ export default function CareerApplySection({
                     Browse
                   </button>
                 </div>
+              </div>
+
+              <div className="md:col-span-2 pt-2 pb-1">
+                <label className="flex items-center gap-3 cursor-pointer text-white/80 w-max">
+                  <input 
+                    type="checkbox" 
+                    checked={acceptTerms} 
+                    onChange={(e) => setAcceptTerms(e.target.checked)} 
+                    className="w-5 h-5 accent-[#DA9C39] rounded cursor-pointer shrink-0" 
+                  />
+                  <span className="text-[14px] md:text-[16px]">I accept the terms and conditions</span>
+                </label>
               </div>
 
               {status && (
