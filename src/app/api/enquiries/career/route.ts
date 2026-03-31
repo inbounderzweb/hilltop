@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
         // Send Email Notification to Admin
         const emailResult = await sendEmail({
-            to: process.env.ADMIN_EMAIL || "555jinson@gmail.com",
+            to: process.env.ADMIN_EMAIL || "dk.inbounderz@gmail.com",
             replyTo: email,
             subject: `New Job Application: ${job_role}`,
             html: `

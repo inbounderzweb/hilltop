@@ -16,7 +16,7 @@ import newicon from "../../assets/logos/Layer_1.png";
 
 
 export default function BrandsTabsSection() {
-  const [tab, setTab] = useState("India");
+  const [tab, setTab] = useState("USA");
 
   // colors
   const CARD = "white";

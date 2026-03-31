@@ -15,7 +15,7 @@ export async function sendEmail({ to, subject, html, text, ...rest }: { to?: str
 
         const mailOptions = {
             from: process.env.SMTP_FROM || process.env.SMTP_USER || "Hilltop Auto-Mailer <no-reply@yourdomain.com>",
-            to: to || process.env.ADMIN_EMAIL || "555jinson@gmail.com",
+            to: to || process.env.ADMIN_EMAIL || "dk.inbounderz@gmail.com",
             subject: subject || "New Website Submission",
             text: text,
             html: html || text || "<p>No message content provided.</p>",
@@ -23,10 +23,10 @@ export async function sendEmail({ to, subject, html, text, ...rest }: { to?: str
         };
 
         const result = await transporter.sendMail(mailOptions);
-        
+
         console.log("Email sent successfully via Nodemailer:", result.messageId);
         return { success: true, messageId: result.messageId };
-        
+
     } catch (error: any) {
         console.error("Error sending email via Nodemailer:", error);
         return { success: false, error: error.message || "Email service error" };
