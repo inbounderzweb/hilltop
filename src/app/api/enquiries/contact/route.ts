@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { name, email, phone, purpose, message } = body;
+        const { name, email, phone, purpose, message, country } = body;
 
         if (!name || !email) {
             return Response.json({ success: false, error: "Name and Email are required" }, { status: 400 });
@@ -17,9 +17,14 @@ export async function POST(req: Request) {
             [name, email, phone, purpose, message]
         );
 
+        let toEmail = process.env.INDIA_EMAIL || "armaan@hilltopgranite.com";
+        if (country === "USA" || country === "United States") {
+            toEmail = process.env.USA_EMAIL || "dallas@hilltopgranite.com";
+        }
+
         // Send Email Notification to Admin
         const emailResult = await sendEmail({
-            to: process.env.ADMIN_EMAIL || "dk.inbounderz@gmail.com",
+            to: toEmail,
             replyTo: email,
             subject: `New Customer Enquiry: ${purpose}`,
             html: `

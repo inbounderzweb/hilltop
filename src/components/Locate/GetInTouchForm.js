@@ -95,6 +95,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
 
     const submissionData = {
       ...formData,
+      country: selectedCountry.label,
       phone: `${selectedCountry.code} ${formData.phone}`
     };
 

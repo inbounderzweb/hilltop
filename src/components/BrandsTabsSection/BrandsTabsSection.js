@@ -12,6 +12,8 @@ import usalogo1 from "../../assets/logos/usalogo1.png";
 import usalogo2 from "../../assets/logos/usalogo2.png";
 import usalogo3 from "../../assets/logos/usalogo3.png";
 import newicon from "../../assets/logos/Layer_1.png";
+import hilltop from '../../assets/logos/hilltop.jpeg';
+import vermora from '../../assets/logos/varmora.jpeg';
 
 
 
@@ -48,10 +50,10 @@ export default function BrandsTabsSection() {
           { id: "in-5", src: logo5, alt: "Logo 5" },
         ],
         partnered: [
-          { id: "in-p1", src: logo5, alt: "Logo 5" },
-          { id: "in-p2", src: logo4, alt: "Logo 4" },
-          { id: "in-p3", src: logo3, alt: "Logo 3" },
-          { id: "in-p4", src: logo1, alt: "Logo 1" },
+          { id: "in-p1", src: hilltop, alt: "Logo 5" },
+          { id: "in-p2", src: vermora, alt: "Logo 4" },
+          // { id: "in-p3", src: logo3, alt: "Logo 3" },
+          // { id: "in-p4", src: logo1, alt: "Logo 1" },
         ],
       },
     }),
