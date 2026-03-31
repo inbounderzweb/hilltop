@@ -22,7 +22,7 @@ function BlogCard({ post }) {
         <Link
           href={post.href || "#"}>
           <Image
-            src={post.image}
+            src={post.image?.startsWith('http') || post.image?.startsWith('/') ? post.image : `/${post.image}`}
             alt={post.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"

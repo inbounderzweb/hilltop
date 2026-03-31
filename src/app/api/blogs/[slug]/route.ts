@@ -25,10 +25,22 @@ export async function GET(
             [slug]
         );
 
+        const blog = rows[0];
+        if (blog.image_url && !blog.image_url.startsWith("http") && !blog.image_url.startsWith("/")) {
+            blog.image_url = `/${blog.image_url}`;
+        }
+
+        const relatedWithCorrectPaths = related.map((r: any) => {
+            if (r.image_url && !r.image_url.startsWith("http") && !r.image_url.startsWith("/")) {
+                return { ...r, image_url: `/${r.image_url}` };
+            }
+            return r;
+        });
+
         return Response.json({
             success: true,
-            blog: rows[0],
-            related: related
+            blog: blog,
+            related: relatedWithCorrectPaths
         });
     } catch (error: any) {
         return Response.json(

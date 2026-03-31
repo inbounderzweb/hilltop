@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation';
 
 export default function AdminLogin() {
     const [username, setUsername] = useState('admin');
-    const [password, setPassword] = useState('admin123');
+    const [password, setPassword] = useState('2026@hilltop');
     const [error, setError] = useState('');
     const router = useRouter();
 
     const handleLogin = (e) => {
         e.preventDefault();
         // Hardcoded credentials
-        if (username === 'admin' && password === 'admin123') {
+        if (username === 'admin' && password === '2026@hilltop') {
             // Set an admin_auth cookie
             document.cookie = "admin_auth=true; path=/; max-age=86400;";
             router.push('/admin');

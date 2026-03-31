@@ -95,8 +95,13 @@ export default function BlogsList({ onEdit }) {
                             blogs.map((b) => (
                                 <tr key={b.id} className="hover:bg-white/1 transition">
                                     <td className="p-3">
-                                        <div className="w-10 h-10 rounded border border-white/10 overflow-hidden bg-black/40">
-                                            <img src={b.image_url} className="w-full h-full object-cover" alt={b.title} />
+                                        <div className="w-12 h-12 rounded-lg border border-white/10 overflow-hidden bg-black/40 shadow-inner group">
+                                            <img 
+                                                src={b.image_url?.startsWith('http') || b.image_url?.startsWith('/') ? b.image_url : `/${b.image_url}`} 
+                                                className="w-full h-full object-cover transition-transform group-hover:scale-110" 
+                                                alt={b.title} 
+                                                onError={(e) => { e.target.src = "https://placehold.co/100x100/1a1a1a/DA9C39?text=Blog"; }}
+                                            />
                                         </div>
                                     </td>
                                     <td className="p-3 min-w-[250px]">

@@ -75,7 +75,7 @@ export default function BlogDetailPage() {
                         {/* Blog Featured Image */}
                         <div className="relative aspect-video md:aspect-21/9 w-full rounded-2xl overflow-hidden mb-10 shadow-2xl">
                             <Image
-                                src={blog.image_url}
+                                src={blog.image_url?.startsWith('http') || blog.image_url?.startsWith('/') ? blog.image_url : `/${blog.image_url}`}
                                 alt={blog.title}
                                 fill
                                 priority
@@ -144,7 +144,7 @@ export default function BlogDetailPage() {
                                     <Link href={`/blogs/${item.slug}`}>
                                         <div className="relative aspect-16/10 rounded-xl overflow-hidden mb-5 bg-white/5">
                                             <Image
-                                                src={item.image_url}
+                                                src={item.image_url?.startsWith('http') || item.image_url?.startsWith('/') ? item.image_url : `/${item.image_url}`}
                                                 alt={item.title}
                                                 fill
                                                 className="object-cover transition-transform duration-500 group-hover:scale-105"

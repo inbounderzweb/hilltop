@@ -66,9 +66,16 @@ export async function GET() {
             "SELECT id, title, author_name, slug, excerpt, content, image_url, created_at FROM blogs ORDER BY created_at DESC"
         );
 
+        const blogsWithCorrectPaths = rows.map((blog: any) => {
+            if (blog.image_url && !blog.image_url.startsWith("http") && !blog.image_url.startsWith("/")) {
+                return { ...blog, image_url: `/${blog.image_url}` };
+            }
+            return blog;
+        });
+
         return Response.json({
             success: true,
-            blogs: rows,
+            blogs: blogsWithCorrectPaths,
         });
     } catch (error: any) {
         return Response.json(
