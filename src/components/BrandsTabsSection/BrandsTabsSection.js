@@ -13,7 +13,7 @@ import usalogo2 from "../../assets/logos/usalogo2.png";
 import usalogo3 from "../../assets/logos/usalogo3.png";
 import newicon from "../../assets/logos/Layer_1.png";
 import hilltop from '../../assets/logos/hilltop.jpeg';
-import vermora from '../../assets/logos/varmora.jpeg';
+import vermora from '../../assets/logos/vermora.jpeg';
 
 
 

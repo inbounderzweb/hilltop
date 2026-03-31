@@ -4,7 +4,7 @@ import React from "react";
 import { Quicksand } from "next/font/google";
 import dallas from '../../assets/LocateUsimages/Dallas.jpeg'
 import austin from '../../assets/LocateUsimages/austin.jpeg'
-// import houston from '../../assets/LocateUsimages/houston.jpeg'
+import houston from '../../assets/logos/houston.jpeg';
 import Image from "next/image";
 
 const quicksand = Quicksand({
@@ -69,7 +69,7 @@ const LOCATIONS = [
   },
   {
     title: "HILLTOP STONES & INTERIORS",
-    image: austin,
+    image: houston,
     subtitle: "HOUSTON, TX",
     address: "8760 Clay Rd Suite B, Houston, TX 77080, USA",
     phone: "+1 832 867 9053",
