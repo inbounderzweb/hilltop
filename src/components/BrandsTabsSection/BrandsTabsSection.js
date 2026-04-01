@@ -162,11 +162,11 @@ function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
 function SectionHeader({ title }) {
   return (
     <div className="flex items-center gap-5 md:gap-7">
-      <div className="h-[1px] flex-1 bg-[#b6842c]/55" />
-      <h3 className="text-[#b6842c] text-[22px] md:text-[36px] font-[500] whitespace-nowrap">
+      <div className="h-px flex-1 bg-[#b6842c]/55" />
+      <h3 className="text-[#b6842c] text-[22px] md:text-[36px] font-medium whitespace-nowrap">
         {title}
       </h3>
-      <div className="h-[1px] flex-1 bg-[#b6842c]/55" />
+      <div className="h-px flex-1 bg-[#b6842c]/55" />
     </div>
   );
 }
