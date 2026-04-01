@@ -23,8 +23,8 @@ const leaders = [
   },
   {
     name: "Paras Ghorawat",
-    role: "General Manager India",
-    location: "India | USA",
+    role: "General Manager",
+    location: "USA",
     img: parasImg, // replace
   }
 ];
@@ -47,15 +47,15 @@ export default function VisionaryLeaders() {
         {/* Cards */}
         <div className="mt-10 md:mt-16 flex flex-wrap justify-center gap-8 lg:gap-12">
           {leaders.map((p, idx) => (
-            <div key={idx} className="flex flex-col items-center w-full sm:w-[320px] group">
+            <div key={idx} className="flex flex-col items-center w-full sm:w-[320px]">
               {/* Image box */}
-              <div className="relative w-full aspect-[4/4.6] rounded-2xl overflow-hidden bg-[#D9D9D9] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+              <div className="relative w-full aspect-[4/4.6] rounded-2xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
                 {/* If you don’t have images yet, keep the grey box by leaving Image commented */}
                 <Image
                   src={p.img}
                   alt={p.name}
                   fill
-                  className="object-fit transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                  className="object-fit"
                   sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw"
                 />
               </div>

@@ -245,35 +245,35 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
 
                                 {/* Pagination */}
                                 {totalPages > 1 && (
-                                    <div className="flex items-center justify-center gap-8 pt-10">
+                                    <div className="flex items-center justify-center gap-4 sm:gap-8 pt-10 overflow-x-auto no-scrollbar">
                                         <button
                                             onClick={() => setPage(p => Math.max(1, p - 1))}
                                             disabled={safePage === 1}
-                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700"
+                                            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-white/70 hover:text-[#DA9C39] disabled:opacity-20 transition-all duration-500 shrink-0"
+                                            aria-label="Previous page"
                                         >
-                                            <ChevronLeft size={18} />
-                                            <span className="text-[14px]">Previous page</span>
+                                            <ChevronLeft size={20} />
                                         </button>
 
-                                        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                                        <div className="flex items-center justify-center gap-1 sm:gap-3 px-2">
                                             {(() => {
                                                 const getVisiblePages = (current, total) => {
-                                                    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-                                                    if (current <= 4) return [1, 2, 3, 4, 5, '...', total];
-                                                    if (current >= total - 3) return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
-                                                    return [1, '...', current - 1, current, current + 1, '...', total];
+                                                    if (total <= 5) return Array.from({ length: total }, (_, i) => i + 1);
+                                                    if (current <= 3) return [1, 2, 3, '...', total];
+                                                    if (current >= total - 2) return [1, '...', total - 2, total - 1, total];
+                                                    return [1, '...', current, '...', total];
                                                 };
                                                 
                                                 return getVisiblePages(safePage, totalPages).map((p, index) => (
                                                     p === '...' ? (
-                                                        <span key={`ellipsis-${index}`} className="text-white/30 truncate">...</span>
+                                                        <span key={`ellipsis-${index}`} className="text-white/30 px-1">...</span>
                                                     ) : (
                                                         <button
                                                             key={`page-${p}`}
                                                             onClick={() => setPage(p)}
-                                                            className={`text-[14px] transition-all duration-700 font-serif ${safePage === p
-                                                                ? 'text-[#DA9C39] font-bold'
-                                                                : 'text-white/30 hover:text-white'
+                                                            className={`min-w-[32px] sm:min-w-[40px] h-8 sm:h-10 flex items-center justify-center rounded-lg text-[14px] sm:text-[16px] transition-all duration-500 ${safePage === p
+                                                                ? 'text-[#DA9C39] font-bold bg-[#DA9C39]/10'
+                                                                : 'text-white/40 hover:text-white hover:bg-white/5'
                                                                 }`}
                                                         >
                                                             {p}
@@ -286,10 +286,10 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                         <button
                                             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                             disabled={safePage === totalPages}
-                                            className="flex items-center gap-2 text-white/70 hover:text-[#DA9C39] disabled:opacity-30 transition-all duration-700"
+                                            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-white/70 hover:text-[#DA9C39] disabled:opacity-20 transition-all duration-500 shrink-0"
+                                            aria-label="Next page"
                                         >
-                                            <span className="text-[14px]">Next page</span>
-                                            <ChevronRight size={18} />
+                                            <ChevronRight size={20} />
                                         </button>
                                     </div>
                                 )}

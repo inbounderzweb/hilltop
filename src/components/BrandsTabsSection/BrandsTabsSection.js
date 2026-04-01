@@ -104,12 +104,12 @@ export default function BrandsTabsSection() {
           {/* CONTENT */}
           <div className="px-2 sm:px-5 md:px-16 pt-4 md:pt-12 pb-4 md:pb-14">
             <SectionHeader title="Our Signature Brands" />
-            <LogoGrid items={active.signature} cols="lg:grid-cols-5" />
+            <LogoGrid items={active.signature} />
 
             <div className="h-4 md:h-12" />
 
             <SectionHeader title="Our Partnered Brands" />
-            <LogoGrid items={active.partnered} cols="lg:grid-cols-4" />
+            <LogoGrid items={active.partnered} />
           </div>
         </div>
       </div>
@@ -171,17 +171,12 @@ function SectionHeader({ title }) {
   );
 }
 
-function LogoGrid({ items, cols }) {
+function LogoGrid({ items }) {
   return (
-    <div
-      className={[
-        "mt-3 md:mt-12 grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-2 lg:gap-y-10 items-center",
-        cols,
-      ].join(" ")}
-    >
+    <div className="mt-3 md:mt-12 flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 md:gap-x-16 gap-y-6 md:gap-y-12">
       {items.map((it) => (
-        <div key={it.id} className="flex items-center justify-center">
-          <div className="relative w-[70%] md:w-[240px] h-[52px] md:h-[62px]">
+        <div key={it.id} className="flex items-center justify-center px-4">
+          <div className="relative w-[110px] sm:w-[160px] md:w-[200px] h-[42px] md:h-[52px]">
             <Image src={it.src} alt={it.alt} fill className="object-contain" />
           </div>
         </div>
