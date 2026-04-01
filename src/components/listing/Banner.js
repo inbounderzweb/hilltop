@@ -1,11 +1,10 @@
-// src/components/About/AboutBanner.jsx
 import React from "react";
 import Image from "next/image";
 import banner from "../../assets/banners/commonBanner.png";
 
 export default function ProductListingBanner() {
     return (
-        <section className="relative w-full h-[260px] md:h-[360px] overflow-hidden">
+        <section className="relative w-full h-[320px] md:h-[480px]">
             {/* Background image */}
             <Image
                 src={banner}
@@ -24,8 +23,8 @@ export default function ProductListingBanner() {
             />
 
             {/* Content */}
-            <div className="relative z-10 flex items-end justify-center h-full px-6">
-                <h2 className="text-[#F4E0C2] font-semibold">
+            <div className="absolute bottom-[-10px] md:bottom-[-20px] left-0 right-0 z-10 px-6 text-center">
+                <h2 className="text-[#F4E0C2] text-4xl md:text-7xl font-light tracking-tight">
                     Products
                 </h2>
             </div>
