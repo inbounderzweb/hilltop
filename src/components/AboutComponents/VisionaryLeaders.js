@@ -24,7 +24,7 @@ const leaders = [
   {
     name: "Paras Ghorawat",
     role: "General Manager",
-    location: "USA",
+    location: "India",
     img: parasImg, // replace
   }
 ];

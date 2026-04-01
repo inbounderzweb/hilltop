@@ -140,7 +140,7 @@ export default function AwardsAutoSlider() {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_80%_60%,rgba(255,255,255,0.05),transparent_72%)]" />
 
       <div className="mx-auto w-full px-6">
-        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
           Awards
         </h2>
 
@@ -153,7 +153,7 @@ export default function AwardsAutoSlider() {
             {awards.map((a, idx) => (
               <div key={idx} className="keen-slider__slide">
                 <div
-                  className="relative w-full h-[150px] md:h-[170px] lg:h-[190px] border-amber-500 border-[1px] rounded-lg cursor-pointer"
+                  className="relative w-full h-[150px] md:h-[170px] lg:h-[190px] border-amber-500 border rounded-lg cursor-pointer"
                   onClick={() => openLightbox(idx)}
                 >
                   <Image
