@@ -18,7 +18,8 @@ export async function POST(req: Request) {
         );
 
         let toEmail = process.env.INDIA_EMAIL || "armaan@hilltopgranite.com";
-        if (country === "USA" || country === "United States") {
+        const normalizedCountry = country?.toLowerCase();
+        if (normalizedCountry === "usa" || normalizedCountry === "united states" || normalizedCountry === "united state" || normalizedCountry === "us") {
             toEmail = process.env.USA_EMAIL || "dallas@hilltopgranite.com";
         }
 
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
                             <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Customer Name:</strong> ${name}</p>
                             <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Email Address:</strong> <a href="mailto:${email}" style="color: #DA9C39; text-decoration: none;">${email}</a></p>
                             <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Phone Number:</strong> ${phone || 'N/A'}</p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Country:</strong> ${country || 'N/A'}</p>
                             <p style="margin: 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Purpose:</strong> ${purpose}</p>
                         </div>
                         
@@ -55,6 +57,8 @@ export async function POST(req: Request) {
                 </div>
             `
         });
+
+        console.log("<><>emailResult", emailResult)
 
         if (!emailResult.success) {
             return Response.json({
