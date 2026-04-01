@@ -4,6 +4,9 @@ import React from "react";
 import Image from "next/image";
 import { Quicksand } from "next/font/google";
 
+import armaImg from "../../assets/about/armaan.png";
+import parasImg from "../../assets/about/parasimg.png";
+
 const quicksand = Quicksand({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -11,30 +14,19 @@ const quicksand = Quicksand({
 });
 
 const leaders = [
+
   {
-    name: "Kamlesh Jain",
-    role: "DIRECTOR",
-    location: "India",
-    img: "#", // replace
-  },
-  {
-    name: "Nilesh Giria",
+    name: "Armaan",
     role: "DIRECTOR",
     location: "India | USA",
-    img: "#", // replace
+    img: armaImg, // replace
   },
   {
-    name: "Harsh Giria",
-    role: "DIRECTOR",
+    name: "Paras Ghorawat",
+    role: "General Manager India",
     location: "India | USA",
-    img: "#", // replace
-  },
-  {
-    name: "Armaan Giria",
-    role: "DIRECTOR",
-    location: "India",
-    img: "#", // replace
-  },
+    img: parasImg, // replace
+  }
 ];
 
 export default function VisionaryLeaders() {
@@ -48,35 +40,35 @@ export default function VisionaryLeaders() {
 
       <div className="mx-auto w-full max-w-6xl px-6">
         {/* Title */}
-        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-[500] [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
           Our Visionary Leaders
         </h2>
 
         {/* Cards */}
-        <div className="mt-10 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        <div className="mt-10 md:mt-16 flex flex-wrap justify-center gap-8 lg:gap-12">
           {leaders.map((p, idx) => (
-            <div key={idx} className="flex flex-col items-center">
+            <div key={idx} className="flex flex-col items-center w-full sm:w-[320px] group">
               {/* Image box */}
-              <div className="relative w-full max-w-[320px] lg:max-w-none aspect-[4/4.6] rounded-2xl overflow-hidden bg-[#D9D9D9] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+              <div className="relative w-full aspect-[4/4.6] rounded-2xl overflow-hidden bg-[#D9D9D9] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
                 {/* If you don’t have images yet, keep the grey box by leaving Image commented */}
-                {/* <Image
+                <Image
                   src={p.img}
                   alt={p.name}
                   fill
-                  className="object-cover"
+                  className="object-fit transition-transform duration-1000 ease-in-out group-hover:scale-105"
                   sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw"
-                /> */}
+                />
               </div>
 
               {/* Text */}
               <div className={`mt-6 text-center ${quicksand.className}`}>
-                <div className="text-white text-[20px] md:text-[22px] font-[700] tracking-wide">
+                <div className="text-white text-[20px] md:text-[22px] font-bold tracking-wide">
                   {p.name}
                 </div>
-                <div className="mt-1 text-white/85 text-[16px] md:text-[17px] tracking-[0.18em] font-[500]">
+                <div className="mt-1 text-white/85 text-[16px] md:text-[17px] tracking-[0.18em] font-medium">
                   {p.role}
                 </div>
-                <div className="mt-1 text-white/70 text-[16px] md:text-[17px] font-[400]">
+                <div className="mt-1 text-white/70 text-[16px] md:text-[17px] font-normal">
                   {p.location}
                 </div>
               </div>
