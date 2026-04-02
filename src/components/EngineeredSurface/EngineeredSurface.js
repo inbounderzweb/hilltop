@@ -75,7 +75,7 @@ export default function EngineeredSurface() {
                 Discovery
               </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
-                Created through intention . minerals are measured, balanced, and refine
+                Created through intention . Minerals are measured, balanced, and refine
               </p>
             </div>
           </div>

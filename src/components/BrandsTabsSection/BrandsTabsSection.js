@@ -10,9 +10,9 @@ import logo4 from "../../assets/logos/l4.png";
 import logo5 from "../../assets/logos/l5.png";
 import usalogo1 from "../../assets/logos/usalogo1.png";
 import usalogo2 from "../../assets/logos/usalogo2.png";
-import usalogo3 from "../../assets/logos/usalogo3.png";
+import usalogo3 from "../../assets/logos/usalogo3.svg";
 import newicon from "../../assets/logos/Layer_1.png";
-import hilltop from '../../assets/logos/hilltop.jpeg';
+import hilltop from '../../assets/logos/hilltop.png';
 import vermora from '../../assets/logos/vermora.jpeg';
 
 
