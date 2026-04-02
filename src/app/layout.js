@@ -65,8 +65,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={appolo.className}>
-      <body className="antialiased">
+    <html lang="en" className={appolo.className} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <LayoutWrapper>
           {children}
         </LayoutWrapper>
