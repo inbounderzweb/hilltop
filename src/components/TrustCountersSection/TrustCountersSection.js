@@ -107,40 +107,38 @@ export default function TrustCountersSection() {
 
         {/* overlays (premium) */}
         <div className="absolute inset-0 bg-black/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/10 to-black/60" />
       </div>
 
       {/* Content */}
-      <div
-        className="
-          relative mx-auto max-w-[1400px] px-4 md:px-10
+        <div
+          className="
+          relative mx-auto max-w-350 px-4 md:px-10
           py-16 md:py-24
-          min-h-[740px] md:min-h-[520px]
+          min-h-185 md:min-h-130
           flex flex-col
         "
       >
         {/* Headline */}
-        <div className="text-center">
-          <h2
-            className="
-              text-white/95 font-[500]
-              leading-[1.08] tracking-wide
-              text-[34px] md:text-[52px]
-            "
-          >
-            A Legacy of Trust
-            <br />
-            Revered Across the
-            <br className="md:hidden" />
-            World
-          </h2>
-        </div>
+     <div className="text-center">
+  <h2
+    className="
+      text-white/95 font-medium
+      leading-tight tracking-wide
+      text-[34px] md:text-[52px]
+    "
+  >
+    A Legacy of Trust <br className="hidden md:block" />
+    Revered Across the <br className="md:hidden" />
+    World
+  </h2>
+</div>
 
         {/* ✅ MOBILE layout (like screenshot): stacked single column */}
         <div className="mt-14 md:hidden flex flex-col items-center gap-16">
           {stats.map((s, idx) => (
             <div key={s.label} className="text-center">
-              <div className="font-[500] text-white leading-none text-[64px]">
+              <div className="font-medium text-white leading-none text-[64px]">
                 {formatWithCommas(values[idx])}
                 {s.suffix}
               </div>
@@ -155,7 +153,7 @@ export default function TrustCountersSection() {
         <div className="hidden md:grid mt-14 grid-cols-4 gap-y-0">
           {stats.map((s, idx) => (
             <div key={s.label} className="text-center">
-              <div className="font-[500] text-white leading-none text-[84px]">
+              <div className="font-medium text-white leading-none text-[84px]">
                 {formatWithCommas(values[idx])}
                 {s.suffix}
               </div>
