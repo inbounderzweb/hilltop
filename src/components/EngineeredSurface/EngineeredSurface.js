@@ -46,6 +46,9 @@ export default function EngineeredSurface() {
             <Link href="/products/Porcelain" className="px-8 py-2 rounded-lg text-white/80 bg-[#2d2d2d] border border-white/10 hover:border-white/30 hover:text-white transition-all text-[15px] tracking-wide">
               Porcelain
             </Link>
+            <Link href="/products/SPC" className="px-8 py-2 rounded-lg text-white/80 bg-[#2d2d2d] border border-white/10 hover:border-white/30 hover:text-white transition-all text-[15px] tracking-wide">
+              SPC
+            </Link>
           </div>
         </div>
 
