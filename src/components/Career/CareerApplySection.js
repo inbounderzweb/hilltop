@@ -4,6 +4,28 @@ import React from "react";
 import Image from "next/image";
 import { Quicksand } from "next/font/google";
 import careerimg from "../../assets/career/career.png";
+import { COUNTRY_CODES } from "../../data/countryCodes";
+
+function ChevronDown({ className = "" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 9l6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -23,6 +45,14 @@ export default function CareerApplySection({
     phone: "",
     resume: null,
   });
+
+  const sortedCountries = React.useMemo(() => {
+    return [...COUNTRY_CODES].sort((a, b) => a.label.localeCompare(b.label));
+  }, []);
+
+  const [selectedCountry, setSelectedCountry] = React.useState(
+    COUNTRY_CODES.find(c => c.label === "India") || COUNTRY_CODES[0]
+  );
 
   const fileRef = React.useRef(null);
 
@@ -58,7 +88,8 @@ export default function CareerApplySection({
     formData.append('fullName', form.fullName);
     formData.append('job', form.job);
     formData.append('email', form.email);
-    formData.append('phone', form.phone);
+    formData.append('phone', `${selectedCountry.code} ${form.phone}`);
+    formData.append('country', selectedCountry.label);
     formData.append('resume', form.resume);
 
     try {
@@ -178,12 +209,29 @@ export default function CareerApplySection({
                 />
               </div>
 
-              {/* Phone with +91 */}
+              {/* Phone with Country selector */}
               <div className="md:col-span-1">
                 <div className="flex h-[56px] rounded-2xl bg-white/5 border border-white/10 overflow-hidden focus-within:border-white/25 focus-within:bg-white/[0.07] transition">
-                  <div className="px-5 flex items-center text-white/80 border-r border-white/10">
-                    +91
+                  <div className="relative flex items-center shrink-0 w-[100px]">
+                    <select
+                      value={selectedCountry.label}
+                      onChange={(e) => {
+                        const country = COUNTRY_CODES.find(c => c.label === e.target.value);
+                        setSelectedCountry(country);
+                      }}
+                      className="w-full h-full bg-transparent text-white text-[14px] pl-4 pr-8 outline-none appearance-none cursor-pointer hover:bg-white/5 transition"
+                    >
+                      {sortedCountries.map((c, i) => (
+                        <option key={i} value={c.label} className="bg-[#151515]">
+                          {c.flag} {c.code}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-white/40">
+                      <ChevronDown />
+                    </div>
                   </div>
+                  <div className="w-px bg-white/10 self-stretch" />
                   <input
                     name="phone"
                     value={form.phone}

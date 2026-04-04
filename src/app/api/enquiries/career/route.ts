@@ -14,6 +14,7 @@ export async function POST(req: Request) {
         const job_role = formData.get("job")?.toString().trim();
         const email = formData.get("email")?.toString().trim();
         const phone = formData.get("phone")?.toString().trim();
+        const country = formData.get("country")?.toString().trim();
         const resume = formData.get("resume") as File | null;
 
         if (!full_name || !email || !job_role || !resume) {
@@ -30,9 +31,15 @@ export async function POST(req: Request) {
             [full_name, job_role, email, phone, resume_url]
         );
 
+        let toEmail = process.env.INDIA_EMAIL || "armaan@hilltopgranite.com";
+        const normalizedCountry = country?.toLowerCase();
+        if (normalizedCountry === "usa" || normalizedCountry === "united states" || normalizedCountry === "united state" || normalizedCountry === "us") {
+            toEmail = process.env.USA_EMAIL || "dallas@hilltopgranite.com";
+        }
+
         // Send Email Notification to Admin
         const emailResult = await sendEmail({
-            to: process.env.INDIA_EMAIL || "armaan@hilltopgranite.com",
+            to: toEmail,
             replyTo: email,
             subject: `New Job Application: ${job_role}`,
             html: `
@@ -48,7 +55,8 @@ export async function POST(req: Request) {
                             <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Applicant:</strong> ${full_name}</p>
                             <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Position:</strong> ${job_role}</p>
                             <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Email Address:</strong> <a href="mailto:${email}" style="color: #DA9C39; text-decoration: none;">${email}</a></p>
-                            <p style="margin: 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Phone Number:</strong> +91 ${phone || 'N/A'}</p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Country:</strong> ${country || 'N/A'}</p>
+                            <p style="margin: 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Phone Number:</strong> ${phone || 'N/A'}</p>
                         </div>
                         
                         <div style="margin-top: 35px; border-top: 1px solid #eeeeee; padding-top: 20px;">
