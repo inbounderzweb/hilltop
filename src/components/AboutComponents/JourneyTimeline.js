@@ -117,7 +117,7 @@ function Row({ item, index }) {
         <div className="col-span-12 md:col-span-4">
           <div className="relative inline-block">
             <h3
-              className={`text-white text-[22px] md:text-[24px] leading-snug font-semibold tracking-wide ${quicksand.className}`}
+              className="text-white text-[22px] md:text-[24px] leading-tight tracking-wide font-medium"
             >
               {item.title}
             </h3>
@@ -127,9 +127,9 @@ function Row({ item, index }) {
 
         {/* BULLETS */}
         <div className="col-span-12 md:col-span-6">
-          <ul className="space-y-2 text-white text-[14px] md:text-[15px] leading-relaxed">
+          <ul className="space-y-2 text-white text-[14px] md:text-[15px] leading-relaxed tracking-wide font-medium">
             {item.bullets.map((b, i) => (
-              <li key={i} className={`flex gap-3 ${quicksand.className}`}>
+              <li key={i} className="flex gap-3">
                 <span className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full bg-white" />
                 <span>{b}</span>
               </li>

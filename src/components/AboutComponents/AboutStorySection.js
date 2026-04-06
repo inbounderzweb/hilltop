@@ -75,10 +75,13 @@ export default function AboutStorySection() {
               To redefine the standards of stone craftsmanship worldwide through
               innovative solutions, an expert team with a proven track record,
               and a passion for quality.
-              <br />
-              <br />
-              Our Vision for Tomorrow
-              <br />
+            </p>
+
+            <h3 className="mt-8 text-[34px] md:text-[44px] leading-[1.1] font-light">
+              Our Vision
+            </h3>
+
+            <p className={`mt-5 text-white/80 text-[15px] md:text-[16px] leading-relaxed max-w-[640px] ${quicksand.className}`}>
               We are committed to contributing to society with trust and
               excellence. Our service is the foundation, technology is the
               tool, and teamwork is the driving force.

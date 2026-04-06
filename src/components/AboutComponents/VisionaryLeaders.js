@@ -23,7 +23,7 @@ const leaders = [
   },
   {
     name: "Paras Ghorawat",
-    role: "General Manager",
+    role: "GENERAL MANAGER",
     location: "India",
     img: parasImg, // replace
   }
