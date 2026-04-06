@@ -56,7 +56,7 @@ const LOCATIONS = [
     address: "2120 Grand Ave Pkwy # 150, Austin, TX 78728, USA",
     phone: "+1 512 220 2140",
     email: "austin@hilltopgranite.com",
-    map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1!2d-97.6709471!3d30.4575449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cf956cc67d8d%3A0xe73dc33cb775dd20!2sHilltop%20Stones%20%26%20Interiors!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+    map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800!2d-97.6709471!3d30.4575449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cf956cc67d8d%3A0xe73dc33cb775dd20!2sHilltop%20Stones%20%26%20Interiors!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
   },
   {
     title: "HILLTOP GRANITE DALLAS",
@@ -65,7 +65,7 @@ const LOCATIONS = [
     address: "12401 N Stemmons Fwy #140, Farmers Branch, TX 75234, USA",
     phone: "+1 972 243 3156",
     email: "dallas@hilltopgranite.com",
-    map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1!2d-96.9014416!3d32.9186935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c27c710736c65%3A0x980978c11876c18e!2sHilltop%20Granite%20Dallas!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+    map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800!2d-96.9014416!3d32.9186935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c27c710736c65%3A0x980978c11876c18e!2sHilltop%20Granite%20Dallas!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
   },
   {
     title: "HILLTOP STONES & INTERIORS",
@@ -74,7 +74,7 @@ const LOCATIONS = [
     address: "8760 Clay Rd Suite B, Houston, TX 77080, USA",
     phone: "+1 832 867 9053",
     email: "houston@hilltopgranite.com",
-    map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1!2d-95.5117749!3d29.8337533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c5c75f448103%3A0x545602f0ebf1c451!2sHilltop%20Stones%20%26%20Interiors!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+    map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800!2d-95.5117749!3d29.8337533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c5c75f448103%3A0x545602f0ebf1c451!2sHilltop%20Stones%20%26%20Interiors!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
   },
 ];
 

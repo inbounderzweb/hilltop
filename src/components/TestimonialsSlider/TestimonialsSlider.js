@@ -107,7 +107,12 @@ export default function TestimonialsSlider() {
 
   const next = useCallback(() => {
     setIndex((i) => {
-      const ni = i >= maxIndex ? 0 : i + 1;
+      let ni = i + perView;
+      if (i >= maxIndex || maxIndex === 0) {
+        ni = 0;
+      } else if (ni > maxIndex) {
+        ni = maxIndex;
+      }
       if (perView === 1) scrollToMobileIndex(ni);
       return ni;
     });
@@ -115,7 +120,12 @@ export default function TestimonialsSlider() {
 
   const prev = useCallback(() => {
     setIndex((i) => {
-      const ni = i <= 0 ? maxIndex : i - 1;
+      let ni = i - perView;
+      if (i <= 0) {
+        ni = maxIndex;
+      } else if (ni < 0) {
+        ni = 0;
+      }
       if (perView === 1) scrollToMobileIndex(ni);
       return ni;
     });
@@ -219,11 +229,11 @@ export default function TestimonialsSlider() {
                 <div className="overflow-hidden">
                   <motion.div
                     className="flex gap-6 md:gap-7 cursor-grab active:cursor-grabbing will-change-transform"
-                    animate={{ x: `calc(-${index} * (min(440px, 88vw) + 28px))` }}
-                    transition={{ type: "spring", stiffness: 170, damping: 26 }}
+                    animate={{ x: `calc(-${index} * (520px + 28px))` }}
+                    transition={{ type: "spring", stiffness: 100, damping: 22 }}
                     drag="x"
                     dragConstraints={{
-                      left: -maxIndex * (Math.min(440, (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.88) + 28),
+                      left: -maxIndex * (520 + 28),
                       right: 0
                     }}
                     dragElastic={0.1}
