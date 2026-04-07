@@ -50,7 +50,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
         fetchMetadata();
     }, []);
 
-    // Main Product Fetch & Sync with initialCategory
+    // Main Product Fetch
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -68,15 +68,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
         };
 
         fetchProducts();
-
-        // Handle URL Param Sync
-        if (initialCategory) {
-            const decoded = decodeURIComponent(initialCategory);
-            setSelectedCategories(new Set([decoded]));
-        } else {
-            setSelectedCategories(new Set()); // Reset to All if no param
-        }
-    }, [initialCategory]);
+    }, []);
 
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
@@ -122,14 +114,51 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
     useEffect(() => {
         if (!hasMountedPage.current) {
             hasMountedPage.current = true;
-            const savedPage = sessionStorage.getItem('hilltop_products_page');
-            if (savedPage && savedPage !== '1') {
-                setPage(parseInt(savedPage, 10));
+            let restored = false;
+            
+            try {
+                const prevUrl = sessionStorage.getItem('hilltop_products_url');
+                const currUrl = window.location.pathname;
+                
+                if (prevUrl === currUrl) {
+                    const savedPage = sessionStorage.getItem('hilltop_products_page');
+                    if (savedPage) setPage(parseInt(savedPage, 10));
+
+                    const savedQuery = sessionStorage.getItem('hilltop_products_query');
+                    if (savedQuery) setQuery(savedQuery);
+
+                    const savedCategories = sessionStorage.getItem('hilltop_products_categories');
+                    if (savedCategories) {
+                        setSelectedCategories(new Set(JSON.parse(savedCategories)));
+                        restored = true;
+                    }
+
+                    const savedColors = sessionStorage.getItem('hilltop_products_colors');
+                    if (savedColors) setSelectedColors(new Set(JSON.parse(savedColors)));
+                }
+            } catch (e) {
+                console.error("Failed to restore filters", e);
             }
+
+            if (!restored) {
+                if (initialCategory) {
+                    const decoded = decodeURIComponent(initialCategory);
+                    setSelectedCategories(new Set([decoded]));
+                } else {
+                    setSelectedCategories(new Set()); // Reset to All if no param
+                }
+            }
+            
+            sessionStorage.setItem('hilltop_products_url', window.location.pathname);
+            
         } else {
+            sessionStorage.setItem('hilltop_products_url', window.location.pathname);
             sessionStorage.setItem('hilltop_products_page', page.toString());
+            sessionStorage.setItem('hilltop_products_query', query);
+            sessionStorage.setItem('hilltop_products_categories', JSON.stringify([...selectedCategories]));
+            sessionStorage.setItem('hilltop_products_colors', JSON.stringify([...selectedColors]));
         }
-    }, [page]);
+    }, [page, query, selectedCategories, selectedColors, initialCategory]);
 
     return (
         <div className="min-h-screen bg-[#151515] text-white py-14 md:py-20">
