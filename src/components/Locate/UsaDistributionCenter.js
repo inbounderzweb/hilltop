@@ -83,9 +83,10 @@ function LocationCard({ item }) {
     <div className="min-w-0 flex flex-col h-full">
       <div className="text-white">
         <Image src={item.image} alt={item.title} width={400} height={200} className="mb-4 rounded-lg" />
-        <p className="text-[20px] sm:text-[22px] font-semibold tracking-wide leading-tight mb-3">
+        <p className="text-[20px] sm:text-[22px] font-semibold leading-tight mb-3 tracking-[0.08em]">
           {item.title}
         </p>
+
         <p className="text-[20px] sm:text-[22px] font-semibold tracking-wide leading-tight">
           {item.subtitle}
         </p>

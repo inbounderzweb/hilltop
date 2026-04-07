@@ -51,7 +51,7 @@ export default function CareerApplySection({
   }, []);
 
   const [selectedCountry, setSelectedCountry] = React.useState(
-    COUNTRY_CODES.find(c => c.label === "India") || COUNTRY_CODES[0]
+    COUNTRY_CODES.find(c => c.label === "United States") || COUNTRY_CODES[0]
   );
 
   const fileRef = React.useRef(null);
