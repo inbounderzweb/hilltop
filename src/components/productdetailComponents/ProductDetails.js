@@ -207,30 +207,36 @@ export default function ProductDetails({ productId }) {
 
                         {/* Thumbnails */}
                         {allItems.length > 1 && (
-                            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 items-start">
                                 {allItems.map((item, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setActiveItem(item)}
-                                        className={`relative w-24 aspect-4/3 shrink-0 rounded-lg overflow-hidden border-2 transition-all flex items-center justify-center bg-[#2a2a2a] ${activeItem.url === item.url
-                                            ? 'border-[#eba14d]'
-                                            : 'border-transparent opacity-60 hover:opacity-100'
-                                            }`}
-                                    >
-                                        {item.type === 'video' ? (
-                                            <div className="flex flex-col items-center justify-center w-full h-full bg-[#333] text-white">
-                                                <Play size={24} className="fill-[#eba14d] text-[#eba14d]" />
-                                                <span className="text-[10px] mt-1 font-bold">VIDEO</span>
-                                            </div>
-                                        ) : (
-                                            <Image
-                                                src={item.url}
-                                                alt={`${product.product_name} thumbnail ${idx}`}
-                                                fill
-                                                className="object-cover"
-                                            />
+                                    <div key={idx} className="flex flex-col items-center gap-2">
+                                        <button
+                                            onClick={() => setActiveItem(item)}
+                                            className={`relative w-24 aspect-4/3 shrink-0 rounded-lg overflow-hidden border-2 transition-all flex items-center justify-center bg-[#2a2a2a] ${activeItem.url === item.url
+                                                ? 'border-[#DA9C39]'
+                                                : 'border-transparent opacity-60 hover:opacity-100'
+                                                }`}
+                                        >
+                                            {item.type === 'video' ? (
+                                                <div className="flex flex-col items-center justify-center w-full h-full bg-[#333] text-white">
+                                                    <Play size={24} className="fill-[#DA9C39] text-[#DA9C39]" />
+                                                    <span className="text-[10px] mt-1 font-bold">VIDEO</span>
+                                                </div>
+                                            ) : (
+                                                <Image
+                                                    src={item.url}
+                                                    alt={`${product.product_name} thumbnail ${idx}`}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            )}
+                                        </button>
+                                        {idx < 3 && item.type !== 'video' && (
+                                            <span className={`text-[10px] text-center text-white/50 tracking-wider font-bold ${quicksand.className}`}>
+                                                {idx === 0 ? "Full Slab" : idx === 1 ? "2 Bookmatch" : "4 Bookmatch"}
+                                            </span>
                                         )}
-                                    </button>
+                                    </div>
                                 ))}
                             </div>
                         )}
