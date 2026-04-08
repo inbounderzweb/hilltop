@@ -108,8 +108,8 @@ export default function BrandsTabsSection() {
 
             <div className="h-4 md:h-12" />
 
-            <SectionHeader title="Our Partnered Brands" />
-            <LogoGrid items={active.partnered} />
+            {/* <SectionHeader title="Our Partnered Brands" />
+            <LogoGrid items={active.partnered} /> */}
           </div>
         </div>
       </div>
