@@ -45,7 +45,7 @@ export async function POST(req: Request) {
             html: `
                 <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
                     <div style="background-color: #DA9C39; padding: 30px 20px; text-align: center;">
-                        <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">HILLTOP SURFACES</h1>
+                        <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">HILLTOP STONES</h1>
                     </div>
                     <div style="padding: 35px 30px; background-color: #ffffff; color: #333333;">
                         <h2 style="color: #222222; margin-top: 0; font-size: 22px; font-weight: 600;">New Career Application</h2>

@@ -25,10 +25,14 @@ const DATA = {
   hq: [
     {
       image: factoryImg,
-      title: "HILLTOP STONES",
-      subtitle: "PVT LTD, HEAD OFFICE",
-      address:
-        "No 736, Gupta House, 7th Cross Road, 3rd Block, Koramangala, Bengaluru - 560 034 Karnataka, India.",
+      title: "HILLTOP STONES PVT LTD,",
+      subtitle: "HEAD OFFICE",
+      address: [
+        "No 736, Gupta House, 7th Cross Road,",
+        "3rd Block, Koramangala,",
+        "Bengaluru - 560 034",
+        "Karnataka", " India."
+      ],
       phone: "+91 99000 63557",
       email: "info@hilltopgranite.com",
       map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15555.155!2d77.6212752!3d12.9309165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15ca05a07dc9%3A0xc525945360401e8!2sHilltop%20(Stones)%20Granite%20Bangalore!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -38,9 +42,15 @@ const DATA = {
     {
       image: hilltopfactory001,
       title: "HILLTOP STONES",
-      subtitle: "INDIA GRANITE FACTORY",
-      address:
-        "220/2B, Thyagarasanapalli Village NH7 Hosur - Krishnagiri Road, Shoolagiri PO & Taluk Krishnagiri District, Tamilnadu - 635117 India",
+      subtitle: "Granite Factory",
+      address: [
+        "220/2B, Thyagarasanapalli Village",
+        "NH7 Hosur - Krishnagiri Road",
+        "Shoolagiri PO & Taluk",
+        "Krishnagiri District",
+        "Tamil Nadu - 635117",
+        "India"
+      ],
       phone: "+91 89519 43587",
       email: "factory@hilltopgranite.com",
       map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d77.9962392!3d12.6660383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3badd6e185ec5dd9%3A0x43c48ca55a3f113e!2sHilltop%20Granite%20Factory!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -51,8 +61,13 @@ const DATA = {
       image: colorsofrainbow,
       title: "COLORS OF RAINBOW",
       subtitle: "EXPERIENCE CENTRE",
-      address:
-        "Sy.no.209/5B & 6B, 321/1 Gollapalli Shoolagiri PO & Taluk, Krishnagiri Tamilnadu - 635117, India",
+      address: [
+        "Sy.no.209/5B & 6B, 321/1 Gollapalli",
+        "Shoolagiri PO & Taluk,",
+        "Krishnagiri District,",
+        "Tamilnadu - 635117,",
+        " India"
+      ],
       phone: "+91 89519 43587",
       email: "sales@colorsofrainbow.com",
       map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d78.0261205!3d12.6513251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3badd1ecadd100d9%3A0x9d52391536b432a4!2sColors%20of%20Rainbow!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -112,7 +127,16 @@ function LocationCardCentered({ item }) {
         </div>
 
         <p className={`mt-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70 max-w-xl ${quicksand.className}`}>
-          {item.address}
+          {Array.isArray(item.address) ? (
+            item.address.map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))
+          ) : (
+            item.address
+          )}
         </p>
 
         <div className="mt-10 space-y-5">

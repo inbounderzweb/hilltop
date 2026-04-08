@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Quicksand } from "next/font/google";
-import { Loader2, Search, SlidersHorizontal, Package, Check, ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react';
+import { Loader2, Search, SlidersHorizontal, Package, Check, ChevronRight, ChevronLeft, ArrowRight, Download } from 'lucide-react';
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -235,6 +235,12 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
 
                     {/* Main Content */}
                     <main className="min-w-0">
+                        <div className="flex justify-end mb-10">
+                            <button className={`flex items-center gap-3 border border-[#DA9C39] text-[#DA9C39] px-8 py-2.5 rounded-lg bg-transparent font-semibold hover:bg-[#DA9C39] hover:text-black transition-all duration-300 ${quicksand.className}`}>
+                                <span>Brochure</span>
+                                <Download size={20} />
+                            </button>
+                        </div>
                         {loading ? (
                             <div className="flex flex-col items-center justify-center min-h-[500px]">
                                 <Loader2 className="animate-spin text-[#DA9C39] mb-4" size={48} />
