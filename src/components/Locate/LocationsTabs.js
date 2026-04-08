@@ -30,8 +30,7 @@ const DATA = {
       address: [
         "No 736, Gupta House, 7th Cross Road,",
         "3rd Block, Koramangala,",
-        "Bengaluru - 560 034",
-        "Karnataka", " India."
+        "Bengaluru, Karnataka - 560034", " India."
       ],
       phone: "+91 99000 63557",
       email: "info@hilltopgranite.com",
@@ -44,11 +43,11 @@ const DATA = {
       title: "HILLTOP STONES",
       subtitle: "Granite Factory",
       address: [
-        "220/2B, Thyagarasanapalli Village",
-        "NH7 Hosur - Krishnagiri Road",
-        "Shoolagiri PO & Taluk",
-        "Krishnagiri District",
-        "Tamil Nadu - 635117",
+        "220/2B, Thyagarasanapalli Village,",
+        "NH7 Hosur - Krishnagiri Road,",
+        "Shoolagiri PO & Taluk,",
+        "Krishnagiri District,",
+        "Tamil Nadu - 635117,",
         "India"
       ],
       phone: "+91 89519 43587",
