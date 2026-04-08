@@ -35,7 +35,7 @@ const appolo = localFont({
 */
 
 export const metadata = {
-  title: "Hilltop Surfaces | Premium Marble, Granite & Engineered Stones",
+  title: "Hilltop Stones | Premium Marble, Granite & Engineered Stones",
   description: "Discover the finest collection of premium marble, granite, and engineered surfaces at Hilltop Surfaces. We provide luxury natural stones and quartz for architectural excellence and elegant interior design.",
   keywords: "Hilltop Surfaces, premium marble, luxury granite, engineered stones, Italian marble, quartz countertops, natural stone slabs, architectural surfaces, kitchen countertops, bathroom vanities, marble suppliers",
   openGraph: {

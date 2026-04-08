@@ -16,7 +16,7 @@ const quicksand = Quicksand({
 });
 
 const TABS = [
-  { key: "hq", label: "Head Quarters" },
+  { key: "hq", label: "Head Office" },
   { key: "factory", label: "Factory" },
   { key: "experience", label: "Experience Centre" },
 ];
@@ -40,7 +40,7 @@ const DATA = {
       title: "HILLTOP STONES",
       subtitle: "INDIA GRANITE FACTORY",
       address:
-        "220/2b, Thyagarasanapalli Village NH7 Hosur - Krishnagiri Road, Shoolagiri PO & Taluk Krishnagiri District, Tamilnadu - 635117 India",
+        "220/2B, Thyagarasanapalli Village NH7 Hosur - Krishnagiri Road, Shoolagiri PO & Taluk Krishnagiri District, Tamilnadu - 635117 India",
       phone: "+91 89519 43587",
       email: "factory@hilltopgranite.com",
       map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d77.9962392!3d12.6660383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3badd6e185ec5dd9%3A0x43c48ca55a3f113e!2sHilltop%20Granite%20Factory!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
