@@ -68,7 +68,7 @@ const DATA = {
         " India"
       ],
       phone: "+91 89519 43587",
-      email: "sales@colorsofrainbow.com",
+      email: "sales@colorsofrainbow.in",
       map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.8!2d78.0261205!3d12.6513251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3badd1ecadd100d9%3A0x9d52391536b432a4!2sColors%20of%20Rainbow!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
     },
   ],
@@ -205,9 +205,12 @@ export default function IndiaLocationsTabs() {
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6">
         {/* Title */}
         <div className="text-center">
-          <h2 className="text-white text-3xl sm:text-4xl tracking-[0.25em] font-medium">
+          <h2 className="text-white text-4xl sm:text-5xl tracking-widest font-medium uppercase">
             INDIA
           </h2>
+          <h3 className="text-white text-3xl sm:text-4xl mt-2 font-medium">
+            Experience Centre
+          </h3>
         </div>
 
         {/* Tabs + Panel wrapper */}

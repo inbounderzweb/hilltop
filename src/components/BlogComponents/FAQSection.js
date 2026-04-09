@@ -206,7 +206,7 @@ function TwoColFaq({ left, right, defaultOpenKey = "0L" }) {
 
 export default function FAQSection() {
   return (
-    <section className={`relative w-full overflow-hidden py-16 md:py-24 ${quicksand.className}`}>
+    <section className={`relative w-full overflow-hidden py-16 md:py-24`}>
 
       {/* background like your reference */}
       <div className="absolute inset-0 -z-10 bg-[#151515]" />

@@ -174,9 +174,12 @@ export default function UsaDistributionCenter() {
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6">
         {/* Title */}
         <div className="text-center">
-          <h2 className="text-white text-3xl sm:text-4xl tracking-[0.25em] font-medium">
+          <h2 className="text-white text-4xl sm:text-5xl tracking-widest font-medium uppercase">
             USA
           </h2>
+          <h3 className="text-white text-3xl sm:text-4xl mt-2 font-medium">
+            Experience Centre
+          </h3>
         </div>
 
         {/* Tabs + Panel wrapper */}

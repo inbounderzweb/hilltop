@@ -51,20 +51,17 @@ export default function Footer() {
               <FooterLink href="/about">
                 About us
               </FooterLink>
-              <FooterLink href="/blogs">
-                Blog
-              </FooterLink>
               <FooterLink href="/products">
                 Products
               </FooterLink>
               <FooterLink href="/career">
                 Career
               </FooterLink>
+              <FooterLink href="/blogs">
+                Blog & FAQ
+              </FooterLink>
               <FooterLink href="https://hilltopstones.stoneprofitsweb.com/">
                 Live Inventory
-              </FooterLink>
-              <FooterLink href="/blogs">
-                FAQ
               </FooterLink>
               <FooterLink href="/privacy-policy">
                 Privacy Policy
@@ -189,12 +186,12 @@ export default function Footer() {
       <div className="border-t border-white/25">
         <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-6">
           <p className="hidden md:block text-white/70 text-[14px]">
-            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer">Inbounderz</a> All Rights Reserved
+            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer"></a> All Rights Reserved
           </p>
 
           {/* Mobile centered line */}
           <p className="md:hidden text-center text-white/70 text-[12px]">
-            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer">Inbounderz</a> All Rights Reserved
+            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer"></a> All Rights Reserved
           </p>
         </div>
       </div>

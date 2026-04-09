@@ -140,7 +140,8 @@ export default function AwardsAutoSlider() {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_80%_60%,rgba(255,255,255,0.05),transparent_72%)]" />
 
       <div className="mx-auto w-full px-6">
-        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+        {/* <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium [font-family:var(--journey-serif,ui-serif,Georgia,serif)]"> */}
+        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium">
           Awards
         </h2>
 

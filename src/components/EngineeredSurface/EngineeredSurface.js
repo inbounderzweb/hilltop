@@ -28,7 +28,7 @@ export default function EngineeredSurface() {
       <div className="mx-auto max-w-[1400px] md:px-10 py-14">
         {/* Top Heading */}
         <div className="text-center">
-          <h2 className="text-[30px] md:text-[44px] font-[500] tracking-wide">
+          <h2 className="text-[30px] md:text-[44px] font-medium tracking-wide">
             <span className="text-[#DA9C39]">
               Engineered Surfaces
             </span>
@@ -72,7 +72,7 @@ export default function EngineeredSurface() {
             </div>
 
             <div className="md:col-span-5 md:pl-4 text-center md:text-left">
-              <h2 className="leading-[1.08] font-[500] text-white/90">
+              <h2 className="leading-[1.08] font-medium text-white/90">
                 Composed
                 <br />
                 Discovery
@@ -86,7 +86,7 @@ export default function EngineeredSurface() {
           {/* Block 2: Text left, image right */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center px-2">
             <div className="md:col-span-5 md:pr-4 order-2 md:order-1 text-center md:text-left">
-              <h2 className="leading-[1.08] font-[500] text-white/90">
+              <h2 className="leading-[1.08] font-medium text-white/90">
                 Where Science
                 <br />
                 Shapes Strength
@@ -130,7 +130,7 @@ export default function EngineeredSurface() {
             </div>
 
             <div className="md:col-span-5 md:pl-4 text-center md:text-left">
-              <h2 className="leading-[1.08] font-[500] text-white/90">
+              <h2 className="leading-[1.08] font-medium text-white/90">
                 Human Ingenuity’s
                 <br />
                 Own Masterpieces

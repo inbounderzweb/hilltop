@@ -45,12 +45,12 @@ export default function AboutStorySection() {
               <p>
                 In 1989, Kamal Giria and Nilesh Giria set out with a vision to
                 create a trusted brand in the stone industry. Their pursuit of
-                excellence led to the establishment of Hill Top, which today
+                excellence led to the establishment of Hilltop, which today
                 stands as one of India’s largest manufacturers of granite,
                 marble, and quartz.
               </p>
               <p>
-                Now flaunting over three decades of expertise, Hill Top has
+                Now flaunting over three decades of expertise, Hilltop has
                 earned loyalty and recognition from a growing customer base
                 across the world.
               </p>

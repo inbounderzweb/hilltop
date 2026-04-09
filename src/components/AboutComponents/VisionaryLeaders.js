@@ -40,7 +40,7 @@ export default function VisionaryLeaders() {
 
       <div className="mx-auto w-full max-w-6xl px-6">
         {/* Title */}
-        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium [font-family:var(--journey-serif,ui-serif,Georgia,serif)]">
+        <h2 className="text-center text-white text-[42px] md:text-[56px] leading-tight tracking-wide font-medium">
           Our Visionary Leaders
         </h2>
 

@@ -113,7 +113,7 @@ export default function CareerApplySection({
   }
 
   return (
-    <section className={`relative w-full overflow-hidden py-14 md:py-20 ${quicksand.className}`}>
+    <section className={`relative w-full overflow-hidden py-14 md:py-20 `}>
       {/* background */}
       <div className="absolute inset-0 -z-10 bg-[#151515]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(65%_55%_at_50%_10%,rgba(255,255,255,0.08),transparent_60%)]" />
@@ -122,11 +122,11 @@ export default function CareerApplySection({
 
       <div className="mx-auto w-full max-w-6xl px-6">
         {/* heading + copy */}
-        <h2 className="text-center text-white text-[36px] md:text-[46px] font-medium tracking-wide">
+        <h2 className="text-center text-[#F4E0C2] text-[36px] md:text-[56px] font-light tracking-tight">
           Be Part of Our Mission
         </h2>
 
-        <p className="mx-auto mt-5 max-w-5xl text-center text-white text-[14px] md:text-[16px] leading-relaxed">
+        <p className="mx-auto mt-5 max-w-5xl text-center text-white text-[16px] md:text-[18px] leading-relaxed">
           At HillTop, we craft more than just surfaces; we craft legacies. As a leader in the global luxury stone industry, we invite passionate and driven
           professionals to join our journey of innovation and excellence. Whether you&apos;re a seasoned expert or an ambitious newcomer, HillTop offers you
           the opportunity to work with rare, exquisite materials and be a part of creating timeless masterpieces for clients worldwide. Explore a career
@@ -273,11 +273,11 @@ export default function CareerApplySection({
 
               <div className="md:col-span-2 pt-2 pb-1">
                 <label className="flex items-center gap-3 cursor-pointer text-white/80 w-max">
-                  <input 
-                    type="checkbox" 
-                    checked={acceptTerms} 
-                    onChange={(e) => setAcceptTerms(e.target.checked)} 
-                    className="w-5 h-5 accent-[#DA9C39] rounded cursor-pointer shrink-0" 
+                  <input
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                    className="w-5 h-5 accent-[#DA9C39] rounded cursor-pointer shrink-0"
                   />
                   <span className="text-[14px] md:text-[16px]">I accept the terms and conditions</span>
                 </label>

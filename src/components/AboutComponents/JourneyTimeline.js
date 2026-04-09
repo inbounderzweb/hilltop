@@ -79,6 +79,7 @@ const DEFAULT_ITEMS = [
     title: "COR by Hilltop Group",
     bullets: [
       "Unveiled a 12-acre, 300,000 sq. ft. facility with a warehouse, showroom & production center for luxury surfaces.",
+      "Opened a flagship showroom in Austin, Texas."
     ],
   },
   {
@@ -108,7 +109,7 @@ function Row({ item, index }) {
       <div className="grid grid-cols-12 gap-6 py-8 md:py-10 border-b border-white/5 last:border-0">
         {/* YEAR */}
         <div className="col-span-12 md:col-span-2">
-          <div className="text-[32px] md:text-[34px] leading-none tracking-wide text-[#DA9C39] font-semibold font-[Appolo]">
+          <div className="text-[32px] md:text-[34px] leading-none tracking-wide text-[#DA9C39] font-normal font-[Appolo]">
             {item.year}
           </div>
         </div>
@@ -116,18 +117,18 @@ function Row({ item, index }) {
         {/* TITLE */}
         <div className="col-span-12 md:col-span-4">
           <div className="relative inline-block">
-            <h3
-              className="text-white text-[22px] md:text-[24px] leading-tight tracking-wide font-medium"
+            <div
+              className="text-white text-[22px] md:text-[24px] leading-tight tracking-wide font-light"
             >
               {item.title}
-            </h3>
+            </div>
             <span className="pointer-events-none absolute -bottom-2 left-0 h-px w-0" />
           </div>
         </div>
 
         {/* BULLETS */}
         <div className="col-span-12 md:col-span-6">
-          <ul className="space-y-2 text-white text-[14px] md:text-[15px] leading-relaxed tracking-wide font-medium">
+          <ul className="space-y-2 text-white text-[16px] md:text-[17px] leading-relaxed tracking-wide font-normal">
             {item.bullets.map((b, i) => (
               <li key={i} className="flex gap-3">
                 <span className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full bg-white" />
@@ -159,7 +160,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.21, 0.9, 0.2, 1] }}
-          className={`text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-medium mb-10 md:mb-16`}
+          className={`text-center text-white text-[44px] md:text-[54px] leading-tight tracking-wide font-normal mb-10 md:mb-16`}
         >
           {title}
         </motion.h2>
@@ -176,7 +177,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           <div className="pointer-events-none absolute left-0 bottom-0 z-10 h-28 w-full bg-linear-to-t from-[#1E1E1E]/95 via-[#1E1E1E]/60 to-transparent" />
 
 
-          <div className="h-[450px] md:h-[600px] overflow-y-auto pr-2 scroll-smooth no-scrollbar">
+          <div className="h-[450px] md:h-[600px] overflow-y-auto pr-2 scroll-smooth no-scrollbar pb-32">
             {items.map((item, idx) => (
               <Row key={`${item.year}-${idx}`} item={item} index={idx} />
             ))}
