@@ -209,7 +209,7 @@ export default function IndiaLocationsTabs() {
             INDIA
           </h2>
           <h3 className="text-white text-3xl sm:text-4xl mt-2 font-medium">
-            Experience Centre
+            Our Locations
           </h3>
         </div>
 
