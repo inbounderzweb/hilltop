@@ -49,7 +49,7 @@ export default function Footer() {
 
             <div className="grid grid-cols-2 gap-x-10 gap-y-4 text-[#d7a447]">
               <FooterLink href="/about">
-                About us
+                Our Story
               </FooterLink>
               <FooterLink href="/products">
                 Products
@@ -186,12 +186,12 @@ export default function Footer() {
       <div className="border-t border-white/25">
         <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-6">
           <p className="hidden md:block text-white/70 text-[14px]">
-            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer"></a> All Rights Reserved
+            © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
           </p>
 
           {/* Mobile centered line */}
           <p className="md:hidden text-center text-white/70 text-[12px]">
-            Copyright © 2026 - <a href="https://inbounderz.com" target="_blank" rel="noreferrer"></a> All Rights Reserved
+            © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
           </p>
         </div>
       </div>

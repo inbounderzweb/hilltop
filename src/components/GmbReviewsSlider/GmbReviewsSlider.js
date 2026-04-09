@@ -123,12 +123,12 @@ export default function GmbReviewsSlider() {
   }, [paused, perView, testimonials.length, next, loading]);
 
   if (loading) {
-      return (
-          <section className="w-full bg-[#1f1f1f] py-20 flex flex-col items-center justify-center">
-              <div className="w-10 h-10 border-4 border-[#c79a3a] border-t-transparent rounded-full animate-spin"></div>
-              <p className="mt-4 text-white/50 text-xs font-bold uppercase tracking-widest">Fetching Google Reviews...</p>
-          </section>
-      );
+    return (
+      <section className="w-full bg-[#1f1f1f] py-20 flex flex-col items-center justify-center">
+        <div className="w-10 h-10 border-4 border-[#c79a3a] border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-white/50 text-xs font-bold uppercase tracking-widest">Fetching Google Reviews...</p>
+      </section>
+    );
   }
 
   if (testimonials.length === 0) return null;
@@ -137,18 +137,18 @@ export default function GmbReviewsSlider() {
     <section className="w-full bg-[#1f1f1f] text-white py-14 overflow-hidden border-t border-white/5">
       <div className="mx-auto max-w-[1600px] px-4 md:px-10">
         <div className="flex flex-col items-center mb-12">
-            <div className="flex items-center gap-2 mb-4 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.48 10.92v3.28h4.74c-.2 1.06-.9 1.95-2.02 2.71l2.72 2.13c1.58-1.47 2.49-3.62 2.49-6.12 0-.33-.03-.66-.08-1h-7.85z" fill="#4285F4"/>
-                    <path d="M12.48 5.68c1.69 0 3.21.58 4.41 1.72l3.29-3.29C18.17 2.14 15.54 1 12.48 1 7.6 1 3.5 4.3 2.1 8.76l3.2 2.49c.75-2.24 2.85-3.87 5.18-3.87z" fill="#EA4335"/>
-                    <path d="M12.48 22.12c2.4 0 4.41-.8 5.88-2.18l-2.72-2.13c-.81.55-1.85.87-3.16.87-2.33 0-4.43-1.63-5.18-3.87l-3.2 2.49c1.4 4.46 5.5 7.82 10.38 7.82z" fill="#34A853"/>
-                    <path d="M7.3 14.81c-.2-.58-.3-1.2-.3-1.81s.1-1.23.3-1.81l-3.2-2.49C3.12 10.15 2.65 11.51 2.65 13s.47 2.85 1.45 4.3l3.2-2.49z" fill="#FBBC05"/>
-                </svg>
-                <span className="text-xs font-black uppercase tracking-[0.2em] text-white/50">Verified Google Reviews</span>
-            </div>
-            <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-normal">
-                Real-time Feedback
-            </h2>
+          <div className="flex items-center gap-2 mb-4 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+            <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+            </svg>
+            <span className="text-xs font-black uppercase tracking-[0.2em] text-white/50">Verified Google Reviews</span>
+          </div>
+          <h2 className="text-center text-white/90 text-[34px] md:text-[52px] font-normal">
+            Real-time Feedback
+          </h2>
         </div>
 
         <div
