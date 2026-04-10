@@ -63,6 +63,8 @@ export const metadata = {
 |--------------------------------------------------------------------------
 */
 
+import WhatsAppButton from "@/components/WhatsAppButton";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={appolo.className} suppressHydrationWarning>
@@ -70,6 +72,7 @@ export default function RootLayout({ children }) {
         <LayoutWrapper>
           {children}
         </LayoutWrapper>
+        <WhatsAppButton />
       </body>
     </html>
   );

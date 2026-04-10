@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/mail";
 import { uploadFile } from "@/lib/storage";
-import { v4 as uuidv4 } from "uuid";
 import path from "path";
 
 export const dynamic = "force-dynamic";
