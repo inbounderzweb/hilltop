@@ -120,38 +120,95 @@ export default function Footer() {
         </div>
 
         {/* Mobile View */}
-        <div className="md:hidden flex flex-col gap-10">
+        <div className="md:hidden flex flex-col gap-12">
+          {/* Branding */}
           <div className="text-center">
             <div className="w-[140px] mx-auto">
               <Image src={logo} alt="HILLTOP" className="h-auto w-full" />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
+          {/* Contact Details */}
+          <div className="grid grid-cols-1 gap-10">
             <div>
-              <h5 className="text-[10px] font-bold tracking-[0.16em] uppercase mb-4 text-white">Quick Links</h5>
-              <div className="flex flex-col gap-3">
-                <FooterLinkGold href="/about">Story</FooterLinkGold>
-                <FooterLinkGold href="/products">Products</FooterLinkGold>
-                <FooterLinkGold href="/blogs">Blog</FooterLinkGold>
+              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">India</h5>
+              <p className="text-[12px] text-[#C9A84C] opacity-90 mb-3 font-mono leading-relaxed">
+                info@hilltopgranite.com<br />
+                +91 99000 64364
+              </p>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <Link href="/locate#hq" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Head Office</Link>
+                <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
+                <Link href="/locate#factory" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Factory</Link>
+                <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
+                <Link href="/locate#experience" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
               </div>
             </div>
+
             <div>
-              <h5 className="text-[10px] font-bold tracking-[0.16em] uppercase mb-4 text-white">Categories</h5>
-              <div className="flex flex-col gap-3">
-                <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
-                <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
-                <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
+              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">USA</h5>
+              <p className="text-[12px] text-[#C9A84C] opacity-90 mb-3 font-mono leading-relaxed">
+                info@hilltopgranite.com<br />
+                +91 99000 64364
+              </p>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <Link href="/locate#usa" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
               </div>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-[#333]">
-            <div className="flex justify-center gap-6">
-              <SocialLinkGold href="#" label="" icon={<InstagramIcon size={20} />} />
-              <SocialLinkGold href="#" label="" icon={<FacebookIcon size={20} />} />
-              <SocialLinkGold href="#" label="" icon={<YoutubeIcon size={20} />} />
-              <SocialLinkGold href="#" label="" icon={<LinkedinIcon size={20} />} />
+          {/* Links & Categories */}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12">
+            <div>
+              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-5 text-white">Quick Links</h5>
+              <div className="flex flex-col gap-3.5">
+                <FooterLinkGold href="/about">Our Story</FooterLinkGold>
+                <FooterLinkGold href="/products">Products</FooterLinkGold>
+                <FooterLinkGold href="/career">Career</FooterLinkGold>
+                <FooterLinkGold href="/blogs">Blog & FAQ</FooterLinkGold>
+                <FooterLinkGold href="https://hilltopstones.stoneprofitsweb.com/">Live Inventory</FooterLinkGold>
+                <FooterLinkGold href="/privacy-policy">Privacy Policy</FooterLinkGold>
+                <FooterLinkGold href="/disclaimer">Disclaimer</FooterLinkGold>
+                <FooterLinkGold href="/terms-and-conditions">Terms & Conditions</FooterLinkGold>
+              </div>
+            </div>
+            <div>
+              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-5 text-white">Product Categories</h5>
+              <div className="flex flex-col gap-3.5">
+                <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
+                <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
+                <FooterLinkGold href="/products?category=Onyx">Onyx</FooterLinkGold>
+                <FooterLinkGold href="/products?category=Porcelain">Porcelain</FooterLinkGold>
+                <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
+                <FooterLinkGold href="/products?category=Quartzite">Quartzite</FooterLinkGold>
+                <FooterLinkGold href="/products?category=Spc">Spc</FooterLinkGold>
+              </div>
+            </div>
+          </div>
+
+          {/* Social Icons */}
+          <div className="pt-8 border-t border-[#333]">
+            <div className="flex justify-center gap-8">
+              <SocialLinkGold href="https://instagram.com/hilltopgraniteofficial" label="" icon={<InstagramIcon size={24} />} />
+              <SocialLinkGold href="https://facebook.com/HilltopGraniteBangalore" label="" icon={<FacebookIcon size={24} />} />
+              <SocialLinkGold href="https://youtube.com/@hilltopgraniteofficial7267" label="" icon={<YoutubeIcon size={24} />} />
+              <SocialLinkGold href="https://linkedin.com/company/hilltopstones" label="" icon={<LinkedinIcon size={24} />} />
+            </div>
+          </div>
+
+          {/* Subscribe */}
+          <div className="pt-8 border-t border-[#333]">
+            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-2 font-mono text-white text-center">Subscribe</h4>
+            <p className="text-[11px] text-[#888] tracking-[0.04em] mb-6 font-mono text-center">Stay updated with our latest collections</p>
+            <div className="flex h-11 max-w-sm mx-auto w-full">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 bg-transparent border border-[#555] px-4 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono min-w-0"
+              />
+              <button className="bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition whitespace-nowrap">
+                Subscribe
+              </button>
             </div>
           </div>
         </div>
