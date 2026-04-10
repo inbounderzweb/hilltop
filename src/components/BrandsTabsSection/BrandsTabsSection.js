@@ -185,8 +185,8 @@ function LogoGrid({ items }) {
           <div key={it.id} className="flex items-center justify-center px-4">
             <div className={[
               "relative",
-              isVeneta 
-                ? "w-[180px] sm:w-[260px] md:w-[320px] h-[65px] md:h-[85px] scale-110" 
+              isVeneta
+                ? "w-[180px] sm:w-[260px] md:w-[320px] h-[65px] md:h-[85px] scale-110"
                 : "w-[110px] sm:w-[160px] md:w-[200px] h-[42px] md:h-[52px]"
             ].join(" ")}>
               <Image src={it.src} alt={it.alt} fill className="object-contain" />

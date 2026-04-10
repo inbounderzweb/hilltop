@@ -6,15 +6,16 @@ export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { name, email, phone, purpose, message, country } = body;
+        const { name, email, phone, customerType, purpose, message, country } = body;
 
         if (!name || !email) {
             return Response.json({ success: false, error: "Name and Email are required" }, { status: 400 });
         }
 
+        // Note: DB insert omitted for customerType unless schema is verified
         await db.query(
-            "INSERT INTO contact_enquiries (name, email, phone, purpose, message) VALUES (?, ?, ?, ?, ?)",
-            [name, email, phone, purpose, message]
+            "INSERT INTO contact_enquiries (name, email, phone, purpose, message,customer_type) VALUES (?, ?, ?, ?, ?,?)",
+            [name, email, phone, purpose, message, customerType]
         );
 
         let toEmail = process.env.INDIA_EMAIL || "armaan@hilltopgranite.com";
@@ -38,11 +39,12 @@ export async function POST(req: Request) {
                         <p style="font-size: 15px; line-height: 1.6; color: #555555;">A new enquiry has been submitted through the Hilltop Contact page.</p>
                         
                         <div style="background-color: #fcfaf7; padding: 20px; border-radius: 6px; margin-top: 25px; border-left: 4px solid #DA9C39;">
-                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Customer Name:</strong> ${name}</p>
-                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Email Address:</strong> <a href="mailto:${email}" style="color: #DA9C39; text-decoration: none;">${email}</a></p>
-                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Phone Number:</strong> ${phone || 'N/A'}</p>
-                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Country:</strong> ${country || 'N/A'}</p>
-                            <p style="margin: 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 120px;">Purpose:</strong> ${purpose}</p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 130px;">Customer Name:</strong> ${name}</p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 130px;">Email Address:</strong> <a href="mailto:${email}" style="color: #DA9C39; text-decoration: none;">${email}</a></p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 130px;">Phone Number:</strong> ${phone || 'N/A'}</p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 130px;">Customer Type:</strong> ${customerType || 'N/A'}</p>
+                            <p style="margin: 0 0 12px 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 130px;">Country:</strong> ${country || 'N/A'}</p>
+                            <p style="margin: 0; font-size: 15px;"><strong style="color: #222222; display: inline-block; width: 130px;">Purpose:</strong> ${purpose}</p>
                         </div>
                         
                         <div style="margin-top: 25px; padding: 20px; border: 1px solid #eeeeee; border-radius: 6px; background-color: #ffffff;">
@@ -57,8 +59,6 @@ export async function POST(req: Request) {
                 </div>
             `
         });
-
-        console.log("<><>emailResult", emailResult)
 
         if (!emailResult.success) {
             return Response.json({

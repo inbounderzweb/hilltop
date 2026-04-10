@@ -37,6 +37,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
     name: "",
     email: "",
     phone: "",
+    customerType: "",
     purpose: "",
     message: ""
   });
@@ -109,7 +110,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
       const data = await response.json();
       if (data.success) {
         setStatus({ type: 'success', message: 'Thank you! Your enquiry has been submitted.' });
-        setFormData({ name: "", email: "", phone: "", purpose: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", customerType: "", purpose: "", message: "" });
       } else {
         setStatus({ type: 'error', message: data.error || 'Something went wrong.' });
       }
@@ -119,6 +120,15 @@ export default function GetInTouchForm({ initialProducts = [] }) {
       setLoading(false);
     }
   };
+
+  const CUSTOMER_TYPES = [
+    "Architect",
+    "Builder",
+    "Contractor",
+    "Dealer/Distributor",
+    "Engineer",
+    "End user"
+  ];
 
   return (
     <div className={`w-full bg-[#1b1b1b] pt-10`} id="contactform">
@@ -182,6 +192,38 @@ export default function GetInTouchForm({ initialProducts = [] }) {
                   className="flex-1 min-w-0 w-full bg-transparent text-white/90 px-4 sm:px-5 py-5 sm:py-6 text-[16px] sm:text-[20px] outline-none placeholder:text-white/30"
                   required
                 />
+              </div>
+
+              {/* Customer Type select */}
+              <div className="relative">
+                <select
+                  name="customerType"
+                  value={formData.customerType}
+                  onChange={handleChange}
+                  className={[
+                    "w-full appearance-none rounded-2xl bg-[#2a2a2a] text-white/90",
+                    "px-5 py-5 sm:py-6",
+                    "text-[18px] sm:text-[20px]",
+                    "outline-none",
+                    "border border-white/10",
+                    "placeholder:text-white/30",
+                    "focus:border-white/20",
+                  ].join(" ")}
+                  required
+                >
+                  <option value="" disabled>
+                    Customer Type
+                  </option>
+                  {CUSTOMER_TYPES.map((type, i) => (
+                    <option key={i} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+
+                <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/80">
+                  <ChevronDown className="h-6 w-6" />
+                </span>
               </div>
 
               {/* Purpose select */}

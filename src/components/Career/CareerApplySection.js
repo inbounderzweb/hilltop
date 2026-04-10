@@ -161,7 +161,7 @@ export default function CareerApplySection({
                   value={form.fullName}
                   onChange={handleChange}
                   placeholder="Full Name"
-                  className="w-full h-[56px] rounded-2xl bg-white/5 border border-white/10 px-5 text-white placeholder:text-white/35 outline-none focus:border-white/25 focus:bg-white/[0.07] transition"
+                  className="w-full h-[54px] rounded-2xl bg-white/5 border border-white/10 px-5 text-white text-[15px] placeholder:text-white/35 outline-none focus:border-white/25 focus:bg-white/[0.07] transition"
                 />
               </div>
 
@@ -171,7 +171,7 @@ export default function CareerApplySection({
                   name="job"
                   value={form.job}
                   onChange={handleChange}
-                  className="w-full h-[56px] appearance-none rounded-2xl bg-white/5 border border-white/10 px-5 pr-12 text-white/90 outline-none focus:border-white/25 focus:bg-white/[0.07] transition"
+                  className="w-full h-[54px] appearance-none rounded-2xl bg-white/5 border border-white/10 px-5 pr-12 text-white/90 text-[15px] outline-none focus:border-white/25 focus:bg-white/[0.07] transition"
                 >
                   <option value="" className="bg-[#151515] text-white/60">
                     Select Job
@@ -198,36 +198,36 @@ export default function CareerApplySection({
               </div>
 
               {/* Email */}
-              <div className="md:col-span-1">
+              <div className="md:col-span-2">
                 <input
                   name="email"
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Email id"
                   type="email"
-                  className="w-full h-[56px] rounded-2xl bg-white/5 border border-white/10 px-5 text-white placeholder:text-white/35 outline-none focus:border-white/25 focus:bg-white/[0.07] transition"
+                  className="w-full h-[54px] rounded-2xl bg-white/5 border border-white/10 px-5 text-white text-[15px] placeholder:text-white/35 outline-none focus:border-white/25 focus:bg-white/[0.07] transition"
                 />
               </div>
 
               {/* Phone with Country selector */}
-              <div className="md:col-span-1">
-                <div className="flex h-[56px] rounded-2xl bg-white/5 border border-white/10 overflow-hidden focus-within:border-white/25 focus-within:bg-white/[0.07] transition">
-                  <div className="relative flex items-center shrink-0 w-[100px]">
+              <div className="md:col-span-2">
+                <div className="flex h-[68px] rounded-2xl bg-white/5 border border-white/10 overflow-hidden focus-within:border-white/25 focus-within:bg-white/[0.07] transition shadow-lg shadow-black/20">
+                  <div className="relative flex items-center shrink-0 flex-1 min-w-[130px]">
                     <select
                       value={selectedCountry.label}
                       onChange={(e) => {
                         const country = COUNTRY_CODES.find(c => c.label === e.target.value);
                         setSelectedCountry(country);
                       }}
-                      className="w-full h-full bg-transparent text-white text-[14px] pl-4 pr-8 outline-none appearance-none cursor-pointer hover:bg-white/5 transition"
+                      className="w-full h-full bg-transparent text-white text-[13px] sm:text-[15px] pl-3 sm:pl-4 pr-8 sm:pr-10 outline-none appearance-none cursor-pointer hover:bg-white/5 transition"
                     >
                       {sortedCountries.map((c, i) => (
                         <option key={i} value={c.label} className="bg-[#151515]">
-                          {c.flag} {c.code}
+                          {c.flag} {c.code} ({c.label})
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-white/40">
+                    <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/40">
                       <ChevronDown />
                     </div>
                   </div>
@@ -238,7 +238,7 @@ export default function CareerApplySection({
                     onChange={handleChange}
                     placeholder="Phone Number"
                     inputMode="numeric"
-                    className="flex-1 px-5 bg-transparent text-white placeholder:text-white/35 outline-none"
+                    className="flex-[3] px-5 bg-transparent text-white text-[19px] placeholder:text-white/35 outline-none"
                   />
                 </div>
               </div>
