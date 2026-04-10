@@ -5,265 +5,191 @@ import Link from "next/link";
 import Image from "next/image";
 
 import logo from "../../assets/logos/logo.svg";
-import { Quicksand } from "next/font/google";
+import { Cormorant_Garamond, Montserrat } from "next/font/google";
 
-// ✅ Create the font instance ONCE (outside component)
-const quicksand = Quicksand({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
 export default function Footer() {
   return (
-    <footer className={`w-full bg-[#2a2a2a] text-white ${quicksand.className}`}>
-      {/* Top content */}
-      <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-12 md:py-12">
-        {/* Desktop */}
-        <div className="hidden md:grid grid-cols-[1.1fr_1fr_0.9fr] gap-10 items-start">
-          {/* Left: Logo + Locations */}
+    <footer className={`w-full bg-[#1E1E1E] text-white border-t border-[#2e2e2e] ${montserrat.className}`}>
+      <div className="mx-auto max-w-[1280px] px-10 py-14">
+        {/* Main Grid */}
+        <div className="hidden md:grid grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-12 items-start">
+          
+          {/* Column 1: Brand & Locations */}
           <div>
-            <div className="w-[220px]">
-              <Image src={logo} alt="HILLTOP" className="h-auto w-full -ml-3" priority />
+            <div className="flex items-center mb-7">
+              <div className="w-[180px]">
+                <Image src={logo} alt="HILLTOP" className="h-auto w-full -ml-3" priority />
+              </div>
             </div>
 
-            <div className="mt-7">
-              <FooterBlock title="INDIA">
-                <FooterLink href="/locate#hq">Head Office |</FooterLink>
-                <FooterLink href="/locate#factory">Factory |</FooterLink>
-                <FooterLink href="/locate#experience">Experience Centre</FooterLink>
-              </FooterBlock>
+            <div className="space-y-6">
+              <div>
+                <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-2">India</h5>
+                <p className="text-[12px] text-[#C9A84C] opacity-80 mb-2 font-mono">
+                  info@hilltopgranite.com | +91 99000 64364
+                </p>
+                <div className="flex gap-3">
+                  <Link href="/locate#hq" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono">Head Quarters</Link>
+                  <Link href="/locate#factory" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono">Factory</Link>
+                  <Link href="/locate#experience" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono">Experience Centre</Link>
+                </div>
+              </div>
 
-              <FooterBlock title="USA">
-                <FooterLink href="/locate#usa">Distribution Center</FooterLink>
-              </FooterBlock>
-            </div>
-          </div>
-
-          {/* Middle: Quick Links */}
-          <div className="relative pl-10 h-full">
-            {/* divider should match right column height */}
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/25" />
-
-            <h4 className="text-white/90 text-[18px] font-semibold mb-6">Quick Links</h4>
-
-            <div className="grid grid-cols-2 gap-x-10 gap-y-4 text-[#d7a447]">
-              <FooterLink href="/about">
-                Our Story
-              </FooterLink>
-              <FooterLink href="/products">
-                Products
-              </FooterLink>
-              <FooterLink href="/career">
-                Career
-              </FooterLink>
-              <FooterLink href="/blogs">
-                Blog & FAQ
-              </FooterLink>
-              <FooterLink href="https://hilltopstones.stoneprofitsweb.com/">
-                Live Inventory
-              </FooterLink>
-              <FooterLink href="/privacy-policy">
-                Privacy Policy
-              </FooterLink>
-              <FooterLink href="/disclaimer">
-                Disclaimer
-              </FooterLink>
-              <FooterLink href="/terms-and-conditions">
-                Terms & Conditions
-              </FooterLink>
+              <div>
+                <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-2">USA</h5>
+                <p className="text-[12px] text-[#C9A84C] opacity-80 mb-2 font-mono">
+                  info@hilltopgranite.com | +91 99000 64364
+                </p>
+                <div className="flex flex-col gap-1.5">
+                  <Link href="/locate#usa" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono">Distribution Center</Link>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right: Social */}
-          <div className="relative pl-10 h-full">
-            {/* divider should match middle column height */}
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/25" />
+          {/* Column 2: Quick Links */}
+          <div className="relative pl-12 h-full">
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/10" />
+            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Quick Links</h4>
+            <div className="flex flex-col gap-3.5">
+              <FooterLinkGold href="/about">Our Story</FooterLinkGold>
+              <FooterLinkGold href="/products">Products</FooterLinkGold>
+              <FooterLinkGold href="/career">Career</FooterLinkGold>
+              <FooterLinkGold href="/blogs">Blog & FAQ</FooterLinkGold>
+              <FooterLinkGold href="https://hilltopstones.stoneprofitsweb.com/">Live Inventory</FooterLinkGold>
+              <FooterLinkGold href="/privacy-policy">Privacy Policy</FooterLinkGold>
+              <FooterLinkGold href="/disclaimer">Disclaimer</FooterLinkGold>
+              <FooterLinkGold href="/terms-and-conditions">Terms & Conditions</FooterLinkGold>
+            </div>
+          </div>
 
-            <h4 className="text-white/90 text-[18px] font-semibold mb-6">Follow us</h4>
+          {/* Column 3: Product Categories */}
+          <div className="relative pl-12 h-full">
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/10" />
+            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Product Categories</h4>
+            <div className="flex flex-col gap-3.5">
+              <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Onyx">Onyx</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Porcelain">Porcelain</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Quartzite">Quartzite</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Spc">Spc</FooterLinkGold>
+            </div>
+          </div>
 
-            <div className="space-y-4">
-              <SocialRow href="https://www.instagram.com/hilltopgraniteofficial/" label="Instagram" icon={<InstagramIcon />} />
-              <SocialRow href="https://www.facebook.com/HilltopGraniteBangalore/" label="Facebook" icon={<FacebookIcon />} />
-              <SocialRow href="https://www.youtube.com/@hilltopgraniteofficial7267" label="YouTube" icon={<YoutubeIcon />} />
-              <SocialRow href="https://www.linkedin.com/company/hilltopstones?originalSubdomain=in" label="LinkedIn" icon={<LinkedinIcon />} />
+          {/* Column 4: Follow Us & Subscribe */}
+          <div className="relative pl-12 h-full">
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-white/10" />
+            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Follow Us</h4>
+            <div className="flex flex-col gap-4 mb-9">
+              <SocialLinkGold href="https://instagram.com/hilltopgraniteofficial" label="Instagram" icon={<InstagramIcon size={18} />} />
+              <SocialLinkGold href="https://facebook.com/HilltopGraniteBangalore" label="Facebook" icon={<FacebookIcon size={18} />} />
+              <SocialLinkGold href="https://youtube.com/@hilltopgraniteofficial7267" label="YouTube" icon={<YoutubeIcon size={18} />} />
+              <SocialLinkGold href="https://linkedin.com/company/hilltopstones" label="LinkedIn" icon={<LinkedinIcon size={18} />} />
+            </div>
+
+            <div className="pt-7 border-t border-[#333]">
+              <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-1.5 font-mono text-white">Subscribe</h4>
+              <p className="text-[11px] text-[#888] tracking-[0.04em] mb-4 font-mono">Stay updated with our latest collections</p>
+              <div className="flex h-10">
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="flex-1 bg-transparent border border-[#555] px-3.5 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono"
+                />
+                <button className="bg-[#C9A84C] text-[#1E1E1E] px-4 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition">
+                  Subscribe
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Mobile */}
-        <div className="md:hidden">
-          {/* Center logo */}
-          <div className="flex justify-center">
-            <div className="w-[210px]">
-              <Image src={logo} alt="HILLTOP" className="h-auto w-full" priority />
-            </div>
-          </div>
+        {/* Mobile View (Legacy-ish but cleaner) */}
+        <div className="md:hidden flex flex-col gap-10">
+           {/* Mobile branding */}
+           <div className="text-center">
+             <span className="text-[20px] font-semibold tracking-[0.18em] text-[#C9A84C] font-mono">HILLTOP</span>
+           </div>
+           
+           <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h5 className="text-[10px] font-bold tracking-[0.16em] uppercase mb-4 text-white">Quick Links</h5>
+                <div className="flex flex-col gap-3">
+                  <FooterLinkGold href="/about">Story</FooterLinkGold>
+                  <FooterLinkGold href="/products">Products</FooterLinkGold>
+                  <FooterLinkGold href="/blogs">Blog</FooterLinkGold>
+                </div>
+              </div>
+              <div>
+                <h5 className="text-[10px] font-bold tracking-[0.16em] uppercase mb-4 text-white">Categories</h5>
+                <div className="flex flex-col gap-3">
+                  <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
+                  <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
+                  <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
+                </div>
+              </div>
+           </div>
 
-          {/* India / USA */}
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-8">
-            <FooterBlockMobile title="INDIA">
-              <FooterLinkMobile href="/locate#hq">Head Office</FooterLinkMobile>
-              <FooterLinkMobile href="/locate#factory">Factory</FooterLinkMobile>
-              <FooterLinkMobile href="/locate#experience">Experience Centre</FooterLinkMobile>
-            </FooterBlockMobile>
-
-            <FooterBlockMobile title="USA">
-              <FooterLinkMobile href="/locate#usa">
-                Experience Centre
-              </FooterLinkMobile>
-            </FooterBlockMobile>
-          </div>
-
-          <Divider />
-
-          {/* Quick links */}
-          <h4 className="text-center text-white/90 text-[22px] font-medium tracking-wide">
-            Quick Links
-          </h4>
-
-          <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-6">
-            <FooterLinkMobile href="/about">About us</FooterLinkMobile>
-            <FooterLinkMobile href="/blogs">Blog</FooterLinkMobile>
-            <FooterLinkMobile href="/products">Products</FooterLinkMobile>
-            <FooterLinkMobile href="/career">Career</FooterLinkMobile>
-            <FooterLinkMobile href="https://hilltopstones.stoneprofitsweb.com/">Live Inventory</FooterLinkMobile>
-            <FooterLinkMobile href="/blogs">FAQ</FooterLinkMobile>
-            <FooterLinkMobile href="/privacy-policy">Privacy Policy</FooterLinkMobile>
-            <FooterLinkMobile href="/disclaimer">Disclaimer</FooterLinkMobile>
-            <FooterLinkMobile href="/terms-and-conditions">Terms & Conditions</FooterLinkMobile>
-          </div>
-
-          <Divider />
-
-          {/* Social */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <span className="text-white/90 text-[18px] font-medium">Follow us</span>
-
-            <a
-              className="text-white/90 hover:text-white transition"
-              href="https://www.instagram.com/hilltopgraniteofficial/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-            >
-              <InstagramIcon size={26} />
-            </a>
-            <a
-              className="text-white/90 hover:text-white transition"
-              href="https://www.facebook.com/HilltopGraniteBangalore/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Facebook"
-            >
-              <FacebookIcon size={26} />
-            </a>
-            <a
-              className="text-white/90 hover:text-white transition"
-              href="https://www.youtube.com/@hilltopgraniteofficial7267"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="YouTube"
-            >
-              <YoutubeIcon size={26} />
-            </a>
-            <a
-              className="text-white/90 hover:text-white transition"
-              href="https://www.linkedin.com/company/hilltopstones?originalSubdomain=in"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon size={26} />
-            </a>
-          </div>
-
-          <Divider />
+           <div className="pt-6 border-t border-[#333]">
+              <div className="flex justify-center gap-6">
+                <SocialLinkGold href="#" label="" icon={<InstagramIcon size={20} />} />
+                <SocialLinkGold href="#" label="" icon={<FacebookIcon size={20} />} />
+                <SocialLinkGold href="#" label="" icon={<YoutubeIcon size={20} />} />
+                <SocialLinkGold href="#" label="" icon={<LinkedinIcon size={20} />} />
+              </div>
+           </div>
         </div>
-      </div>
 
-      {/* Bottom copyright */}
-      <div className="border-t border-white/25">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-6">
-          <p className="hidden md:block text-white/70" style={{ fontSize: '12px' }}>
-            © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
-          </p>
-
-          {/* Mobile centered line */}
-          <p className="md:hidden text-center text-white/70" style={{ fontSize: '11px' }}>
-            © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
-          </p>
+        {/* Bottom bar */}
+        <div className="mt-12 pt-7 border-t border-[#2e2e2e] flex justify-start items-center text-[12px] text-white/50 tracking-[0.02em] font-mono">
+          <span>
+            © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by{" "}
+            <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
+          </span>
         </div>
       </div>
     </footer>
   );
 }
 
-/* -------------------- bits -------------------- */
-
-function FooterBlock({ title, children }) {
-  return (
-    <div>
-      <p className="text-white/95 text-[14px] font-bold tracking-[0.18em]">{title}</p>
-      <div className="mt-4 space-y-4">{children}</div>
-    </div>
-  );
-}
-
-function FooterLink({ href, children, muted }) {
+function FooterLinkGold({ href, children }) {
   return (
     <Link
       href={href}
-      className={[
-        muted ? "text-white/75" : "text-[#d7a447]",
-        "text-[14px] tracking-wide hover:opacity-100 hover:text-white pr-[12px] transition",
-        "inline-block",
-      ].join(" ")}
+      className={`text-[13px] text-[#C9A84C] hover:text-[#E2C175] transition ${montserrat.className} tracking-wide`}
     >
       {children}
     </Link>
   );
 }
 
-function SocialRow({ href, label, icon }) {
+function SocialLinkGold({ href, label, icon }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center gap-3 text-[#d7a447] hover:text-white transition"
+      className="flex items-center gap-3 text-[#d4d4d4] hover:text-[#C9A84C] transition group"
     >
-      <span className="inline-flex h-9 w-9 items-center justify-center text-white/90">
+      <span className="opacity-80 group-hover:opacity-100 transition-opacity">
         {icon}
       </span>
-      <span className="text-[14px] tracking-wide">{label}</span>
+      {label && <span className={`text-[13px] ${montserrat.className} tracking-wide`}>{label}</span>}
     </a>
-  );
-}
-
-function Divider() {
-  return <div className="my-8 h-px w-full bg-white/25" />;
-}
-
-/* -------------------- mobile helpers -------------------- */
-
-function FooterBlockMobile({ title, children }) {
-  return (
-    <div>
-      <p className="text-white text-[18px] font-bold tracking-wide">{title}</p>
-      <div className="mt-5 space-y-4">{children}</div>
-    </div>
-  );
-}
-
-function FooterLinkMobile({ href, children }) {
-  return (
-    <Link
-      href={href}
-      className="block text-[#d7a447] text-[16px] font-medium tracking-wide hover:text-white transition"
-    >
-      {children}
-    </Link>
   );
 }
 
