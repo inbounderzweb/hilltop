@@ -179,13 +179,21 @@ function SectionHeader({ title }) {
 function LogoGrid({ items }) {
   return (
     <div className="mt-3 md:mt-12 flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 md:gap-x-16 gap-y-6 md:gap-y-12">
-      {items.map((it) => (
-        <div key={it.id} className="flex items-center justify-center px-4">
-          <div className="relative w-[110px] sm:w-[160px] md:w-[200px] h-[42px] md:h-[52px]">
-            <Image src={it.src} alt={it.alt} fill className="object-contain" />
+      {items.map((it) => {
+        const isVeneta = it.alt?.toLowerCase().includes("veneta");
+        return (
+          <div key={it.id} className="flex items-center justify-center px-4">
+            <div className={[
+              "relative",
+              isVeneta 
+                ? "w-[180px] sm:w-[260px] md:w-[320px] h-[65px] md:h-[85px] scale-110" 
+                : "w-[110px] sm:w-[160px] md:w-[200px] h-[42px] md:h-[52px]"
+            ].join(" ")}>
+              <Image src={it.src} alt={it.alt} fill className="object-contain" />
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

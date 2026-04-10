@@ -37,10 +37,10 @@ export default function Footer() {
             <div className="space-y-7">
               <div>
                 <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">India</h5>
-                <p className="text-[12px] text-[#C9A84C] opacity-90 mb-3 font-mono leading-relaxed">
+                {/* <p className="text-[12px] text-[#C9A84C] opacity-90 mb-3 font-mono leading-relaxed">
                   info@hilltopgranite.com<br />
                   +91 99000 64364
-                </p>
+                </p> */}
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <Link href="/locate#hq" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Head Office</Link>
                   <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
@@ -52,10 +52,10 @@ export default function Footer() {
 
               <div>
                 <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">USA</h5>
-                <p className="text-[12px] text-[#C9A84C] opacity-90 mb-3 font-mono leading-relaxed">
+                {/* <p className="text-[12px] text-[#C9A84C] opacity-90 mb-3 font-mono leading-relaxed">
                   info@hilltopgranite.com<br />
                   +91 99000 64364
-                </p>
+                </p> */}
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <Link href="/locate#usa" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
                 </div>
@@ -68,7 +68,7 @@ export default function Footer() {
             <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Quick Links</h4>
             <div className="flex flex-col gap-3.5">
               <FooterLinkGold href="/about">Our Story</FooterLinkGold>
-              <FooterLinkGold href="/products">Products</FooterLinkGold>
+              {/* <FooterLinkGold href="/products">Products</FooterLinkGold> */}
               <FooterLinkGold href="/career">Career</FooterLinkGold>
               <FooterLinkGold href="/blogs">Blog & FAQ</FooterLinkGold>
               <FooterLinkGold href="https://hilltopstones.stoneprofitsweb.com/">Live Inventory</FooterLinkGold>
@@ -84,7 +84,7 @@ export default function Footer() {
             <div className="flex flex-col gap-3.5">
               <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
               <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
-              <FooterLinkGold href="/products?category=Onyx">Onyx</FooterLinkGold>
+              {/* <FooterLinkGold href="/products?category=Onyx">Onyx</FooterLinkGold> */}
               <FooterLinkGold href="/products?category=Porcelain">Porcelain</FooterLinkGold>
               <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
               <FooterLinkGold href="/products?category=Quartzite">Quartzite</FooterLinkGold>
@@ -104,7 +104,7 @@ export default function Footer() {
 
             <div className="pt-7 border-t border-[#333]">
               <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-1.5 font-mono text-white">Subscribe</h4>
-              <p className="text-[11px] text-[#888] tracking-[0.04em] mb-4 font-mono">Stay updated with our latest collections</p>
+              {/* <p className="text-[11px] text-[#888] tracking-[0.04em] mb-4 font-mono">Stay updated with our latest collections</p> */}
               <div className="flex h-10">
                 <input
                   type="email"
