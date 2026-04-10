@@ -76,7 +76,6 @@ export async function POST(req: Request) {
                 }
             ]
         });
-
         if (!emailResult.success) {
             return Response.json({
                 success: false,

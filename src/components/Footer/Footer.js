@@ -29,8 +29,8 @@ export default function Footer() {
 
             <div className="mt-7">
               <FooterBlock title="INDIA">
-                <FooterLink href="/locate#hq">Head Quarters</FooterLink>
-                <FooterLink href="/locate#factory">Factory</FooterLink>
+                <FooterLink href="/locate#hq">Head Office |</FooterLink>
+                <FooterLink href="/locate#factory">Factory |</FooterLink>
                 <FooterLink href="/locate#experience">Experience Centre</FooterLink>
               </FooterBlock>
 
@@ -103,14 +103,14 @@ export default function Footer() {
           {/* India / USA */}
           <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-8">
             <FooterBlockMobile title="INDIA">
-              <FooterLinkMobile href="/locate#hq">Head Quarters</FooterLinkMobile>
+              <FooterLinkMobile href="/locate#hq">Head Office</FooterLinkMobile>
               <FooterLinkMobile href="/locate#factory">Factory</FooterLinkMobile>
               <FooterLinkMobile href="/locate#experience">Experience Centre</FooterLinkMobile>
             </FooterBlockMobile>
 
             <FooterBlockMobile title="USA">
               <FooterLinkMobile href="/locate#usa">
-                Distribution Center
+                Experience Centre
               </FooterLinkMobile>
             </FooterBlockMobile>
           </div>
@@ -185,12 +185,12 @@ export default function Footer() {
       {/* Bottom copyright */}
       <div className="border-t border-white/25">
         <div className="mx-auto max-w-[1400px] px-6 md:px-12 py-6">
-          <p className="hidden md:block text-white/70 text-[14px]">
+          <p className="hidden md:block text-white/70" style={{ fontSize: '12px' }}>
             © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
           </p>
 
           {/* Mobile centered line */}
-          <p className="md:hidden text-center text-white/70 text-[12px]">
+          <p className="md:hidden text-center text-white/70" style={{ fontSize: '11px' }}>
             © 2026 Hilltop Stones Pvt Ltd - All Rights Reserved. Crafted by <a href="https://inbounderz.com" target="_blank" rel="noreferrer" className="hover:text-white transition">Inbounderz</a>
           </p>
         </div>

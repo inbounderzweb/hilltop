@@ -14,6 +14,7 @@ import usalogo3 from "../../assets/logos/usalogo3.svg";
 import newicon from "../../assets/logos/Layer_1.png";
 import hilltop from '../../assets/logos/hilltop.png';
 import vermora from '../../assets/logos/vermora.jpeg';
+import veneta_cucine from '../../assets/logos/veneta_cucine.png';
 
 
 
@@ -39,6 +40,7 @@ export default function BrandsTabsSection() {
           { id: "usa-p2", src: usalogo2, alt: "Logo 5" },
           { id: "usa-p3", src: usalogo3, alt: "Logo 4" },
           { id: "usa-p4", src: newicon, alt: "New Icon" },
+          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine" }
         ],
       },
       India: {

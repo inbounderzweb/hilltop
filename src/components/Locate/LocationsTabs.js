@@ -61,7 +61,7 @@ const DATA = {
       title: "COLORS OF RAINBOW",
       subtitle: "EXPERIENCE CENTRE",
       address: [
-        "Sy.no.209/5B & 6B, 321/1 Gollapalli",
+        "Sy.no 209/5B & 6B, 321/1 Gollapalli",
         "Shoolagiri PO & Taluk,",
         "Krishnagiri District,",
         "Tamilnadu - 635117,",

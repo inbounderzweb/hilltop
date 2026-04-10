@@ -29,7 +29,7 @@ export default function AboutStorySection() {
               alt="Handshake"
               fill
               priority
-              className="object-cover object-center"
+              className="object-cover object-center brightness-[1.15]"
             />
 
 
@@ -91,7 +91,7 @@ export default function AboutStorySection() {
           {/* Values card */}
           <div >
 
-            <Image src={foundersImg} alt="founder-image" />
+            <Image src={foundersImg} alt="founder-image" className="brightness-[1.15]" />
           </div>
         </div>
       </div>
