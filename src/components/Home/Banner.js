@@ -81,8 +81,8 @@ export default function FadeBanner() {
               sizes="100vw"
             />
 
-            {/* Top → middle black overlay */}
-            <div className="absolute inset-0 bg-linear-to-b from-black/90 via-black/40 to-transparent h-[700px]" />
+            {/* Top → middle black overlay (reduced for clarity) */}
+            <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-transparent h-[700px]" />
 
             {/* Text Overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-start text-center mt-[160px] md:mt-[200px] px-4">
@@ -104,7 +104,7 @@ export default function FadeBanner() {
       </motion.div>
 
       {/* Slide Indicators / Responsive Progress Bar - Horizontal on Mobile, Vertical on Desktop */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:right-10 md:top-1/2 md:-translate-y-1/2 z-30 flex flex-row md:flex-col gap-10 md:translate-x-0 hidden md:flex">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:right-10 md:top-1/2 md:-translate-y-1/2 z-30 hidden md:flex flex-row md:flex-col gap-10 md:translate-x-0">
         {slides.map((_, i) => (
           <div key={i} className="flex flex-col items-center gap-4">
             <span className={`text-[16px] font-bold tracking-tighter transition-all duration-300 ${i === active ? 'text-[#f79421] -translate-y-1' : 'text-white'}`}>

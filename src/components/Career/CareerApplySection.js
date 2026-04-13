@@ -238,7 +238,7 @@ export default function CareerApplySection({
                     onChange={handleChange}
                     placeholder="Phone Number"
                     inputMode="numeric"
-                    className="flex-[3] px-5 bg-transparent text-white text-[19px] placeholder:text-white/35 outline-none"
+                    className="flex-3 px-5 bg-transparent text-white text-[19px] placeholder:text-white/35 outline-none"
                   />
                 </div>
               </div>

@@ -16,15 +16,9 @@ export default function CareerBanner() {
         className="object-cover object-center"
       />
 
-      {/* Black gradient overlay (top → bottom) */}
-      <div
-        className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/80"
-        aria-hidden="true"
-      />
-
       {/* Content */}
       <div className="absolute bottom-[-10px] md:bottom-[-20px] left-0 right-0 z-10 px-6 text-center">
-        <h2 className="text-[#F4E0C2] text-4xl md:text-7xl font-light tracking-tight">
+        <h2 className="text-[#F4E0C2] text-4xl md:text-7xl font-light tracking-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
           Careers
         </h2>
       </div>
