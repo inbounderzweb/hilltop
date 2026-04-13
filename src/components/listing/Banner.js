@@ -16,11 +16,11 @@ export default function ProductListingBanner() {
                 className="object-cover object-top"
             />
 
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e1e]/90 via-[#1e1e1e]/30 to-transparent pointer-events-none z-[5]" />
+            {/* Gradient overlay (only at bottom to keep logo bright) */}
+            <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#1e1e1e] to-transparent pointer-events-none z-[5]" />
 
             {/* Content */}
-            <div className="absolute bottom-[20px] md:bottom-[-5px] left-0 right-0 z-10 px-6 text-center">
+            <div className="absolute bottom-0 md:bottom-[-5px] left-0 right-0 z-10 px-6 text-center">
                 <h2 className="text-[#F4E0C2] text-4xl md:text-xl font-light tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                     Products
                 </h2>
