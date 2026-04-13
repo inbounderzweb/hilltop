@@ -18,7 +18,7 @@ const quicksand = Quicksand({
 
 export default function AboutStorySection() {
   return (
-    <section className="w-full text-white py-10 md:py-16">
+    <section className="w-full text-white py-10 md:py-16 bg-transparent">
       <div className="mx-auto">
         {/* ===== Top: Image + Story ===== */}
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 items-center">
