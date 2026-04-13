@@ -17,7 +17,7 @@ export default function BlogBanner() {
       />
 
       {/* Gradient overlay (only at bottom to keep logo bright) */}
-      <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#1e1e1e] to-transparent pointer-events-none z-[5]" />
+      <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-linear-to-t from-[#1e1e1e] to-transparent pointer-events-none z-5" />
 
       {/* Content */}
       <div className="absolute bottom-0 md:bottom-[-5px] left-0 right-0 z-10 px-6 text-center">

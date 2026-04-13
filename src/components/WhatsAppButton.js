@@ -13,7 +13,7 @@ const WhatsAppButton = () => {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-[1000] group"
+      className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-1000 group"
       aria-label="Contact us on WhatsApp"
     >
       <div className="relative">
