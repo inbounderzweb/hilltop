@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -20,6 +20,30 @@ const montserrat = Montserrat({
 });
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
   return (
     <footer className={`w-full bg-[#1E1E1E] text-white border-t border-[#2e2e2e] ${montserrat.className}`}>
       <div className="mx-auto max-w-[1400px] px-8 md:px-12 py-14">
@@ -117,16 +141,25 @@ export default function Footer() {
             <div className="pt-7 border-t border-[#333]">
               <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-1.5 font-mono text-white">Subscribe</h4>
               {/* <p className="text-[11px] text-[#888] tracking-[0.04em] mb-4 font-mono">Stay updated with our latest collections</p> */}
-              <div className="flex h-10">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 bg-transparent border border-[#555] px-3.5 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono"
-                />
-                <button className="bg-[#C9A84C] text-[#1E1E1E] px-4 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition">
-                  Subscribe
-                </button>
-              </div>
+              {status === "success" ? (
+                <p className="text-[12px] text-[#C9A84C] font-mono mt-2">Thank you! You are now subscribed.</p>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex h-10 relative">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={status === "loading"}
+                    placeholder="Enter your email"
+                    className="flex-1 bg-transparent border border-[#555] px-3.5 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono disabled:opacity-50"
+                  />
+                  <button disabled={status === "loading"} type="submit" className="bg-[#C9A84C] text-[#1E1E1E] px-4 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition disabled:opacity-70">
+                    {status === "loading" ? "..." : "Subscribe"}
+                  </button>
+                  {status === "error" && <p className="absolute -bottom-5 text-[10px] text-red-400 font-mono">Failed to subscribe. Please try again.</p>}
+                </form>
+              )}
             </div>
           </div>
         </div>
@@ -220,20 +253,28 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Subscribe */}
           <div className="pt-8 border-t border-[#333]">
             <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-2 font-mono text-white text-center">Subscribe</h4>
             {/* <p className="text-[11px] text-[#888] tracking-[0.04em] mb-6 font-mono text-center">Stay updated with our latest collections</p> */}
-            <div className="flex h-11 max-w-sm mx-auto w-full">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 bg-transparent border border-[#555] px-4 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono min-w-0"
-              />
-              <button className="bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
+            {status === "success" ? (
+              <p className="text-[12px] text-[#C9A84C] font-mono text-center mt-2">Thank you! You are now subscribed.</p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex h-11 max-w-sm mx-auto w-full relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={status === "loading"}
+                  placeholder="Enter your email"
+                  className="flex-1 bg-transparent border border-[#555] px-4 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono min-w-0 disabled:opacity-50"
+                />
+                <button disabled={status === "loading"} type="submit" className="bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition whitespace-nowrap disabled:opacity-70">
+                  {status === "loading" ? "..." : "Subscribe"}
+                </button>
+                {status === "error" && <p className="absolute -bottom-5 w-full text-center text-[10px] text-red-400 font-mono">Failed to subscribe. Try again.</p>}
+              </form>
+            )}
           </div>
         </div>
 
