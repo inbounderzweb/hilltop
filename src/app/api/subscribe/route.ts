@@ -11,11 +11,15 @@ export async function POST(req: Request) {
             return Response.json({ success: false, error: "Email is required" }, { status: 400 });
         }
 
-<<<<<<< HEAD
-=======
         // --- 1. MAILCHIMP INTEGRATION ---
         const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
         const MAILCHIMP_AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+
+        if (!MAILCHIMP_API_KEY || !MAILCHIMP_AUDIENCE_ID) {
+            console.error("Missing Mailchimp configuration");
+            return Response.json({ success: false, error: "Newsletter service configuration error" }, { status: 500 });
+        }
+
         const MAILCHIMP_DATACENTER = MAILCHIMP_API_KEY.split("-")[1] || "us17";
 
         const mailchimpUrl = `https://${MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
@@ -41,7 +45,6 @@ export async function POST(req: Request) {
         }
 
         // --- 2. ADMIN EMAIL NOTIFICATION ---
->>>>>>> 5adfe62 ((fix) .env added)
         const toEmail = "armaan@hilltopgranite.com, johnd@hilltopgranite.com";
         // const toEmail = "dk.inbounderz@gmail.com";
 
