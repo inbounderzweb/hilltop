@@ -63,7 +63,7 @@ export async function POST(req: Request) {
                         </div>
                     </div>
                     <div style="background-color: #1a1a1a; padding: 20px; text-align: center;">
-                        <p style="color: #888888; font-size: 12px; margin: 0;">&copy; ${new Date().getFullYear()} Hilltop Surfaces. All rights reserved.</p>
+                        <p style="color: #888888; font-size: 12px; margin: 0;">&copy; ${new Date().getFullYear()} Hilltop Stones. All rights reserved.</p>
                         <p style="color: #666666; font-size: 11px; margin: 8px 0 0 0;">Manage applications at <a href="https://hilltopgranite.com/admin" style="color: #DA9C39; text-decoration: none;">Admin Control Center</a></p>
                     </div>
                 </div>

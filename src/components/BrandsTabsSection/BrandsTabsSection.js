@@ -39,8 +39,8 @@ export default function BrandsTabsSection() {
           { id: "usa-p1", src: usalogo1, alt: "Logo 2" },
           { id: "usa-p2", src: usalogo2, alt: "Logo 5" },
           { id: "usa-p3", src: usalogo3, alt: "Logo 4" },
-          { id: "usa-p4", src: newicon, alt: "New Icon" },
-          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine" }
+          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine" },
+          { id: "usa-p5", src: newicon, alt: "New Icon" }
         ],
       },
       India: {
@@ -178,17 +178,11 @@ function SectionHeader({ title }) {
 
 function LogoGrid({ items }) {
   return (
-    <div className="mt-3 md:mt-12 flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 md:gap-x-16 gap-y-6 md:gap-y-12">
+    <div className="mt-3 md:mt-12 flex flex-wrap justify-center items-center gap-x-12 md:gap-x-24 gap-y-10 md:gap-y-16">
       {items.map((it) => {
-        const isVeneta = it.alt?.toLowerCase().includes("veneta");
         return (
-          <div key={it.id} className="flex items-center justify-center px-4">
-            <div className={[
-              "relative",
-              isVeneta
-                ? "w-[180px] sm:w-[260px] md:w-[320px] h-[65px] md:h-[85px] scale-110"
-                : "w-[110px] sm:w-[160px] md:w-[200px] h-[42px] md:h-[52px]"
-            ].join(" ")}>
+          <div key={it.id} className="flex items-center justify-center">
+            <div className="relative w-[140px] sm:w-[200px] md:w-[260px] h-[55px] sm:h-[75px] md:h-[95px]">
               <Image src={it.src} alt={it.alt} fill className="object-contain" />
             </div>
           </div>

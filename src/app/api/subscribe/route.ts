@@ -11,6 +11,37 @@ export async function POST(req: Request) {
             return Response.json({ success: false, error: "Email is required" }, { status: 400 });
         }
 
+<<<<<<< HEAD
+=======
+        // --- 1. MAILCHIMP INTEGRATION ---
+        const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
+        const MAILCHIMP_AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+        const MAILCHIMP_DATACENTER = MAILCHIMP_API_KEY.split("-")[1] || "us17";
+
+        const mailchimpUrl = `https://${MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
+
+        const mailchimpResponse = await fetch(mailchimpUrl, {
+            method: "POST",
+            headers: {
+                Authorization: `Basic ${Buffer.from(`any:${MAILCHIMP_API_KEY}`).toString("base64")}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email_address: email,
+                status: "subscribed",
+            }),
+        });
+
+        const mailchimpData = await mailchimpResponse.json();
+
+        // Allow success if they are simply already subscribed
+        if (!mailchimpResponse.ok && mailchimpData.title !== "Member Exists") {
+            console.error("Mailchimp Error:", mailchimpData);
+            return Response.json({ success: false, error: "Failed to add to Mailchimp" }, { status: mailchimpResponse.status });
+        }
+
+        // --- 2. ADMIN EMAIL NOTIFICATION ---
+>>>>>>> 5adfe62 ((fix) .env added)
         const toEmail = "armaan@hilltopgranite.com, johnd@hilltopgranite.com";
         // const toEmail = "dk.inbounderz@gmail.com";
 

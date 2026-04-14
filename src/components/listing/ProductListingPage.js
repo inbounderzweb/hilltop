@@ -115,11 +115,11 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
         if (!hasMountedPage.current) {
             hasMountedPage.current = true;
             let restored = false;
-            
+
             try {
                 const prevUrl = sessionStorage.getItem('hilltop_products_url');
                 const currUrl = window.location.pathname;
-                
+
                 if (prevUrl === currUrl) {
                     const savedPage = sessionStorage.getItem('hilltop_products_page');
                     if (savedPage) setPage(parseInt(savedPage, 10));
@@ -148,9 +148,9 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                     setSelectedCategories(new Set()); // Reset to All if no param
                 }
             }
-            
+
             sessionStorage.setItem('hilltop_products_url', window.location.pathname);
-            
+
         } else {
             sessionStorage.setItem('hilltop_products_url', window.location.pathname);
             sessionStorage.setItem('hilltop_products_page', page.toString());
@@ -159,6 +159,26 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
             sessionStorage.setItem('hilltop_products_colors', JSON.stringify([...selectedColors]));
         }
     }, [page, query, selectedCategories, selectedColors, initialCategory]);
+
+    const categoryToBrochure = {
+        "Granite": "GRANITE.pdf",
+        "Marble": "MARBLE.pdf",
+        "Porcelain": "PORZE.pdf",
+        "Quartz": "QUARTZ.pdf",
+        "Spc": "FLOOREVO SPC.pdf",
+        "Nano Glass": "NANO_GLASS_BROCHURE.pdf"
+    };
+
+    let activeBrochure = null;
+    // Hide brochure button if 'All' is selected (0) or multiple categories are selected (>1)
+    if (selectedCategories.size === 1) {
+        for (let cat of selectedCategories) {
+            if (categoryToBrochure[cat]) {
+                activeBrochure = categoryToBrochure[cat];
+                break;
+            }
+        }
+    }
 
     return (
         <div className="min-h-screen bg-[#151515] text-white py-14 md:py-20">
@@ -235,12 +255,20 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
 
                     {/* Main Content */}
                     <main className="min-w-0">
-                        <div className="flex justify-end mb-10">
-                            <button className={`flex items-center gap-3 border border-[#DA9C39] text-[#DA9C39] px-8 py-2.5 rounded-lg bg-transparent font-semibold hover:bg-[#DA9C39] hover:text-black transition-all duration-300 ${quicksand.className}`}>
-                                <span>Brochure</span>
-                                <Download size={20} />
-                            </button>
-                        </div>
+                        {activeBrochure && (
+                            <div className="flex justify-end mb-10">
+                                <a
+                                    href={`/brochures/${activeBrochure}`}
+                                    download={activeBrochure}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`flex items-center gap-3 border border-[#DA9C39] text-[#DA9C39] px-8 py-2.5 rounded-lg bg-transparent font-semibold hover:bg-[#DA9C39] hover:text-black transition-all duration-300 ${quicksand.className}`}
+                                >
+                                    <span>Download Brochure</span>
+                                    <Download size={20} />
+                                </a>
+                            </div>
+                        )}
                         {loading ? (
                             <div className="flex flex-col items-center justify-center min-h-[500px]">
                                 <Loader2 className="animate-spin text-[#DA9C39] mb-4" size={48} />
@@ -298,7 +326,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                                                     if (current >= total - 2) return [1, '...', total - 2, total - 1, total];
                                                     return [1, '...', current, '...', total];
                                                 };
-                                                
+
                                                 return getVisiblePages(safePage, totalPages).map((p, index) => (
                                                     p === '...' ? (
                                                         <span key={`ellipsis-${index}`} className="text-white/30 px-1">...</span>
