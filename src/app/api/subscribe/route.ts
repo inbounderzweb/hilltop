@@ -17,13 +17,11 @@ export async function POST(req: Request) {
 
         if (!MAILCHIMP_API_KEY || !MAILCHIMP_AUDIENCE_ID) {
             console.error("Missing Mailchimp configuration");
-            return Response.json({ success: false, error: "Newsletter service configuration error" }, { status: 500 });
+            const data = { MAILCHIMP_API_KEY, MAILCHIMP_AUDIENCE_ID }
+            return Response.json({ success: false, data, error: "Newsletter service configuration error" }, { status: 500 });
         }
 
         const MAILCHIMP_DATACENTER = MAILCHIMP_API_KEY.split("-")[1] || "us17"
-        console.log("MAILCHIMP_DATACENTER", MAILCHIMP_DATACENTER)
-        console.log("MAILCHIMP_API_KEY", MAILCHIMP_API_KEY)
-        console.log("MAILCHIMP_AUDIENCE_ID", MAILCHIMP_AUDIENCE_ID)
 
         const mailchimpUrl = `https://${MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
 
