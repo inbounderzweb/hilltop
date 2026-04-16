@@ -51,7 +51,7 @@ export default function CareerApplySection({
   }, []);
 
   const [selectedCountry, setSelectedCountry] = React.useState(
-    COUNTRY_CODES.find(c => c.label === "United States") || COUNTRY_CODES[0]
+    COUNTRY_CODES.find(c => c.label === "India") || COUNTRY_CODES[0]
   );
 
   const fileRef = React.useRef(null);
@@ -59,7 +59,27 @@ export default function CareerApplySection({
   const [loading, setLoading] = React.useState(false);
   const [status, setStatus] = React.useState(null);
   const [acceptTerms, setAcceptTerms] = React.useState(false);
-
+  React.useEffect(() => {
+    const detectLocation = async () => {
+      try {
+        const geoRes = await fetch('https://ipapi.co/json/').catch(() => null);
+        if (geoRes) {
+          const geoData = await geoRes.json();
+          if (geoData && geoData.country_name) {
+            const country = COUNTRY_CODES.find(c => 
+              c.label.toLowerCase() === geoData.country_name.toLowerCase()
+            );
+            if (country) {
+              setSelectedCountry(country);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Failed to detect location", err);
+      }
+    };
+    detectLocation();
+  }, []);
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));

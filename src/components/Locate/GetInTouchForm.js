@@ -46,7 +46,7 @@ export default function GetInTouchForm({ initialProducts = [] }) {
   }, []);
 
   const [selectedCountry, setSelectedCountry] = useState(
-    COUNTRY_CODES.find(c => c.label === "United States") || COUNTRY_CODES[0]
+    COUNTRY_CODES.find(c => c.label === "India") || COUNTRY_CODES[0]
   );
   const [products, setProducts] = useState(initialProducts);
   const [categories, setCategories] = useState([]);
@@ -59,17 +59,31 @@ export default function GetInTouchForm({ initialProducts = [] }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [prodRes, catRes] = await Promise.all([
+        const [prodRes, catRes, geoRes] = await Promise.all([
           fetch('/api/products?t=' + Date.now()),
-          fetch('/api/categories?t=' + Date.now())
+          fetch('/api/categories?t=' + Date.now()),
+          fetch('https://ipapi.co/json/').catch(() => null)
         ]);
-        const [prodData, catData] = await Promise.all([prodRes.json(), catRes.json()]);
+        
+        const [prodData, catData, geoData] = await Promise.all([
+          prodRes.json(), 
+          catRes.json(),
+          geoRes ? geoRes.json() : Promise.resolve(null)
+        ]);
 
         if (prodData.success) {
           setProducts(prodData.products);
         }
         if (catData.success) {
           setCategories(catData.categories.map(c => c.name));
+        }
+        if (geoData && geoData.country_name) {
+          const country = COUNTRY_CODES.find(c => 
+            c.label.toLowerCase() === geoData.country_name.toLowerCase()
+          );
+          if (country) {
+            setSelectedCountry(country);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch data for form", err);

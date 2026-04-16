@@ -9,7 +9,7 @@ import { Cormorant_Garamond, Montserrat } from "next/font/google";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -60,20 +60,20 @@ export default function Footer() {
 
             <div className="space-y-7">
               <div>
-                <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">India</h5>
+                <h5 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-4 text-white ${cormorantGaramond.className}`}>India</h5>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
-                  <Link href="/locate#hq" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Head Office</Link>
+                  <Link href="/locate#hq" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Head Office</Link>
                   <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
-                  <Link href="/locate#factory" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Factory</Link>
+                  <Link href="/locate#factory" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Factory</Link>
                   <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
-                  <Link href="/locate#experience" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
+                  <Link href="/locate#experience" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Experience Centre</Link>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <a href="mailto:sales@hilltopgranite.com" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                  <a href="mailto:sales@hilltopgranite.com" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                     <EmailIcon size={14} />
                     <span>sales@hilltopgranite.com</span>
                   </a>
-                  <a href="tel:+919900064364" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                  <a href="tel:+919900064364" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                     <PhoneIcon size={14} />
                     <span>+91 99000 64364</span>
                   </a>
@@ -81,16 +81,16 @@ export default function Footer() {
               </div>
 
               <div>
-                <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">USA</h5>
+                <h5 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-4 text-white ${cormorantGaramond.className}`}>USA</h5>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
-                  <Link href="/locate#usa" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
+                  <Link href="/locate#usa" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Experience Centre</Link>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <a href="mailto:info@hilltopgranite.com" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                  <a href="mailto:info@hilltopgranite.com" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                     <EmailIcon size={14} />
                     <span>info@hilltopgranite.com</span>
                   </a>
-                  <a href="tel:+17137308818" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                  <a href="tel:+17137308818" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                     <PhoneIcon size={14} />
                     <span>+1713-730-8818</span>
                   </a>
@@ -101,7 +101,7 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Quick Links</h4>
+            <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-6 text-white ${cormorantGaramond.className}`}>Quick Links</h4>
             <div className="flex flex-col gap-3.5">
               <FooterLinkGold href="/about">Our Story</FooterLinkGold>
               {/* <FooterLinkGold href="/products">Products</FooterLinkGold> */}
@@ -116,7 +116,7 @@ export default function Footer() {
 
           {/* Column 3: Product Categories */}
           <div>
-            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Product Categories</h4>
+            <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-6 text-white ${cormorantGaramond.className}`}>Product Categories</h4>
             <div className="flex flex-col gap-3.5">
               <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
               <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
@@ -130,7 +130,7 @@ export default function Footer() {
 
           {/* Column 4: Follow Us & Subscribe */}
           <div>
-            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-6 font-mono text-white">Follow Us</h4>
+            <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-6 text-white ${cormorantGaramond.className}`}>Follow Us</h4>
             <div className="flex flex-col gap-4 mb-9">
               <SocialLinkGold href="https://instagram.com/hilltopgraniteofficial" label="Instagram" icon={<InstagramIcon size={18} />} />
               <SocialLinkGold href="https://facebook.com/HilltopGraniteBangalore" label="Facebook" icon={<FacebookIcon size={18} />} />
@@ -138,29 +138,30 @@ export default function Footer() {
               <SocialLinkGold href="https://linkedin.com/company/hilltopstones" label="LinkedIn" icon={<LinkedinIcon size={18} />} />
             </div>
 
-            <div className="pt-7 border-t border-[#333]">
-              <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-1.5 font-mono text-white">Subscribe</h4>
-              {/* <p className="text-[11px] text-[#888] tracking-[0.04em] mb-4 font-mono">Stay updated with our latest collections</p> */}
-              {status === "success" ? (
-                <p className="text-[12px] text-[#C9A84C] font-mono mt-2">Thank you! You are now subscribed.</p>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex h-10 relative">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    disabled={status === "loading"}
-                    placeholder="Enter your email"
-                    className="flex-1 bg-transparent border border-[#555] px-3.5 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono disabled:opacity-50"
-                  />
-                  <button disabled={status === "loading"} type="submit" className="bg-[#C9A84C] text-[#1E1E1E] px-4 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition disabled:opacity-70">
-                    {status === "loading" ? "..." : "Subscribe"}
-                  </button>
-                  {status === "error" && <p className="absolute -bottom-5 text-[10px] text-red-400 font-mono">Failed to subscribe. Please try again.</p>}
-                </form>
-              )}
-            </div>
+              <div className="pt-7 border-t border-[#333]">
+                <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-4 text-white ${cormorantGaramond.className}`}>Subscribe</h4>
+                {status === "success" ? (
+                  <p className={`text-[13px] text-[#C9A84C] ${montserrat.className} mt-2`}>Thank you! You are now subscribed.</p>
+                ) : (
+                  <div className="flex flex-col gap-2.5">
+                    <form onSubmit={handleSubscribe} className="flex h-11 relative">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        disabled={status === "loading"}
+                        placeholder="Enter your email"
+                        className={`flex-1 bg-transparent border border-[#555] px-4 text-[13px] text-[#d4d4d4] tracking-[0.04em] outline-none focus:border-[#C9A84C] transition ${montserrat.className} disabled:opacity-50`}
+                      />
+                      <button disabled={status === "loading"} type="submit" className={`bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-bold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition disabled:opacity-70 ${montserrat.className}`}>
+                        {status === "loading" ? "..." : "Subscribe"}
+                      </button>
+                    </form>
+                    {status === "error" && <p className={`text-[11px] text-red-500 ${montserrat.className} font-medium`}>Failed to subscribe. Please try again.</p>}
+                  </div>
+                )}
+              </div>
           </div>
         </div>
 
@@ -176,20 +177,20 @@ export default function Footer() {
           {/* Contact Details */}
           <div className="grid grid-cols-1 gap-10">
             <div>
-              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">India</h5>
+              <h5 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-3 text-white ${cormorantGaramond.className}`}>India</h5>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
-                <Link href="/locate#hq" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Head Office</Link>
+                <Link href="/locate#hq" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Head Office</Link>
                 <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
-                <Link href="/locate#factory" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Factory</Link>
+                <Link href="/locate#factory" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Factory</Link>
                 <span className="text-[#C9A84C] opacity-30 text-[10px]">|</span>
-                <Link href="/locate#experience" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
+                <Link href="/locate#experience" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Experience Centre</Link>
               </div>
               <div className="flex flex-col gap-2">
-                <a href="mailto:sales@hilltopgranite.com" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                <a href="mailto:sales@hilltopgranite.com" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                   <EmailIcon size={14} />
                   <span>sales@hilltopgranite.com</span>
                 </a>
-                <a href="tel:+919900064364" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                <a href="tel:+919900064364" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                   <PhoneIcon size={14} />
                   <span>+91 99000 64364</span>
                 </a>
@@ -197,16 +198,16 @@ export default function Footer() {
             </div>
 
             <div>
-              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-3 text-white">USA</h5>
+              <h5 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-3 text-white ${cormorantGaramond.className}`}>USA</h5>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
-                <Link href="/locate#usa" className="text-[12px] text-[#C9A84C] hover:opacity-100 transition font-mono whitespace-nowrap">Experience Centre</Link>
+                <Link href="/locate#usa" className={`text-[13px] text-[#C9A84C] hover:opacity-100 transition ${montserrat.className} tracking-wide whitespace-nowrap`}>Experience Centre</Link>
               </div>
               <div className="flex flex-col gap-2">
-                <a href="mailto:info@hilltopgranite.com" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                <a href="mailto:info@hilltopgranite.com" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                   <EmailIcon size={14} />
                   <span>info@hilltopgranite.com</span>
                 </a>
-                <a href="tel:+17137308818" className="flex items-center gap-2 text-[12px] text-[#C9A84C] opacity-90 hover:opacity-100 transition font-mono leading-relaxed">
+                <a href="tel:+17137308818" className={`flex items-center gap-2 text-[13px] text-[#C9A84C] opacity-90 hover:opacity-100 transition ${montserrat.className} tracking-wide leading-relaxed`}>
                   <PhoneIcon size={14} />
                   <span>+1713-730-8818</span>
                 </a>
@@ -217,7 +218,7 @@ export default function Footer() {
           {/* Links & Categories */}
           <div className="grid grid-cols-2 gap-x-8 gap-y-12">
             <div>
-              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-5 text-white">Quick Links</h5>
+              <h5 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-5 text-white ${cormorantGaramond.className}`}>Quick Links</h5>
               <div className="flex flex-col gap-3.5">
                 <FooterLinkGold href="/about">Our Story</FooterLinkGold>
                 <FooterLinkGold href="/products">Products</FooterLinkGold>
@@ -230,7 +231,7 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <h5 className="text-[11px] font-bold tracking-[0.16em] uppercase mb-5 text-white">Product Categories</h5>
+              <h5 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-5 text-white ${cormorantGaramond.className}`}>Product Categories</h5>
               <div className="flex flex-col gap-3.5">
                 <FooterLinkGold href="/products?category=Granite">Granite</FooterLinkGold>
                 <FooterLinkGold href="/products?category=Marble">Marble</FooterLinkGold>
@@ -254,26 +255,27 @@ export default function Footer() {
           </div>
 
           <div className="pt-8 border-t border-[#333]">
-            <h4 className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-2 font-mono text-white text-center">Subscribe</h4>
-            {/* <p className="text-[11px] text-[#888] tracking-[0.04em] mb-6 font-mono text-center">Stay updated with our latest collections</p> */}
+            <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-4 text-white text-center ${cormorantGaramond.className}`}>Subscribe</h4>
             {status === "success" ? (
-              <p className="text-[12px] text-[#C9A84C] font-mono text-center mt-2">Thank you! You are now subscribed.</p>
+              <p className={`text-[13px] text-[#C9A84C] ${montserrat.className} text-center mt-2`}>Thank you! You are now subscribed.</p>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex h-11 max-w-sm mx-auto w-full relative">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={status === "loading"}
-                  placeholder="Enter your email"
-                  className="flex-1 bg-transparent border border-[#555] px-4 text-[12px] text-[#d4d4d4] tracking-[0.08em] outline-none focus:border-[#C9A84C] transition font-mono min-w-0 disabled:opacity-50"
-                />
-                <button disabled={status === "loading"} type="submit" className="bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition whitespace-nowrap disabled:opacity-70">
-                  {status === "loading" ? "..." : "Subscribe"}
-                </button>
-                {status === "error" && <p className="absolute -bottom-5 w-full text-center text-[10px] text-red-400 font-mono">Failed to subscribe. Try again.</p>}
-              </form>
+              <div className="flex flex-col gap-3 max-w-sm mx-auto w-full">
+                <form onSubmit={handleSubscribe} className="flex h-11 relative">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={status === "loading"}
+                    placeholder="Enter your email"
+                    className={`flex-1 bg-transparent border border-[#555] px-4 text-[13px] text-[#d4d4d4] tracking-[0.04em] outline-none focus:border-[#C9A84C] transition ${montserrat.className} min-w-0 disabled:opacity-50`}
+                  />
+                  <button disabled={status === "loading"} type="submit" className={`bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-bold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition whitespace-nowrap disabled:opacity-70 ${montserrat.className}`}>
+                    {status === "loading" ? "..." : "Subscribe"}
+                  </button>
+                </form>
+                {status === "error" && <p className={`text-[11px] text-red-500 ${montserrat.className} text-center font-medium`}>Failed to subscribe. Please try again.</p>}
+              </div>
             )}
           </div>
         </div>
@@ -294,7 +296,7 @@ function FooterLinkGold({ href, children }) {
   return (
     <Link
       href={href}
-      className={`text-[13px] text-[#C9A84C] hover:text-[#E2C175] transition ${montserrat.className} tracking-wide`}
+      className={`text-[13.5px] text-[#C9A84C] hover:text-[#E2C175] transition ${montserrat.className} tracking-wide font-normal`}
     >
       {children}
     </Link>
@@ -312,7 +314,7 @@ function SocialLinkGold({ href, label, icon }) {
       <span className="opacity-80 group-hover:opacity-100 transition-opacity">
         {icon}
       </span>
-      {label && <span className={`text-[13px] ${montserrat.className} tracking-wide`}>{label}</span>}
+      {label && <span className={`text-[13.5px] ${montserrat.className} tracking-wide font-normal`}>{label}</span>}
     </a>
   );
 }
