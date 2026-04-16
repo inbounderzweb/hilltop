@@ -81,9 +81,19 @@ export async function POST(req: Request) {
             }, { status: 500 });
         }
 
+        // return Response.json({
+        //     success: true, emailResult,
+        //     message: "Subscribed successfully",
+        // });
+
         return Response.json({
-            success: true, emailResult,
-            message: "Subscribed successfully",
+            success: true,
+            debug: {
+                key: process.env.MAILCHIMP_API_KEY,
+                id: process.env.MAILCHIMP_AUDIENCE_ID,
+                datacenter: MAILCHIMP_DATACENTER,
+                url: mailchimpUrl
+            }
         });
 
     } catch (error: any) {
