@@ -130,7 +130,7 @@ export default function Footer() {
 
           {/* Column 4: Follow Us & Subscribe */}
           <div>
-            <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-6 text-white ${cormorantGaramond.className}`}>Follow Us</h4>
+            <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-6 ${cormorantGaramond.className}`}>Follow Us</h4>
             <div className="flex flex-col gap-4 mb-9">
               <SocialLinkGold href="https://instagram.com/hilltopgraniteofficial" label="Instagram" icon={<InstagramIcon size={18} />} />
               <SocialLinkGold href="https://facebook.com/HilltopGraniteBangalore" label="Facebook" icon={<FacebookIcon size={18} />} />
@@ -138,30 +138,30 @@ export default function Footer() {
               <SocialLinkGold href="https://linkedin.com/company/hilltopstones" label="LinkedIn" icon={<LinkedinIcon size={18} />} />
             </div>
 
-              <div className="pt-7 border-t border-[#333]">
-                <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-4 text-white ${cormorantGaramond.className}`}>Subscribe</h4>
-                {status === "success" ? (
-                  <p className={`text-[13px] text-[#C9A84C] ${montserrat.className} mt-2`}>Thank you! You are now subscribed.</p>
-                ) : (
-                  <div className="flex flex-col gap-2.5">
-                    <form onSubmit={handleSubscribe} className="flex h-11 relative">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        disabled={status === "loading"}
-                        placeholder="Enter your email"
-                        className={`flex-1 bg-transparent border border-[#555] px-4 text-[13px] text-[#d4d4d4] tracking-[0.04em] outline-none focus:border-[#C9A84C] transition ${montserrat.className} disabled:opacity-50`}
-                      />
-                      <button disabled={status === "loading"} type="submit" className={`bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-bold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition disabled:opacity-70 ${montserrat.className}`}>
-                        {status === "loading" ? "..." : "Subscribe"}
-                      </button>
-                    </form>
-                    {status === "error" && <p className={`text-[11px] text-red-500 ${montserrat.className} font-medium`}>Failed to subscribe. Please try again.</p>}
-                  </div>
-                )}
-              </div>
+            <div className="pt-7 border-t border-[#333]">
+              <h4 className={`text-[12px] font-bold tracking-[0.16em] uppercase mb-4 text-white ${cormorantGaramond.className}`}>Subscribe</h4>
+              {status === "success" ? (
+                <p className={`text-[13px] text-[#C9A84C] ${montserrat.className} mt-2`}>Thank you! You are now subscribed.</p>
+              ) : (
+                <div className="flex flex-col gap-2.5">
+                  <form onSubmit={handleSubscribe} className="flex h-11 relative">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      disabled={status === "loading"}
+                      placeholder="Enter your email"
+                      className={`flex-1 bg-transparent border border-[#555] px-4 text-[13px] text-[#d4d4d4] tracking-[0.04em] outline-none focus:border-[#C9A84C] transition ${montserrat.className} disabled:opacity-50`}
+                    />
+                    <button disabled={status === "loading"} type="submit" className={`bg-[#C9A84C] text-[#1E1E1E] px-5 text-[11px] font-bold tracking-[0.12em] uppercase hover:bg-[#E2C175] transition disabled:opacity-70 ${montserrat.className}`}>
+                      {status === "loading" ? "..." : "Subscribe"}
+                    </button>
+                  </form>
+                  {status === "error" && <p className={`text-[11px] text-red-500 ${montserrat.className} font-medium`}>Failed to subscribe. Please try again.</p>}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -309,7 +309,7 @@ function SocialLinkGold({ href, label, icon }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center gap-3 text-[#d4d4d4] hover:text-[#C9A84C] transition group"
+      className="flex items-center gap-3 text-[#C9A84C] hover:text-[#E2C175] transition group"
     >
       <span className="opacity-80 group-hover:opacity-100 transition-opacity">
         {icon}
