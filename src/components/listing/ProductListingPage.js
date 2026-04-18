@@ -160,14 +160,16 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
         }
     }, [page, query, selectedCategories, selectedColors, initialCategory]);
 
-    const categoryToBrochure = {
-        "Granite": "GRANITE.pdf",
-        "Marble": "MARBLE.pdf",
-        "Porcelain": "PORZE.pdf",
-        "Quartz": "QUARTZ.pdf",
-        "Spc": "FLOOREVO SPC.pdf",
-        "Nano Glass": "NANO_GLASS_BROCHURE.pdf"
-    };
+    // const categoryToBrochure = {
+    //     "Granite": "GRANITE.pdf",
+    //     "Marble": "MARBLE.pdf",
+    //     "Porcelain": "PORZE.pdf",
+    //     "Quartz": "QUARTZ.pdf",
+    //     "Spc": "FLOOREVO SPC.pdf",
+    //     "Nano Glass": "NANO_GLASS_BROCHURE.pdf"
+    // };
+
+    const categoryToBrochure = {}
 
     let activeBrochure = null;
     // Hide brochure button if 'All' is selected (0) or multiple categories are selected (>1)

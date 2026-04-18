@@ -15,6 +15,14 @@ export async function POST(req: Request) {
         const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
         const MAILCHIMP_AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
 
+        return Response.json({
+            success: true,
+            debug: {
+                key: process.env.MAILCHIMP_API_KEY,
+                id: process.env.MAILCHIMP_AUDIENCE_ID
+            }
+        });
+
         if (!MAILCHIMP_API_KEY || !MAILCHIMP_AUDIENCE_ID) {
             console.error("Missing Mailchimp configuration");
             const data = { MAILCHIMP_API_KEY, MAILCHIMP_AUDIENCE_ID }
