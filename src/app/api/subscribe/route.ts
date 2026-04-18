@@ -15,15 +15,24 @@ export async function POST(req: Request) {
         const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
         const MAILCHIMP_AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
 
-        if (!MAILCHIMP_API_KEY || !MAILCHIMP_AUDIENCE_ID) {
-            console.error("Missing Mailchimp configuration");
-            const data = { MAILCHIMP_API_KEY, MAILCHIMP_AUDIENCE_ID }
-            return Response.json({ success: false, data, error: "Newsletter service configuration error" }, { status: 500 });
-        }
-
         const MAILCHIMP_DATACENTER = MAILCHIMP_API_KEY.split("-")[1] || "us17"
 
         const mailchimpUrl = `https://${MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
+
+        if (!MAILCHIMP_API_KEY || !MAILCHIMP_AUDIENCE_ID) {
+            console.error("Missing Mailchimp configuration");
+            const data = { MAILCHIMP_API_KEY, MAILCHIMP_AUDIENCE_ID }
+            return Response.json({
+                success: true,
+                debug: {
+                    key: process.env.MAILCHIMP_API_KEY,
+                    id: process.env.MAILCHIMP_AUDIENCE_ID,
+                    datacenter: MAILCHIMP_DATACENTER,
+                    url: mailchimpUrl
+                }
+            });
+            // return Response.json({ success: false, data, error: "Newsletter service configuration error" }, { status: 500 });
+        }
 
         const mailchimpResponse = await fetch(mailchimpUrl, {
             method: "POST",
@@ -81,20 +90,20 @@ export async function POST(req: Request) {
             }, { status: 500 });
         }
 
-        // return Response.json({
-        //     success: true, emailResult,
-        //     message: "Subscribed successfully",
-        // });
-
         return Response.json({
-            success: true,
-            debug: {
-                key: process.env.MAILCHIMP_API_KEY,
-                id: process.env.MAILCHIMP_AUDIENCE_ID,
-                datacenter: MAILCHIMP_DATACENTER,
-                url: mailchimpUrl
-            }
+            success: true, emailResult,
+            message: "Subscribed successfully",
         });
+
+        // return Response.json({
+        //     success: true,
+        //     debug: {
+        //         key: process.env.MAILCHIMP_API_KEY,
+        //         id: process.env.MAILCHIMP_AUDIENCE_ID,
+        //         datacenter: MAILCHIMP_DATACENTER,
+        //         url: mailchimpUrl
+        //     }
+        // });
 
     } catch (error: any) {
         console.error("SUBSCRIBE ERROR:", error);
