@@ -1,4 +1,11 @@
 import React from 'react';
+import { Quicksand } from "next/font/google";
+
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "Privacy Policy | Hilltop Surfaces",
@@ -7,17 +14,17 @@ export const metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="bg-[#1e1e1e] min-h-screen pt-32 pb-24 font-sans">
+    <div className="bg-[#1e1e1e] min-h-screen pt-32 pb-24">
       <div className="max-w-4xl mx-auto px-6 md:px-12 text-white/80">
-        <h1 className="text-4xl md:text-5xl font-bold mb-10 text-white tracking-wide">Privacy Policy</h1>
+        <h1 className="text-4xl md:text-5xl font-medium mb-10 text-white tracking-wide">Privacy Policy</h1>
         
-        <div className="space-y-8 text-base md:text-lg font-light leading-relaxed">
+        <div className={`space-y-8 text-base md:text-lg font-light leading-relaxed ${quicksand.className}`}>
           <p>
             HillTopGranites (“we”, “our”, “us”) operates in India and the United States and supplies granite, marble, quartzite, quartz, SPC flooring, and porcelain materials. We respect your privacy and are committed to protecting your personal information.
           </p>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Information We Collect</h2>
+            <h2 className="text-2xl font-medium text-white mb-4 [&_h2]:font-inherit" style={{ fontFamily: "inherit" }}>Information We Collect</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Name, email, phone number</li>
               <li>Company/project details</li>
@@ -26,7 +33,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">How We Use Your Information</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>How We Use Your Information</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Respond to inquiries and provide quotations</li>
               <li>Process orders and business communication</li>
@@ -36,7 +43,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Cookies & Tracking</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>Cookies & Tracking</h2>
             <p className="mb-4">
               We use cookies and tools like Google Analytics and Google Ads to improve user experience and marketing performance. You can learn more about how Google uses data from sites that use its services here:
             </p>
@@ -50,7 +57,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Data Sharing</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>Data Sharing</h2>
             <p className="mb-4">We do not sell your data. We may share it with:</p>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>Logistics & delivery partners</li>
@@ -67,21 +74,21 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">International Transfers</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>International Transfers</h2>
             <p>
               Your data may be processed in India and the United States with appropriate safeguards.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Data Security</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>Data Security</h2>
             <p>
               We take reasonable measures to protect your data, but no system is 100% secure.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Your Rights</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>Your Rights</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Access, correct, or delete your data</li>
               <li>Opt out of marketing communications</li>
@@ -89,7 +96,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Contact</h2>
+            <h2 className="text-2xl font-medium text-white mb-4" style={{ fontFamily: "inherit" }}>Contact</h2>
             <p>
               Email: <a href="mailto:info@hilltopgranite.com" className="text-[#d7a447] hover:underline">info@hilltopgranite.com</a>
             </p>
