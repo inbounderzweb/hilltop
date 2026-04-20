@@ -239,7 +239,7 @@ export default function Footer() {
                 <FooterLinkGold href="/products?category=Porcelain">Porcelain</FooterLinkGold>
                 <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
                 <FooterLinkGold href="/products?category=Quartzite">Quartzite</FooterLinkGold>
-                <FooterLinkGold href="/products?category=Spc">Spc</FooterLinkGold>
+                <FooterLinkGold href="/products?category=SPC">SPC</FooterLinkGold>
               </div>
             </div>
           </div>

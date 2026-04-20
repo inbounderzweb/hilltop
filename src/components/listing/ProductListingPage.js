@@ -114,41 +114,45 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
     useEffect(() => {
         if (!hasMountedPage.current) {
             hasMountedPage.current = true;
-            let restored = false;
+            let initialSet = new Set();
+            let initialRestored = false;
 
-            try {
-                const prevUrl = sessionStorage.getItem('hilltop_products_url');
-                const currUrl = window.location.pathname;
+            if (initialCategory) {
+                const decoded = decodeURIComponent(initialCategory);
+                // The API categories might be fetched later, so we just use the decoded value.
+                // We'll normalize it to uppercase if it's "spc" to match API "SPC"
+                const normalized = decoded.toLowerCase() === 'spc' ? 'SPC' : decoded;
+                initialSet.add(normalized);
+                initialRestored = true;
+            }
 
-                if (prevUrl === currUrl) {
-                    const savedPage = sessionStorage.getItem('hilltop_products_page');
-                    if (savedPage) setPage(parseInt(savedPage, 10));
+            if (!initialRestored) {
+                try {
+                    const prevUrl = sessionStorage.getItem('hilltop_products_url');
+                    const currUrl = window.location.pathname;
 
-                    const savedQuery = sessionStorage.getItem('hilltop_products_query');
-                    if (savedQuery) setQuery(savedQuery);
+                    if (prevUrl === currUrl) {
+                        const savedPage = sessionStorage.getItem('hilltop_products_page');
+                        if (savedPage) setPage(parseInt(savedPage, 10));
 
-                    const savedCategories = sessionStorage.getItem('hilltop_products_categories');
-                    if (savedCategories) {
-                        setSelectedCategories(new Set(JSON.parse(savedCategories)));
-                        restored = true;
+                        const savedQuery = sessionStorage.getItem('hilltop_products_query');
+                        if (savedQuery) setQuery(savedQuery);
+
+                        const savedCategories = sessionStorage.getItem('hilltop_products_categories');
+                        if (savedCategories) {
+                            initialSet = new Set(JSON.parse(savedCategories));
+                            initialRestored = true;
+                        }
+
+                        const savedColors = sessionStorage.getItem('hilltop_products_colors');
+                        if (savedColors) setSelectedColors(new Set(JSON.parse(savedColors)));
                     }
-
-                    const savedColors = sessionStorage.getItem('hilltop_products_colors');
-                    if (savedColors) setSelectedColors(new Set(JSON.parse(savedColors)));
-                }
-            } catch (e) {
-                console.error("Failed to restore filters", e);
-            }
-
-            if (!restored) {
-                if (initialCategory) {
-                    const decoded = decodeURIComponent(initialCategory);
-                    setSelectedCategories(new Set([decoded]));
-                } else {
-                    setSelectedCategories(new Set()); // Reset to All if no param
+                } catch (e) {
+                    console.error("Failed to restore filters", e);
                 }
             }
 
+            setSelectedCategories(initialSet);
             sessionStorage.setItem('hilltop_products_url', window.location.pathname);
 
         } else {

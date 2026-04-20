@@ -68,9 +68,9 @@ export default function TrustCountersSection() {
   const stats = useMemo(
     () => [
       { to: 36, suffix: "+", label: "Years Expertise" },
-      { to: 500, suffix: "+", label: "Stone Variants" },
+      { to: 600, suffix: "+", label: "Stone Variants" },
       { to: 65, suffix: "+", label: "Countries Served" },
-      { to: 8000, suffix: "+", label: "Satisfied Customers" },
+      { to: 20000, suffix: "+", label: "Satisfied Customers" },
     ],
     []
   );
@@ -111,8 +111,8 @@ export default function TrustCountersSection() {
       </div>
 
       {/* Content */}
-        <div
-          className="
+      <div
+        className="
           relative mx-auto max-w-350 px-4 md:px-10
           py-16 md:py-24
           min-h-185 md:min-h-130
@@ -120,19 +120,19 @@ export default function TrustCountersSection() {
         "
       >
         {/* Headline */}
-     <div className="text-center">
-  <h2
-    className="
+        <div className="text-center">
+          <h2
+            className="
       text-white/95 font-medium
       leading-tight tracking-wide
       text-[34px] md:text-[52px]
     "
-  >
-    A Legacy of Trust <br className="hidden md:block" />
-    Revered Across the <br className="md:hidden" />
-    World
-  </h2>
-</div>
+          >
+            A Legacy of Trust <br className="hidden md:block" />
+            Revered Across the <br className="md:hidden" />
+            World
+          </h2>
+        </div>
 
         {/* ✅ MOBILE layout (like screenshot): stacked single column */}
         <div className="mt-14 md:hidden flex flex-col items-center gap-16">

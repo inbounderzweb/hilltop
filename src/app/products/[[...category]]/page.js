@@ -15,11 +15,18 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
     const resolvedParams = await params;
+    const resolvedSearchParams = await searchParams;
+
     // [[...category]] returns an array or undefined
     const categoryArray = resolvedParams.category;
-    const initialCategory = categoryArray ? categoryArray[0] : null;
+    let initialCategory = categoryArray ? categoryArray[0] : null;
+
+    // If no route param, check query param
+    if (!initialCategory && resolvedSearchParams.category) {
+        initialCategory = resolvedSearchParams.category;
+    }
 
     let allowedCategories = null;
     let displayCategory = initialCategory;
