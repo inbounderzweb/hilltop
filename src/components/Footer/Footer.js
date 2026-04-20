@@ -124,7 +124,7 @@ export default function Footer() {
               <FooterLinkGold href="/products?category=Porcelain">Porcelain</FooterLinkGold>
               <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
               <FooterLinkGold href="/products?category=Quartzite">Quartzite</FooterLinkGold>
-              <FooterLinkGold href="/products?category=Spc">Spc</FooterLinkGold>
+              <FooterLinkGold href="/products?category=Spc">Stone Polymer Composite (SPC)</FooterLinkGold>
             </div>
           </div>
 
@@ -239,7 +239,7 @@ export default function Footer() {
                 <FooterLinkGold href="/products?category=Porcelain">Porcelain</FooterLinkGold>
                 <FooterLinkGold href="/products?category=Quartz">Quartz</FooterLinkGold>
                 <FooterLinkGold href="/products?category=Quartzite">Quartzite</FooterLinkGold>
-                <FooterLinkGold href="/products?category=SPC">SPC</FooterLinkGold>
+                <FooterLinkGold href="/products?category=SPC">Stone Polymer Composite (SPC)</FooterLinkGold>
               </div>
             </div>
           </div>

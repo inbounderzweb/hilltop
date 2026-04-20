@@ -46,7 +46,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
 
   const productLinks = useMemo(
     () => categories.map(cat => ({
-      label: cat.name,
+      label: cat.name === 'SPC' ? 'Stone Polymer Composite - SPC' : cat.name,
       href: `/products/${cat.name}`
     })),
     [categories]
