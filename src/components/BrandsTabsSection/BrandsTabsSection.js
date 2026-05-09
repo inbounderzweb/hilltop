@@ -36,11 +36,11 @@ export default function BrandsTabsSection() {
           { id: "usa-5", src: logo5, alt: "Logo 5" },
         ],
         partnered: [
-          { id: "usa-p1", src: usalogo1, alt: "Logo 2" },
-          { id: "usa-p2", src: usalogo2, alt: "Logo 5" },
-          { id: "usa-p3", src: usalogo3, alt: "Logo 4" },
-          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine" },
-          { id: "usa-p5", src: newicon, alt: "New Icon" }
+          { id: "usa-p1", src: usalogo1, alt: "Logo 2", href: "https://www.atlasconcorde.com/en" },
+          { id: "usa-p2", src: usalogo2, alt: "Logo 5", href: " https://www.abk.it/en" },
+          { id: "usa-p3", src: usalogo3, alt: "Logo 4", href: "https://www.versace-ceramics.com/en" },
+          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine", href: "https://www.venetacucine.com/en" },
+          { id: "usa-p5", src: newicon, alt: "New Icon", href: "https://www.neolith.com" }
         ],
       },
       India: {
@@ -183,7 +183,8 @@ function LogoGrid({ items }) {
         return (
           <div key={it.id} className="flex items-center justify-center">
             <div className="relative w-[140px] sm:w-[200px] md:w-[260px] h-[55px] sm:h-[75px] md:h-[95px]">
-              <Image src={it.src} alt={it.alt} fill className="object-contain" />
+              <a target="_blank" href={it.href}><Image src={it.src} alt={it.alt} fill className="object-contain" />
+              </a>
             </div>
           </div>
         );
