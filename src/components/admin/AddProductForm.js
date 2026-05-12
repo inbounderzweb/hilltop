@@ -23,7 +23,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
     const [existingVideoUrl, setExistingVideoUrl] = useState("");
 
     // Gallery state
-    const [gallery, setGallery] = useState([]); // [{ file: null, link: "", existingUrl: "" }]
+    const [gallery, setGallery] = useState([]); // [{ id: string, file: null, link: "", existingUrl: "" }]
 
     // Real-time fetching state
     const [categories, setCategories] = useState([]);
@@ -84,6 +84,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             setExistingVideoUrl(initialData.product_video_url || "");
             if (initialData.gallery && Array.isArray(initialData.gallery)) {
                 setGallery(initialData.gallery.map(item => ({
+                    id: Math.random().toString(36).substring(7) + Date.now(),
                     file: null,
                     link: item.link || "",
                     existingUrl: item.url || ""
@@ -108,18 +109,19 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
     };
 
     const addGalleryItem = () => {
-        setGallery([...gallery, { file: null, link: "", existingUrl: "" }]);
+        setGallery([...gallery, { id: Math.random().toString(36).substring(7) + Date.now(), file: null, link: "", existingUrl: "" }]);
     };
 
-    const removeGalleryItem = (index) => {
-        setGallery(gallery.filter((_, i) => i !== index));
+    const removeGalleryItem = (id) => {
+        setGallery(gallery.filter((item) => item.id !== id));
     };
 
     const handleMultipleGalleryItems = (e) => {
         const files = Array.from(e.target.files);
         if (!files.length) return;
         
-        const newItems = files.map(file => ({
+        const newItems = files.map((file, i) => ({
+            id: Math.random().toString(36).substring(7) + Date.now() + i,
             file,
             link: "",
             existingUrl: ""
@@ -169,14 +171,10 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
         });
     };
 
-    const updateGalleryItem = (index, field, value) => {
-        const newGallery = [...gallery];
-        if (field === 'file') {
-            newGallery[index].file = value;
-        } else {
-            newGallery[index][field] = value;
-        }
-        setGallery(newGallery);
+    const updateGalleryItem = (id, field, value) => {
+        setGallery((prev) => prev.map(item => 
+            item.id === id ? { ...item, [field]: value } : item
+        ));
     };
 
     const handleSubmit = async (e) => {
@@ -228,17 +226,21 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                 }
             }
             
+            const galleryLayout = [];
             for (const item of processedGallery) {
                 if (item?.type === 'new') {
                     payload.append("gallery_images", item.file);
                     links.push(item.link);
+                    galleryLayout.push({ type: 'new' });
                 } else if (item?.type === 'existing') {
                     existingItems.push({ url: item.url, link: item.link });
+                    galleryLayout.push({ type: 'existing' });
                 }
             }
 
             payload.append("gallery_links", JSON.stringify(links));
             payload.append("existing_gallery", JSON.stringify(existingItems));
+            payload.append("gallery_layout", JSON.stringify(galleryLayout));
 
             const url = isEdit ? `/api/products/${initialData.id}` : "/api/products";
             const method = isEdit ? "PUT" : "POST";
@@ -451,29 +453,32 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                     </div>
 
                     <div className="grid gap-3">
-                        {gallery.map((item, idx) => (
-                            <div key={idx} className="bg-white/2 border border-white/5 p-3 rounded-lg relative">
-                                <button type="button" onClick={() => removeGalleryItem(idx)} className="absolute top-2 right-2 text-white/10 hover:text-red-500 transition">
+                        {gallery.map((item) => (
+                            <div key={item.id} className="bg-white/2 border border-white/5 p-3 rounded-lg relative">
+                                <button type="button" onClick={() => removeGalleryItem(item.id)} className="absolute top-2 right-2 text-white/10 hover:text-red-500 transition">
                                     <X size={14} />
                                 </button>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                                     <div>
                                         <label className="block text-[9px] font-bold text-white/30 uppercase tracking-widest mb-1.5">Gallery Image</label>
-                                        <div className="flex items-center gap-3">
-                                            {!item.file && !item.existingUrl && (
-                                                <input type="file" accept="image/*" onChange={(e) => updateGalleryItem(idx, 'file', e.target.files[0])} className="text-[10px] text-white/50 w-full" />
+                                        <div className="flex flex-col gap-2 w-full">
+                                            {!item.file && (
+                                                <input type="file" accept="image/*" onChange={(e) => updateGalleryItem(item.id, 'file', e.target.files[0])} className="text-[10px] text-white/50 w-full" />
                                             )}
                                             {item.file && (
                                                 <div className="text-[10px] text-[#eba14d] truncate font-bold bg-[#eba14d]/10 px-3 py-1.5 rounded w-full flex justify-between items-center">
                                                     <span className="truncate">{item.file.name}</span>
-                                                    <button type="button" onClick={() => updateGalleryItem(idx, 'file', null)} className="ml-2 text-white/50 hover:text-red-500">
+                                                    <button type="button" onClick={() => updateGalleryItem(item.id, 'file', null)} className="ml-2 text-white/50 hover:text-red-500">
                                                         <X size={12} />
                                                     </button>
                                                 </div>
                                             )}
                                             {item.existingUrl && !item.file && (
-                                                <img src={item.existingUrl} className="w-8 h-8 rounded border border-white/10" alt="Gallery" />
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[9px] text-white/40">Current:</span>
+                                                    <img src={item.existingUrl} className="w-8 h-8 rounded border border-white/10 object-cover" alt="Gallery" />
+                                                </div>
                                             )}
                                         </div>
                                     </div>
@@ -481,7 +486,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                                         <label className="block text-[9px] font-bold text-white/30 uppercase tracking-widest mb-1.5">Hyperlink (Optional)</label>
                                         <input
                                             value={item.link}
-                                            onChange={(e) => updateGalleryItem(idx, 'link', e.target.value)}
+                                            onChange={(e) => updateGalleryItem(item.id, 'link', e.target.value)}
                                             placeholder="https://..."
                                             className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-[12px] text-white focus:border-[#eba14d] outline-none transition"
                                         />

@@ -82,7 +82,9 @@ export async function PUT(
         // Handle gallery in parallel
         const gallery_links = JSON.parse(formData.get("gallery_links")?.toString() || "[]");
         const existing_gallery = JSON.parse(formData.get("existing_gallery")?.toString() || "[]");
-        let gallery = [...existing_gallery];
+        const gallery_layout_str = formData.get("gallery_layout")?.toString();
+        const gallery_layout = gallery_layout_str ? JSON.parse(gallery_layout_str) : null;
+        
         const newGalleryImages = formData.getAll("gallery_images") as File[];
 
         const galleryUploadPromises = newGalleryImages.map(async (file, i) => {
@@ -94,9 +96,31 @@ export async function PUT(
         });
 
         const uploadedNewGallery = await Promise.all(galleryUploadPromises);
-        uploadedNewGallery.forEach(item => {
-            if (item) gallery.push(item);
-        });
+        
+        let gallery: any[] = [];
+        
+        if (gallery_layout) {
+            let newImageIndex = 0;
+            let existingItemIndex = 0;
+            
+            for (const item of gallery_layout) {
+                if (item.type === 'existing' && existing_gallery[existingItemIndex]) {
+                    gallery.push(existing_gallery[existingItemIndex]);
+                    existingItemIndex++;
+                } else if (item.type === 'new') {
+                    const uploadedItem = uploadedNewGallery[newImageIndex];
+                    if (uploadedItem) {
+                        gallery.push(uploadedItem);
+                    }
+                    newImageIndex++;
+                }
+            }
+        } else {
+            gallery = [...existing_gallery];
+            uploadedNewGallery.forEach(item => {
+                if (item) gallery.push(item);
+            });
+        }
 
         await db.query(
             `UPDATE products SET 
