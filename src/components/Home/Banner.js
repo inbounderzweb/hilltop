@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import banner1 from "../../assets/banners/homebanner.png";
-import banner3 from "../../assets/banners/homebanner2.png";
+// import banner1 from "../../assets/banners/homebanner.png";
+// import banner3 from "../../assets/banners/homebanner2.png";
+const banner1 = "/banners/Banner2.mp4";
+const banner3 = "/banners/Banner.mp4";
 import { motion } from "framer-motion";
 
 import { Quicksand } from "next/font/google";
@@ -71,14 +72,14 @@ export default function FadeBanner() {
               i === active ? "opacity-100" : "opacity-0",
             ].join(" ")}
           >
-            {/* Background Image */}
-            <Image
+            {/* Background Video */}
+            <video
               src={slide.image}
-              alt={slide.title}
-              fill
-              priority={i === 0}
-              className="object-cover"
-              sizes="100vw"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
 
             {/* Top → middle black overlay (reduced for clarity) */}
