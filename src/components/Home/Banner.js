@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 // import banner1 from "../../assets/banners/homebanner.png";
 // import banner3 from "../../assets/banners/homebanner2.png";
 const banner1 = "/banners/Banner2.mp4";
@@ -38,18 +38,26 @@ export default function FadeBanner() {
   );
 
   const [active, setActive] = useState(0);
-
-  const bannerDuration = 4500;
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setActive((prev) => (prev + 1) % slides.length);
-    }, bannerDuration);
-    return () => clearInterval(t);
-  }, [slides.length]);
+  const [currentDuration, setCurrentDuration] = useState(4500);
+  const videoRefs = useRef([]);
 
   const next = () => setActive((prev) => (prev + 1) % slides.length);
   const prev = () => setActive((prev) => (prev - 1 + slides.length) % slides.length);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+      if (index === active) {
+        video.currentTime = 0;
+        if (!isNaN(video.duration) && video.duration > 0) {
+          setCurrentDuration(video.duration * 1000);
+        }
+        video.play().catch(e => console.log("Play interrupted", e));
+      } else {
+        video.pause();
+      }
+    });
+  }, [active]);
 
   return (
     <section className="relative w-full h-[650px] md:h-[850px] overflow-hidden touch-pan-y">
@@ -74,11 +82,18 @@ export default function FadeBanner() {
           >
             {/* Background Video */}
             <video
+              ref={el => videoRefs.current[i] = el}
               src={slide.image}
-              autoPlay
-              loop
               muted
               playsInline
+              onEnded={() => {
+                if (i === active) next();
+              }}
+              onLoadedMetadata={(e) => {
+                if (i === active) {
+                  setCurrentDuration(e.target.duration * 1000);
+                }
+              }}
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
 
@@ -123,7 +138,7 @@ export default function FadeBanner() {
                   style={{
                     width: '100%',
                     height: '100%',
-                    animation: `bannerProgressResponsive ${bannerDuration}ms linear forwards`
+                    animation: `bannerProgressResponsive ${currentDuration}ms linear forwards`
                   }}
                 />
               )}
