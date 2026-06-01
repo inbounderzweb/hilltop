@@ -35,6 +35,7 @@ export default function NavBar({ isOpen, setIsOpen }) {
   const navLinks = useMemo(
     () => [
       { label: "Our Story", href: "/about" },
+      { label: "New Arrivals", href: "/products" },
       { label: "Products", href: "/products", isProducts: true },
       { label: "Live Inventory", href: "https://hilltopstones.stoneprofitsweb.com/" },
       { label: "Blogs & FAQs", href: "/blogs" },
