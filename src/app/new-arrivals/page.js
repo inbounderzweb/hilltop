@@ -15,6 +15,7 @@ export default function Page() {
                 showFilters={false}
                 sectionTitle="Explore Products"
                 sortMode="newest"
+                newArrivalsOnly
             />
         </div>
     )

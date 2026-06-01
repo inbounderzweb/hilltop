@@ -4,8 +4,25 @@ import { v4 as uuidv4 } from "uuid";
 
 export const dynamic = "force-dynamic";
 
+let productFlagsReady = false;
+
+async function ensureProductFlags() {
+    if (productFlagsReady) return;
+
+    try {
+        await db.query("ALTER TABLE products ADD COLUMN is_new_arrival TINYINT(1) NOT NULL DEFAULT 0");
+        productFlagsReady = true;
+    } catch (error: any) {
+        if (!["ER_DUP_FIELDNAME", "42S21"].includes(error?.code) && error?.errno !== 1060) {
+            throw error;
+        }
+        productFlagsReady = true;
+    }
+}
+
 export async function POST(req: Request) {
     try {
+        await ensureProductFlags();
         const formData = await req.formData();
 
         const product_name = formData.get("product_name")?.toString().trim();
@@ -19,6 +36,7 @@ export async function POST(req: Request) {
         const thickness = formData.get("thickness")?.toString().trim();
         const base_color = formData.get("base_color")?.toString().trim();
         const product_video_url = formData.get("product_video_url")?.toString().trim();
+        const is_new_arrival = formData.get("is_new_arrival") === "true" ? 1 : 0;
 
         if (
             !product_name ||
@@ -67,11 +85,11 @@ export async function POST(req: Request) {
 
         const [result] = await db.query(
             `INSERT INTO products 
-            (product_name, category, origin, color_family, description, image_url, gallery, thickness, base_color, product_video_url, book_match_images, application_images) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            (product_name, category, origin, color_family, description, image_url, gallery, thickness, base_color, product_video_url, book_match_images, application_images, is_new_arrival) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery),
-                thickness, base_color, final_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls)
+                thickness, base_color, final_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls), is_new_arrival
             ]
         );
 
@@ -92,6 +110,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
     try {
+        await ensureProductFlags();
         const [rows]: any = await db.query(
             "SELECT * FROM products ORDER BY id DESC"
         );

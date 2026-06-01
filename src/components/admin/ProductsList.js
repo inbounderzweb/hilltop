@@ -147,7 +147,14 @@ export default function ProductsList({ onEdit }) {
                                         </td>
                                         <td className="p-3">
                                             <div className="font-semibold text-white/80 text-sm leading-tight mb-0.5">{p.product_name}</div>
-                                            <div className="text-[9px] text-white/30 font-bold uppercase tracking-widest">{p.origin}</div>
+                                            <div className="flex flex-wrap items-center gap-1.5">
+                                                <div className="text-[9px] text-white/30 font-bold uppercase tracking-widest">{p.origin}</div>
+                                                {Boolean(Number(p.is_new_arrival)) && (
+                                                    <span className="text-[8px] font-bold uppercase tracking-widest text-[#eba14d] px-1.5 py-0.5 rounded bg-[#eba14d]/10 border border-[#eba14d]/20">
+                                                        New
+                                                    </span>
+                                                )}
+                                            </div>
                                         </td>
                                         <td className="p-3">
                                             <span className="text-[10px] font-bold uppercase tracking-wider text-[#eba14d]/60 px-2 py-0.5 bg-[#eba14d]/5 rounded">

@@ -15,6 +15,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
         thickness: "",
         base_color: "",
         product_video_url: "",
+        is_new_arrival: false,
     });
 
     const [mainImage, setMainImage] = useState(null);
@@ -79,6 +80,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                 thickness: initialData.thickness || "",
                 base_color: initialData.base_color || "",
                 product_video_url: initialData.product_video_url || "",
+                is_new_arrival: Boolean(Number(initialData.is_new_arrival)),
             });
             setExistingImageUrl(initialData.image_url || "");
             setExistingVideoUrl(initialData.product_video_url || "");
@@ -197,6 +199,7 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
             payload.append("thickness", formData.thickness);
             payload.append("base_color", formData.base_color);
             payload.append("product_video_url", formData.product_video_url);
+            payload.append("is_new_arrival", formData.is_new_arrival ? "true" : "false");
 
             if (mainImage) {
                 const compressedMain = await compressImage(mainImage);
@@ -266,6 +269,10 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                     origin: "",
                     color_family: "",
                     description: "",
+                    thickness: "",
+                    base_color: "",
+                    product_video_url: "",
+                    is_new_arrival: false,
                 });
                 setMainImage(null);
                 setVideoFile(null);
@@ -428,6 +435,17 @@ export default function AddProductForm({ onSwitchTab, initialData = null }) {
                 </div>
 
                 <div className="pt-2 border-t border-white/5">
+                    <label className="flex w-fit items-center gap-3 cursor-pointer group">
+                        <input
+                            type="checkbox"
+                            checked={formData.is_new_arrival}
+                            onChange={(e) => setFormData((prev) => ({ ...prev, is_new_arrival: e.target.checked }))}
+                            className="h-4 w-4 accent-[#eba14d]"
+                        />
+                        <span className="text-[11px] font-bold text-white/50 uppercase tracking-wider group-hover:text-white/80 transition">
+                            Show in New Arrivals
+                        </span>
+                    </label>
                 </div>
 
                 {/* Gallery Section */}

@@ -19,6 +19,7 @@ export default function ProductListingPage({
     showFilters = true,
     sectionTitle,
     sortMode = 'name',
+    newArrivalsOnly = false,
 }) {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -83,10 +84,11 @@ export default function ProductListingPage({
 
         return products.filter((p) => {
             const isAllowed = allowedCategories ? allowedCategories.includes(p.category) : true;
+            const matchesArrival = !newArrivalsOnly || Boolean(Number(p.is_new_arrival));
             const matchesQuery = !q || p.product_name?.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q);
             const matchesCategory = !categoryFilteringOn || selectedCategories.has(p.category);
             const matchesColor = !colorFilteringOn || selectedColors.has(p.color_family);
-            return matchesQuery && matchesCategory && matchesColor && isAllowed;
+            return matchesQuery && matchesCategory && matchesColor && isAllowed && matchesArrival;
         }).sort((a, b) => {
             if (sortMode === 'newest') {
                 return Number(b.id || 0) - Number(a.id || 0);
@@ -94,7 +96,7 @@ export default function ProductListingPage({
 
             return (a.product_name || '').localeCompare(b.product_name || '');
         });
-    }, [products, query, selectedCategories, selectedColors, allowedCategories, sortMode]);
+    }, [products, query, selectedCategories, selectedColors, allowedCategories, sortMode, newArrivalsOnly]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     const safePage = Math.min(Math.max(1, page), totalPages);
@@ -333,7 +335,9 @@ export default function ProductListingPage({
                                     <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
                                         <Package className="text-white/10 mb-6" size={60} />
                                         <h3 className={`text-2xl font-normal ${quicksand.className}`}>No Products Found</h3>
-                                        <p className={`text-white/40 mt-2 ${quicksand.className}`}>Try adjusting your filters or search keywords.</p>
+                                        <p className={`text-white/40 mt-2 ${quicksand.className}`}>
+                                            {newArrivalsOnly ? "Mark products as New Arrivals from the admin product form." : "Try adjusting your filters or search keywords."}
+                                        </p>
                                     </div>
                                 )}
 

@@ -5,11 +5,28 @@ import { v4 as uuidv4 } from "uuid";
 
 export const dynamic = "force-dynamic";
 
+let productFlagsReady = false;
+
+async function ensureProductFlags() {
+    if (productFlagsReady) return;
+
+    try {
+        await db.query("ALTER TABLE products ADD COLUMN is_new_arrival TINYINT(1) NOT NULL DEFAULT 0");
+        productFlagsReady = true;
+    } catch (error: any) {
+        if (!["ER_DUP_FIELDNAME", "42S21"].includes(error?.code) && error?.errno !== 1060) {
+            throw error;
+        }
+        productFlagsReady = true;
+    }
+}
+
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        await ensureProductFlags();
         const { id } = await params;
         const [rows]: any = await db.query("SELECT * FROM products WHERE id = ?", [id]);
 
@@ -43,6 +60,7 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        await ensureProductFlags();
         const { id } = await params;
         const formData = await request.formData();
 
@@ -56,6 +74,7 @@ export async function PUT(
         const thickness = formData.get("thickness")?.toString().trim();
         const base_color = formData.get("base_color")?.toString().trim();
         const product_video_url = formData.get("product_video_url")?.toString().trim();
+        const is_new_arrival = formData.get("is_new_arrival") === "true" ? 1 : 0;
 
         // Handle main image if updated
         const image = formData.get("image") as File | null;
@@ -125,11 +144,11 @@ export async function PUT(
         await db.query(
             `UPDATE products SET 
             product_name = ?, category = ?, origin = ?, color_family = ?, description = ?, image_url = ?, gallery = ?,
-            thickness = ?, base_color = ?, product_video_url = ?, book_match_images = ?, application_images = ?
+            thickness = ?, base_color = ?, product_video_url = ?, book_match_images = ?, application_images = ?, is_new_arrival = ?
             WHERE id = ?`,
             [
                 product_name, category, origin, color_family, description, image_url, JSON.stringify(gallery),
-                thickness, base_color, final_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls),
+                thickness, base_color, final_video_url, JSON.stringify(bookMatchUrls), JSON.stringify(applicationUrls), is_new_arrival,
                 id
             ]
         );
