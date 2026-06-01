@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import banner from "../../assets/banners/commonBanner.png";
 
-export default function ProductListingBanner() {
+export default function ProductListingBanner({ title = "Products" }) {
     return (
         <section className="relative w-full h-[400px] md:h-[600px] z-20 bg-[#1e1e1e] overflow-hidden">
             {/* Background image */}
@@ -21,7 +21,7 @@ export default function ProductListingBanner() {
             {/* Content */}
             <div className="absolute bottom-[60px] md:bottom-[60px] left-0 right-0 z-10 px-6 text-center">
                 <h2 className="text-[#F4E0C2] text-4xl md:text-xl font-light tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                    Products
+                    {title}
                 </h2>
             </div>
         </section>

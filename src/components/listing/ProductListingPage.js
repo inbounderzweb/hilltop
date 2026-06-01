@@ -13,7 +13,13 @@ const quicksand = Quicksand({
     display: "swap",
 });
 
-export default function ProductListingPage({ initialCategory, allowedCategories }) {
+export default function ProductListingPage({
+    initialCategory,
+    allowedCategories,
+    showFilters = true,
+    sectionTitle,
+    sortMode = 'name',
+}) {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [colors, setColors] = useState([]);
@@ -77,12 +83,18 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
 
         return products.filter((p) => {
             const isAllowed = allowedCategories ? allowedCategories.includes(p.category) : true;
-            const matchesQuery = !q || p.product_name.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q);
+            const matchesQuery = !q || p.product_name?.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q);
             const matchesCategory = !categoryFilteringOn || selectedCategories.has(p.category);
             const matchesColor = !colorFilteringOn || selectedColors.has(p.color_family);
             return matchesQuery && matchesCategory && matchesColor && isAllowed;
-        }).sort((a, b) => a.product_name.localeCompare(b.product_name));
-    }, [products, query, selectedCategories, selectedColors, allowedCategories]);
+        }).sort((a, b) => {
+            if (sortMode === 'newest') {
+                return Number(b.id || 0) - Number(a.id || 0);
+            }
+
+            return (a.product_name || '').localeCompare(b.product_name || '');
+        });
+    }, [products, query, selectedCategories, selectedColors, allowedCategories, sortMode]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     const safePage = Math.min(Math.max(1, page), totalPages);
@@ -190,9 +202,21 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
         <div className="min-h-screen bg-[#151515] text-white py-14 md:py-20">
             <div className="mx-auto w-[92%] xl:w-[85%] max-w-[1400px]">
 
-                <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10 lg:gap-16">
+                {sectionTitle && (
+                    <div className="mb-10 md:mb-14 text-center">
+                        <p className={`text-[#DA9C39] text-xs font-bold tracking-[0.28em] uppercase mb-4 ${quicksand.className}`}>
+                            New Arrivals
+                        </p>
+                        <h2 className="text-[#F4E0C2] text-3xl md:text-5xl font-light">
+                            {sectionTitle}
+                        </h2>
+                    </div>
+                )}
+
+                <div className={showFilters ? "grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10 lg:gap-16" : ""}>
 
                     {/* Sidebar Filters */}
+                    {showFilters && (
                     <aside className="bg-[#222222] rounded-xl p-8 h-fit space-y-10">
                         {/* Search */}
                         <div className="space-y-4">
@@ -258,10 +282,11 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                             </div>
                         </div>
                     </aside>
+                    )}
 
                     {/* Main Content */}
                     <main className="min-w-0">
-                        {activeBrochure && (
+                        {showFilters && activeBrochure && (
                             <div className="flex justify-end mb-10">
                                 <a
                                     href={`/brochures/${activeBrochure}`}
@@ -282,7 +307,7 @@ export default function ProductListingPage({ initialCategory, allowedCategories 
                             </div>
                         ) : (
                             <div className="space-y-16">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-y-12 gap-x-8">
+                                <div className={`grid grid-cols-1 sm:grid-cols-2 ${showFilters ? 'xl:grid-cols-2' : 'xl:grid-cols-3'} gap-y-12 gap-x-8`}>
                                     {paged.map((p) => (
                                         <Link key={p.id} href={`/products/details/${p.id}`} className="group block">
                                             {/* <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-6"> */}
