@@ -87,7 +87,7 @@ export default function GeologicalSignaturesSection() {
                 That Never Repeat
               </h2>
               <p className={`mt-4 text-white text-[14px] md:text-[15px] leading-relaxed ${quicksand.className}`}>
-                Each pattern so unique,no two stones are ever alike.
+                Each pattern so unique, no two stones are ever alike.
               </p>
             </div>
 
