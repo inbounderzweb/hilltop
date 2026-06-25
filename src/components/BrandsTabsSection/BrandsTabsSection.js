@@ -36,11 +36,11 @@ export default function BrandsTabsSection() {
           { id: "usa-5", src: logo5, alt: "Logo 5" },
         ],
         partnered: [
-          { id: "usa-p1", src: usalogo1, alt: "Logo 2", href: "https://www.atlasconcorde.com/en" },
-          { id: "usa-p2", src: usalogo2, alt: "Logo 5", href: " https://www.abk.it/en" },
-          { id: "usa-p3", src: usalogo3, alt: "Logo 4", href: "https://www.versace-ceramics.com/en" },
-          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine", href: "https://www.venetacucine.com/en" },
-          { id: "usa-p5", src: newicon, alt: "New Icon", href: "https://www.neolith.com" }
+          { id: "usa-p1", src: usalogo1, alt: "Logo 2",title: "Visit Atlas Concorde", href: "https://www.atlasconcorde.com/en" },
+          { id: "usa-p2", src: usalogo2, alt: "Logo 5",title: "Visit ABK Ceramiche", href: " https://www.abk.it/en" },
+          { id: "usa-p3", src: usalogo3, alt: "Logo 4",title: "Visit Versace Ceramics", href: "https://www.versace-ceramics.com/en" },
+          { id: "usa-p4", src: veneta_cucine, alt: "veneta_cucine",title: "Visit Veneta Cucine", href: "https://www.venetacucine.com/en" },
+          { id: "usa-p5", src: newicon, alt: "New Icon",title: "Visit Neolith", href: "https://www.neolith.com" }
         ],
       },
       India: {
@@ -130,11 +130,7 @@ export default function BrandsTabsSection() {
  *
  * IMPORTANT: This must NOT be clipped by overflow-hidden on the flex container.
  */
-function InvertedSTab({ label, active, onClick, cardColor, stripColor, side }) {
-  const CUT = 26; // size of the S curves (try 24/26/28 to match exactly)
-
-  const isLeft = side === "left";
-
+function InvertedSTab({ label, active, onClick, cardColor, stripColor }) {
   return (
     <button
       type="button"
@@ -180,12 +176,30 @@ function LogoGrid({ items }) {
   return (
     <div className="mt-3 md:mt-12 flex flex-wrap justify-center items-center gap-x-12 md:gap-x-24 gap-y-10 md:gap-y-16">
       {items.map((it) => {
+        const logo = (
+          <div className="relative w-[140px] sm:w-[200px] md:w-[260px] h-[55px] sm:h-[75px] md:h-[95px]">
+            <Image src={it.src} alt={it.alt} fill className="object-contain" />
+          </div>
+        );
+
         return (
           <div key={it.id} className="flex items-center justify-center">
-            <div className="relative w-[140px] sm:w-[200px] md:w-[260px] h-[55px] sm:h-[75px] md:h-[95px]">
-              <a target="_blank" href={it.href}><Image src={it.src} alt={it.alt} fill className="object-contain" />
+            {it.href ? (
+              <a
+                href={it.href.trim()}
+                target="_blank"
+                rel="noopener noreferrer"
+                // aria-label={`${it.alt} opens in a new tab`}
+                title={`${it.title} opens in a new tab`}
+                className="group inline-flex cursor-pointer items-center justify-center rounded-md transition-transform duration-300 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA9C39]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              >
+                {logo}
               </a>
-            </div>
+            ) : (
+              <div className="inline-flex items-center justify-center rounded-md">
+                {logo}
+              </div>
+            )}
           </div>
         );
       })}
