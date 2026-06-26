@@ -301,20 +301,20 @@ function NeolithDealerModal({ brand, details, onClose }) {
         className="absolute inset-0 bg-black/35 backdrop-blur-[2px]"
       />
 
-      <div className="relative z-10 w-full overflow-hidden rounded-[22px] bg-white text-[#1f1f1f] shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-black/10" style={{ maxWidth: "560px" }}>
+      <div className="relative z-10 w-full overflow-hidden rounded-[22px] bg-black text-white shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-[#DA9C39]/20" style={{ maxWidth: "560px" }}>
         <div className="flex items-start justify-between gap-4 px-6 pt-6 pb-4">
           <div>
-            <h3 className="text-[28px] md:text-[32px] font-semibold tracking-tight text-[#181818]">
+            <h3 className="text-[28px] md:text-[32px] font-semibold tracking-tight text-white">
               {brand?.brand || "Neolith"}
             </h3>
-            <p className="mt-1 text-[15px] md:text-[16px] text-[#666]">
+            <p className="mt-1 text-[15px] md:text-[16px] text-white/70">
               {details.heading}
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition hover:bg-black/5"
+            className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10"
             aria-label="Close"
           >
             <X size={22} />
@@ -322,25 +322,25 @@ function NeolithDealerModal({ brand, details, onClose }) {
         </div>
 
         <div className="px-6 pb-5">
-          <div className="h-px bg-black/10" />
+          <div className="h-px bg-white/10" />
         </div>
 
         <div className="max-h-[65vh] overflow-auto px-4 pb-2 sm:px-6">
           <div className="space-y-5">
             {details.rows.map((row) => (
-              <div key={row.name} className="grid grid-cols-[44px_1fr] gap-4 border-b border-black/10 pb-5 last:border-b-0">
-                <div className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-md bg-[#171717] text-white shadow-sm">
+              <div key={row.name} className="grid grid-cols-[44px_1fr] gap-4 border-b border-white/10 pb-5 last:border-b-0">
+                <div className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-md bg-[#DA9C39] text-white shadow-sm">
                   <MapPin size={20} fill="currentColor" />
                 </div>
 
                 <div>
                   <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                     <div className="pr-2">
-                      <h4 className="text-[18px] font-semibold text-[#202020]">{row.name}</h4>
-                      <p className="mt-1 text-[15px] leading-relaxed text-[#444] opacity-100">
+                      <h4 className="text-[18px] font-semibold text-white">{row.name}</h4>
+                      <p className="mt-1 text-[15px] leading-relaxed text-white/75 opacity-100">
                         {row.address}
                       </p>
-                      <div className="mt-3 flex items-center gap-2 text-[15px] text-[#222]">
+                      <div className="mt-3 flex items-center gap-2 text-[15px] text-white">
                         <Phone size={16} />
                         <a href={row.tel} className="hover:underline">
                           {row.phone}
@@ -353,14 +353,14 @@ function NeolithDealerModal({ brand, details, onClose }) {
                         href={row.maps}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-black/20 bg-white px-4 py-3 text-[14px] font-medium text-[#1d1d1d] transition hover:bg-black/5"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-black px-4 py-3 text-[14px] font-medium text-white transition hover:bg-white/10"
                       >
                         <MapPin size={16} />
                         Directions
                       </a>
                       <a
                         href={row.tel}
-                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#151515] px-4 py-3 text-[14px] font-medium text-white transition hover:bg-black"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#DA9C39] px-4 py-3 text-[14px] font-medium text-white transition hover:bg-black"
                       >
                         <Phone size={16} />
                         Call
@@ -373,12 +373,12 @@ function NeolithDealerModal({ brand, details, onClose }) {
           </div>
         </div>
 
-        <div className="border-t border-black/10 bg-[#f7f7f7] px-6 py-4">
+        <div className="border-t border-white/10 bg-black px-6 py-4">
           <a
             href={details.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[15px] text-[#2b2b2b] transition hover:text-black"
+            className="inline-flex items-center gap-2 text-[15px] text-white transition hover:text-[#DA9C39]"
           >
             <Globe size={18} />
             Learn more about Neolith
