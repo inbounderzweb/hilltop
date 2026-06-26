@@ -6,7 +6,7 @@ import { Eye, EyeOff } from 'lucide-react';
 
 export default function AdminLogin() {
     const [username, setUsername] = useState('admin');
-    const [password, setPassword] = useState('2026@hilltop');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter();
@@ -45,7 +45,7 @@ export default function AdminLogin() {
                     </div>
                 )}
 
-                <form onSubmit={handleLogin} className="space-y-6">
+                <form onSubmit={handleLogin} className="space-y-6" autoComplete="off">
                     <div>
                         <label className="block text-sm font-medium text-white/90 mb-2">
                             Username
@@ -54,6 +54,8 @@ export default function AdminLogin() {
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            autoComplete="off"
+                            name="admin-username"
                             className="w-full rounded-xl border border-white/10 bg-[#1a1a1a] px-4 py-3 text-white placeholder:text-white/30 outline-none focus:border-[#eba14d] focus:ring-1 focus:ring-[#eba14d] transition-all"
                             placeholder="admin"
                             required
@@ -69,6 +71,11 @@ export default function AdminLogin() {
                                 type={showPassword ? "text" : "password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="new-password"
+                                name="admin-password"
+                                autoCapitalize="off"
+                                autoCorrect="off"
+                                spellCheck="false"
                                 className="w-full rounded-xl border border-white/10 bg-[#1a1a1a] pl-4 pr-12 py-3 text-white placeholder:text-white/30 outline-none focus:border-[#eba14d] focus:ring-1 focus:ring-[#eba14d] transition-all"
                                 placeholder="••••••••"
                                 required

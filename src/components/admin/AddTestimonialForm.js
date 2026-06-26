@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Plus, Loader2, Image as ImageIcon, Save } from "lucide-react";
 
 export default function AddTestimonialForm({ onSwitchTab, initialData = null }) {
@@ -128,7 +129,9 @@ export default function AddTestimonialForm({ onSwitchTab, initialData = null }) 
                     <label className="block text-[11px] font-bold text-white/40 uppercase tracking-widest mb-1.5 px-1">Profile Photo (Optional)</label>
                     <div className="flex flex-col items-center justify-center border border-dashed border-white/10 rounded-xl p-6 hover:border-[#eba14d]/50 transition cursor-pointer relative overflow-hidden bg-black/10">
                         {preview ? (
-                            <img src={preview} alt="Preview" className="w-24 h-24 rounded-full object-cover shadow-lg border-2 border-white/10" />
+                            <div className="relative w-24 h-24 overflow-hidden rounded-full shadow-lg border-2 border-white/10">
+                                <Image src={preview} alt="Preview" fill className="object-cover" />
+                            </div>
                         ) : (
                             <>
                                 <ImageIcon size={32} className="text-white/10 mb-2" />

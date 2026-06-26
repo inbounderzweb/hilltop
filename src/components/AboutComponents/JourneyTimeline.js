@@ -131,7 +131,7 @@ function Row({ item, index }) {
           <ul className="space-y-2 text-white text-[16px] md:text-[17px] leading-relaxed tracking-wide font-normal">
             {item.bullets.map((b, i) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full bg-white" />
+                <span className="mt-2.25 h-1.25 w-1.25 shrink-0 rounded-full bg-white" />
                 <span>{b}</span>
               </li>
             ))}
@@ -177,7 +177,7 @@ export default function JourneyTimeline({ title = "The Journey", items = DEFAULT
           <div className="pointer-events-none absolute left-0 bottom-0 z-10 h-28 w-full bg-linear-to-t from-[#1E1E1E]/95 via-[#1E1E1E]/60 to-transparent" />
 
 
-          <div className="h-[450px] md:h-[600px] overflow-y-auto pr-2 scroll-smooth no-scrollbar pb-32">
+          <div className="h-112.5 md:h-150 overflow-y-auto pr-2 scroll-smooth no-scrollbar pb-32">
             {items.map((item, idx) => (
               <Row key={`${item.year}-${idx}`} item={item} index={idx} />
             ))}
