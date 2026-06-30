@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { Eye, Edit3, Trash2, X, ExternalLink, RefreshCw, AlertCircle } from "lucide-react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Eye, Edit3, Trash2, X, ExternalLink, RefreshCw, AlertCircle, ArrowUpDown, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductsList({ onEdit }) {
     const [products, setProducts] = useState([]);
@@ -9,21 +9,53 @@ export default function ProductsList({ onEdit }) {
     const [error, setError] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [search, setSearch] = useState("");
+    const [sortBy, setSortBy] = useState("newest");
+    const [categoryFilter, setCategoryFilter] = useState("all");
+    const [arrivalFilter, setArrivalFilter] = useState("all");
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [pagination, setPagination] = useState({ total: 0, totalPages: 1, page: 1, limit: 10 });
+    const [categories, setCategories] = useState([]);
 
     // Details Modal State
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
-        fetchProducts();
+        fetchCategories();
     }, []);
 
-    const fetchProducts = async () => {
+    const fetchCategories = async () => {
+        try {
+            const res = await fetch(`/api/categories?t=${Date.now()}`, {
+                cache: "no-store",
+                headers: {
+                    'Pragma': 'no-cache',
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                setCategories(Array.isArray(data.categories) ? data.categories.map((c) => c.name).filter(Boolean) : []);
+            }
+        } catch (err) {
+            console.error("Fetch categories error:", err);
+        }
+    };
+
+    const fetchProducts = useCallback(async () => {
         try {
             setLoading(true);
             setError(null);
 
-            // Cache busting with timestamp
-            const res = await fetch(`/api/products?t=${Date.now()}`, {
+            const params = new URLSearchParams();
+            params.set("page", String(page));
+            params.set("limit", String(pageSize));
+            params.set("sort", sortBy === "name-asc" ? "name" : sortBy === "oldest" ? "oldest" : "newest");
+            if (search.trim()) params.set("q", search.trim());
+            if (categoryFilter !== "all") params.set("category", categoryFilter);
+            if (arrivalFilter === "yes") params.set("newArrivalsOnly", "true");
+
+            const res = await fetch(`/api/products?${params.toString()}&t=${Date.now()}`, {
                 cache: "no-store",
                 headers: {
                     'Pragma': 'no-cache',
@@ -39,13 +71,18 @@ export default function ProductsList({ onEdit }) {
             }
 
             setProducts(Array.isArray(data.products) ? data.products : []);
+            setPagination(data.pagination || { total: data.products.length, totalPages: 1, page, limit: pageSize });
         } catch (err) {
             console.error("Fetch error:", err);
             setError("Network error: Could not connect to the API. Make sure the server is running.");
         } finally {
             setLoading(false);
         }
-    };
+    }, [page, pageSize, search, sortBy, categoryFilter, arrivalFilter]);
+
+    useEffect(() => {
+        fetchProducts();
+    }, [fetchProducts]);
 
     const deleteProduct = async (id) => {
         if (!window.confirm("Are you sure you want to delete this product?")) return;
@@ -66,16 +103,22 @@ export default function ProductsList({ onEdit }) {
         }
     };
 
-    const filteredProducts = useMemo(() => {
-        const term = search.trim().toLowerCase();
-        if (!term) return products;
-        return products.filter((p) =>
-            p.product_name?.toLowerCase().includes(term) ||
-            p.category?.toLowerCase().includes(term) ||
-            p.color_family?.toLowerCase().includes(term) ||
-            p.origin?.toLowerCase().includes(term)
-        );
-    }, [products, search]);
+    const totalPages = Math.max(1, pagination.totalPages || 1);
+    const safePage = Math.min(Math.max(1, pagination.page || page), totalPages);
+    const startItem = pagination.total === 0 ? 0 : ((safePage - 1) * pageSize) + 1;
+    const endItem = Math.min(safePage * pageSize, pagination.total);
+    const visiblePageCount = 5;
+
+    const visiblePages = useMemo(() => {
+        if (totalPages <= visiblePageCount) {
+            return Array.from({ length: totalPages }, (_, i) => i + 1);
+        }
+        if (safePage <= 3) return [1, 2, 3, "...", totalPages];
+        if (safePage >= totalPages - 2) return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+        return [1, "...", safePage, "...", totalPages];
+    }, [safePage, totalPages]);
+
+    const hasFilters = search || sortBy !== "newest" || categoryFilter !== "all" || arrivalFilter !== "all";
 
     if (loading && products.length === 0) {
         return (
@@ -89,23 +132,103 @@ export default function ProductsList({ onEdit }) {
     return (
         <>
             <div className="bg-[#222222] rounded-xl border border-white/5 shadow-xl overflow-hidden animate-in fade-in duration-500">
-                <div className="p-4 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-white/90 uppercase tracking-widest">Added Products</span>
-                        <button
-                            onClick={fetchProducts}
-                            className={`p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition ${loading ? 'animate-spin' : ''}`}
-                            title="Refresh List"
-                        >
-                            <RefreshCw size={12} />
-                        </button>
+                <div className="p-4 border-b border-white/10 space-y-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-semibold text-white/90 uppercase tracking-widest">Added Products</span>
+                            <button
+                                onClick={fetchProducts}
+                                className={`p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition ${loading ? 'animate-spin' : ''}`}
+                                title="Refresh List"
+                            >
+                                <RefreshCw size={12} />
+                            </button>
+                        </div>
+                        <input
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Search products..."
+                            className="bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-1.5 text-white placeholder:text-white/20 outline-none focus:border-[#eba14d] transition w-full sm:w-48"
+                        />
                     </div>
-                    <input
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search products..."
-                        className="bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-1.5 text-white placeholder:text-white/20 outline-none focus:border-[#eba14d] transition w-full sm:w-48"
-                    />
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-white/30 text-[10px] font-bold uppercase tracking-widest">
+                                <Filter size={12} />
+                                Category
+                            </div>
+                            <select
+                                value={categoryFilter}
+                                onChange={(e) => {
+                                    setCategoryFilter(e.target.value);
+                                    setPage(1);
+                                }}
+                                className="w-full bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
+                            >
+                                <option value="all">All Categories</option>
+                                {categories.map((cat) => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-white/30 text-[10px] font-bold uppercase tracking-widest">
+                                <Filter size={12} />
+                                New Arrival
+                            </div>
+                            <select
+                                value={arrivalFilter}
+                                onChange={(e) => {
+                                    setArrivalFilter(e.target.value);
+                                    setPage(1);
+                                }}
+                                className="w-full bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
+                            >
+                                <option value="all">All Products</option>
+                                <option value="yes">New Arrivals</option>
+                                <option value="no">Not New</option>
+                            </select>
+                        </div>
+
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-white/30 text-[10px] font-bold uppercase tracking-widest">
+                                <ArrowUpDown size={12} />
+                                Sort
+                            </div>
+                            <select
+                                value={sortBy}
+                                onChange={(e) => {
+                                    setSortBy(e.target.value);
+                                    setPage(1);
+                                }}
+                                className="w-full bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
+                            >
+                                <option value="newest">Newest first</option>
+                                <option value="oldest">Oldest first</option>
+                                <option value="name-asc">Name A-Z</option>
+                                <option value="name-desc">Name Z-A</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {hasFilters && (
+                        <div className="flex justify-end">
+                            <button
+                                onClick={() => {
+                                    setSearch("");
+                                    setSortBy("newest");
+                                    setCategoryFilter("all");
+                                    setArrivalFilter("all");
+                                    setPage(1);
+                                }}
+                                className="text-[10px] font-bold uppercase tracking-widest text-[#eba14d] hover:underline"
+                            >
+                                Clear filters
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 {error && (
@@ -129,7 +252,7 @@ export default function ProductsList({ onEdit }) {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/3">
-                            {filteredProducts.length === 0 ? (
+                            {products.length === 0 ? (
                                 <tr>
                                     <td colSpan={6} className="p-10 text-center text-white/20 text-xs">
                                         <div className="mb-1">No products found</div>
@@ -137,7 +260,7 @@ export default function ProductsList({ onEdit }) {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredProducts.map((p) => (
+                                products.map((p) => (
                                     <tr key={p.id} className="hover:bg-white/1 transition">
                                         <td className="p-3 text-[10px] font-bold text-white/20 text-center">#{p.id}</td>
                                         <td className="p-3">
@@ -183,6 +306,69 @@ export default function ProductsList({ onEdit }) {
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                <div className="border-t border-white/10 px-4 py-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div className="text-[11px] text-white/40">
+                        Showing <span className="text-white/70 font-semibold">{startItem}</span> - <span className="text-white/70 font-semibold">{endItem}</span> of <span className="text-white/70 font-semibold">{pagination.total}</span> products
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/30 font-bold">
+                            Items per page
+                            <select
+                                value={pageSize}
+                                onChange={(e) => {
+                                    setPageSize(Number(e.target.value));
+                                    setPage(1);
+                                }}
+                                className="bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
+                            >
+                                {[10, 20, 50].map((size) => (
+                                    <option key={size} value={size}>{size}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={safePage === 1}
+                                className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-white/70 disabled:opacity-30 hover:text-[#eba14d] transition flex items-center justify-center"
+                                aria-label="Previous page"
+                            >
+                                <ChevronLeft size={16} />
+                            </button>
+
+                            <div className="flex items-center gap-1">
+                                {visiblePages.map((item, index) => (
+                                    item === "..." ? (
+                                        <span key={`ellipsis-${index}`} className="px-2 text-white/30">...</span>
+                                    ) : (
+                                        <button
+                                            key={item}
+                                            onClick={() => setPage(item)}
+                                            className={`min-w-9 h-9 px-3 rounded-lg text-[11px] font-bold transition border ${safePage === item
+                                                ? "bg-[#eba14d]/10 border-[#eba14d]/20 text-[#eba14d]"
+                                                : "bg-white/5 border-white/10 text-white/60 hover:text-white hover:border-white/20"
+                                                }`}
+                                        >
+                                            {item}
+                                        </button>
+                                    )
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={safePage === totalPages}
+                                className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-white/70 disabled:opacity-30 hover:text-[#eba14d] transition flex items-center justify-center"
+                                aria-label="Next page"
+                            >
+                                <ChevronRight size={16} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 

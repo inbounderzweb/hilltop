@@ -108,12 +108,72 @@ export async function POST(req: Request) {
     }
 }
 
-export async function GET() {
+function parseListParam(value: string | null) {
+    if (!value) return [];
+    return value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+}
+
+export async function GET(req: Request) {
     try {
         await ensureProductFlags();
-        const [rows]: any = await db.query(
-            "SELECT * FROM products ORDER BY id DESC"
-        );
+
+        const { searchParams } = new URL(req.url);
+        const page = Math.max(parseInt(searchParams.get("page") || "1", 10) || 1, 1);
+        const limit = Math.min(Math.max(parseInt(searchParams.get("limit") || "10", 10) || 10, 1), 100);
+        const q = searchParams.get("q")?.trim() || "";
+        const sort = searchParams.get("sort") || "newest";
+        const categoryFilters = parseListParam(searchParams.get("category"));
+        const colorFilters = parseListParam(searchParams.get("color"));
+        const allowedCategories = parseListParam(searchParams.get("allowedCategories"));
+        const newArrivalsOnly = searchParams.get("newArrivalsOnly") === "true";
+
+        const whereParts: string[] = [];
+        const values: any[] = [];
+
+        if (q) {
+            whereParts.push("(product_name LIKE ? OR description LIKE ?)");
+            values.push(`%${q}%`, `%${q}%`);
+        }
+
+        if (categoryFilters.length > 0) {
+            whereParts.push(`category IN (${categoryFilters.map(() => "?").join(", ")})`);
+            values.push(...categoryFilters);
+        }
+
+        if (allowedCategories.length > 0) {
+            whereParts.push(`category IN (${allowedCategories.map(() => "?").join(", ")})`);
+            values.push(...allowedCategories);
+        }
+
+        if (colorFilters.length > 0) {
+            whereParts.push(`color_family IN (${colorFilters.map(() => "?").join(", ")})`);
+            values.push(...colorFilters);
+        }
+
+        if (newArrivalsOnly) {
+            whereParts.push("is_new_arrival = 1");
+        }
+
+        const whereSql = whereParts.length ? `WHERE ${whereParts.join(" AND ")}` : "";
+        const orderSql =
+            sort === "name"
+                ? "ORDER BY product_name ASC, id DESC"
+                : sort === "oldest"
+                    ? "ORDER BY id ASC"
+                    : "ORDER BY id DESC";
+
+        const countSql = `SELECT COUNT(*) AS total FROM products ${whereSql}`;
+        const [countRows]: any = await db.query(countSql, values);
+        const total = Number(countRows?.[0]?.total || 0);
+        const totalPages = Math.max(1, Math.ceil(total / limit));
+        const safePage = Math.min(page, totalPages);
+        const offset = (safePage - 1) * limit;
+
+        const dataSql = `SELECT * FROM products ${whereSql} ${orderSql} LIMIT ? OFFSET ?`;
+        const [rows]: any = await db.query(dataSql, [...values, limit, offset]);
 
         const products = rows.map((p: any) => {
             let gallery = [];
@@ -131,6 +191,12 @@ export async function GET() {
         return Response.json({
             success: true,
             products: products,
+            pagination: {
+                total,
+                totalPages,
+                page: safePage,
+                limit,
+            },
         });
     } catch (error: any) {
         return Response.json(

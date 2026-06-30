@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { Quicksand } from "next/font/google";
-import { Loader2, Search, SlidersHorizontal, Package, Check, ChevronRight, ChevronLeft, ArrowRight, Download } from 'lucide-react';
+import { Loader2, Package, Check, ChevronRight, ChevronLeft, ArrowRight, Download, ArrowUpDown } from 'lucide-react';
 
 const quicksand = Quicksand({
     subsets: ["latin"],
@@ -25,12 +25,15 @@ export default function ProductListingPage({
     const [categories, setCategories] = useState([]);
     const [colors, setColors] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [pagination, setPagination] = useState({ total: 0, totalPages: 1, page: 1, limit: 10 });
 
     const [query, setQuery] = useState('')
     const [selectedCategories, setSelectedCategories] = useState(new Set());
     const [selectedColors, setSelectedColors] = useState(new Set()); // Empty = All Colors
     const [page, setPage] = useState(1);
+    const [sort, setSort] = useState(sortMode);
     const PAGE_SIZE = 10; // Increased for better layout
+    const safePage = pagination.page;
 
     // Initial Fetch for Categories and Colors (static-ish data)
     useEffect(() => {
@@ -55,19 +58,34 @@ export default function ProductListingPage({
             }
         };
         fetchMetadata();
-    }, []);
+    }, [allowedCategories]);
 
-    // Main Product Fetch
     useEffect(() => {
+        const controller = new AbortController();
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                const res = await fetch('/api/products?t=' + Date.now());
+                const params = new URLSearchParams();
+                params.set('page', String(page));
+                params.set('limit', String(PAGE_SIZE));
+                params.set('sort', sort);
+                if (query.trim()) params.set('q', query.trim());
+                if (selectedCategories.size > 0) params.set('category', [...selectedCategories].join(','));
+                if (selectedColors.size > 0) params.set('color', [...selectedColors].join(','));
+                if (allowedCategories?.length) params.set('allowedCategories', allowedCategories.join(','));
+                if (newArrivalsOnly) params.set('newArrivalsOnly', 'true');
+
+                const res = await fetch(`/api/products?${params.toString()}&t=${Date.now()}`, { signal: controller.signal });
                 const data = await res.json();
                 if (data.success) {
                     setProducts(data.products);
+                    setPagination(data.pagination || { total: data.products.length, totalPages: 1, page: 1, limit: PAGE_SIZE });
+                    if (data.pagination?.page && data.pagination.page !== page) {
+                        setPage(data.pagination.page);
+                    }
                 }
             } catch (err) {
+                if (err?.name === 'AbortError') return;
                 console.error("Failed to fetch products", err);
             } finally {
                 setLoading(false);
@@ -75,36 +93,8 @@ export default function ProductListingPage({
         };
 
         fetchProducts();
-    }, []);
-
-    const filtered = useMemo(() => {
-        const q = query.trim().toLowerCase();
-        const categoryFilteringOn = selectedCategories.size > 0;
-        const colorFilteringOn = selectedColors.size > 0;
-
-        return products.filter((p) => {
-            const isAllowed = allowedCategories ? allowedCategories.includes(p.category) : true;
-            const matchesArrival = !newArrivalsOnly || Boolean(Number(p.is_new_arrival));
-            const matchesQuery = !q || p.product_name?.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q);
-            const matchesCategory = !categoryFilteringOn || selectedCategories.has(p.category);
-            const matchesColor = !colorFilteringOn || selectedColors.has(p.color_family);
-            return matchesQuery && matchesCategory && matchesColor && isAllowed && matchesArrival;
-        }).sort((a, b) => {
-            if (sortMode === 'newest') {
-                return Number(b.id || 0) - Number(a.id || 0);
-            }
-
-            return (a.product_name || '').localeCompare(b.product_name || '');
-        });
-    }, [products, query, selectedCategories, selectedColors, allowedCategories, sortMode, newArrivalsOnly]);
-
-    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    const safePage = Math.min(Math.max(1, page), totalPages);
-
-    const paged = useMemo(() => {
-        const start = (safePage - 1) * PAGE_SIZE;
-        return filtered.slice(start, start + PAGE_SIZE);
-    }, [filtered, safePage]);
+        return () => controller.abort();
+    }, [page, query, selectedCategories, selectedColors, sort, allowedCategories, newArrivalsOnly]);
 
     const toggleSetValue = (setState, value) => {
         setState((prev) => {
@@ -120,6 +110,7 @@ export default function ProductListingPage({
         setQuery('');
         setSelectedCategories(new Set());
         setSelectedColors(new Set());
+        setSort(sortMode);
         setPage(1);
     };
 
@@ -160,6 +151,9 @@ export default function ProductListingPage({
 
                         const savedColors = sessionStorage.getItem('hilltop_products_colors');
                         if (savedColors) setSelectedColors(new Set(JSON.parse(savedColors)));
+
+                        const savedSort = sessionStorage.getItem('hilltop_products_sort');
+                        if (savedSort) setSort(savedSort);
                     }
                 } catch (e) {
                     console.error("Failed to restore filters", e);
@@ -175,8 +169,9 @@ export default function ProductListingPage({
             sessionStorage.setItem('hilltop_products_query', query);
             sessionStorage.setItem('hilltop_products_categories', JSON.stringify([...selectedCategories]));
             sessionStorage.setItem('hilltop_products_colors', JSON.stringify([...selectedColors]));
+            sessionStorage.setItem('hilltop_products_sort', sort);
         }
-    }, [page, query, selectedCategories, selectedColors, initialCategory]);
+    }, [page, query, selectedCategories, selectedColors, sort, initialCategory]);
 
     // const categoryToBrochure = {
     //     "Granite": "GRANITE.pdf",
@@ -261,6 +256,26 @@ export default function ProductListingPage({
 
                         <div className="w-full h-px bg-white/10"></div>
 
+                        {/* Sort */}
+                        <div className="space-y-4">
+                            <h3 className={`text-white text-base font-bold flex items-center gap-2 ${quicksand.className}`}>
+                                <ArrowUpDown size={16} />
+                                Sort
+                            </h3>
+                            <select
+                                value={sort}
+                                onChange={(e) => {
+                                    setSort(e.target.value);
+                                    setPage(1);
+                                }}
+                                className={`w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#DA9C39] outline-none transition-all duration-700 ease-out ${quicksand.className}`}
+                            >
+                                <option value="newest" className="bg-[#151515]">Newest first</option>
+                                <option value="name" className="bg-[#151515]">Name A-Z</option>
+                                <option value="oldest" className="bg-[#151515]">Oldest first</option>
+                            </select>
+                        </div>
+
                         {/* Colour */}
                         <div className="space-y-6">
                             <h3 className={`text-white text-base font-bold ${quicksand.className}`}>Colour</h3>
@@ -288,6 +303,90 @@ export default function ProductListingPage({
 
                     {/* Main Content */}
                     <main className="min-w-0">
+                        {!showFilters && (
+                            <div className="mb-10 space-y-4 rounded-xl border border-white/10 bg-white/5 p-5 md:p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-3">
+                                        <h3 className={`text-white text-sm font-bold ${quicksand.className}`}>Search</h3>
+                                        <input
+                                            value={query}
+                                            onChange={(e) => {
+                                                setQuery(e.target.value);
+                                                setPage(1);
+                                            }}
+                                            placeholder="Marble, Granite, Quartz..."
+                                            className={`w-full bg-black/20 placeholder:text-white border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#DA9C39] outline-none transition-all duration-700 ease-out ${quicksand.className}`}
+                                        />
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <h3 className={`text-white text-sm font-bold flex items-center gap-2 ${quicksand.className}`}>
+                                            <ArrowUpDown size={16} />
+                                            Sort
+                                        </h3>
+                                        <select
+                                            value={sort}
+                                            onChange={(e) => {
+                                                setSort(e.target.value);
+                                                setPage(1);
+                                            }}
+                                            className={`w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-[#DA9C39] outline-none transition-all duration-700 ease-out ${quicksand.className}`}
+                                        >
+                                            <option value="newest" className="bg-[#151515]">Newest first</option>
+                                            <option value="name" className="bg-[#151515]">Name A-Z</option>
+                                            <option value="oldest" className="bg-[#151515]">Oldest first</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+                                    <div className="space-y-3">
+                                        <h3 className={`text-white text-sm font-bold ${quicksand.className}`}>Categories</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            <FilterChip
+                                                label="All"
+                                                active={selectedCategories.size === 0}
+                                                onClick={() => {
+                                                    setSelectedCategories(new Set());
+                                                    setPage(1);
+                                                }}
+                                            />
+                                            {categories.map((cat) => (
+                                                <FilterChip
+                                                    key={cat}
+                                                    label={cat}
+                                                    active={selectedCategories.has(cat)}
+                                                    onClick={() => toggleSetValue(setSelectedCategories, cat)}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <h3 className={`text-white text-sm font-bold ${quicksand.className}`}>Colour</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            <FilterChip
+                                                label="All"
+                                                active={selectedColors.size === 0}
+                                                onClick={() => {
+                                                    setSelectedColors(new Set());
+                                                    setPage(1);
+                                                }}
+                                            />
+                                            {colors.map((color) => (
+                                                <FilterChip
+                                                    key={color}
+                                                    label={color}
+                                                    active={selectedColors.has(color)}
+                                                    onClick={() => toggleSetValue(setSelectedColors, color)}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {showFilters && activeBrochure && (
                             <div className="flex justify-end mb-10">
                                 <a
@@ -309,8 +408,17 @@ export default function ProductListingPage({
                             </div>
                         ) : (
                             <div className="space-y-16">
+                                <div className="flex items-center justify-between gap-4 text-white/40 text-sm">
+                                    <span>
+                                        Showing {products.length} of {pagination.total} products
+                                    </span>
+                                    <span>
+                                        Page {pagination.page} of {pagination.totalPages}
+                                    </span>
+                                </div>
+
                                 <div className={`grid grid-cols-1 sm:grid-cols-2 ${showFilters ? 'xl:grid-cols-2' : 'xl:grid-cols-3'} gap-y-12 gap-x-8`}>
-                                    {paged.map((p) => (
+                                    {products.map((p) => (
                                         <Link key={p.id} href={`/products/details/${p.id}`} className="group block">
                                             {/* <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-6"> */}
                                             <div className="relative aspect-2/1 rounded-xl overflow-hidden mb-6">
@@ -331,7 +439,7 @@ export default function ProductListingPage({
                                     ))}
                                 </div>
 
-                                {filtered.length === 0 && (
+                                {products.length === 0 && (
                                     <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
                                         <Package className="text-white/10 mb-6" size={60} />
                                         <h3 className={`text-2xl font-normal ${quicksand.className}`}>No Products Found</h3>
@@ -342,11 +450,11 @@ export default function ProductListingPage({
                                 )}
 
                                 {/* Pagination */}
-                                {totalPages > 1 && (
+                                {pagination.totalPages > 1 && (
                                     <div className="flex items-center justify-center gap-4 sm:gap-8 pt-10 overflow-x-auto no-scrollbar">
                                         <button
                                             onClick={() => setPage(p => Math.max(1, p - 1))}
-                                            disabled={safePage === 1}
+                                            disabled={pagination.page === 1}
                                             className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-white/70 hover:text-[#DA9C39] disabled:opacity-20 transition-all duration-500 shrink-0"
                                             aria-label="Previous page"
                                         >
@@ -362,7 +470,7 @@ export default function ProductListingPage({
                                                     return [1, '...', current, '...', total];
                                                 };
 
-                                                return getVisiblePages(safePage, totalPages).map((p, index) => (
+                                                return getVisiblePages(pagination.page, pagination.totalPages).map((p, index) => (
                                                     p === '...' ? (
                                                         <span key={`ellipsis-${index}`} className="text-white/30 px-1">...</span>
                                                     ) : (
@@ -382,8 +490,8 @@ export default function ProductListingPage({
                                         </div>
 
                                         <button
-                                            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                                            disabled={safePage === totalPages}
+                                            onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))}
+                                            disabled={pagination.page === pagination.totalPages}
                                             className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-white/70 hover:text-[#DA9C39] disabled:opacity-20 transition-all duration-500 shrink-0"
                                             aria-label="Next page"
                                         >
@@ -420,4 +528,19 @@ function CheckboxItem({ label, active, onClick }) {
             </span>
         </label>
     )
+}
+
+function FilterChip({ label, active, onClick }) {
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            className={`inline-flex items-center rounded-full border px-4 py-2 text-sm transition-all duration-300 ${active
+                ? 'border-[#DA9C39] bg-[#DA9C39]/10 text-[#F4E0C2]'
+                : 'border-white/10 bg-black/20 text-white/70 hover:border-white/25 hover:text-white'
+                }`}
+        >
+            {label}
+        </button>
+    );
 }
