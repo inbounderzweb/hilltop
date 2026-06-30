@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Eye, Edit3, Trash2, X, ExternalLink, RefreshCw, AlertCircle, ArrowUpDown, Filter, ChevronLeft, ChevronRight } from "lucide-react";
+import { Eye, Edit3, Trash2, X, ExternalLink, RefreshCw, AlertCircle, ArrowUpDown, Filter, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 
 export default function ProductsList({ onEdit }) {
     const [products, setProducts] = useState([]);
@@ -158,19 +158,22 @@ export default function ProductsList({ onEdit }) {
                                 <Filter size={12} />
                                 Category
                             </div>
-                            <select
-                                value={categoryFilter}
-                                onChange={(e) => {
-                                    setCategoryFilter(e.target.value);
-                                    setPage(1);
-                                }}
-                                className="w-full bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
-                            >
-                                <option value="all">All Categories</option>
-                                {categories.map((cat) => (
-                                    <option key={cat} value={cat}>{cat}</option>
-                                ))}
-                            </select>
+                            <div className="relative">
+                                <select
+                                    value={categoryFilter}
+                                    onChange={(e) => {
+                                        setCategoryFilter(e.target.value);
+                                        setPage(1);
+                                    }}
+                                    className="w-full appearance-none bg-[#1a1a1a] border border-white/10 text-[13px] rounded-2xl px-4 py-4 pr-12 text-white outline-none focus:border-[#eba14d] transition shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+                                >
+                                    <option value="all">All Categories</option>
+                                    {categories.map((cat) => (
+                                        <option key={cat} value={cat}>{cat}</option>
+                                    ))}
+                                </select>
+                                <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/80" />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
@@ -178,18 +181,21 @@ export default function ProductsList({ onEdit }) {
                                 <Filter size={12} />
                                 New Arrival
                             </div>
-                            <select
-                                value={arrivalFilter}
-                                onChange={(e) => {
-                                    setArrivalFilter(e.target.value);
-                                    setPage(1);
-                                }}
-                                className="w-full bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
-                            >
-                                <option value="all">All Products</option>
-                                <option value="yes">New Arrivals</option>
-                                <option value="no">Not New</option>
-                            </select>
+                            <div className="relative">
+                                <select
+                                    value={arrivalFilter}
+                                    onChange={(e) => {
+                                        setArrivalFilter(e.target.value);
+                                        setPage(1);
+                                    }}
+                                    className="w-full appearance-none bg-[#1a1a1a] border border-white/10 text-[13px] rounded-2xl px-4 py-4 pr-12 text-white outline-none focus:border-[#eba14d] transition shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+                                >
+                                    <option value="all">All Products</option>
+                                    <option value="yes">New Arrivals</option>
+                                    <option value="no">Not New</option>
+                                </select>
+                                <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/80" />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
@@ -197,19 +203,22 @@ export default function ProductsList({ onEdit }) {
                                 <ArrowUpDown size={12} />
                                 Sort
                             </div>
-                            <select
-                                value={sortBy}
-                                onChange={(e) => {
-                                    setSortBy(e.target.value);
-                                    setPage(1);
-                                }}
-                                className="w-full bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
-                            >
-                                <option value="newest">Newest first</option>
-                                <option value="oldest">Oldest first</option>
-                                <option value="name-asc">Name A-Z</option>
-                                <option value="name-desc">Name Z-A</option>
-                            </select>
+                            <div className="relative">
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => {
+                                        setSortBy(e.target.value);
+                                        setPage(1);
+                                    }}
+                                    className="w-full appearance-none bg-[#1a1a1a] border border-white/10 text-[13px] rounded-2xl px-4 py-4 pr-12 text-white outline-none focus:border-[#eba14d] transition shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+                                >
+                                    <option value="newest">Newest first</option>
+                                    <option value="oldest">Oldest first</option>
+                                    <option value="name-asc">Name A-Z</option>
+                                    <option value="name-desc">Name Z-A</option>
+                                </select>
+                                <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/80" />
+                            </div>
                         </div>
                     </div>
 
@@ -314,20 +323,23 @@ export default function ProductsList({ onEdit }) {
                     </div>
 
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/30 font-bold">
+                        <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-white/30 font-bold">
                             Items per page
-                            <select
-                                value={pageSize}
-                                onChange={(e) => {
-                                    setPageSize(Number(e.target.value));
-                                    setPage(1);
-                                }}
-                                className="bg-[#1a1a1a] border border-white/10 text-[11px] rounded-lg px-3 py-2 text-white outline-none focus:border-[#eba14d] transition"
-                            >
-                                {[10, 20, 50].map((size) => (
-                                    <option key={size} value={size}>{size}</option>
-                                ))}
-                            </select>
+                            <div className="relative">
+                                <select
+                                    value={pageSize}
+                                    onChange={(e) => {
+                                        setPageSize(Number(e.target.value));
+                                        setPage(1);
+                                    }}
+                                    className="appearance-none min-w-[110px] bg-[#1a1a1a] border border-white/10 text-[13px] rounded-2xl px-4 py-3 pr-12 text-white outline-none focus:border-[#eba14d] transition"
+                                >
+                                    {[10, 20, 50].map((size) => (
+                                        <option key={size} value={size}>{size}</option>
+                                    ))}
+                                </select>
+                                <ChevronDown size={16} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/80" />
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-2">
