@@ -233,7 +233,7 @@ export default function ProductDetails({ productId }) {
                                         </button>
                                         {idx < 5 && item.type !== 'video' && (
                                             <span className={`text-[10px] text-center text-white/50 tracking-wider font-bold ${quicksand.className}`}>
-                                                {idx === 0 ? "Full Slab" : idx === 1 ? "2 Bookmatch" : idx === 2 ? "2 Bookmatch" : idx === 3 ? "Applications" : "Close Up"}
+                                                {idx === 0 ? "Full Slab" : idx === 1 ? "2 Bookmatch" : idx === 2 ? "4 Bookmatch" : idx === 3 ? "Applications" : "Close Up"}
                                             </span>
                                         )}
                                     </div>
