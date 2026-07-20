@@ -90,8 +90,8 @@ export default function ApplicationsTabbedSlider() {
         ],
       },
       {
-        key: "livingroom",
-        label: "Livingroom",
+        key: "living room",
+        label: "Living Room",
         slides: [
           { key: "l1", image: l1, alt: "Livingroom 1" },
           { key: "l2", image: l2, alt: "Livingroom 2" },
