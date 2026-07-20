@@ -78,7 +78,13 @@ const DEFAULT_ITEMS = [
     year: "2021",
     title: "COR by Hilltop Group",
     bullets: [
-      "Unveiled a 12-acre, 300,000 sq. ft. facility with a warehouse, showroom & production center for luxury surfaces.",
+      "Unveiled a 12-acre, 300,000 sq. ft. facility with a warehouse, showroom & production center for luxury surfaces."
+    ],
+  },
+  {
+    year: "2021",
+    title: "Flagship Showroom Launch",
+    bullets: [
       "Opened a flagship showroom in Austin, Texas."
     ],
   },
