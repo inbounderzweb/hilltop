@@ -36,8 +36,8 @@ export default function NavBar({ isOpen, setIsOpen }) {
     () => [
       { label: "Our Story", href: "/about" },
       { label: "New Arrivals", href: "/new-arrivals" },
-      { label: "Products", href: "/products", isProducts: true },
-      { label: "Live Inventory", href: "https://hilltopstones.stoneprofitsweb.com/" },
+      { label: "India Inventory", href: "/products", isProducts: true },
+      { label: "USA Inventory", href: "https://hilltopstones.stoneprofitsweb.com/" },
       { label: "Blogs & FAQs", href: "/blogs" },
       { label: "Career", href: "/career" },
       { label: "Locate Us", href: "/locate" },
