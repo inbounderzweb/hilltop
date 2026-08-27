@@ -49,7 +49,7 @@ export default function BrandsTabsSection() {
             title: "Open Neolith dealers",
             brand: "Neolith",
             details: {
-              heading: "Authorized Dealers in Texas",
+              heading: "Authorized Fabricator in Texas",
               website: "https://www.neolith.com",
               rows: [
                 {
@@ -264,7 +264,7 @@ function LogoGrid({ items, onNeolithClick }) {
                   {logo}
                   <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1f1f1f]/65">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#DA9C39]" />
-                    View dealers
+                    View Fabricators
                   </span>
                 </span>
               </button>
